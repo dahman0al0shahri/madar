@@ -49,3 +49,36 @@ jobs:
         run: npm run install:ci
       - name: Build and test isolated local startup and persistence
         run: npm run check:application
+  browser-checks:
+    name: Browser and visual (Ubuntu 24.04)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    env:
+      CI: 'true'
+      WRANGLER_SEND_METRICS: 'false'
+      CLOUDFLARE_CF_FETCH_ENABLED: 'false'
+    steps:
+      - name: Check out source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm run install:ci
+      - name: Install pinned Chromium and system libraries
+        run: node node_modules/@playwright/test/cli.js install --with-deps chromium
+      - name: Test browser interactions and compare reviewed screenshots
+        run: npm run check:browser
+      - name: Keep synthetic browser evidence
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: browser-evidence
+          path: .sites-runtime/browser-check-*/artifacts/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7

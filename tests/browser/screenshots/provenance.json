@@ -1,0 +1,56 @@
+{
+  "capturedAt": "2026-11-16",
+  "sourceApplicationBase": "d2196e050a72e8f62cbac84f104dee0953adcc4a",
+  "captureCommit": "42d0adfecab76dcbd2f3e35e3e6f8d9163adcce2",
+  "captureRun": 43880105497,
+  "artifactId": 14232840325,
+  "artifactSha256": "c541e0d05c281005f18f1b4622acde6a8270775e43a45ca1682ca99754cdac48",
+  "review": "All six full-page candidates visually inspected before copying. Application code unchanged from base.",
+  "environment": {
+    "os": "Ubuntu 24.04",
+    "playwright": "1.65.1",
+    "locale": "ar-SA",
+    "timezone": "Asia/Riyadh",
+    "date": "2026-11-16T12:00:00Z",
+    "reducedMotion": "reduce",
+    "font": "Plex"
+  },
+  "images": [
+    {
+      "path": "desktop/word.png",
+      "width": 1440,
+      "height": 3262,
+      "sha256": "2b20defbf7f0fa551018d57ffe2ab82cf27e5f92f6602f1a8a281fa293796588"
+    },
+    {
+      "path": "desktop/excel.png",
+      "width": 1440,
+      "height": 4058,
+      "sha256": "af33150980e27b5da2a922d9827298c6be07dd1a9f7c342686d77f49736880bc"
+    },
+    {
+      "path": "desktop/access.png",
+      "width": 1440,
+      "height": 3880,
+      "sha256": "13b6b80964965dc11f8a63184405cd7c9610df05378ffa7e120b3727d42c1acb"
+    },
+    {
+      "path": "mobile/word.png",
+      "width": 390,
+      "height": 6155,
+      "sha256": "b47bfecea16591ea52ebd90372cb8b80f28d50d16d048c04431d2cecda8fc61d"
+    },
+    {
+      "path": "mobile/excel.png",
+      "width": 390,
+      "height": 7210,
+      "sha256": "0c468c0214cd84ae5924067dd3f1b71446e6cfc5a774401d2275428f0741bf81"
+    },
+    {
+      "path": "mobile/access.png",
+      "width": 390,
+      "height": 8527,
+      "sha256": "54ff3f0efa8a2d68528185e388a5cd2b1fb7a959eb94cf4204b768a07ea91440"
+    }
+  ]
+}

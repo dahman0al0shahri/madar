@@ -33,6 +33,8 @@ Local authentication uses the synthetic `local_seedy` identity through **Sign in
 | `node scripts/check-repository.mjs` | Check identity, publication and local-state safeguards, documentation links, and five existing application test files; no dependency installation required |
 | `npm run db:local` | Apply pending SQL migrations to this checkout's portable local database |
 | `npm run check:application` | Build and test isolated local development and built-server HTTP behavior; requires a Git checkout and installed dependencies |
+| `npm run check:browser` | Run isolated Chromium interactions and Linux visual comparisons; see [browser checks](BROWSER_TESTS.md) |
+| `npm run browser:record` | Prepare reference screenshots in the documented Linux environment for explicit review; never automatic acceptance |
 | `npm run lint` | Check code rules; not a substitute for behavioral tests |
 | `npm run build` | Generate MADAR resources and build the application |
 | `npm run start` | Run the built output locally through Wrangler; requires `dist/server/wrangler.json` |
@@ -57,7 +59,7 @@ The check verifies:
 - Guest rejection for private progress, local test sign-in/sign-out, stripped forged identity headers, profile save/read, stale-revision rejection, and owner/origin guards.
 - Guest pages and catalog through the built Wrangler server, with the same local database.
 
-These are HTTP integration checks, not a visual/browser interaction test or proof of hosted account isolation, backup restoration, full course correctness, or learner performance. Full-project ESLint and TypeScript checks are not part of this command. CI uses Node 22 on `ubuntu-latest` and `windows-latest`; local clean-install verification used Node 24.22.1 and npm 11.6.2 on Windows.
+These are HTTP integration checks. The separate [browser checks](BROWSER_TESTS.md) cover selected interactions and screenshots. Neither establishes hosted account isolation, backup restoration, full course correctness, or learner performance. Full-project ESLint and TypeScript checks are not part of these commands. HTTP CI uses Node 22 on `ubuntu-latest` and `windows-latest`; local clean-install verification used Node 24.22.1 and npm 11.6.2 on Windows.
 
 On failure, read the printed error and the latest `result.json` / numbered logs in the run directory. Never commit these local logs or databases. If the build changes tracked content, fix the original generator and review its output; do not bypass the check or discard unrelated edits.
 

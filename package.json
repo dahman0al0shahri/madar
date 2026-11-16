@@ -13,7 +13,9 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "db:local": "node scripts/local-database.mjs",
-    "check:application": "node scripts/check-application.mjs"
+    "check:application": "node scripts/check-application.mjs",
+    "check:browser": "node scripts/check-browser.mjs",
+    "browser:record": "node scripts/check-browser.mjs --record-baselines"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
@@ -44,6 +46,7 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",
     "@cloudflare/workers-types": "4.20260515.1",
+    "@playwright/test": "1.65.1",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",

@@ -99,3 +99,5 @@ Identify a generated file's source and generator before changing it. See [archit
 The project license and redistribution rights for educational material and media remain under review. Existing third-party license notices are preserved; see [rights and sources](docs/RIGHTS.md). Do not commit learner data, backups, or credentials.
 
 Repository-facing documentation is written in English. The application's Arabic content and original course names retain their source language.
+
+Browser regression checks: [desktop/mobile interactions and visual references](docs/BROWSER_TESTS.md).
