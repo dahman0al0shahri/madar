@@ -1,0 +1,24 @@
+/* Paid Excel shares MADAR's existing celebration palette and shell. */
+.paid-excel [hidden]{display:none!important}
+.paid-excel{min-width:0;max-width:1050px;margin:auto}
+.excel-heading{padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.excel-chip{border-color:#538b7c;color:#a4d9c7}
+.excel-home-card{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 26px;border-inline-start:3px solid #8ab9a7}
+.excel-home-card h2{margin-bottom:6px}.excel-home-card p{margin-bottom:5px}.excel-home-card .button{flex-shrink:0}
+.excel-index{display:grid;gap:8px}.excel-index button{justify-content:flex-start;text-align:start}
+.excel-index button[aria-pressed=true],.paid-excel button[aria-pressed=true]{border-color:var(--gold);color:var(--gold);background:var(--raised)}
+.paid-excel .office-toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin:24px 0}
+.paid-excel .office-toolbar label{display:flex;flex-direction:column;gap:6px;flex:1;min-width:160px;max-width:100%}
+.paid-excel input,.paid-excel select{width:100%;max-width:100%;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px;min-width:0}
+.paid-excel .card{border:1px solid var(--line);border-radius:var(--radius);padding:26px;margin:18px 0;background:var(--surface)}
+.paid-excel .label{color:var(--gold);font-size:.85rem}.paid-excel h3{font-size:1.25rem}.paid-excel p{white-space:pre-line}
+.paid-excel details{margin-top:18px}.paid-excel summary{cursor:pointer;color:var(--accent);padding:8px 0}
+.paid-excel .fullsection{border-top:1px solid var(--line);padding:18px 0}.paid-excel .options{list-style:none;padding:0;gap:8px}
+.paid-excel .options li{padding:12px 15px;border:1px solid var(--line);border-radius:9px}
+.paid-excel .answer{border-inline-start:3px solid var(--accent);padding:16px}.paid-excel .source{font-size:.875rem;margin-top:20px;overflow-wrap:anywhere}
+.paid-excel .formula{display:inline-block;max-width:100%;overflow-wrap:anywhere;unicode-bidi:isolate;color:var(--gold)}
+.paid-excel .table-wrap{overflow-x:auto}.paid-excel table{width:100%;border-collapse:collapse}.paid-excel th,.paid-excel td{padding:12px;border:1px solid var(--line);text-align:start}
+body[data-view=excel] .shell{display:grid;max-width:1500px;grid-template-columns:minmax(0,1fr) 230px}
+body[data-view=excel] #main{min-width:0;width:100%}body[data-view=excel] #sidebar{display:block;border-color:var(--line);background:var(--surface)}
+@media(max-width:900px){body[data-view=excel] .shell{display:flex;flex-direction:column}body[data-view=excel] #sidebar{width:100%;position:static;max-height:none}}
+@media(max-width:760px){.excel-index{display:flex;overflow-x:auto;padding:4px 3px 12px;gap:8px}.excel-index button{white-space:nowrap;flex-shrink:0}.excel-home-card{flex-direction:column;align-items:stretch}.paid-excel .card{padding:18px}.paid-excel .office-toolbar label{min-width:100%}}

@@ -1,0 +1,17 @@
+/* Fixed orbital geometry; only the liquid satellite moves. */
+#madar-hub .mh-main-mark{background:none;box-shadow:none;border:0;isolation:isolate;flex:none}
+#madar-hub .mh-main-mark:before{display:none}
+#madar-hub .mh-main-mark:after{inset:auto;left:50%;top:50%;width:144%;height:62%;transform:translate(-50%,-50%) rotate(-15deg);animation:none!important;z-index:3;border-color:#eac68b70;box-shadow:0 1px 0 #ffffff0a;pointer-events:none}
+#madar-hub .mh-orbit-core{position:absolute;inset:0;border:1px solid #b4a28640;border-radius:50%;background:radial-gradient(circle at 34% 25%,#383b3c,#1b2026 61%,#14181e);box-shadow:inset -15px -17px 36px #0006,inset 2px 2px 3px #eee1,0 20px 50px #0003;z-index:2}
+#madar-hub .mh-main-mark>span{position:relative;z-index:3;pointer-events:none}
+#madar-hub .mh-liquid-bubble{position:absolute;left:50%;top:50%;width:36px;height:36px;border-radius:50%;padding:0;overflow:hidden;box-shadow:0 4px 10px #0005,0 0 12px #9ad8e315;border:1px solid #eafaff80;will-change:transform;pointer-events:none}
+#madar-hub .mh-liquid-bubble canvas{width:100%;height:100%;display:block;border-radius:50%}
+#madar-hub .mh-liquid-bubble:after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(ellipse at 30% 18%,#ffffffc9,transparent 11%),radial-gradient(ellipse at 70% 90%,#d8f8ff55,transparent 25%);box-shadow:inset -5px -8px 12px #060c1b70,inset 2px 2px 5px #ffffff70;pointer-events:none}
+@media(max-width:700px){#madar-hub .mh-liquid-bubble{width:28px;height:28px}}
+@media(max-width:380px){#madar-hub .mh-main-mark{width:150px;height:150px}#madar-hub .mh-liquid-bubble{width:24px;height:24px}#madar-hub .mh-main-mark>span{font-size:40px}}
+/* Header emblem shares the liquid renderer without enlarging the brand. */
+#madar-hub .mh-brand .mh-orbit{transform:none;flex:none;isolation:isolate;overflow:visible}
+#madar-hub .mh-brand .mh-orbit:before{inset:auto;left:50%;top:50%;width:144%;height:62%;transform:translate(-50%,-50%) rotate(-15deg);animation:none;pointer-events:none}
+#madar-hub .mh-brand .mh-orbit:after{display:none}
+#madar-hub .mh-brand .mh-liquid-bubble{width:9px;height:9px;border-width:.5px;box-shadow:0 1px 4px #0005,0 0 6px #b7e4f12a}
+#madar-hub .mh-brand .mh-liquid-bubble:after{box-shadow:inset -1px -1px 2px #060c1b45,inset .5px .5px 1px #ffffff70}

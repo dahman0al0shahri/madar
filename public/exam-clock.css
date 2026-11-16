@@ -1,0 +1,47 @@
+:root{--exam-clock-height:108px}
+html{scroll-padding-top:calc(var(--exam-clock-height) + 20px)}
+.exam-clock-spacer{height:var(--exam-clock-height);flex:none;grid-column:1/-1}
+body .top.exam-clock-sticky-offset{top:var(--exam-clock-height)}
+#exam-countdown{position:fixed;inset:0 0 auto;z-index:100;isolation:isolate;color:#fff2d9;background:#10131d;border-bottom:1px solid #ddb66b80;box-shadow:0 7px 28px #0007;font-family:inherit;line-height:1.4;overflow:hidden;color-scheme:dark}
+#exam-countdown::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 12% 0,#417bbb38,transparent 44%),radial-gradient(ellipse at 58% 100%,#30857422,transparent 50%),radial-gradient(ellipse at 94% 10%,#9f3d582f,transparent 38%),radial-gradient(circle at 9% 33%,#fff9 0 1px,transparent 1.5px),radial-gradient(circle at 35% 72%,#fff7 0 1px,transparent 1.5px),radial-gradient(circle at 82% 25%,#fff9 0 1px,transparent 1.5px)}
+#exam-countdown .exam-clock-inner{max-width:1500px;min-height:102px;margin:auto;padding:12px 30px;box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative}
+#exam-countdown .exam-clock-heading{display:flex;gap:18px;align-items:center}
+#exam-clock-title{display:block;font-size:clamp(16px,1.65vw,23px);font-weight:800;color:#fff3da;letter-spacing:0}
+#exam-countdown .exam-clock-heading small{display:block;margin-top:7px;color:#cfbfaa;font-size:12px}
+#exam-countdown .exam-clock-heading small span{margin-inline-start:8px;color:#f3d19a}
+#exam-countdown .exam-clock-orbit{display:block;position:relative;width:48px;height:48px;border:1px solid #edd4a157;border-radius:50%;flex:none;background:radial-gradient(circle,#eed1970f 40%,transparent 42%)}
+#exam-countdown .exam-clock-orbit::before{content:"";position:absolute;inset:6px;border:1px dashed #f6dba45e;border-radius:50%}
+#exam-countdown .exam-clock-orbit::after{content:"";position:absolute;width:2px;height:14px;top:10px;left:23px;background:#f8da9f;transform-origin:50% 100%;transform:rotate(35deg)}
+#exam-countdown .exam-clock-orbit i{position:absolute;inset:-1px;border:2px solid transparent;border-top-color:#f7d58e;border-radius:50%;animation:exam-orbit 18s linear infinite}
+#exam-countdown .exam-clock-time{display:flex;align-items:center;gap:12px;flex:none}
+#exam-countdown .exam-clock-unit{display:grid;justify-items:center;min-width:65px}
+#exam-countdown .exam-clock-unit b{display:block;font-family:Arial,sans-serif;font-variant-numeric:tabular-nums;font-size:37px;line-height:1.18;letter-spacing:2px;color:#fff2d9;font-weight:700}
+#exam-countdown .exam-clock-unit:last-child b{color:#ffe0a1}
+#exam-countdown .exam-clock-unit small{font-size:11px;color:#c8c4bf;margin-top:4px}
+#exam-countdown .exam-clock-colon{font:26px Arial;color:#b69b72;align-self:flex-start;margin-top:5px}
+#exam-countdown .exam-clock-motion{display:grid;place-items:center;flex:none;width:40px;height:40px;padding:0;border:1px solid #edd3a143;border-radius:12px;color:#f5d6a0;background:#ffffff06;cursor:pointer;box-shadow:none;min-height:0}
+#exam-countdown .exam-clock-motion:hover{background:#fff1d51a;border-color:#e8cb8d}
+#exam-countdown .exam-clock-motion:focus-visible{outline:2px solid #ffe1a8;outline-offset:3px}
+#exam-countdown .exam-clock-motion svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#exam-countdown .exam-clock-track{height:5px;background:#f3d49b1c;overflow:hidden}
+#exam-countdown .exam-clock-track>span{display:block;width:100%;height:100%;transform-origin:right center;background:linear-gradient(90deg,#fff0c7,#dfb56a 45%,#b4884e);position:relative;transition:transform .6s linear}
+#exam-countdown .exam-clock-track>span::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,#fff9 50%,transparent 70%);animation:exam-sweep 5s ease-in-out infinite}
+#exam-countdown .exam-clock-status:empty{display:none}
+#exam-countdown .exam-clock-status{font-size:16px;font-weight:700;color:#ffe1a8}
+#exam-countdown[data-ended] .exam-clock-orbit i,#exam-countdown[data-ended] .exam-clock-track>span::after,#exam-countdown[data-still="true"] *,#exam-countdown[data-still="true"] *::after{animation:none!important;transition:none!important}
+@keyframes exam-orbit{to{transform:rotate(360deg)}}
+@keyframes exam-sweep{0%,20%{transform:translateX(110%)}80%,100%{transform:translateX(-110%)}}
+@media(max-width:650px){:root{--exam-clock-height:135px}#exam-countdown .exam-clock-inner{padding:12px 16px 10px;min-height:130px;gap:9px;display:grid;grid-template-columns:1fr 38px}#exam-countdown .exam-clock-heading{gap:0}#exam-countdown .exam-clock-orbit{display:none}#exam-clock-title{font-size:16px}#exam-countdown .exam-clock-heading small{font-size:10px;margin-top:5px}#exam-countdown .exam-clock-heading small span{margin-inline-start:5px}#exam-countdown .exam-clock-time{grid-row:2;grid-column:1/-1;justify-content:center;gap:12px}#exam-countdown .exam-clock-unit{min-width:53px}#exam-countdown .exam-clock-unit b{font-size:30px}#exam-countdown .exam-clock-unit small{font-size:10px;margin-top:0}#exam-countdown .exam-clock-colon{font-size:23px;margin-top:1px}#exam-countdown .exam-clock-motion{grid-column:2;grid-row:1;width:36px;height:36px}#exam-countdown .exam-clock-status{grid-column:1/-1;text-align:center;font-size:13px}}
+@media(prefers-reduced-motion:reduce){#exam-countdown *,#exam-countdown *::after{animation:none!important;transition:none!important}}
+#exam-countdown[hidden],.exam-clock-return[hidden]{display:none!important}
+#exam-countdown .exam-clock-controls{display:flex;align-items:center;gap:8px;flex:none}
+#exam-countdown .exam-clock-hide,.exam-clock-return button{font-family:inherit;font-size:12px;line-height:1.5;color:#f5d6a0;background:#ffffff08;border:1px solid #edd3a143;border-radius:10px;min-height:40px;padding:7px 12px;display:inline-flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:none}
+#exam-countdown .exam-clock-hide span{font-family:Arial,sans-serif;font-size:20px}
+#exam-countdown .exam-clock-hide:hover,.exam-clock-return button:hover{background:#f5d6a018;border-color:#e8cb8d}
+#exam-countdown .exam-clock-hide:focus-visible,.exam-clock-return button:focus-visible{outline:2px solid #ffe1a8;outline-offset:2px}
+/* Reserve a narrow edge only while collapsed, so the fixed control never sits on the reading area. */
+html.exam-clock-collapsed body{padding-left:calc(36px + env(safe-area-inset-left,0px));box-sizing:border-box}
+.exam-clock-return{position:fixed;left:env(safe-area-inset-left,0px);top:50%;transform:translateY(-50%);width:36px;z-index:90;display:grid;place-items:center;direction:rtl;padding:0;background:transparent;box-sizing:border-box}
+.exam-clock-return button{width:28px;height:28px;min-height:28px;padding:0;gap:0;border-radius:50%;background:#171923;border:1px solid #d7bd8399;color:#f4d6a0;box-shadow:0 2px 7px #0003;flex:none}
+.exam-clock-return button svg{display:block;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+@media(max-width:650px){#exam-countdown .exam-clock-inner{grid-template-columns:1fr auto}#exam-countdown .exam-clock-controls{grid-column:2;grid-row:1;gap:5px}#exam-countdown .exam-clock-hide{min-height:36px;padding:6px 7px;font-size:11px;gap:5px}#exam-countdown .exam-clock-heading{min-width:0}#exam-clock-title{font-size:15px}}

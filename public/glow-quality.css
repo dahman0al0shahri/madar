@@ -1,0 +1,26 @@
+/* Directional lighting replaces broad corner glows and the grain workaround.
+   Keep the reading surface uniform. Light lives on narrow edges, below text. */
+body[data-program=word]{--light-surface:#1b2027;--light-sky:#0b1220;--light-strength:58%}
+body[data-program=excel]{--light-surface:#1b2320;--light-sky:#0a1712;--light-strength:50%}
+body[data-program=access]{--light-surface:#251d21;--light-sky:#190d13;--light-strength:54%}
+:root:not([data-appearance=light]) body[data-program] :is(.panel.program-card,.reading-summary>.panel.program-card,.unit-card.program-card,.lesson-notes.program-card,.list-card.program-card,.metric.program-card,.empty.program-card,.al-entry.program-card,.home-review.program-card){
+ background:var(--card-fill,var(--light-surface));
+ border-color:color-mix(in srgb,var(--program-ink) 30%,#33383e);
+ border-top-color:color-mix(in srgb,var(--program-ink) var(--light-strength),#424953);
+ border-right-color:color-mix(in srgb,var(--program-ink) 43%,#33383e);
+ box-shadow:inset 0 1px 0 #ffffff0a,inset -2px 0 0 color-mix(in srgb,var(--program-ink) 13%,transparent),inset -7px 0 12px -11px color-mix(in srgb,var(--program-ink) 70%,transparent),0 8px 20px #0002;
+}
+:root:not([data-appearance=light]) body[data-program] .unit-card.program-card:before{width:74px;height:2px;background:var(--program-ink);box-shadow:none}
+/* Uniform ambient colour eliminates large low-contrast radial bands.
+   Stars, colour transitions and the finite edge sheen still move. */
+.program-universe{background:var(--light-sky,#111119);transition:background-color .85s}
+.program-universe-layer,.program-cloud{background:none}
+.mo-space{background:color-mix(in srgb,var(--ink) 9%,#11121d);box-shadow:inset 0 1px 0 #ffffff0c}
+.mo-space:before,.mo-emblem:before{display:none}
+.top nav.has-orbit-indicator .program-tab.active{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--ink) 55%,white),0 0 0 2px color-mix(in srgb,var(--ink) 12%,transparent)}
+.top nav .program-tab:is(:hover,:focus-visible,.mo-playing){box-shadow:inset 0 1px 0 var(--flare),inset -2px 0 0 color-mix(in srgb,var(--ink) 28%,transparent),0 4px 12px #0003}
+/* Keep the original opening artwork, with a clean illuminated frame. */
+:root:not([data-appearance=light]) .opening-stage{background:#191820;box-shadow:inset 0 1px 0 #edce9329}
+:root:not([data-appearance=light]) .study-edition{background:#1c1a21;border-top-color:#b99a68;box-shadow:inset 0 1px 0 #edce9317}
+:root:not([data-appearance=light]) .founder-note{background:none}
+@media(prefers-reduced-motion:reduce){.program-universe{transition:none}}

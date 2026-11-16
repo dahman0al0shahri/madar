@@ -1,0 +1,32 @@
+/* A clear central reading area; decoration stays at the edges. */
+.opening-stage{display:grid;grid-template-rows:auto 1fr auto auto;min-height:800px;border-radius:0 0 88px 88px}
+.stage-top{padding:27px 38px;position:relative;z-index:1}
+.opening-content{width:64%;max-width:800px;padding:14px 0 0;align-self:center;box-sizing:border-box}
+.opening-emblem{height:55px;margin:0 0 24px}.opening-emblem>span{font-size:35px}
+.opening-overline{font-size:.8rem;line-height:1.9;margin:0 0 26px}
+.opening-stage .opening-heading{font-weight:400;font-size:inherit;line-height:1.45;letter-spacing:0;margin:0 0 38px}
+.story-foundation{display:inline-block;position:relative;white-space:nowrap}.foundation-stroke{position:absolute;left:-13%;bottom:-.075em;width:126%;height:.23em;overflow:visible;pointer-events:none}.headline-intro .story-foundation{padding-bottom:.055em}
+.headline-intro{display:block;font-size:clamp(1.9rem,4vw,3.7rem);font-weight:400;line-height:1.55;white-space:nowrap}
+.headline-main{display:block;font-size:clamp(3.8rem,7.1vw,6.6rem);font-weight:500;line-height:1.45;white-space:nowrap;margin-top:3px}
+.opening-description{font-size:.95rem;line-height:1.95;margin:0 auto 27px;max-width:470px;color:#d0c4cd}
+.mobile-line{display:none}.opening-actions{gap:14px;margin:0}.opening-actions .button,.opening-actions button{min-height:50px;padding:12px 24px}.opening-gift{margin:18px 0 0;font-size:.71rem;line-height:1.8}
+.opening-stage .celebration-controls{margin:26px auto 0;padding:0 18px;min-height:42px;gap:12px;box-sizing:border-box;max-width:95%}
+.opening-footer{margin:20px 64px 0;padding:18px 0 26px;gap:16px;min-height:64px}.opening-footer>span{max-width:30%}
+.festival-picture,.celebration-canvas{mask-image:linear-gradient(90deg,#000 0%,#000 16%,transparent 29%,transparent 71%,#000 84%,#000 100%);-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 16%,transparent 29%,transparent 71%,#000 84%,#000 100%)}
+/* Quiet, even spacing for the material below the opening. */
+.opening-marquee{padding-block:27px}.launch-route{margin:24px 0 52px;gap:22px}.section-heading{align-items:end;gap:24px}.section-heading h2{line-height:1.5}.unit-card h3{line-height:1.8}.unit-lessons a{align-items:start;gap:10px}.lesson-play{flex-shrink:0}.workspace-bar{row-gap:12px;column-gap:18px}.workspace-bar .ambient-toggle{min-height:34px}.workspace-bar .course-badge{white-space:nowrap}
+@media(min-width:1550px){.opening-stage{min-height:850px}.opening-content{padding-top:20px}}
+@media(max-width:1180px){.opening-stage{min-height:750px}.opening-content{width:67%}.opening-footer{margin-inline:40px}.stage-top{padding-inline:30px}.launch-route{gap:12px}}
+@media(max-width:900px){.opening-stage{min-height:715px}.opening-content{width:76%;padding-top:10px}.headline-intro{font-size:clamp(1.75rem,4.6vw,2.7rem)}.headline-main{font-size:clamp(3.6rem,8.9vw,5.3rem)}.opening-description{font-size:.87rem}.opening-overline{font-size:.72rem}.opening-footer{margin-inline:34px}.opening-footer [lang=en]{font-size:6px;letter-spacing:1.1px}.opening-footer>span:first-child{font-size:.59rem}.launch-route{gap:8px}}
+@media(max-width:600px){.opening-stage{min-height:680px;border-radius:0 0 42px 42px;grid-template-rows:auto 1fr auto auto}.stage-top{padding:23px 20px 8px}.opening-content{width:calc(100% - 48px);padding-top:20px}.opening-emblem{height:37px;margin:0 0 22px}.opening-emblem>span{font-size:29px}.opening-emblem:before,.opening-emblem:after{width:30px;margin-inline:13px}.opening-overline{font-size:.61rem;margin-bottom:23px}.opening-stage .opening-heading{margin-bottom:21px}.headline-intro{font-size:clamp(1.35rem,6.5vw,2.1rem);line-height:1.65}.headline-main{font-size:clamp(2.6rem,13.1vw,4.2rem);line-height:1.5;margin-top:2px}.opening-description{font-size:.81rem;line-height:1.95;margin-bottom:25px;max-width:270px}.mobile-line{display:block}.opening-actions{gap:9px;flex-wrap:wrap}.opening-actions .button,.opening-actions button{font-size:.73rem;min-height:46px;padding:10px 17px}.opening-actions .primary{gap:20px}.opening-gift{font-size:.61rem;margin-top:17px}.opening-stage .celebration-controls{margin-top:22px;min-height:43px;gap:8px;flex-wrap:wrap}.opening-stage .ambient-toggle{font-size:.6rem;min-height:31px}.opening-stage .stop-celebration{font-size:.59rem;min-height:31px}.opening-footer{margin:16px 30px 0;padding:15px 0 23px;min-height:72px;gap:9px}.opening-footer>span{max-width:100%}.festival-picture,.celebration-canvas{mask-image:linear-gradient(90deg,#000 0%,#000 5%,transparent 18%,transparent 82%,#000 95%,#000 100%);-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 5%,transparent 18%,transparent 82%,#000 95%,#000 100%)}.launch-route{margin:15px 6px 35px;gap:0}.opening-marquee{padding:22px 12px}.section-heading{margin-bottom:24px}.workspace-bar{gap:10px 12px;padding-block:12px}.workspace-bar .theme-toggle,.workspace-bar .ambient-toggle{font-size:.61rem;padding:6px 10px}.workspace-bar .ambient-toggle{margin-inline-start:auto}}
+@media(max-width:360px){.opening-content{width:calc(100% - 36px)}.opening-actions .button,.opening-actions button{font-size:.66rem;padding-inline:13px}.opening-overline{font-size:.56rem}.opening-stage{min-height:650px}.opening-footer{margin-inline:22px}}
+
+/* Keep the shorter headline-to-action composition balanced. */
+.opening-stage{min-height:745px}.headline-main{margin-top:12px}.opening-content{padding-top:18px}.opening-stage .celebration-controls{margin-top:22px}.opening-footer{margin-top:15px}
+@media(min-width:1550px){.opening-stage{min-height:790px}}
+@media(max-width:1180px){.opening-stage{min-height:700px}}
+@media(max-width:900px){.opening-stage{min-height:660px}}
+@media(max-width:600px){.opening-stage{min-height:615px}.opening-stage .opening-heading{margin-bottom:32px}.headline-main{margin-top:12px}.opening-content{padding-top:18px}.opening-stage .celebration-controls{margin-top:20px}.opening-footer{margin-top:13px}.foundation-stroke{height:.21em;bottom:-.07em}}
+@media(max-width:360px){.opening-stage{min-height:595px}}
+
+@media(max-width:600px){.foundation-stroke{height:.25em}}

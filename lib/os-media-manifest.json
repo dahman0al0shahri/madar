@@ -1,0 +1,763 @@
+{
+  "version": 1,
+  "key": "madar100/os1-media-v1.bin",
+  "files": {
+    "assets/os1/os1-lesson-1/01.mp4": {
+      "offset": 0,
+      "size": 1536620,
+      "sha256": "62f022f503e55e25040ce866bc05bf6eab696b8aa7e27e4bc512f5b53ffecb04"
+    },
+    "assets/os1/os1-lesson-1/02.mp4": {
+      "offset": 1536620,
+      "size": 2584463,
+      "sha256": "0496462fe6d845b84a16a07eecfa0e31f748a5b4824eac4e73f49a9adb741df0"
+    },
+    "assets/os1/os1-lesson-1/03.mp4": {
+      "offset": 4121083,
+      "size": 471416,
+      "sha256": "25ff4d34adb21dd198a80ceb07f42da4b28f1b8323056c3c0ee6bbf79e291beb"
+    },
+    "assets/os1/os1-lesson-1/04.mp4": {
+      "offset": 4592499,
+      "size": 1822779,
+      "sha256": "10f1a21f2435f0df97ab396c898bbb5e952540efe8088c93bb3144d8bc691f97"
+    },
+    "assets/os1/os1-lesson-1/05.mp4": {
+      "offset": 6415278,
+      "size": 1979519,
+      "sha256": "a1500f0c4ee63b821f437637f83540bfe978082f8e5c89079414a793369981f0"
+    },
+    "assets/os1/os1-lesson-1/06.mp4": {
+      "offset": 8394797,
+      "size": 1857505,
+      "sha256": "92f51efc0f455f816a3c572601d0dc1a3323ed2fbd81c382c0c9e13b1008fcb5"
+    },
+    "assets/os1/os1-lesson-1/07.mp4": {
+      "offset": 10252302,
+      "size": 1259831,
+      "sha256": "a3cd1c70e3748b9b2741dfb09d2f54c1892073a63c0d51634f3c4703c09b0516"
+    },
+    "assets/os1/os1-lesson-1/08.mp4": {
+      "offset": 11512133,
+      "size": 4110695,
+      "sha256": "138454ecfa09b4739bb22f2c33a8a0ee7e69c0114acabe49fb8fc42aa7c9512e"
+    },
+    "assets/os1/os1-lesson-1/09.mp4": {
+      "offset": 15622828,
+      "size": 3116988,
+      "sha256": "48899ef77ae31a81fcad605a9d066ee0bd13e5a053043e97fbd1eec66b203459"
+    },
+    "assets/os1/os1-lesson-10/01.mp4": {
+      "offset": 18739816,
+      "size": 1164603,
+      "sha256": "cc7dbabb0627c8348fe11e963351d5ca9f9787020bddb061791ab6b30c827f2a"
+    },
+    "assets/os1/os1-lesson-10/02.mp4": {
+      "offset": 19904419,
+      "size": 690444,
+      "sha256": "0c1ef7e3706a2210fe15e9b6e95f3e67454d46d1193126d41ebe68c2a9ff3a32"
+    },
+    "assets/os1/os1-lesson-10/03.mp4": {
+      "offset": 20594863,
+      "size": 2241146,
+      "sha256": "26186edb01248f6b4bc593fefabac571d3ecb6f03d0888d619c4ee396d367cc1"
+    },
+    "assets/os1/os1-lesson-10/04.mp4": {
+      "offset": 22836009,
+      "size": 295458,
+      "sha256": "4d2f483b3e23055e49c41199e6ed397683eb5243a3551fe3034c086e232f86c9"
+    },
+    "assets/os1/os1-lesson-10/05.mp4": {
+      "offset": 23131467,
+      "size": 737621,
+      "sha256": "40aad65575553136d9375be57a306965f23bd1b7611a98e3ab684466955e7055"
+    },
+    "assets/os1/os1-lesson-10/06.mp4": {
+      "offset": 23869088,
+      "size": 695511,
+      "sha256": "977bd2c5d17461eb30ae06d2325e55517470f800d5ccdd747ccbac9faa52705d"
+    },
+    "assets/os1/os1-lesson-10/07.mp4": {
+      "offset": 24564599,
+      "size": 637349,
+      "sha256": "7c1198475346422ef7fa03c4d158eeb1956a33b6aae2f3166174ac24bf00e8ab"
+    },
+    "assets/os1/os1-lesson-11/01.mp4": {
+      "offset": 25201948,
+      "size": 1393608,
+      "sha256": "5a174f91d9b5f8cec87d9f29db10cef790792a13d7bee0aa39c1284909644ff0"
+    },
+    "assets/os1/os1-lesson-11/02.mp4": {
+      "offset": 26595556,
+      "size": 1385893,
+      "sha256": "029068ccf598cf8969d8deeaba778f4ec2c4a0b2695b8722d7c10fcec72d3eaa"
+    },
+    "assets/os1/os1-lesson-11/03.mp4": {
+      "offset": 27981449,
+      "size": 1616691,
+      "sha256": "e8fd393d8806a9d0f638c163244fa0faf5b052ea5a5c9ded97a46cb80f4b2a35"
+    },
+    "assets/os1/os1-lesson-11/04.mp4": {
+      "offset": 29598140,
+      "size": 2395464,
+      "sha256": "8dfde0fefafbcf2b36cd9f8967b3fd872dbc3a3e6e1ea7c84c45b23a7c7c29c4"
+    },
+    "assets/os1/os1-lesson-11/05.mp4": {
+      "offset": 31993604,
+      "size": 1889089,
+      "sha256": "8064de70642efe225c6f7d2945a9c4b924f382e06c0af7fa04b1147e8d7be58d"
+    },
+    "assets/os1/os1-lesson-11/06.mp4": {
+      "offset": 33882693,
+      "size": 1616751,
+      "sha256": "decc58847bda04a5fdb71633f09b010764973acf82944e51d1d0a93c24a8e4cf"
+    },
+    "assets/os1/os1-lesson-11/07.mp4": {
+      "offset": 35499444,
+      "size": 2159059,
+      "sha256": "afbdbe3b62c10543f47213f3eab278f80b6874f64c094b4cdd38449455d1d0c1"
+    },
+    "assets/os1/os1-lesson-11/08.mp4": {
+      "offset": 37658503,
+      "size": 2771174,
+      "sha256": "8f87e5bdfda542de3a58936524cce160eb3b828e59f378c135b5de1815726a47"
+    },
+    "assets/os1/os1-lesson-11/09.mp4": {
+      "offset": 40429677,
+      "size": 2231142,
+      "sha256": "6349fdb0cc179050a7ccea5b26801dbf7d964ea2a11dc57de25da3aa94850f21"
+    },
+    "assets/os1/os1-lesson-11/10.mp4": {
+      "offset": 42660819,
+      "size": 1654146,
+      "sha256": "4a68f9eebadef788e1b1aaa33c6d65cf28a55b9e5874dbe2bbcee87b3a32c4c2"
+    },
+    "assets/os1/os1-lesson-11/11.mp4": {
+      "offset": 44314965,
+      "size": 1030187,
+      "sha256": "ee32cebb68833491f4c8646674d7386e17b578068cfdae45615109e55fb355c1"
+    },
+    "assets/os1/os1-lesson-12/01.mp4": {
+      "offset": 45345152,
+      "size": 1217376,
+      "sha256": "0ffff65b2dd1715884df1e9054e29a347b079f81e83cc356bb5e3e6086675a8d"
+    },
+    "assets/os1/os1-lesson-12/02.mp4": {
+      "offset": 46562528,
+      "size": 1560893,
+      "sha256": "34eabd86f31b1d15225b4b4c3b64243d8d3862b068f44a9d1b2220a1ad1d602f"
+    },
+    "assets/os1/os1-lesson-12/03.mp4": {
+      "offset": 48123421,
+      "size": 1868490,
+      "sha256": "a46ba1682d16718244546c6291105a12faa626b1582649ca7be5a22ec0ee2845"
+    },
+    "assets/os1/os1-lesson-12/04.mp4": {
+      "offset": 49991911,
+      "size": 776713,
+      "sha256": "8e0e80924618da522cf060ca7eea9b7e6ba9da7c65b4936d68e1f30936b61eee"
+    },
+    "assets/os1/os1-lesson-12/05.mp4": {
+      "offset": 50768624,
+      "size": 737974,
+      "sha256": "3a3d6207d3ee87e877bcafbbc10c86a9ef73fe5b9713a2da1cdbd1d4eb32bafe"
+    },
+    "assets/os1/os1-lesson-12/06.mp4": {
+      "offset": 51506598,
+      "size": 1307927,
+      "sha256": "c23787fc6a98a880ab0d5c5b71f1a9e343741411d3f81bfe54215158fde78f9d"
+    },
+    "assets/os1/os1-lesson-12/07.mp4": {
+      "offset": 52814525,
+      "size": 1993622,
+      "sha256": "12a6265f7e08b39acd042f0fec77e8db8aae9275dc0c000eb69ee65e6ff98a0c"
+    },
+    "assets/os1/os1-lesson-13/01.mp4": {
+      "offset": 54808147,
+      "size": 905765,
+      "sha256": "d30907ff9edbe638b8f5021191129b50faad2f0516ecd862c3dd7ca2a314ed17"
+    },
+    "assets/os1/os1-lesson-13/02.mp4": {
+      "offset": 55713912,
+      "size": 2443449,
+      "sha256": "633a46b08909b50b40e3056392230a1dcd6337bb80e849a09ab508179cb9fafe"
+    },
+    "assets/os1/os1-lesson-13/03.mp4": {
+      "offset": 58157361,
+      "size": 1492303,
+      "sha256": "0c9528f7c6d517a34f7e17e34ec75a9144bc81fd2bfdd162c2f2d823347fe861"
+    },
+    "assets/os1/os1-lesson-13/04.mp4": {
+      "offset": 59649664,
+      "size": 2413915,
+      "sha256": "8712e403ad51056c73145db9874c6660b423f6fc736f8e73b4dbb72b1b44328f"
+    },
+    "assets/os1/os1-lesson-13/05.mp4": {
+      "offset": 62063579,
+      "size": 2216770,
+      "sha256": "5253e2d1216bb24dede6d4381d528f09014d039680fa323b9266a6f34d19b65f"
+    },
+    "assets/os1/os1-lesson-13/06.mp4": {
+      "offset": 64280349,
+      "size": 1243305,
+      "sha256": "205263be7e4949d429794314808e9120da6d858be1763e8d9ce779af92303e6d"
+    },
+    "assets/os1/os1-lesson-13/07.mp4": {
+      "offset": 65523654,
+      "size": 892655,
+      "sha256": "47ab6849dd4697aeeaf20fb72c470eb7465ce3ce86b39a02a3830d2af7b08bbe"
+    },
+    "assets/os1/os1-lesson-14/01.mp4": {
+      "offset": 66416309,
+      "size": 1498512,
+      "sha256": "72342255afd0bede42dbe25c1d76a7c3d32131eae4507d3f2fb0b28b57b5738e"
+    },
+    "assets/os1/os1-lesson-14/02.mp4": {
+      "offset": 67914821,
+      "size": 1299930,
+      "sha256": "06f740961f5d556d034fae87eb749bec3c4dde6eff73c1b9951379993a63f4ea"
+    },
+    "assets/os1/os1-lesson-14/03.mp4": {
+      "offset": 69214751,
+      "size": 1240951,
+      "sha256": "80d647bf113d24e958aff309cc101577b88f928dd6c363e1be8572f23bd56f78"
+    },
+    "assets/os1/os1-lesson-14/04.mp4": {
+      "offset": 70455702,
+      "size": 1427552,
+      "sha256": "a1f52a164e60ff659da7109e5688975e355dba39418141d603c049b7dea04e64"
+    },
+    "assets/os1/os1-lesson-14/05.mp4": {
+      "offset": 71883254,
+      "size": 1562932,
+      "sha256": "25fe3287c9b9767f0d83d91ec86f483696d7c65e96e184321918d851a4dbf3b3"
+    },
+    "assets/os1/os1-lesson-14/06.mp4": {
+      "offset": 73446186,
+      "size": 1716225,
+      "sha256": "32a0bf2a9a53c631716904c068ccb5c5da6d54b597f084f32a616f340615fe6f"
+    },
+    "assets/os1/os1-lesson-14/07.mp4": {
+      "offset": 75162411,
+      "size": 930575,
+      "sha256": "52c099775361c280f5fd516c53b1845bb1d1f10657e3c59d5b724fe45a76333c"
+    },
+    "assets/os1/os1-lesson-14/08.mp4": {
+      "offset": 76092986,
+      "size": 2111281,
+      "sha256": "6e2d47ffe278d958a3c6caf8f588ba1fcf10e912b960fdb139d43b66adeb5872"
+    },
+    "assets/os1/os1-lesson-15/01.mp4": {
+      "offset": 78204267,
+      "size": 2274584,
+      "sha256": "e6677d8d801a011103ef112b4eba722f36e9dc8a8601337c87dca29c9021fdc3"
+    },
+    "assets/os1/os1-lesson-15/02.mp4": {
+      "offset": 80478851,
+      "size": 2446203,
+      "sha256": "e1663b30e5cc27cdc6117718b075bb2136c9a573a54c6071e6fc4a20d0f96010"
+    },
+    "assets/os1/os1-lesson-15/03.mp4": {
+      "offset": 82925054,
+      "size": 1492822,
+      "sha256": "c4298b55e4c4be94cd9c5050d1ea890428c8f3d06e929517934a3235e0ac56d9"
+    },
+    "assets/os1/os1-lesson-15/04.mp4": {
+      "offset": 84417876,
+      "size": 2501739,
+      "sha256": "b000dc8c95af69e551d26f7a923b86993a73b701831e78da55361e3e8581eec7"
+    },
+    "assets/os1/os1-lesson-15/05.mp4": {
+      "offset": 86919615,
+      "size": 1495139,
+      "sha256": "759dc29c597b0c6fbdbe4c6407b5b5ddd2f217e1a7113ea884527eaf4637b5ba"
+    },
+    "assets/os1/os1-lesson-15/06.mp4": {
+      "offset": 88414754,
+      "size": 1383091,
+      "sha256": "3ee3b2982c897fd67374fc990bef5570b45dd9a68fcd703734c8c05c45fa28fd"
+    },
+    "assets/os1/os1-lesson-15/07.mp4": {
+      "offset": 89797845,
+      "size": 2212684,
+      "sha256": "5ac2210dbb9772a31e0a8b208ea9b99170f39b520dc84f624cdc9d63645f480a"
+    },
+    "assets/os1/os1-lesson-15/08.mp4": {
+      "offset": 92010529,
+      "size": 2277082,
+      "sha256": "0027e8f70f4c69d49ec7b7d0c53c21d6b7c3ec9e5baa66302a63202ef021b1aa"
+    },
+    "assets/os1/os1-lesson-15/09.mp4": {
+      "offset": 94287611,
+      "size": 1570575,
+      "sha256": "0bb862cdd0779196ed64f51d40ebc7795a95468d3120fc2a945727ed85eee85e"
+    },
+    "assets/os1/os1-lesson-15/10.mp4": {
+      "offset": 95858186,
+      "size": 2532804,
+      "sha256": "d87ae29948c12e9e1b90897436cb3e98ce91ba5bcc12d0571491baa7bc61d728"
+    },
+    "assets/os1/os1-lesson-16/01.mp4": {
+      "offset": 98390990,
+      "size": 1376473,
+      "sha256": "e3fb65fc5a441f796d4f181d55a4c973d6624472d31b69dc4617af6395fa3301"
+    },
+    "assets/os1/os1-lesson-16/02.mp4": {
+      "offset": 99767463,
+      "size": 1368313,
+      "sha256": "aefc105f9c52a674250b7995c7ed5b92bfc5566049f075f697e51fa5ef8f2528"
+    },
+    "assets/os1/os1-lesson-16/03.mp4": {
+      "offset": 101135776,
+      "size": 1861217,
+      "sha256": "edb17d23e665985377c35c6010d31b86bed2df81d54d62a3870067169ae84188"
+    },
+    "assets/os1/os1-lesson-16/04.mp4": {
+      "offset": 102996993,
+      "size": 1358303,
+      "sha256": "bc77e868df69db48180c12dee48a072bd9e6b376c86d4c9ef67db142582424fd"
+    },
+    "assets/os1/os1-lesson-16/05.mp4": {
+      "offset": 104355296,
+      "size": 1478413,
+      "sha256": "7a95c1ce49bec9f162d9c3b64569e45c7715fd990b4020d608ed5bdb6854ff8b"
+    },
+    "assets/os1/os1-lesson-16/06.mp4": {
+      "offset": 105833709,
+      "size": 3877752,
+      "sha256": "7878616ca889beec228ee360fc1c3e3933b94e52108489c8390ee58c501780ef"
+    },
+    "assets/os1/os1-lesson-17/01.mp4": {
+      "offset": 109711461,
+      "size": 2234479,
+      "sha256": "12e665eea5f6d5a80431a18dcc69aad01b025e00adb8777065dce99d1f38fe00"
+    },
+    "assets/os1/os1-lesson-17/02.mp4": {
+      "offset": 111945940,
+      "size": 2651814,
+      "sha256": "9e912f1b6ad747e79d21b40fd432b3ca46b0ce0ef04bab02957d134a5c04f7d8"
+    },
+    "assets/os1/os1-lesson-17/03.mp4": {
+      "offset": 114597754,
+      "size": 1596181,
+      "sha256": "6f756f0988d540a57cf8cd84f31537be04980077b679bdc9850f3db700637a96"
+    },
+    "assets/os1/os1-lesson-17/04.mp4": {
+      "offset": 116193935,
+      "size": 2735395,
+      "sha256": "554e6c3337eb55a60f50d85aeb38a06dd98ad57e72d90f905468edb3cbaaafa7"
+    },
+    "assets/os1/os1-lesson-17/05.mp4": {
+      "offset": 118929330,
+      "size": 1380798,
+      "sha256": "0aaf362ab72fc72a84075292c98cdf668a0b9ae650353479776dc0cc23eba89f"
+    },
+    "assets/os1/os1-lesson-17/06.mp4": {
+      "offset": 120310128,
+      "size": 935356,
+      "sha256": "e3155a200eeed8ca565439f6a23ba1dc6a9fb1586d5bb490c2f9149f577a4ee0"
+    },
+    "assets/os1/os1-lesson-17/07.mp4": {
+      "offset": 121245484,
+      "size": 3168167,
+      "sha256": "cc656072fc4755ec2d995590dd45b0cccc0dd01976f8c46d2f60c75ed36eaa9a"
+    },
+    "assets/os1/os1-lesson-18/01.mp4": {
+      "offset": 124413651,
+      "size": 652830,
+      "sha256": "b001de1e2427d47fd4d616815ffe2b21e246fb4065ad6242c922f81e3afa1b22"
+    },
+    "assets/os1/os1-lesson-18/02.mp4": {
+      "offset": 125066481,
+      "size": 2186739,
+      "sha256": "8136aecd37e9040956a08d27d3af61b44bc9420bb00421730a548764e41dfc4a"
+    },
+    "assets/os1/os1-lesson-18/03.mp4": {
+      "offset": 127253220,
+      "size": 2669334,
+      "sha256": "8490b108f53ac09e7857d4307db107a3c6dc6383e60acc1f958c007154483606"
+    },
+    "assets/os1/os1-lesson-18/04.mp4": {
+      "offset": 129922554,
+      "size": 2240903,
+      "sha256": "4a44983b386dd57fd636a54b270ae167c64df8fdc1d3aec47d3c8eae529f827b"
+    },
+    "assets/os1/os1-lesson-18/05.mp4": {
+      "offset": 132163457,
+      "size": 1854324,
+      "sha256": "3cede4507cd2f97a1661615539983016a9fdd11d31a755ca96478817da0cbe01"
+    },
+    "assets/os1/os1-lesson-18/06.mp4": {
+      "offset": 134017781,
+      "size": 2204045,
+      "sha256": "5b7d074c143d2bc9a8c7b481136847474cb085ea8eb135e5f83b73af2eb35f06"
+    },
+    "assets/os1/os1-lesson-18/07.mp4": {
+      "offset": 136221826,
+      "size": 1001820,
+      "sha256": "60a6576b68bd56065f9222e922ce11cbd0db7c5399b8d7b0cafe83fe6777c723"
+    },
+    "assets/os1/os1-lesson-19/01.mp4": {
+      "offset": 137223646,
+      "size": 873364,
+      "sha256": "550113766e8bff5d4cde371611492536f33a689ff8dd231edc9b07032a2c5151"
+    },
+    "assets/os1/os1-lesson-19/02.mp4": {
+      "offset": 138097010,
+      "size": 1541800,
+      "sha256": "e3a1e5d51155ef35df96760c14dbafefb70316c97a2ba19e311f20f8b6da025f"
+    },
+    "assets/os1/os1-lesson-19/03.mp4": {
+      "offset": 139638810,
+      "size": 1564534,
+      "sha256": "c22e522c17752352b8926f0de97d6c8bc02573706b37f6f8084e777614ca8be5"
+    },
+    "assets/os1/os1-lesson-19/04.mp4": {
+      "offset": 141203344,
+      "size": 1802895,
+      "sha256": "1e7c8017d2960ea0d903798b95818f7f395db83305f965a7b8900b3a39276a6c"
+    },
+    "assets/os1/os1-lesson-19/05.mp4": {
+      "offset": 143006239,
+      "size": 1478594,
+      "sha256": "d6ae2f0ab231163a169ee8799b7206cc27fe7767b22b37a73075553e49d12e5c"
+    },
+    "assets/os1/os1-lesson-19/06.mp4": {
+      "offset": 144484833,
+      "size": 1014714,
+      "sha256": "08538787c8f530d2bd9da683e53b2b4d02f15f852c293576df2902fb49ad18b7"
+    },
+    "assets/os1/os1-lesson-2/01.mp4": {
+      "offset": 145499547,
+      "size": 1767490,
+      "sha256": "7827c3fed07a0d0c2890aea78db2ec741d3542a842ff0842d2be2bb284c59c3e"
+    },
+    "assets/os1/os1-lesson-2/02.mp4": {
+      "offset": 147267037,
+      "size": 1446068,
+      "sha256": "f2880e59fbebdd2604737a2d058328ffc323b45d23df5ac44ab714468f86a869"
+    },
+    "assets/os1/os1-lesson-2/03.mp4": {
+      "offset": 148713105,
+      "size": 1309926,
+      "sha256": "b3c05404e705d7c0458839970aba5d0ffb15d93dba1eb302ee34ce1020d92e97"
+    },
+    "assets/os1/os1-lesson-2/04.mp4": {
+      "offset": 150023031,
+      "size": 3088328,
+      "sha256": "ec040cc1ee0ea07d552535e4b8b99d3f0a4275ec8322a9377687b8d59adc5e1e"
+    },
+    "assets/os1/os1-lesson-2/05.mp4": {
+      "offset": 153111359,
+      "size": 1590087,
+      "sha256": "b5bed896f0dca730a02c1c11d5b796f54bb2df81b71113ef9001ddbd86af6892"
+    },
+    "assets/os1/os1-lesson-2/06.mp4": {
+      "offset": 154701446,
+      "size": 1038971,
+      "sha256": "a94594da0708a2b2fd8ccbd603393df7693b4fce8cc65a781921fb15edab0dcc"
+    },
+    "assets/os1/os1-lesson-2/07.mp4": {
+      "offset": 155740417,
+      "size": 3538897,
+      "sha256": "88df0a69c42dbf53477ca89c651380712550fa7336b594dcf25f736215756eaa"
+    },
+    "assets/os1/os1-lesson-20/01.mp4": {
+      "offset": 159279314,
+      "size": 2225668,
+      "sha256": "d6cee9e4c5bcd3d35346c234bd3e236ea55e5717ef1634eb7796086c40f52abc"
+    },
+    "assets/os1/os1-lesson-20/02.mp4": {
+      "offset": 161504982,
+      "size": 2646619,
+      "sha256": "ab3a21c3da56a59de8b56b6654b551556bf4514444385c43bdc48536dae34f55"
+    },
+    "assets/os1/os1-lesson-20/03.mp4": {
+      "offset": 164151601,
+      "size": 979540,
+      "sha256": "be76e82a1e887494afe7d440ea39b0d3c9bda38b8ebae392db2ffc20297c9f6a"
+    },
+    "assets/os1/os1-lesson-20/04.mp4": {
+      "offset": 165131141,
+      "size": 1573071,
+      "sha256": "17c3cc1732e4aaf66e8308b8e29fb92d4a823985f033bb4f052874bbcf8a7ccc"
+    },
+    "assets/os1/os1-lesson-20/05.mp4": {
+      "offset": 166704212,
+      "size": 2109446,
+      "sha256": "4e6a67aea85d74d39793c0ab24cf14fe0f1ee2321ff84d7c6765ed922babbc8d"
+    },
+    "assets/os1/os1-lesson-20/06.mp4": {
+      "offset": 168813658,
+      "size": 1551581,
+      "sha256": "77459c9b4bd0b9366cd7e6f6eec6740fa6a6c246ddf9fdab6cb99d2f0333e5b5"
+    },
+    "assets/os1/os1-lesson-20/07.mp4": {
+      "offset": 170365239,
+      "size": 2828922,
+      "sha256": "252bf56a61096c54b1e55c4b56d9507cb2b3f01603ad37826d152ff6c4f6efe7"
+    },
+    "assets/os1/os1-lesson-20/08.mp4": {
+      "offset": 173194161,
+      "size": 1656104,
+      "sha256": "456f1d48bcb70ea66ac4c72d7a51c5212af4d14d575117442122dad3d0a6fcbd"
+    },
+    "assets/os1/os1-lesson-3/01.mp4": {
+      "offset": 174850265,
+      "size": 1622441,
+      "sha256": "b66cf85a8322fe60be24a27eda33655d1daf52512c1d0bc57184ef69e8b17fd5"
+    },
+    "assets/os1/os1-lesson-3/02.mp4": {
+      "offset": 176472706,
+      "size": 1869552,
+      "sha256": "3ed53b5dbec5fdcbdc1821cf1acb7f7a3da5e74cef40f0c9d1692d51225fa284"
+    },
+    "assets/os1/os1-lesson-3/03.mp4": {
+      "offset": 178342258,
+      "size": 2102256,
+      "sha256": "dda45d44a9a223236fa4a905bd9f96d7d2b96e260f7b83cfe86ddf46e46ad6ff"
+    },
+    "assets/os1/os1-lesson-3/04.mp4": {
+      "offset": 180444514,
+      "size": 511374,
+      "sha256": "8182f8cd086a8c238077f5590e26f913d4d14bd3d9dfcc3c759b345abc100f40"
+    },
+    "assets/os1/os1-lesson-3/05.mp4": {
+      "offset": 180955888,
+      "size": 752898,
+      "sha256": "dbbd207779d01f5c7567ef166d6f00a7bc24e93b1674b945e8f4104132cb0050"
+    },
+    "assets/os1/os1-lesson-3/06.mp4": {
+      "offset": 181708786,
+      "size": 790577,
+      "sha256": "3ee81ab458f8ce8527aa1a1c863a634ebc44ea2f197f5ade0e6a7be04d2fdc8a"
+    },
+    "assets/os1/os1-lesson-3/07.mp4": {
+      "offset": 182499363,
+      "size": 756432,
+      "sha256": "a18c90ba129acf179d49be7e2df4b0c042d3b3b74baa5c21f47e9e80d962ce7d"
+    },
+    "assets/os1/os1-lesson-4/01.mp4": {
+      "offset": 183255795,
+      "size": 1244187,
+      "sha256": "ea5355b33d5299ddb34c5146c2152686125c6b6f68ab135e9112b0ae15f22516"
+    },
+    "assets/os1/os1-lesson-4/02.mp4": {
+      "offset": 184499982,
+      "size": 1447870,
+      "sha256": "aff6c237d803417c4adc05d1f55c4b29d0859fe2ab0204bd67c2b707c98a193a"
+    },
+    "assets/os1/os1-lesson-4/03.mp4": {
+      "offset": 185947852,
+      "size": 1124679,
+      "sha256": "5c1ac1c8d79a161571efd7177d1542a7cd42ea50c0bdfb1baac148f34d16bf09"
+    },
+    "assets/os1/os1-lesson-4/04.mp4": {
+      "offset": 187072531,
+      "size": 595258,
+      "sha256": "7887e15aa8b3eedfb9a72cc733cfa836b023fd889ae967e2e04de3404466acf5"
+    },
+    "assets/os1/os1-lesson-4/05.mp4": {
+      "offset": 187667789,
+      "size": 1213384,
+      "sha256": "7e29c7a7a2dd8c18dfb4053ae7537dda4117605a7c871d8a6f30421637e773dd"
+    },
+    "assets/os1/os1-lesson-4/06.mp4": {
+      "offset": 188881173,
+      "size": 1174673,
+      "sha256": "68329cd3433038add282f555c945023e7ca23a6e47626106595d896910c4f164"
+    },
+    "assets/os1/os1-lesson-4/07.mp4": {
+      "offset": 190055846,
+      "size": 1361684,
+      "sha256": "45c2132885939043ce0e28d7b02f2d603712a9fad821b78dc724493f2a7d8748"
+    },
+    "assets/os1/os1-lesson-4/08.mp4": {
+      "offset": 191417530,
+      "size": 1938623,
+      "sha256": "4174ee67102d882961c5ae1325978a000f8cdc7136dcdef4adecd773a0f767d9"
+    },
+    "assets/os1/os1-lesson-4/09.mp4": {
+      "offset": 193356153,
+      "size": 1434259,
+      "sha256": "e61a1b61bdd4343c90987f99f50bfb263958f480101420f14664a736996249a9"
+    },
+    "assets/os1/os1-lesson-5/01.mp4": {
+      "offset": 194790412,
+      "size": 837604,
+      "sha256": "dca00307edd1081ede5324b064601f3f7c92b495b596d38781b0c150d00ceb40"
+    },
+    "assets/os1/os1-lesson-5/02.mp4": {
+      "offset": 195628016,
+      "size": 457283,
+      "sha256": "c2b18b2efa40d294e210c1e53d43ded32fa57aaf976c868fbd07647f368902bb"
+    },
+    "assets/os1/os1-lesson-5/03.mp4": {
+      "offset": 196085299,
+      "size": 1137644,
+      "sha256": "6d52a0a27ab4c828f676ca3787da4e0678dfa1de7a2330d5267f32caa2063e16"
+    },
+    "assets/os1/os1-lesson-5/04.mp4": {
+      "offset": 197222943,
+      "size": 619614,
+      "sha256": "b19e0285143fc7c0d566ab552a52225eee1818baed3dc11698a58b8d8d329c4e"
+    },
+    "assets/os1/os1-lesson-5/05.mp4": {
+      "offset": 197842557,
+      "size": 1028714,
+      "sha256": "46df3a744467654ba01585c4192a2f569bb6b766a971c8b826b0f903c2708d1b"
+    },
+    "assets/os1/os1-lesson-5/06.mp4": {
+      "offset": 198871271,
+      "size": 1041420,
+      "sha256": "9473b43ab4e18eb03c6ef9988f1906edeb57aecd7344cffca6e00e2d81b1ea31"
+    },
+    "assets/os1/os1-lesson-5/07.mp4": {
+      "offset": 199912691,
+      "size": 538873,
+      "sha256": "3cd48b65f9b5f95b79b7be729c9a977f238ad72658349d393005f83e08481bce"
+    },
+    "assets/os1/os1-lesson-5/08.mp4": {
+      "offset": 200451564,
+      "size": 1502127,
+      "sha256": "eec36a0f66492b119bd8a76d1f60e52aebc7aad21d2b406aecbfde9750c151dc"
+    },
+    "assets/os1/os1-lesson-6/01.mp4": {
+      "offset": 201953691,
+      "size": 878939,
+      "sha256": "4129543b29572f2623eefc325eec5a7a41feaac853328acf3c94d46676b11105"
+    },
+    "assets/os1/os1-lesson-6/02.mp4": {
+      "offset": 202832630,
+      "size": 1220700,
+      "sha256": "b4015b4363d2029e904e6925b1cee97e413a18e06014243a5840faa3a71b6190"
+    },
+    "assets/os1/os1-lesson-6/03.mp4": {
+      "offset": 204053330,
+      "size": 889485,
+      "sha256": "c759dc5675c7886d549deb0f7e0a21ffcdfe5024ad2d3fa0315777ad65cfd2db"
+    },
+    "assets/os1/os1-lesson-6/04.mp4": {
+      "offset": 204942815,
+      "size": 1295294,
+      "sha256": "2a1b581cd4ab44102be7e6e50166dc0bbe5ebfbac2fa603996b9ac80e2ba6924"
+    },
+    "assets/os1/os1-lesson-6/05.mp4": {
+      "offset": 206238109,
+      "size": 922825,
+      "sha256": "18bdfcd533d2c1d99d49def75bbdc586d1e4754b4b27119ab43be56a89bfcb13"
+    },
+    "assets/os1/os1-lesson-6/06.mp4": {
+      "offset": 207160934,
+      "size": 1592570,
+      "sha256": "b2d550cf40dcfdd4c1aa7c921f1b915fb8bd54232ef2f0a4642b202b857256ce"
+    },
+    "assets/os1/os1-lesson-7/01.mp4": {
+      "offset": 208753504,
+      "size": 472257,
+      "sha256": "8b9e393711f99baf8ce9d0a986f3df8f33cef534453f00efb01618386cfcaea4"
+    },
+    "assets/os1/os1-lesson-7/02.mp4": {
+      "offset": 209225761,
+      "size": 1313243,
+      "sha256": "3c7b72bfb6a7c78d0aa946f5c307935af1380b68ea64f8cf53ab84ca66890a61"
+    },
+    "assets/os1/os1-lesson-7/03.mp4": {
+      "offset": 210539004,
+      "size": 3480922,
+      "sha256": "d50b4ac91d7336521d3cb20c1c64af0a2210bbfdd9f5ff3c770e31caad5e8207"
+    },
+    "assets/os1/os1-lesson-7/04.mp4": {
+      "offset": 214019926,
+      "size": 492862,
+      "sha256": "f4dd65573ec5f23e31d1bcd8d9f42e7cbede714836ff518d679cc442684d1ff4"
+    },
+    "assets/os1/os1-lesson-7/05.mp4": {
+      "offset": 214512788,
+      "size": 997551,
+      "sha256": "0130e13162517cbe457b1799b8090db256d0de773cc3e5567466649d925ffdcb"
+    },
+    "assets/os1/os1-lesson-7/06.mp4": {
+      "offset": 215510339,
+      "size": 98185,
+      "sha256": "3824cb8254090024274440bfe30f9848ca12cd2e5180657ea0c7fbeaaf05b934"
+    },
+    "assets/os1/os1-lesson-8/01.mp4": {
+      "offset": 215608524,
+      "size": 1238512,
+      "sha256": "fd78b1d4fd547f82f913c004c584571021f4cd4c687c12957e4dda87179695f2"
+    },
+    "assets/os1/os1-lesson-8/02.mp4": {
+      "offset": 216847036,
+      "size": 887816,
+      "sha256": "6a84741d7c54cd9889c33ee371bd9e74ea8bc117742e37535fe042ec22290f27"
+    },
+    "assets/os1/os1-lesson-8/03.mp4": {
+      "offset": 217734852,
+      "size": 1054467,
+      "sha256": "3617e5510125e9977509bddc35dce6aba72de8596b11869ac1b02916a6c9a3c2"
+    },
+    "assets/os1/os1-lesson-8/04.mp4": {
+      "offset": 218789319,
+      "size": 745481,
+      "sha256": "c5f4f5e3167ce3ce7d126acde2d39b8c184cfbd6f4548d7e1fdaa8604dfec163"
+    },
+    "assets/os1/os1-lesson-9/01.mp4": {
+      "offset": 219534800,
+      "size": 1474710,
+      "sha256": "a191df3e89245f5900ac26d0b9f4bb63527327e24d8c4e835348d8e4ffebd9db"
+    },
+    "assets/os1/os1-lesson-9/02.mp4": {
+      "offset": 221009510,
+      "size": 1274479,
+      "sha256": "7fdb1234e8dbacd7c9f7441c69ab2fc24931cd4f57434a18b20f61c9d24b3d59"
+    },
+    "assets/os1/os1-lesson-9/03.mp4": {
+      "offset": 222283989,
+      "size": 848953,
+      "sha256": "3b095518dd8f7b53b1951ca2043aedee7d7d5d54c191dd3476d8c964c2f0c7d1"
+    },
+    "assets/os1/os1-lesson-9/04.mp4": {
+      "offset": 223132942,
+      "size": 1284951,
+      "sha256": "eed17e3cfcd8e74e74ba56e2fa9b21800042656db3dd5ac1e68c4f5aed55122e"
+    },
+    "assets/os1/os1-lesson-9/05.mp4": {
+      "offset": 224417893,
+      "size": 1452017,
+      "sha256": "38ea60fa33261eb11a92b3015deef95d0c94306d1ade450daa4635e6e3b518af"
+    },
+    "assets/os1/os1-lesson-9/06.mp4": {
+      "offset": 225869910,
+      "size": 2026954,
+      "sha256": "c1a56c758add2a9d29bbfd602703449cd175b4bc1f95dae91424aca203368cc4"
+    },
+    "assets/os1/os1-lesson-9/07.mp4": {
+      "offset": 227896864,
+      "size": 1561987,
+      "sha256": "752de5059f785b97b0e8facea3b490593e7f78f1f38dd7da39e03fd6ddb6ff3f"
+    }
+  },
+  "parts": [
+    {
+      "number": 1,
+      "name": "madar100-media-part-1.bin",
+      "size": 83886080,
+      "sha256": "c70d93d62752909869fc95e8f85c829ad771763d56d6764c25691deb3e9e12ff"
+    },
+    {
+      "number": 2,
+      "name": "madar100-media-part-2.bin",
+      "size": 83886080,
+      "sha256": "345d7c51f9a615ee1aea155fdf9437e77062573d7366036f0390aeeb51adab2c"
+    },
+    {
+      "number": 3,
+      "name": "madar100-media-part-3.bin",
+      "size": 61686691,
+      "sha256": "77bcc88835490c7506e8cf0b7bb33afaf3bfc5c3e5d69f53325eec4a0004fa8e"
+    }
+  ],
+  "size": 229458851,
+  "sha256": "02991b995ce15e4c5c62e6850eb17e91a4e847f3ab90f4b1f3c6c676b5ba3e5a"
+}

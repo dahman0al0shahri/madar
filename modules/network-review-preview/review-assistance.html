@@ -1,0 +1,311 @@
+<div class="viz-dotted-background" style="padding:12px">
+<section id="madar-review-assistance" dir="rtl" aria-label="معاينة احتياج المراجعة في مدار">
+ <header class="mr-header"><span class="mr-brand">مدار <span>/ مختبر الشبكات</span></span><span class="mr-demo">معاينة · بيانات توضيحية</span></header>
+ <div class="mr-heading"><span class="mr-eyebrow">بعد المحاولة</span><h2>ما أتقنته واحتجت مساعدة</h2><p>هنا تبدأ مراجعتك القادمة.</p></div>
+ <article class="mr-result">
+  <div class="mr-task"><span class="mr-step">الخطوة ٠٣ <span>VLAN</span></span><h3>تعيين المنفذ للشبكة الافتراضية</h3><span class="mr-device">Switch S1 <span>·</span> المنفذ F0/6</span></div>
+  <div class="mr-summary" aria-live="polite" aria-atomic="true">
+   <div class="mr-pyramid-wrap"><svg class="mr-pyramid" viewBox="0 0 180 166" role="img" aria-labelledby="mr-pyramid-title"><title id="mr-pyramid-title">احتياج المراجعة</title><path class="mr-shell" d="M90 8 L171 153 Q173 158 166 158 L14 158 Q7 158 10 153 Z"/><g class="mr-layers"><path data-layer="5" d="M90 27 L101 47 L79 47 Z"/><path data-layer="4" d="M75 54 L105 54 L117 76 L63 76 Z"/><path data-layer="3" d="M59 83 L121 83 L133 105 L47 105 Z"/><path data-layer="2" d="M43 112 L137 112 L145 127 L35 127 Z"/><path data-layer="1" d="M31 134 L149 134 L156 147 L24 147 Z"/></g></svg><span class="mr-pyramid-label">احتياج المراجعة</span><strong id="mr-need">مراجعة مركّزة</strong><span class="mr-model">مؤشر تجريبي للمعاينة</span></div>
+   <div class="mr-metrics"><div class="mr-degree-block"><span class="mr-label">مستوى المساعدة</span><div class="mr-degree-line"><span class="mr-signal" aria-hidden="true"><b></b><b></b><b></b></span><span class="mr-full-mark" aria-hidden="true"><i data-lucide="book-open"></i><span>شرح كامل</span></span><strong id="mr-degree-label">تلميح من الدرجة الثانية</strong></div><span id="mr-degree-detail" class="mr-detail">تلميح أوضح يقرّبك من الإجراء.</span></div><div class="mr-count-block"><span class="mr-count" id="mr-count">٢</span><div><span class="mr-label">عدد مرات المساعدة</span><span id="mr-count-detail" class="mr-detail">مرتان</span></div></div></div>
+  </div>
+  <div class="mr-next"><span class="mr-next-dot" aria-hidden="true"></span><span id="mr-next-copy">أعد تنفيذ الخطوة، وحاول قبل فتح التلميح.</span></div>
+ </article>
+ <fieldset class="mr-controls"><legend>جرّب حالات المساعدة</legend><div class="mr-levels" aria-label="مستوى المساعدة"><button type="button" data-level="1" class="cursor-interaction" aria-pressed="false">تلميح ١</button><button type="button" data-level="2" class="cursor-interaction" aria-pressed="true">تلميح ٢</button><button type="button" data-level="3" class="cursor-interaction" aria-pressed="false">تلميح ٣</button><button type="button" data-level="full" class="cursor-interaction" aria-pressed="false">كشف الخطوة كاملة</button></div><div class="mr-counter-control"><label for="mr-count-input">عدد مرات المساعدة</label><div class="mr-stepper"><button type="button" id="mr-minus" class="cursor-interaction" aria-label="تقليل عدد مرات المساعدة">−</button><input id="mr-count-input" type="number" min="1" max="99" value="2" inputmode="numeric" aria-label="عدد مرات المساعدة"><button type="button" id="mr-plus" class="cursor-interaction" aria-label="زيادة عدد مرات المساعدة">+</button></div></div></fieldset>
+</section>
+</div>
+<style>
+#madar-review-assistance{--mr-bg:#101315;--mr-panel:#191e22;--mr-ink:#f4ede3;--mr-muted:#b4b5b8;--mr-copper:#d4a474;--mr-line:#343a3e;--mr-degree:#ffad56;--mr-count-color:#48b7f5;background:var(--mr-bg);color:var(--mr-ink);font-family:Tahoma,Arial,sans-serif;border-radius:22px;max-width:720px;margin:auto;padding:26px;box-sizing:border-box;color-scheme:dark}
+#madar-review-assistance *{box-sizing:border-box}#madar-review-assistance .mr-header{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-bottom:22px;border-bottom:1px solid var(--mr-line);font-size:12px}#madar-review-assistance .mr-brand{color:var(--mr-copper);font-size:17px}#madar-review-assistance .mr-brand span{font-size:12px;color:var(--mr-muted)}#madar-review-assistance .mr-demo{color:var(--mr-muted);align-self:center}
+#madar-review-assistance .mr-heading{padding:25px 0 23px}#madar-review-assistance .mr-eyebrow{color:var(--mr-copper);font-size:12px;letter-spacing:.1px}#madar-review-assistance h2{font-size:23px;line-height:1.6;margin:7px 0;font-weight:600}#madar-review-assistance .mr-heading p{font-size:13px;color:var(--mr-muted);margin:0}#madar-review-assistance .mr-result{background:var(--mr-panel);border:1px solid var(--mr-line);border-radius:16px;overflow:hidden}
+#madar-review-assistance .mr-task{padding:22px 24px 18px;border-bottom:1px solid var(--mr-line)}#madar-review-assistance .mr-step{display:flex;justify-content:space-between;align-items:center;color:var(--mr-copper);font-size:12px}#madar-review-assistance .mr-step span{color:var(--mr-muted);font-family:monospace;letter-spacing:2px}#madar-review-assistance h3{font-size:19px;font-weight:500;line-height:1.7;margin:10px 0 7px}#madar-review-assistance .mr-device{font-size:12px;color:var(--mr-muted)}#madar-review-assistance .mr-device span{padding:0 8px}
+#madar-review-assistance .mr-summary{display:grid;grid-template-columns:165px minmax(0,1fr);gap:26px;align-items:center;padding:24px}#madar-review-assistance .mr-pyramid-wrap{display:flex;align-items:center;flex-direction:column;gap:7px}#madar-review-assistance .mr-pyramid{width:144px;height:133px;overflow:visible}#madar-review-assistance .mr-shell{fill:#232319;stroke:#f3cf65;stroke-width:2;stroke-linejoin:round}#madar-review-assistance .mr-layers path{fill:#383a36;transition:fill .45s ease,filter .45s ease}#madar-review-assistance .mr-pyramid-label{font-size:12px;color:var(--mr-muted)}#madar-review-assistance #mr-need{font-size:16px;font-weight:500;color:var(--mr-ink)}#madar-review-assistance .mr-model{font-size:11px;color:var(--mr-muted)}
+#madar-review-assistance .mr-metrics{display:flex;flex-direction:column;gap:20px;min-width:0}#madar-review-assistance .mr-label{font-size:12px;color:var(--mr-muted);display:block;margin-bottom:8px}#madar-review-assistance .mr-degree-line{display:flex;align-items:center;gap:10px;color:var(--mr-degree);transition:color .35s}#madar-review-assistance #mr-degree-label{font-size:16px;font-weight:500;line-height:1.7}#madar-review-assistance .mr-detail{display:block;font-size:12px;color:var(--mr-muted);line-height:1.9;margin-top:7px}#madar-review-assistance .mr-signal{display:flex;align-items:flex-end;gap:3px;flex-shrink:0;height:22px;direction:ltr}#madar-review-assistance .mr-signal b{width:4px;background:currentColor;border-radius:2px;opacity:.18}#madar-review-assistance .mr-signal b:nth-child(1){height:9px}#madar-review-assistance .mr-signal b:nth-child(2){height:15px}#madar-review-assistance .mr-signal b:nth-child(3){height:22px}
+#madar-review-assistance .mr-count-block{display:flex;align-items:center;gap:15px;border-top:1px solid var(--mr-line);padding-top:18px}#madar-review-assistance .mr-count{font-family:Tahoma,sans-serif;font-variant-numeric:tabular-nums;font-size:36px;font-weight:500;color:var(--mr-count-color);min-width:40px;text-align:center;transition:color .35s}#madar-review-assistance .mr-count-block .mr-label{margin:0}#madar-review-assistance .mr-count-block .mr-detail{margin-top:3px}
+#madar-review-assistance .mr-next{display:flex;align-items:flex-start;gap:10px;background:#20262b;padding:16px 22px;font-size:12px;line-height:1.9}#madar-review-assistance .mr-next-dot{width:6px;height:6px;flex-shrink:0;border-radius:50%;background:var(--mr-copper);margin-top:9px}
+#madar-review-assistance .mr-controls{padding:0;border:0;margin:23px 0 0;min-width:0}#madar-review-assistance legend{font-size:12px;color:var(--mr-muted);margin-bottom:13px;padding:0}#madar-review-assistance .mr-levels{display:grid;grid-template-columns:1fr 1fr 1fr 1.7fr;gap:7px}#madar-review-assistance button{font-family:inherit;font-size:12px;min-height:44px;border-radius:9px;border:1px solid #3a4145;background:#1c2226;color:var(--mr-ink);padding:9px 10px;transition:background .2s,border-color .2s}#madar-review-assistance button:hover{background:#293139}#madar-review-assistance button[aria-pressed="true"]{border-color:var(--mr-copper);background:#3b3026;color:#ffe2be}#madar-review-assistance button:focus-visible,#madar-review-assistance input:focus-visible{outline:2px solid #edc394;outline-offset:3px}#madar-review-assistance button:disabled{opacity:.35}#madar-review-assistance .mr-counter-control{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:14px;font-size:12px;color:var(--mr-muted)}#madar-review-assistance .mr-stepper{display:flex;direction:ltr;gap:5px}#madar-review-assistance .mr-stepper button{width:44px;font-size:20px}#madar-review-assistance input{width:54px;background:#15191c;color:var(--mr-ink);font:16px Tahoma;text-align:center;border:1px solid #3a4145;border-radius:8px;appearance:textfield}#madar-review-assistance input::-webkit-inner-spin-button{appearance:none}
+@media(max-width:520px){#madar-review-assistance{padding:18px;border-radius:16px}#madar-review-assistance h2{font-size:20px}#madar-review-assistance .mr-summary{grid-template-columns:1fr;gap:22px;padding:20px}#madar-review-assistance .mr-pyramid-wrap{order:2;border-top:1px solid var(--mr-line);padding-top:16px}#madar-review-assistance .mr-pyramid{width:126px;height:116px}#madar-review-assistance .mr-task{padding:18px}#madar-review-assistance .mr-levels{grid-template-columns:repeat(3,1fr)}#madar-review-assistance .mr-levels button:last-child{grid-column:1/-1}#madar-review-assistance .mr-header{padding-top:5px}#madar-review-assistance .mr-demo{width:100%}#madar-review-assistance .mr-counter-control{flex-wrap:wrap}}
+#madar-review-assistance .mr-degree-block{padding:14px;border-radius:12px;background:color-mix(in srgb,var(--mr-degree) 9%,#171b1e);border-inline-start:3px solid var(--mr-degree);transition:background .3s,border-color .3s}
+#madar-review-assistance .mr-full-mark{display:none;flex-shrink:0;width:65px;min-height:70px;border-radius:12px;background:#46171e;color:#ff6977;border:1px solid #ff4d62;align-items:center;justify-content:center;flex-direction:column;gap:7px;box-shadow:inset 0 1px 0 #ff879c30}
+#madar-review-assistance .mr-full-mark svg{width:27px;height:27px;stroke-width:2}
+#madar-review-assistance .mr-full-mark span{font-size:11px;white-space:nowrap}
+#madar-review-assistance[data-level="full"] .mr-full-mark{display:flex}
+#madar-review-assistance[data-level="full"] .mr-signal{display:none}
+#madar-review-assistance .mr-count{background:color-mix(in srgb,var(--mr-count-color) 13%,#171b1e);border-radius:12px;min-width:58px;padding:5px 8px;font-size:39px;transition:color .35s,background .35s}
+#madar-review-assistance .mr-shell{stroke:#ffe339;fill:#222315}
+#madar-review-assistance .mr-signal b{width:5px}
+#madar-review-assistance [data-level="1"]{--mr-button-color:#ffe33b}
+#madar-review-assistance [data-level="2"]{--mr-button-color:#ffad26}
+#madar-review-assistance [data-level="3"]{--mr-button-color:#ff7948}
+#madar-review-assistance [data-level="full"]{--mr-button-color:#ff5668}
+#madar-review-assistance .mr-levels button{color:var(--mr-button-color);border-color:color-mix(in srgb,var(--mr-button-color) 38%,#343a3e)}
+#madar-review-assistance .mr-levels button[aria-pressed="true"]{background:color-mix(in srgb,var(--mr-button-color) 19%,#171b1e);border-color:var(--mr-button-color);color:var(--mr-button-color)}
+#madar-review-assistance .mr-summary{grid-template-columns:1fr;padding:0 24px 24px;gap:24px}
+#madar-review-assistance .mr-pyramid-wrap{width:100%;order:0;border:0;padding:0}
+#madar-review-assistance .mr-metrics{display:grid;grid-template-columns:1.3fr 1fr;align-items:center}
+#madar-review-assistance .mr-count-block{border-top:0;padding-top:0}
+#madar-review-assistance .mr-electric-stage{position:relative;width:calc(100% + 48px);height:310px;display:grid;place-items:center;isolation:isolate;overflow:hidden;background:linear-gradient(135deg,#1b2025,#20262b 48%,#181d21)}
+#madar-review-assistance .mr-electric-stage .mr-pyramid{position:relative;z-index:1}
+#madar-review-assistance .mr-electric-canvas{position:absolute;width:100%;height:100%;inset:0;pointer-events:none;z-index:0}
+#madar-review-assistance .mr-halo-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+#madar-review-assistance .mr-layers path{transform-box:fill-box;transform-origin:center}
+#madar-review-assistance .mr-shell{stroke-dasharray:510;stroke-dashoffset:var(--mr-outline,0)}
+@media(max-width:520px){#madar-review-assistance .mr-metrics{grid-template-columns:1fr}#madar-review-assistance .mr-electric-stage{height:340px}}
+@media(max-width:380px){#madar-review-assistance .mr-degree-line{flex-wrap:wrap}#madar-review-assistance .mr-full-mark{width:auto;min-height:44px;flex-direction:row;padding:7px 10px}#madar-review-assistance #mr-degree-label{width:100%}}
+#madar-review-assistance .mr-halo-toggle{margin-top:6px;min-height:44px;background:transparent;border-color:#3b4144;font-size:11px;padding:5px 12px}
+#madar-review-assistance .mr-halo-caption{font-size:11px;color:var(--mr-halo-color,#ffe33b)}
+@media(prefers-reduced-motion:reduce){#madar-review-assistance *{transition:none!important}}
+</style>
+<script>
+(()=>{
+ const root=document.getElementById('madar-review-assistance');
+ const q=s=>root.querySelector(s),ar=n=>Number(n).toLocaleString('ar-SA');
+ let state={level:'full',count:1};
+ const levelColors={1:'#ffe33b',2:'#ffad26',3:'#ff7948',full:'#ff5668'};
+ const countColors=['#53d8ff','#32b9ff','#8292ff','#c78aff'];
+ const haloColors=['#ffe951','#ffc039','#ff963c','#ff7048','#ff4a68'];
+ const haloNames=['هالة صفراء · صواعق خفيفة','هالة كهرمانية · صواعق مزدوجة','هالة برتقالية · صواعق متفرّعة','هالة نارية · صواعق كثيفة','هالة حمراء · صواعق قصوى'];
+ const svg=q('.mr-pyramid'), stage=document.createElement('div'),canvas=document.createElement('canvas');
+ stage.className='mr-electric-stage';canvas.className='mr-electric-canvas';canvas.setAttribute('aria-hidden','true');
+ svg.replaceWith(stage);stage.append(svg,canvas);
+ const haloCaption=document.createElement('span');haloCaption.className='mr-halo-caption';
+ const haloButton=document.createElement('button');haloButton.type='button';haloButton.className='mr-halo-toggle cursor-interaction';
+ const replayButton=document.createElement('button');replayButton.type='button';replayButton.className='mr-halo-toggle cursor-interaction';replayButton.textContent='إعادة الافتتاحية';
+ const haloActions=document.createElement('div');haloActions.className='mr-halo-actions';haloActions.append(haloButton,replayButton);
+ q('.mr-pyramid-wrap').append(haloCaption,haloActions);
+ const ctx=canvas.getContext('2d'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ let haloPlaying=!reduced.matches,haloLevel=4,haloTime=0,lastTick=0,frame=0,visible=true;
+ let discharges=[],nextStrike=0,sceneLevel=0,strikeSerial=0,introStart=0,firstDischarge=false;
+ const dpr=Math.min(devicePixelRatio||1,3);let sceneWidth=stage.clientWidth,sceneHeight=stage.clientHeight;
+ function resizeScene(){sceneWidth=stage.clientWidth;sceneHeight=stage.clientHeight;canvas.width=Math.round(sceneWidth*dpr);canvas.height=Math.round(sceneHeight*dpr);discharges=[];drawHalo();}
+ function perimeter(f){
+  f=((f%1)+1)%1;
+  const narrow=matchMedia('(max-width:520px)').matches,scale=narrow?.7:.8;
+  const vertices=[[90,8],[171,158],[9,158],[90,8]].map(([x,y])=>[sceneWidth/2+(x-90)*scale,sceneHeight/2+(y-83)*scale]);
+  const lengths=vertices.slice(0,3).map((v,i)=>Math.hypot(vertices[i+1][0]-v[0],vertices[i+1][1]-v[1]));
+  let n=f*lengths.reduce((a,b)=>a+b,0),edge=0;
+  while(edge<2&&n>lengths[edge])n-=lengths[edge++];
+  const a=vertices[edge],b=vertices[edge+1],t=n/lengths[edge];
+  const dx=b[0]-a[0],dy=b[1]-a[1],len=lengths[edge];
+  return {x:a[0]+dx*t,y:a[1]+dy*t,nx:dy/len,ny:-dx/len};
+ }
+ function drawHalo(){
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,sceneWidth,sceneHeight);
+  const color=haloColors[haloLevel-1],power=haloLevel/5;
+  const bound=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  const intro=reduced.matches?9:haloTime-introStart,charge=bound((intro-.3)/1.8),ready=intro>=2.35;
+  const ease=t=>1-Math.pow(1-t,3);
+  const release=bound((intro-2.35)/.85),impactEnergy=intro>=2.35&&intro<3.2?Math.exp(-(intro-2.35)*5):0;
+  const compression=bound((intro-1.85)/.42)*(1-ease(bound((intro-2.35)/.2)));
+  svg.style.setProperty('--mr-outline',510*(1-ease(bound((intro-.16)/.6))));
+  q('.mr-shell').style.fillOpacity=ease(bound((intro-.2)/.4));
+  root.querySelectorAll('[data-layer]').forEach(p=>{const i=+p.dataset.layer,t=bound((intro-.28-(i-1)*.105)/.56),settle=t===1?1:1-Math.pow(2,-9*t)*Math.cos(t*9);p.style.opacity=bound(t*3);p.style.transform=`translate(${(1-settle)*(i%2?52:-52)}px,${(1-settle)*22}px) scaleX(${.65+settle*.35})`;});
+  stage.dataset.phase=intro>=3.2?'running':ready?'release':intro<1.2?'forming':'charging';
+  // A persistent light halo and distinct outward discharges; no flashing of the card.
+  function path(points,width,alpha,blur,stroke){ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.strokeStyle=stroke;ctx.lineWidth=width;ctx.lineJoin='round';ctx.lineCap='round';ctx.globalAlpha=alpha;ctx.shadowColor=color;ctx.shadowBlur=blur;ctx.stroke();}
+  const rim=Array.from({length:181},(_,i)=>perimeter(i/180));
+  const mist=ctx.createRadialGradient(sceneWidth/2,sceneHeight/2,25,sceneWidth/2,sceneHeight/2,125);
+  mist.addColorStop(0,color+'00');mist.addColorStop(.42,color+'28');mist.addColorStop(.73,color+'14');mist.addColorStop(1,color+'00');
+  ctx.fillStyle=mist;ctx.globalAlpha=(.6+power*.4)*charge;ctx.fillRect(0,0,sceneWidth,sceneHeight);
+  path(rim.slice(0,Math.max(2,Math.ceil(ease(bound(intro/1.35))*rim.length))),6+power*5,(.12+power*.1)*charge,15+haloLevel*3,color);
+  path(rim,2,.25*charge,7,color);
+  const hash=n=>{const v=Math.sin(n*127.1+311.7)*43758.5453;return v-Math.floor(v);};
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  // Recursive, irregular channels instead of equal-sized zigzags.
+  function fracture(a,b,seed,depth=4,rough=.18){
+   if(!depth)return [a,b];
+   const dx=b.x-a.x,dy=b.y-a.y,len=Math.hypot(dx,dy)||1,t=.3+hash(seed)*.4;
+   const bend=(hash(seed+9)-.5)*len*rough*2;
+   const m={x:a.x+dx*t-dy/len*bend,y:a.y+dy*t+dx/len*bend};
+   return fracture(a,m,seed+17,depth-1,rough).slice(0,-1).concat(fracture(m,b,seed+31,depth-1,rough));
+  }
+  if(intro<3.4&&!reduced.matches){
+   // One focal event: ignition, accelerating collection, compression, release.
+   const cx=sceneWidth/2,cy=sceneHeight/2;
+   ctx.shadowBlur=0;ctx.fillStyle='#080b0e';ctx.globalAlpha=.54*(1-ease(bound((intro-2.35)/.65)));ctx.fillRect(0,0,sceneWidth,sceneHeight);
+   if(intro<.55){
+    const leader=fracture({x:sceneWidth*.14,y:14},perimeter(0),319,5,.15),head=bound(intro/.17);
+    const segment=leader.slice(0,Math.max(2,Math.ceil(head*leader.length))),light=bound(intro/.06)*Math.exp(-Math.max(0,intro-.19)*8);
+    path(segment,6,light*.45,19,color);path(segment,1.4,light,5,'#fff5d6');
+   }
+   // Stable seeds retain flowing trajectories instead of jittering particle positions.
+   for(let j=0;j<42;j++){
+    const delay=.32+hash(j+80)*1.23,duration=.6+hash(j+190)*.55,t=bound((intro-delay)/duration);
+    if(t===0||t===1)continue;
+    const edge=j%4,target=perimeter(hash(j+25)),start={x:edge<2?(edge?sceneWidth-8:8):hash(j+40)*sceneWidth,y:edge>=2?(edge===2?8:sceneHeight-8):hash(j+70)*sceneHeight};
+    const trajectory=u=>{const v=u*u;return{x:start.x+(target.x-start.x)*v,y:start.y+(target.y-start.y)*v+Math.sin(u*Math.PI)*(hash(j+22)-.5)*65};};
+    const a=trajectory(t),b=trajectory(Math.max(0,t-.045));
+    const opacity=Math.sin(t*Math.PI)*.85;
+    path([b,a],j%7===0?1.6:.7,opacity,j%7===0?10:4,j%5===0?'#fff4d8':color);
+   }
+   if(intro>.8&&intro<2.35){
+    const pressure=bound((intro-.8)/1.55),inner=ctx.createRadialGradient(cx,cy,4,cx,cy,105-pressure*37);
+    inner.addColorStop(0,color+'bb');inner.addColorStop(.35,color+'55');inner.addColorStop(1,color+'00');ctx.fillStyle=inner;ctx.globalAlpha=pressure*.7;ctx.shadowBlur=0;ctx.fillRect(cx-110,cy-110,220,220);
+    path(rim,2.2,pressure*.85,14+pressure*12,'#fff0bd');
+   }
+   if(impactEnergy>0){
+    const light=ctx.createRadialGradient(cx,cy,4,cx,cy,90+release*150);
+    light.addColorStop(0,'#fff5d9');light.addColorStop(.18,color+'cc');light.addColorStop(.65,color+'45');light.addColorStop(1,color+'00');
+    ctx.globalAlpha=impactEnergy*.65;ctx.fillStyle=light;ctx.shadowBlur=0;ctx.fillRect(0,0,sceneWidth,sceneHeight);
+    for(let j=0;j<28;j++){
+     const p=perimeter(hash(j+500)),angle=Math.atan2(p.y-cy,p.x-cx)+(hash(j+510)-.5),distance=release*(60+hash(j+520)*160),a={x:p.x+Math.cos(angle)*distance,y:p.y+Math.sin(angle)*distance+release*release*30};
+     path([{x:a.x-Math.cos(angle)*(2+release*9),y:a.y-Math.sin(angle)*(2+release*9)},a],.7,(1-release)*.72,4,j%3?color:'#fff4da');
+    }
+   }
+  }
+  function surfaceDamage(seed,heading){
+   // Cached per strike: mottled soot, broken coating and directional metal grain.
+   // No outlined crater, radial spiderweb, or solid circular burn decal.
+   const tile=document.createElement('canvas');tile.width=tile.height=128;
+   const tc=tile.getContext('2d'),pixels=tc.createImageData(128,128),salt=seed|0;
+   const rand=(x,y)=>{let n=Math.imul(x^salt,374761393)+Math.imul(y,668265263);n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967295;};
+   const noise=(x,y)=>{const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy,u=fx*fx*(3-2*fx),v=fy*fy*(3-2*fy);return (rand(ix,iy)*(1-u)+rand(ix+1,iy)*u)*(1-v)+(rand(ix,iy+1)*(1-u)+rand(ix+1,iy+1)*u)*v;};
+   const cs=Math.cos(heading),sn=Math.sin(heading);
+   for(let y=0;y<128;y++)for(let x=0;x<128;x++){
+    const px=(x-64)/53,py=(y-64)/53,u=px*cs+py*sn,v=-px*sn+py*cs;
+    const large=noise(x*.048+7,y*.048+12),medium=noise(x*.135,y*.135),fine=rand(x,y);
+    const r=Math.hypot(u*.86,v*1.15)+(large-.5)*.38+(medium-.5)*.13;
+    const soot=clamp((1.04-r)*2.6,0,1)*(0.6+medium*.35);
+    if(soot<=0)continue;
+    let red=12+large*8,green=12+large*6,blue=12+large*5,alpha=soot*.82;
+    const grainLine=Math.abs(v+.12*Math.sin(u*7+large*3));
+    const exposed=r<.65&&grainLine<.08+medium*.24&&large>.42&&medium>.37;
+    if(exposed){
+     const grain=noise(x*.8,y*.085)*24+fine*19;
+     const burnt=clamp((.43-r)*3,0,1);
+     const shade=40+grain-py*10-burnt*18;
+     red=shade*.96;green=shade;blue=shade*1.015;alpha=.94;
+     if(fine>.91){red*=.5;green*=.5;blue*=.5;}
+    }
+    const lip=Math.abs(grainLine-(.08+medium*.24));
+    if(lip<.009&&r<.56&&large>.42&&medium>.37){red=78+fine*19;green=81+fine*19;blue=82+fine*19;alpha=.72;}
+    const i=(y*128+x)*4;pixels.data[i]=red;pixels.data[i+1]=green;pixels.data[i+2]=blue;pixels.data[i+3]=Math.round(alpha*255);
+   }
+   tc.putImageData(pixels,0,0);return tile;
+  }
+  function emit(at){
+   const seed=Math.random()*100000,origin=perimeter(Math.random());
+   // Sample a two-dimensional surface, not equal radii around the emitter.
+   let end,tries=0;
+   do{end={x:32+Math.random()*(sceneWidth-64),y:30+Math.random()*(sceneHeight-60)};tries++;}
+   while(tries<80&&((Math.abs(end.x-sceneWidth/2)<79&&Math.abs(end.y-sceneHeight/2)<83)||((end.x-origin.x)*origin.nx+(end.y-origin.y)*origin.ny<15)||discharges.some(e=>Math.hypot(e.end.x-end.x,e.end.y-end.y)<38)));
+   if(tries>=80)return;
+   const heading=Math.atan2(end.y-origin.y,end.x-origin.x);
+   const channel=fracture(origin,end,seed,5,.24),branches=[];
+   for(let j=0;j<haloLevel+1;j++){
+    const index=6+Math.floor(hash(seed+j)*19),p=channel[index];
+    const a=heading+(hash(seed+j+44)>.5?1:-1)*(.3+hash(seed+j+51)*.9),l=9+hash(seed+j+61)*23;
+    branches.push(fracture(p,{x:clamp(p.x+Math.cos(a)*l,8,sceneWidth-8),y:clamp(p.y+Math.sin(a)*l,8,sceneHeight-8)},seed+j+83,3,.21));
+   }
+   const cracks=[];
+   if(haloLevel>=4)for(let j=0;j<(haloLevel===5?3:1);j++){
+    const a=heading+(hash(seed+j+112)-.5)*2.4,l=(haloLevel===5?19:9)*(0.6+hash(seed+j+73));
+    const start={x:end.x+(hash(seed+j+173)-.5)*8,y:end.y+(hash(seed+j+187)-.5)*8};
+    cracks.push(fracture(start,{x:clamp(end.x+Math.cos(a)*l,4,sceneWidth-4),y:clamp(end.y+Math.sin(a)*l,4,sceneHeight-4)},seed+j+161,3,.17));
+   }
+   discharges.push({at,seed,channel,branches,end,cracks,heading,texture:haloLevel>=4?surfaceDamage(seed,heading):null});strikeSerial++;
+  }
+  if(sceneLevel!==haloLevel){sceneLevel=haloLevel;discharges=[];nextStrike=haloTime+.2;}
+  if(ready&&!firstDischarge&&!reduced.matches&&haloPlaying){firstDischarge=true;emit(haloTime);emit(haloTime+.045);if(haloLevel>=4)emit(haloTime+.095);nextStrike=haloTime+1.1;}
+  if(ready&&!reduced.matches&&haloPlaying&&haloTime>=nextStrike){
+   // No angular sequence: independent origins and non-periodic delays.
+   emit(haloTime);if(haloLevel===5&&Math.random()>.45)emit(haloTime+.035);
+   nextStrike=haloTime+(haloLevel>=4?.68:1.1)+Math.random()*(haloLevel>=4?.65:1.2);
+  }
+  discharges=discharges.filter(e=>haloTime-e.at<5.4).slice(-9);
+  let active=0,damage=0,shock=0;
+  for(const e of discharges){
+   const age=reduced.matches?.16:haloTime-e.at;if(age<0)continue;
+   const life=clamp((5.4-age)/2,0,1),impact=age>=.045;
+   if(e.cracks.length&&impact){
+    damage++;const diameter=haloLevel===5?49:28;
+    ctx.shadowBlur=0;ctx.globalAlpha=life;ctx.drawImage(e.texture,e.end.x-diameter/2,e.end.y-diameter/2,diameter,diameter);
+    for(const crack of e.cracks){
+     const portion=crack.slice(0,Math.max(2,Math.ceil(Math.min(1,age/.18)*crack.length)));
+     path(portion,haloLevel===5?.8:.5,life*.65,0,'#090b0d');
+     path(portion.map(p=>({x:p.x+.35,y:p.y-.35})),.25,life*.32,0,'#a0a6a5');
+    }
+    if(age<1.35){
+     const debris=haloLevel===5?9:3;
+     for(let j=0;j<debris;j++){
+      const a=hash(e.seed+j+301)*Math.PI*2,speed=12+hash(e.seed+j+330)*(haloLevel===5?53:25),dt=Math.max(0,age-.05);
+      const x=e.end.x+Math.cos(a)*speed*dt,y=e.end.y+Math.sin(a)*speed*dt+dt*dt*15;
+      const size=(haloLevel===5?1.25:.7)*(1-dt/1.4);
+      ctx.globalAlpha=clamp(1-dt/1.3,0,1);ctx.shadowBlur=0;ctx.save();ctx.translate(x,y);ctx.rotate(a+dt*5);ctx.fillStyle=j%4?'#777d7e':'#d7b18a';ctx.fillRect(-size,-size*.22,size*2.1,size*.45);ctx.fillStyle='#171a1d';ctx.fillRect(-size,0,size*1.8,size*.45);ctx.restore();
+     }
+    }
+   }
+   const fade=Math.exp(-Math.max(0,age-.04)*12),grow=clamp(age/.045,0,1);
+   if(fade>.012){
+    active++;const pts=e.channel.slice(0,Math.max(2,Math.ceil(grow*e.channel.length)));
+    ctx.globalCompositeOperation='lighter';
+    path(pts,4+power*3,fade*.28,14+haloLevel*2,color);
+    path(pts,1.8+power,fade*.8,5,color);
+    for(let j=1;j<pts.length;j++)path([pts[j-1],pts[j]],(1.4+power*.5)*(1-j/pts.length*.55),fade,0,'#fff8ed');
+    for(const branch of e.branches)path(branch,.45+power*.35,fade*.65,4,'#ffe8d6');
+    const bloom=ctx.createRadialGradient(e.end.x,e.end.y,0,e.end.x,e.end.y,haloLevel>=4?21:10);
+    bloom.addColorStop(0,'#fff7dc');bloom.addColorStop(.14,color);bloom.addColorStop(1,color+'00');
+    ctx.fillStyle=bloom;ctx.globalAlpha=impact?fade*.65:0;ctx.fillRect(e.end.x-24,e.end.y-24,48,48);
+    ctx.globalCompositeOperation='source-over';
+    if(haloLevel>=4)shock=Math.max(shock,fade*(haloLevel===5?1.8:.6));
+   }
+  }
+  if(!reduced.matches){
+   const kick=Math.max(shock,impactEnergy*3.2),scale=1-compression*.065+impactEnergy*.085;
+   svg.style.transform=`translate(${Math.sin(haloTime*59)*kick}px,${Math.cos(haloTime*73)*kick*.6}px) scale(${scale})`;
+   svg.style.filter=`brightness(${1+compression*.35+impactEnergy*.9}) drop-shadow(0 0 ${3+charge*5+impactEnergy*15}px ${color}${intro<3.2?'bb':'33'})`;
+  }else{svg.style.transform='none';svg.style.filter='none';}
+  canvas.dataset.strikes=strikeSerial;canvas.dataset.damage=damage;canvas.dataset.active=active;
+  canvas.dataset.targets=JSON.stringify(discharges.map(e=>[Math.round(e.end.x),Math.round(e.end.y)]));
+  ctx.globalAlpha=1;ctx.shadowBlur=0;canvas.dataset.time=haloTime.toFixed(3);
+ }
+ function tick(t){frame=0;if(!root.isConnected||!visible||document.hidden||!haloPlaying||reduced.matches)return;
+  if(lastTick&&t-lastTick<32){frame=requestAnimationFrame(tick);return;}
+  haloTime+=lastTick?Math.min((t-lastTick)/1000,.08):0;lastTick=t;drawHalo();frame=requestAnimationFrame(tick);
+ }
+ function syncHalo(){
+  haloCaption.textContent=haloNames[haloLevel-1];root.style.setProperty('--mr-halo-color',haloColors[haloLevel-1]);
+  haloButton.textContent=haloPlaying?'إيقاف حركة الهالة':'تشغيل حركة الهالة';haloButton.setAttribute('aria-pressed',String(haloPlaying));
+  haloButton.disabled=reduced.matches;replayButton.disabled=reduced.matches;if(reduced.matches)haloButton.textContent='حركة مخفّضة';
+  drawHalo();if(frame)cancelAnimationFrame(frame);frame=0;lastTick=0;
+  if(haloPlaying&&!reduced.matches&&visible&&!document.hidden)frame=requestAnimationFrame(tick);
+ }
+ function restore(saved){const v=saved?.modelContent||saved;if(v&&['1','2','3','full'].includes(v.level)&&Number.isFinite(+v.count)){state={level:v.level,count:Math.max(1,Math.min(99,Math.round(+v.count)))};}}
+ restore(window.openai?.widgetState);
+ function render(){
+  const full=state.level==='full',degree=full?3:+state.level,count=Math.min(state.count,4);
+  // Provisional display model only: degree weight 3, count weight 1,
+  // full explanation adds weight 3. Not a validated mastery measure.
+  const score=3*degree+count+(full?3:0), layers=Math.max(1,Math.min(5,Math.ceil(score/16*5)));
+  root.style.setProperty('--mr-degree',levelColors[state.level]);
+  root.style.setProperty('--mr-count-color',full?countColors[3]:countColors[count-1]);
+  root.dataset.level=state.level;root.dataset.count=state.count;root.dataset.score=score;root.dataset.layers=layers;
+  haloLevel=layers;syncHalo();
+  q('#mr-degree-label').textContent=full?'احتجت شرحًا للخطوة كاملة':`تلميح من الدرجة ${['','الأولى','الثانية','الثالثة'][degree]}`;
+  q('#mr-degree-detail').textContent=full?'شاهدت طريقة تنفيذ الخطوة كاملة.':['','إشارة للمكان وسؤال يوجّه تفكيرك.','تلميح أوضح يقرّبك من الإجراء.','تلميح مباشر يحدّد الإجراء أكثر.'][degree];
+  q('#mr-count').textContent=ar(state.count);q('#mr-count-input').value=state.count;
+  q('#mr-count-detail').textContent=full?'الشرح الكامل يجعل العدّاد بنفسجيًا':state.count>=4?'اللون ثابت من ٤، والعدد يستمر':state.count===1?'مرة واحدة':state.count===2?'مرتان':'٣ مرات';
+  q('#mr-need').textContent=['','مراجعة خفيفة','راجع هذه الخطوة','مراجعة مركّزة','أولوية مراجعة عالية','أولوية المراجعة الأعلى'][layers];
+  q('#mr-pyramid-title').textContent=`احتياج المراجعة: ${layers} طبقات من 5؛ مؤشر تجريبي`;
+  const fills=['#ffe33b','#ffc12e','#ff9b27','#ff773f','#ff4d62'];
+  root.querySelectorAll('[data-layer]').forEach(p=>{const i=+p.dataset.layer;p.style.fill=i<=layers?fills[i-1]:'#383a36';});
+  root.querySelectorAll('.mr-signal b').forEach((b,i)=>b.style.opacity=i<degree?'1':'.18');
+  root.querySelectorAll('[data-level]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.level===state.level)));
+  q('#mr-next-copy').textContent=full?'ارجع للخطوة وفسّر سببها، ثم جرّب تنفيذها دون فتح الشرح.':'أعد تنفيذ الخطوة، وحاول قبل فتح التلميح.';
+  q('#mr-minus').disabled=state.count===1;q('#mr-plus').disabled=state.count===99;
+ }
+ function save(){render();window.openai?.setWidgetState?.({modelContent:{level:state.level,count:state.count,preview:'مؤشر احتياج المراجعة؛ بيانات توضيحية'},privateContent:{haloPlaying}})?.catch(()=>{});}
+ if(typeof window.openai?.widgetState?.privateContent?.haloPlaying==='boolean')haloPlaying=window.openai.widgetState.privateContent.haloPlaying&&!reduced.matches;
+ haloButton.onclick=()=>{haloPlaying=!haloPlaying;save();};
+ replayButton.onclick=()=>{introStart=haloTime;firstDischarge=false;discharges=[];haloPlaying=true;save();};
+ new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;syncHalo();}).observe(root);
+ document.addEventListener('visibilitychange',syncHalo);
+ reduced.addEventListener('change',()=>{haloPlaying=!reduced.matches;syncHalo();});
+ new ResizeObserver(resizeScene).observe(stage);
+ root.querySelectorAll('[data-level]').forEach(b=>b.addEventListener('click',()=>{state.level=b.dataset.level;save();}));
+ q('#mr-minus').onclick=()=>{state.count=Math.max(1,state.count-1);save();};q('#mr-plus').onclick=()=>{state.count=Math.min(99,state.count+1);save();};
+ q('#mr-count-input').addEventListener('change',e=>{state.count=Math.max(1,Math.min(99,Math.round(Number(e.target.value)||1)));save();});
+ window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){const saved=e.detail.globals.widgetState;restore(saved);if(typeof saved.privateContent?.haloPlaying==='boolean')haloPlaying=saved.privateContent.haloPlaying&&!reduced.matches;render();}});
+ render();
+})();
+</script>
+

@@ -1,0 +1,68 @@
+/* Homepage announcements: approved scenes, one shared set of controls. */
+#madar-updates{--update-ink:#ef798d;--update-edge:#804653;--update-bg:#21151c;--peek-bg:#b97588;--peek-arrow:#441f2c;margin:24px 0 38px;color:#f4eee3;min-width:0}
+#madar-updates[data-tint=excel]{--update-ink:#54d49a;--update-edge:#3a795d;--update-bg:#13241e;--peek-bg:#91c9a7;--peek-arrow:#15482f}
+#madar-updates[data-tint=connected]{--update-ink:#dcc192;--update-edge:#8a7656;--update-bg:#1b202a;--peek-bg:#d0b78b;--peek-arrow:#463922}
+#madar-updates .updates-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+#madar-updates .updates-kicker{color:#bcb5bc;font-size:.75rem}
+#madar-updates #updates-heading{font-size:clamp(1.65rem,3vw,2.2rem);color:#f0d29d;line-height:1.6;margin:0;font-weight:600}
+#madar-updates .updates-play,#madar-updates .updates-replay,#madar-updates .updates-prev{min-height:44px;background:#211e28;border:1px solid #6b5b50;border-radius:9px;color:#f0d8b0;font:inherit;font-size:.8rem;padding:8px 14px}
+#madar-updates .updates-frame{position:relative;padding-left:54px;min-width:0}
+#madar-updates .update-slide{padding:0;font-family:inherit}
+#madar-updates .update-slide[hidden],#madar-updates .preview-controls,#madar-updates .next-peek,#madar-updates .next-slide{display:none!important}
+#madar-updates .madar-shell{padding:0;background:none;overflow:visible}
+#madar-updates .carousel-frame{padding:0;overflow:visible}
+#madar-updates .announcement{background:var(--update-bg);border-color:var(--update-edge);border-top-color:var(--update-ink);box-shadow:inset -2px 0 0 color-mix(in srgb,var(--update-ink) 18%,transparent);min-height:490px;padding:28px;gap:28px;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+#madar-updates .announcement h2{font-size:clamp(1.7rem,3.4vw,3.3rem);line-height:1.5;margin:10px 0 16px}
+#madar-updates .announcement p{line-height:1.9}
+#madar-updates .copy{align-self:center;min-width:0}
+#madar-updates .scene{min-width:0;touch-action:pan-y}
+#madar-updates .scene svg{width:20px;height:20px}
+#madar-updates .demo-pointer svg{width:26px;height:26px}
+#madar-updates .scene-toggle{cursor:pointer;touch-action:pan-y}
+#madar-updates .scene-toggle:focus-visible{outline:2px solid var(--update-ink);outline-offset:4px}
+#madar-updates .identity{display:flex;font-size:14px;margin-bottom:16px}
+#madar-updates .approved-access-icon:before,#madar-updates .approved-excel-icon:before{display:none}
+#madar-updates .updates-next{position:absolute;left:0;top:18px;bottom:18px;width:44px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;border:1px solid var(--update-ink);border-radius:12px;background:var(--peek-bg);color:var(--peek-arrow);overflow:hidden;cursor:pointer;isolation:isolate}
+#madar-updates .updates-next svg{width:34px;height:34px;stroke:currentColor;fill:none;stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:1}
+#madar-updates .updates-next>span:last-child{font-size:11px;position:relative;z-index:1}
+#madar-updates .peek-orbit{position:absolute;width:135px;height:220px;border:1px solid #ffffff4d;border-radius:50%;transform:rotate(32deg);pointer-events:none}
+#madar-updates .peek-orbit:after{content:'';position:absolute;inset:15px;border:1px solid #ffffff38;border-radius:50%}
+#madar-updates .updates-next:after{content:'';position:absolute;inset:-40%;background:linear-gradient(110deg,transparent 35%,#fff8 50%,transparent 65%);transform:translateX(130%);pointer-events:none}
+#madar-updates.updates-changing .updates-next{animation:updates-peek .85s ease both}
+#madar-updates.updates-changing .updates-next:after{animation:updates-sheen .85s ease both}
+#madar-updates.updates-changing .update-slide:not([hidden]){animation:updates-enter .65s ease both}
+#madar-updates .updates-footer{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+#madar-updates .updates-dots{display:flex;gap:3px}
+#madar-updates .updates-dots button{width:44px;min-height:44px;border:0;background:transparent;padding:10px;display:grid;place-items:center}
+#madar-updates .updates-dots span{display:block;width:8px;height:8px;border-radius:10px;background:#716570;transition:width .2s,background .2s}
+#madar-updates .updates-dots [aria-current=true] span{width:24px;background:var(--update-ink)}
+#madar-updates .updates-count{color:#c2b5bf;font-size:.8rem;direction:ltr}
+#madar-updates .updates-replay{margin-inline-start:auto}
+#madar-updates .updates-progress{height:2px;background:#3b303c;margin-top:8px;overflow:hidden;border-radius:2px}
+#madar-updates .updates-progress span{display:block;height:100%;background:var(--update-ink)}
+@keyframes updates-peek{0%,100%{transform:none}30%{transform:translateX(4px) scale(.96)}60%{transform:translateX(-4px) scale(1.015)}}
+@keyframes updates-sheen{to{transform:translateX(-130%)}}
+@keyframes updates-enter{from{opacity:.4;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@media(max-width:700px){#madar-updates{margin-top:18px}#madar-updates .announcement{grid-template-columns:1fr;min-height:0;padding:22px 16px;gap:22px}#madar-updates .announcement h2{font-size:27px;line-height:1.4}#madar-updates .announcement h2 br{display:none}#madar-updates .announcement p{font-size:14px;margin-bottom:14px}#madar-updates .identity{margin-bottom:10px}#madar-updates .updates-play{padding:8px 10px;white-space:nowrap}#madar-updates .updates-header{gap:8px}#madar-updates .updates-frame{padding-left:48px}#madar-updates .updates-footer{gap:3px}#madar-updates .updates-replay{padding:8px;font-size:11px}#madar-updates .updates-prev{padding:8px 11px}#madar-updates .updates-dots{gap:0}#madar-updates .updates-dots button{width:36px;padding:8px}#madar-updates .updates-count{font-size:11px}}
+@media(prefers-reduced-motion:reduce){#madar-updates *,#madar-updates *:before,#madar-updates *:after{animation:none!important;transition:none!important}}
+:root[data-appearance=light] #madar-updates .updates-header h2{color:#463922}
+/* Match the compact preview rhythm without inheriting page-wide prose spacing. */
+#madar-updates .update-slide{line-height:1.5}
+#madar-updates .updates-header>div{min-width:0}
+#madar-updates .updates-header h2{white-space:normal}
+#madar-updates .updates-footer{padding:8px 0 0;border:0}
+#madar-updates .updates-footer>*{margin-bottom:0}
+#madar-updates .new-tag{margin-bottom:10px}
+#madar-updates .scene .guide{min-height:0}
+#madar-updates .scene .guide strong{line-height:1.5}
+#madar-updates .scene .guide div>span{line-height:1.5}
+@media(max-width:700px){
+ #madar-updates .updates-header{align-items:flex-start;flex-wrap:wrap}
+ #madar-updates #updates-heading{font-size:24px}
+ #madar-updates .announcement{padding:18px 12px;gap:18px}
+ #madar-updates .announcement h2{font-size:24px;margin:8px 0 12px}
+ #madar-updates .announcement p{font-size:13px;line-height:1.7}
+ #madar-updates .identity{font-size:12px;margin-bottom:8px}
+ #madar-updates .discover{padding:10px 12px;font-size:13px}
+ #madar-updates .updates-play{font-size:11px;min-height:40px}
+}

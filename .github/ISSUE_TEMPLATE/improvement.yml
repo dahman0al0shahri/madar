@@ -1,0 +1,16 @@
+name: Improvement proposal
+description: Propose a focused learning, usability, or development improvement.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem should this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed improvement
+      description: Describe the benefit, the smallest useful change, and alternatives where relevant.
+    validations:
+      required: true

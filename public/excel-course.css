@@ -1,0 +1,56 @@
+[hidden]{display:none!important}
+body:is([data-view="excel"],[data-view="access"]) #main{min-width:0}
+body:is([data-view="excel"],[data-view="access"]) .divider{color:inherit}
+.lab-grid button[data-cell]{width:100%;min-height:44px;padding:8px;border-radius:3px}
+.lab-grid button[data-cell][aria-pressed="true"]{outline:2px solid currentColor;outline-offset:-3px}
+body:is([data-view="excel"],[data-view="access"]) .shell{display:grid;max-width:1640px}
+body:is([data-view="excel"],[data-view="access"]) #sidebar{display:block}
+body:is([data-view="excel"],[data-view="access"]) #main{max-width:none;margin:0;width:100%}
+:is(#excel-toggle-index,#access-toggle-index){display:none}
+@media(max-width:1080px){:is(#excel-toggle-index,#access-toggle-index){display:inline-flex;min-height:44px}}
+body:is([data-view="excel"],[data-view="access"]) .unit-collection{margin-top:24px}
+body:is([data-view="excel"],[data-view="access"]) .unit-n{font-size:1.1rem}
+body:is([data-view="excel"],[data-view="access"]) .reading p{white-space:normal;overflow-wrap:anywhere;line-height:1.95}
+body:is([data-view="excel"],[data-view="access"]) .table-wrap{max-width:100%;overflow:auto}
+body:is([data-view="excel"],[data-view="access"]) table{border-collapse:collapse;width:100%}
+body:is([data-view="excel"],[data-view="access"]) td,body:is([data-view="excel"],[data-view="access"]) th{padding:12px;border:1px solid var(--line,#60565f);text-align:start;min-width:100px}
+.excel-search{max-width:640px;margin-top:24px}
+.excel-answer{padding:16px;margin:12px 0;border:1px solid var(--line,#60565f);border-radius:10px;align-items:flex-start}
+.excel-answer input{flex-shrink:0;margin-top:6px}
+.excel-lab .field{min-width:0}
+.excel-lab input,.excel-lab select,:is(#quiz-form,#excel-quiz-form,#access-quiz-form) select{width:100%;max-width:100%;min-width:0}
+.excel-lab .form-grid{gap:18px;margin-block:24px}
+.lab-task{font-weight:700}
+.lab-formula{display:flex;gap:16px;padding:15px;border:1px solid var(--line,#60565f);margin-top:24px;min-width:0}
+.lab-formula code{white-space:pre-wrap;overflow-wrap:anywhere;min-width:0}
+.lab-grid{margin-block:16px}
+.lab-grid table{table-layout:fixed;min-width:340px}
+.lab-grid th,.lab-grid td{text-align:center!important}
+.lab-grid .lab-highlight{background:#ecd38e!important;color:#302513!important}
+.lab-grid .lab-blue{background:#b4d7ee!important;color:#152d40!important}
+.lab-grid .lab-bold{font-weight:800;text-decoration:underline}
+.lab-output{margin-top:20px}
+body:is([data-view="excel"],[data-view="access"]) .reading{grid-template-columns:minmax(0,1fr)}
+body:is([data-view="excel"],[data-view="access"]) .reading>*,.excel-lab,.lab-preview,.lab-output{min-width:0;max-width:100%}
+body:is([data-view="excel"],[data-view="access"]) .formula{display:inline-block;max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;unicode-bidi:isolate}
+@media(max-width:650px){.excel-lab .form-grid{grid-template-columns:minmax(0,1fr)}body:is([data-view="excel"],[data-view="access"]) .lesson-heading h1{overflow-wrap:anywhere}body:is([data-view="excel"],[data-view="access"]) .unit-collection{grid-template-columns:minmax(0,1fr)}}
+
+/* Subject selection inside Test yourself; existing quizzes are reused. */
+.quiz-subjects{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px}
+.quiz-subjects .button{flex:1 1 160px;min-width:0;text-align:center;white-space:normal}
+.quiz-subjects [aria-current="page"]{font-weight:800}
+
+.mistake-card{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 0;border-bottom:1px solid var(--line,#584858)}
+.mistake-card>div{min-width:0}.mistake-card h3{overflow-wrap:anywhere}.mistake-card>button{flex-shrink:0}
+body[data-view="mistakes"] .formula{display:inline-block;max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;unicode-bidi:isolate}
+@media(max-width:650px){.mistake-card{align-items:stretch;flex-direction:column}}
+
+/* Shared study tabs: consistent touch targets and wrapping at narrow widths. */
+.quiz-subjects .button{margin:0!important;display:flex;align-items:center;justify-content:center;min-height:48px}
+body:is([data-view="quiz"],[data-view="mistakes"],[data-view="saved"],[data-view="session"],[data-view="results"]) :is(fieldset,.field,.check>span,.option>span){min-width:0;max-width:100%}
+body:is([data-view="quiz"],[data-view="mistakes"],[data-view="saved"],[data-view="session"],[data-view="results"]) :is(.formula,h2,h3,.chip,.bottom-actions a,.bottom-actions button){overflow-wrap:anywhere;white-space:normal}
+@media(max-width:650px){body:is([data-view="quiz"],[data-view="mistakes"],[data-view="saved"],[data-view="session"],[data-view="results"]) .bottom-actions{align-items:stretch}body:is([data-view="quiz"],[data-view="mistakes"],[data-view="saved"],[data-view="session"],[data-view="results"]) .bottom-actions>:is(a,button){max-width:100%;min-height:44px}}
+
+body[data-view="access"] .reading p{white-space:pre-line}
+
+body[data-view="excel"] .lesson-steps{padding-inline-start:1.7em;line-height:1.95;overflow-wrap:anywhere}body[data-view="excel"] .lesson-steps li{padding-inline-start:.25em;margin:.9em 0}

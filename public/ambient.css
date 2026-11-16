@@ -1,0 +1,23 @@
+/* Continuous, slow motion around the content; text and controls remain still. */
+.space-stars{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}.space-star{position:absolute;display:block;width:var(--size);height:var(--size);border-radius:50%;background:var(--star-color);box-shadow:0 0 7px var(--star-color),0 0 15px #d9ddff66;opacity:var(--peak);animation:space-twinkle var(--period) ease-in-out var(--phase) infinite;pointer-events:none}.space-star-near{box-shadow:0 0 9px var(--star-color),0 0 23px #e7d4ad88}.space-star-near:before,.space-star-near:after{content:'';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:linear-gradient(transparent,var(--star-color),#fff,var(--star-color),transparent);width:1px;height:calc(var(--size)*4.5)}.space-star-near:after{transform:translate(-50%,-50%) rotate(90deg)}
+@keyframes space-twinkle{0%,100%{opacity:calc(var(--peak)*.38);transform:scale(.85)}45%{opacity:var(--peak);transform:scale(1.2)}65%{opacity:calc(var(--peak)*.72);transform:scale(1)}}
+body{position:relative;isolation:isolate}.space-stars{position:fixed;z-index:-1}.space-star{box-shadow:0 0 5px var(--star-color),0 0 10px #d9ddff44}.space-star-near{box-shadow:0 0 6px var(--star-color),0 0 13px #e7d4ad55}.space-star-near:before,.space-star-near:after{height:calc(var(--size)*3);width:.7px}
+/* Opaque surfaces cover the sky; it is visible only on the common dark canvas. */
+.opening-stage{background-color:#15141e}.workspace-bar .ambient-toggle{margin-inline-start:0}
+body[data-sky-running=false] .space-star{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){.space-star{animation:none!important;opacity:calc(var(--peak)*.6)}}
+.ambient-toggle{min-height:30px;padding:5px 13px;font-size:.65rem;border-radius:24px;background:#302732c9;border:1px solid #725662;color:#eed9b8;white-space:nowrap}.ambient-toggle:hover{background:#493644;border-color:#c29998}.ambient-toggle:disabled{opacity:.75;cursor:default}.celebration-controls{height:auto;min-height:40px;flex-wrap:wrap;padding-inline:15px;gap:7px 14px}
+.ambient-star{transform-box:fill-box;transform-origin:center;animation:star-float var(--duration,8s) ease-in-out var(--delay,0s) infinite alternate}
+.ambient-ribbon{animation:ribbon-breathe 9s ease-in-out var(--delay,0s) infinite alternate;transform-box:fill-box;transform-origin:center}
+.ribbon-glint{stroke-dasharray:48 952;animation:ribbon-light 11s linear var(--delay,0s) infinite;opacity:.8}
+.ambient-burst{animation:burst-breathe 7s ease-in-out var(--delay,0s) infinite alternate;transform-box:fill-box;transform-origin:center}
+.opening-emblem>span{animation:emblem-drift 8s ease-in-out infinite alternate}.opening-emblem{position:relative}.opening-emblem:before,.opening-emblem:after{animation:emblem-glow 6s ease-in-out infinite alternate}
+.opening-stage[data-ambient-running=false] .ambient-star,.opening-stage[data-ambient-running=false] .ambient-ribbon,.opening-stage[data-ambient-running=false] .ribbon-glint,.opening-stage[data-ambient-running=false] .ambient-burst,.opening-stage[data-ambient-running=false] .opening-emblem>span,.opening-stage[data-ambient-running=false] .opening-emblem:before,.opening-stage[data-ambient-running=false] .opening-emblem:after{animation-play-state:paused}
+@keyframes star-float{from{transform:translateY(-6px) rotate(-5deg)}to{transform:translateY(9px) rotate(7deg)}}
+@keyframes ribbon-breathe{from{transform:translateY(-3px) rotate(-.5deg)}to{transform:translateY(5px) rotate(.7deg)}}
+@keyframes ribbon-light{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+@keyframes burst-breathe{from{opacity:.24;transform:scale(.96)}to{opacity:.58;transform:scale(1.035)}}
+@keyframes emblem-drift{from{transform:rotate(-12deg) scale(.91)}to{transform:rotate(12deg) scale(1.05)}}
+@keyframes emblem-glow{from{opacity:.45}to{opacity:1}}
+@media(max-width:600px){.ambient-toggle{font-size:.59rem;padding:5px 10px;min-height:30px}.celebration-controls{gap:6px;margin-top:15px}.moment-label{flex-basis:100%;text-align:center}.ambient-star{animation-name:star-float-small}@keyframes star-float-small{from{transform:translateY(-3px) rotate(-4deg)}to{transform:translateY(5px) rotate(5deg)}}}
+@media(prefers-reduced-motion:reduce){.opening-stage .ambient-star,.opening-stage .ambient-ribbon,.opening-stage .ribbon-glint,.opening-stage .ambient-burst,.opening-stage .opening-emblem>span,.opening-stage .opening-emblem:before,.opening-stage .opening-emblem:after{animation:none!important}.ribbon-glint{display:none}}

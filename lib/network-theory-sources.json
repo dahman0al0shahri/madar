@@ -1,0 +1,1917 @@
+{
+  "network-theory-1-1": {
+    "sourceModule": 1,
+    "sourceSlides": [
+      {
+        "number": 11,
+        "text": [
+          "Module Objectives",
+          "Module Title: Basic Device Configuration",
+          "Module Objective: Configure devices using security best practices.",
+          "Topic Title",
+          "Topic Objective",
+          "Configure a Switch with Initial Settings",
+          "Configure initial settings on a Cisco switch.",
+          "Configure Switch Ports",
+          "Configure switch ports to meet network requirements.",
+          "Secure Remote Access",
+          "Configure secure management access on a switch.",
+          "Basic Router Configuration",
+          "Configure basic settings on a router to route between two directly-connected networks, using CLI.",
+          "Verify Directly Connected Networks",
+          "Verify connectivity between two networks that are directly connected to a router."
+        ],
+        "title": "Module Objectives",
+        "image": "/assets/network-sources/c1-11.webp"
+      },
+      {
+        "number": 12,
+        "text": [
+          "1.1 Configure a Switch with Initial Settings"
+        ],
+        "title": "1.1 Configure a Switch with Initial Settings",
+        "image": "/assets/network-sources/c1-12.webp"
+      },
+      {
+        "number": 13,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch Boot Sequence",
+          "After a Cisco switch is powered on, it goes through the following five-step boot sequence:",
+          "Step 1: First, the switch loads a power-on self-test (POST) program stored in ROM. POST checks the CPU subsystem. It tests the CPU, DRAM, and the portion of the flash device that makes up the flash file system.",
+          "Step 2: Next, the switch loads the boot loader software. The boot loader is a small program stored in ROM that is run immediately after POST successfully completes.",
+          "Step 3: The boot loader performs low-level CPU initialization. It initializes the CPU registers, which control where physical memory is mapped, the quantity of memory, and its speed.",
+          "Step 4: The boot loader initializes the flash file system on the system board.",
+          "Step 5: Finally, the boot loader locates and loads a default IOS operating system software image into memory and gives control of the switch over to the IOS."
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch Boot Sequence",
+        "image": "/assets/network-sources/c1-13.webp"
+      },
+      {
+        "number": 14,
+        "text": [
+          "Configure a Switch with Initial SettingsThe boot system Command",
+          "The switch attempts to automatically boot by using information in the BOOT environment variable. If this variable is not set, the switch attempts to load and execute the first executable file it can find.",
+          "The IOS operating system then initializes the interfaces using the Cisco IOS commands found in the startup-config file. The startup-config file is called config.text and is located in flash.",
+          "In the example, the BOOT environment variable is set using the boot system global configuration mode command. Notice that the IOS is located in a distinct folder and the folder path is specified. Use the command show boot to see what the current IOS boot file is set to.",
+          "Command",
+          "Definition",
+          "boot system",
+          "The main command",
+          "flash: ",
+          "The storage device",
+          "c2960-lanbasek9-mz.150-2.SE/",
+          "The path to the file system",
+          "c2960-lanbasek9-mz.150-2.SE.bin",
+          "The IOS file name"
+        ],
+        "title": "Configure a Switch with Initial SettingsThe boot system Command",
+        "image": "/assets/network-sources/c1-14.webp"
+      },
+      {
+        "number": 15,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch LED Indicators",
+          "System LED (SYST): Shows whether the system is receiving power and functioning properly. ",
+          "Redundant Power Supply LED (RPS): Shows the RPS status.",
+          "Port Status LED (STAT): When green, indicates port status mode is selected, which is the default. Port status can then be understood by the light associated with each port.",
+          "Port Duplex LED (DUPLX): When green, indicates port duplex mode is selected. Port duplex can then be understood by the light associated with each port.",
+          "Port Speed LED (SPEED): When green, indicates port speed mode is selected. Port speed can then be understood by the light associated with each port.",
+          "Power over Ethernet LED (PoE): Present if the switch supports PoE. Indicates the PoE status of ports on the switch.",
+          "The Mode button is used to move between the different modes – STAT, DUPLX, SPEED, and PoE"
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch LED Indicators",
+        "image": "/assets/network-sources/c1-15.webp"
+      },
+      {
+        "number": 16,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch LED Indicators (Cont.)",
+          "Off",
+          "Green",
+          "Blinking Green",
+          "Amber",
+          "Blinking Amber",
+          "Alternating Green/Amber",
+          "RPS",
+          "Off/No RPS",
+          "RPS ready",
+          "RPS up but not available",
+          "RPS standby or fault",
+          "Internal PS failed, RPS providing power",
+          "N/A",
+          "PoE",
+          "Not selected, no issues",
+          "Selected",
+          "N/A",
+          "N/A",
+          "Not selected, port issues present",
+          "N/A",
+          "When the named mode is selected, the light associated with each physical port indicates:",
+          "STAT",
+          "No link or shutdown",
+          "Link Up",
+          "Activity",
+          "Port blocked preventing loop",
+          "Port blocked preventing loop",
+          "Link fault",
+          "DUPLEX",
+          "Half-duplex",
+          "Full-duplex",
+          "N/A",
+          "N/A",
+          "N/A",
+          "N/A",
+          "SPEED",
+          "10Mbps",
+          "100Mbps",
+          "1000Mbps",
+          "N/A",
+          "N/A",
+          "N/A",
+          "PoE",
+          "PoE off",
+          "PoE on",
+          "N/A",
+          "PoE disabled",
+          "PoE off due to fault",
+          "PoE denied (over budget)"
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch LED Indicators (Cont.)",
+        "image": "/assets/network-sources/c1-16.webp"
+      },
+      {
+        "number": 17,
+        "text": [
+          "Configure a Switch with Initial SettingsRecovering from a System Crash",
+          "The boot loader provides access into the switch if the operating system cannot be used because of missing or damaged system files. The boot loader has a command line that provides access to the files stored in flash memory. The boot loader can be accessed through a console connection following these steps:",
+          "Step 1. Connect a PC by console cable to the switch console port. Configure terminal emulation software to connect to the switch.",
+          "Step 2. Unplug the switch power cord.",
+          "Step 3. Reconnect the power cord to the switch and, within 15 seconds, press and hold down the Mode button while the System LED is still flashing green.",
+          "Step 4. Continue pressing the Mode button until the System LED turns briefly amber and then solid green; then release the Mode button.",
+          "Step 5. The boot loader switch: prompt appears in the terminal emulation software on the PC.",
+          "The boot loader command line supports commands to format the flash file system, reinstall the operating system software, and recover a lost or forgotten password. For example, the dir command can be used to view a list of files within a specified directory."
+        ],
+        "title": "Configure a Switch with Initial SettingsRecovering from a System Crash",
+        "image": "/assets/network-sources/c1-17.webp"
+      },
+      {
+        "number": 18,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch Management Access",
+          "To prepare a switch for remote management access, the switch must be configured with an IP address and a subnet mask. ",
+          "To manage the switch from a remote network, the switch must be configured with a default gateway. This is very similar to configuring the IP address information on host devices. ",
+          "In the figure, the switch virtual interface (SVI) on S1 should be assigned an IP address. The SVI is a virtual interface, not a physical port on the switch. A console cable is used to connect to a PC so that the switch can be initially configured."
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch Management Access",
+        "image": "/assets/network-sources/c1-18.webp"
+      },
+      {
+        "number": 19,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch SVI Configuration Example",
+          "By default, the switch is configured to have its management controlled through VLAN 1. All ports are assigned to VLAN 1 by default. For security purposes, it is considered a best practice to use a VLAN other than VLAN 1 for the management VLAN,",
+          "Step 1: Configure the Management Interface: From VLAN interface configuration mode, an IPv4 address and subnet mask is applied to the management SVI of the switch.",
+          "Note: The SVI for VLAN 99 will not appear as “up/up” until VLAN 99 is created and there is a device connected to a switch port associated with VLAN 99.",
+          "Note: The switch may need to be configured for IPv6. For example, before you can configure IPv6 addressing on a Cisco Catalyst 2960 running IOS version 15.0, you will need to enter the global configuration command sdm prefer dual-ipv4-and-ipv6 default and then reload the switch."
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch SVI Configuration Example",
+        "image": "/assets/network-sources/c1-19.webp"
+      },
+      {
+        "number": 20,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch SVI Configuration Example (Cont.)",
+          "Task",
+          "IOS Commands",
+          "Enter global configuration mode.",
+          "S1# configure terminal",
+          "Enter interface configuration mode for the SVI.",
+          "S1(config)# interface vlan 99",
+          "Configure the management interface IPv4 address.",
+          "S1(config-if)# ip address 172.17.99.11 255.255.255.0",
+          "Configure the management interface IPv6 address",
+          "S1(config-if)# ipv6 address 2001:db8:acad:99::1/64",
+          "Enable the management interface.",
+          "S1(config-if)# no shutdown",
+          "Return to the privileged EXEC mode.",
+          "S1(config-if)# end",
+          "Save the running config to the startup config.",
+          "S1# copy running-config startup-config"
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch SVI Configuration Example (Cont.)",
+        "image": "/assets/network-sources/c1-20.webp"
+      },
+      {
+        "number": 21,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch SVI Configuration Example (Cont.)",
+          "Step 2: Configure the Default Gateway",
+          "The switch should be configured with a default gateway if it will be managed remotely from networks that are not directly connected.",
+          "Note: Because, it will receive its default gateway information from a router advertisement (RA) message, the switch does not require an IPv6 default gateway.",
+          "Task",
+          "IOS Commands",
+          "Enter global configuration mode.",
+          "S1# configure terminal",
+          "Configure the default gateway for the switch.",
+          "S1(config)# ip default-gateway 172.17.99.1",
+          "Return to the privileged EXEC mode.",
+          "S1(config-if)# end",
+          "Save the running config to the startup config.",
+          "S1# copy running-config startup-config"
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch SVI Configuration Example (Cont.)",
+        "image": "/assets/network-sources/c1-21.webp"
+      },
+      {
+        "number": 22,
+        "text": [
+          "Configure a Switch with Initial SettingsSwitch SVI Configuration Example (Cont.)",
+          "Step 3: Verify Configuration",
+          "The show ip interface brief and show ipv6 interface brief commands are useful for determining the status of both physical and virtual interfaces. The output shown confirms that interface VLAN 99 has been configured with an IPv4 and IPv6 address.",
+          "Note: An IP address applied to the SVI is only for remote management access to the switch; this does not allow the switch to route Layer 3 packets."
+        ],
+        "title": "Configure a Switch with Initial SettingsSwitch SVI Configuration Example (Cont.)",
+        "image": "/assets/network-sources/c1-22.webp"
+      },
+      {
+        "number": 23,
+        "text": [
+          "Configure a Switch with Initial SettingsLab – Basic Switch Configuration",
+          "In this lab, you will complete the following objectives:",
+          "Part 1: Cable the Network and Verify the Default Switch Configuration",
+          "Part 2: Configure Basic Network Device Settings",
+          "Part 3: Verify and Test Network Connectivity",
+          "Part 4: Manage the MAC Address Table"
+        ],
+        "title": "Configure a Switch with Initial SettingsLab – Basic Switch Configuration",
+        "image": "/assets/network-sources/c1-23.webp"
+      }
+    ],
+    "range": "11–23"
+  },
+  "network-theory-1-2": {
+    "sourceModule": 1,
+    "sourceSlides": [
+      {
+        "number": 24,
+        "text": [
+          "1.2 Configure Switch Ports"
+        ],
+        "title": "1.2 Configure Switch Ports",
+        "image": "/assets/network-sources/c1-24.webp"
+      },
+      {
+        "number": 25,
+        "text": [
+          "Configure Switch PortsDuplex Communication",
+          "Full-duplex communication increases bandwidth efficiency by allowing both ends of a connection to transmit and receive data simultaneously. This is also known as bidirectional communication and it requires microsegmentation. ",
+          "A microsegmented LAN is created when a switch port has only one device connected and is operating in full-duplex mode. There is no collision domain associated with a switch port operating in full-duplex mode.",
+          "Unlike full-duplex communication, half-duplex communication is unidirectional. Half-duplex communication creates performance issues because data can flow in only one direction at a time, often resulting in collisions.",
+          "Gigabit Ethernet and 10 Gb NICs require full-duplex connections to operate. In full-duplex mode, the collision detection circuit on the NIC is disabled. Full-duplex offers 100 percent efficiency in both directions (transmitting and receiving). This results in a doubling of the potential use of the stated bandwidth."
+        ],
+        "title": "Configure Switch PortsDuplex Communication",
+        "image": "/assets/network-sources/c1-25.webp"
+      },
+      {
+        "number": 26,
+        "text": [
+          "Configure Switch PortsConfigure Switch Ports at the Physical Layer",
+          "Switch ports can be manually configured with specific duplex and speed settings. The respective interface configuration commands are duplex and speed.",
+          "The default setting for both duplex and speed for switch ports on Cisco Catalyst 2960 and 3560 switches is auto. The 10/100/1000 ports operate in either half- or full-duplex mode when they are set to 10 or 100 Mbps and operate only in full-duplex mode when it is set to 1000 Mbps (1 Gbps). ",
+          "Autonegotiation is useful when the speed and duplex settings of the device connecting to the port are unknown or may change. When connecting to known devices such as servers, dedicated workstations, or network devices, a best practice is to manually set the speed and duplex settings.",
+          "When troubleshooting switch port issues, it is important that the duplex and speed settings are checked.",
+          "Note: Mismatched settings for the duplex mode and speed of switch ports can cause connectivity issues. Autonegotiation failure creates mismatched settings.",
+          "All fiber-optic ports, such as 1000BASE-SX ports, operate only at one preset speed and are always full-duplex"
+        ],
+        "title": "Configure Switch PortsConfigure Switch Ports at the Physical Layer",
+        "image": "/assets/network-sources/c1-26.webp"
+      },
+      {
+        "number": 27,
+        "text": [
+          "Configure Switch PortsConfigure Switch Ports at the Physical Layer (Cont.)",
+          "Task",
+          "IOS Commands",
+          "Enter global configuration mode.",
+          "S1# configure terminal",
+          "Enter interface configuration mode.",
+          "S1(config)# interface FastEthernet 0/1",
+          "Configure the interface duplex.",
+          "S1(config-if)# duplex full",
+          "Configure the interface speed.",
+          "S1(config-if)# speed 100",
+          "Return to the privileged EXEC mode.",
+          "S1(config-if)# end",
+          "Save the running config to the startup config.",
+          "S1# copy running-config startup-config"
+        ],
+        "title": "Configure Switch PortsConfigure Switch Ports at the Physical Layer (Cont.)",
+        "image": "/assets/network-sources/c1-27.webp"
+      },
+      {
+        "number": 28,
+        "text": [
+          "Configure Switch PortsAuto-MDIX",
+          "When automatic medium-dependent interface crossover (auto-MDIX) is enabled, the switch interface automatically detects the required cable connection type (straight-through or crossover) and configures the connection appropriately. ",
+          "When connecting to switches without the auto-MDIX feature, straight-through cables must be used to connect to devices such as servers, workstations, or routers. Crossover cables must be used to connect to other switches or repeaters.",
+          "With auto-MDIX enabled, either type of cable can be used to connect to other devices, and the interface automatically adjusts to communicate successfully. ",
+          "On newer Cisco switches, the mdix auto interface configuration mode command enables the feature. When using auto-MDIX on an interface, the interface speed and duplex must be set to auto so that the feature operates correctly.",
+          "Note: The auto-MDIX feature is enabled by default on Catalyst 2960 and Catalyst 3560 switches but is not available on the older Catalyst 2950 and Catalyst 3550 switches.",
+          "To examine the auto-MDIX setting for a specific interface, use the show controllers ethernet-controller command with the phy keyword. To limit the output to lines referencing auto-MDIX, use the include Auto-MDIX filter. "
+        ],
+        "title": "Configure Switch PortsAuto-MDIX",
+        "image": "/assets/network-sources/c1-28.webp"
+      },
+      {
+        "number": 29,
+        "text": [
+          "Configure Switch PortsSwitch Verification Commands",
+          "Task",
+          "IOS Commands",
+          "Display interface status and configuration.",
+          "S1# show interfaces [interface-id]",
+          "Display current startup configuration.",
+          "S1# show startup-config",
+          "Display current running configuration.",
+          "S1# show running-config",
+          "Display information about flash file system.",
+          "S1# show flash",
+          "Display system hardware and software status.",
+          "S1# show version",
+          "Display history of command entered.",
+          "S1# show history",
+          "Display IP information about an interface.",
+          "S1# show ip interface [interface-id]",
+          "OR",
+          "S1# show ipv6 interface [interface-id]",
+          "Display the MAC address table.",
+          "S1# show mac-address-table",
+          "OR",
+          "S1# show mac address-table"
+        ],
+        "title": "Configure Switch PortsSwitch Verification Commands",
+        "image": "/assets/network-sources/c1-29.webp"
+      },
+      {
+        "number": 30,
+        "text": [
+          "Configure Switch PortsVerify Switch Port Configuration",
+          "The show running-config command can be used to verify that the switch has been correctly configured. From the sample abbreviated output on S1, some important information is shown in the figure:",
+          "Fast Ethernet 0/18 interface configured with the management VLAN 99",
+          "VLAN 99 configured with an IPv4 address of 172.17.99.11 255.255.255.0",
+          "Default gateway set to 172.17.99.1"
+        ],
+        "title": "Configure Switch PortsVerify Switch Port Configuration",
+        "image": "/assets/network-sources/c1-30.webp"
+      },
+      {
+        "number": 31,
+        "text": [
+          "Configure Switch PortsVerify Switch Port Configuration (Cont.)",
+          "The show interfaces command is another commonly used command, which displays status and statistics information on the network interfaces of the switch. The show interfaces command is frequently used when configuring and monitoring network devices.",
+          "The first line of the output for the show interfaces fastEthernet 0/18 command indicates that the FastEthernet 0/18 interface is up/up, meaning that it is operational. Further down, the output shows that the duplex is full and the speed is 100 Mbps."
+        ],
+        "title": "Configure Switch PortsVerify Switch Port Configuration (Cont.)",
+        "image": "/assets/network-sources/c1-31.webp"
+      },
+      {
+        "number": 32,
+        "text": [
+          "Configure Switch PortsNetwork Access Layer Issues",
+          "The output from the show interfaces command is useful for detecting common media issues. One of the most important parts of this output is the display of the line and data link protocol status, as shown in the example.",
+          "The first parameter (FastEthernet0/18 is up) refers to the hardware layer and indicates whether the interface is receiving a carrier detect signal. The second parameter (line protocol is up) refers to the data link layer and indicates whether the data link layer protocol keepalives are being received. Based on the output of the show interfaces command, possible problems can be fixed as follows:",
+          "If the interface is up and the line protocol is down, a problem exists. There could be an encapsulation type mismatch, the interface on the other end could be error-disabled, or there could be a hardware problem.",
+          "If the line protocol and the interface are both down, a cable is not attached, or some other interface problem exists. For example, in a back-to-back connection, the other end of the connection may be administratively down.",
+          "If the interface is administratively down, it has been manually disabled (the shutdown command has been issued) in the active configuration."
+        ],
+        "title": "Configure Switch PortsNetwork Access Layer Issues",
+        "image": "/assets/network-sources/c1-32.webp"
+      },
+      {
+        "number": 33,
+        "text": [
+          "Configure Switch PortsNetwork Access Layer Issues (Cont.)",
+          "The show interfaces command output displays counters and statistics for the FastEthernet0/18 interface, as shown here:"
+        ],
+        "title": "Configure Switch PortsNetwork Access Layer Issues (Cont.)",
+        "image": "/assets/network-sources/c1-33.webp"
+      },
+      {
+        "number": 34,
+        "text": [
+          "Configure Switch PortsNetwork Access Layer Issues (Cont.)",
+          "Some media errors are not severe enough to cause the circuit to fail but do cause network performance issues. The table explains some of these common errors which can be detected using the show interfaces command.",
+          "Error Type",
+          "Description",
+          "Input Errors",
+          "Total number of errors. It includes runts, giants, no buffer, CRC, frame, overrun, and ignored counts.",
+          "Runts",
+          "Packets that are discarded because they are smaller than the minimum packet size for the medium. For instance, any Ethernet packet that is less than 64 bytes is considered a runt.",
+          "Giants",
+          "Packets that are discarded because they exceed the maximum packet size for the medium. For example, any Ethernet packet that is greater than 1,518 bytes is considered a giant.",
+          "CRC",
+          "CRC errors are generated when the calculated checksum is not the same as the checksum received.",
+          "Output Errors",
+          "Sum of all errors that prevented the final transmission of datagrams out of the interface that is being examined.",
+          "Collisions",
+          "Number of messages retransmitted because of an Ethernet collision.",
+          "Late Collisions",
+          "A collision that occurs after 512 bits of the frame have been transmitted"
+        ],
+        "title": "Configure Switch PortsNetwork Access Layer Issues (Cont.)",
+        "image": "/assets/network-sources/c1-34.webp"
+      },
+      {
+        "number": 35,
+        "text": [
+          "Configure Switch PortsInterface Input and Output Errors",
+          "“Input errors” is the sum of all errors in datagrams that were received on the interface being examined. This includes runts, giants, CRC, no buffer, frame, overrun, and ignored counts. The reported input errors from the show interfaces command include the following:",
+          "Runt Frames - Ethernet frames that are shorter than the 64-byte minimum allowed length are called runts. Malfunctioning NICs are the usual cause of excessive runt frames, but they can also be caused by collisions.",
+          "Giants - Ethernet frames that are larger than the maximum allowed size are called giants.",
+          "CRC errors - On Ethernet and serial interfaces, CRC errors usually indicate a media or cable error. Common causes include electrical interference, loose or damaged connections, or incorrect cabling. If you see many CRC errors, there is too much noise on the link and you should inspect the cable. You should also search for and eliminate noise sources."
+        ],
+        "title": "Configure Switch PortsInterface Input and Output Errors",
+        "image": "/assets/network-sources/c1-35.webp"
+      },
+      {
+        "number": 36,
+        "text": [
+          "Configure Switch PortsInterface Input and Output Errors (Cont.)",
+          "“Output errors” is the sum of all errors that prevented the final transmission of datagrams out the interface that is being examined. The reported output errors from the show interfaces command include the following:",
+          "Collisions - Collisions in half-duplex operations are normal. However, you should never see collisions on an interface configured for full-duplex communication.",
+          "Late collisions - A late collision refers to a collision that occurs after 512 bits of the frame have been transmitted. Excessive cable lengths are the most common cause of late collisions. Another common cause is duplex misconfiguration. "
+        ],
+        "title": "Configure Switch PortsInterface Input and Output Errors (Cont.)",
+        "image": "/assets/network-sources/c1-36.webp"
+      },
+      {
+        "number": 37,
+        "text": [
+          "Configure Switch PortsTroubleshooting Network Access Layer Issues",
+          "To troubleshoot scenarios involving no connection, or a bad connection, between a switch and another device, follow the general process shown in the figure."
+        ],
+        "title": "Configure Switch PortsTroubleshooting Network Access Layer Issues",
+        "image": "/assets/network-sources/c1-37.webp"
+      }
+    ],
+    "range": "24–37"
+  },
+  "network-theory-1-3": {
+    "sourceModule": 1,
+    "sourceSlides": [
+      {
+        "number": 38,
+        "text": [
+          "1.3 Secure Remote Access"
+        ],
+        "title": "1.3 Secure Remote Access",
+        "image": "/assets/network-sources/c1-38.webp"
+      },
+      {
+        "number": 39,
+        "text": [
+          "Secure Remote AccessTelnet Operation",
+          "Telnet uses TCP port 23. It is an older protocol that uses unsecure plaintext transmission of both the login authentication (username and password) and the data transmitted between the communicating devices.",
+          "A threat actor can monitor packets using Wireshark. For example, in the figure the threat actor captured the username admin and password ccna from a Telnet session. "
+        ],
+        "title": "Secure Remote AccessTelnet Operation",
+        "image": "/assets/network-sources/c1-39.webp"
+      },
+      {
+        "number": 40,
+        "text": [
+          "Secure Remote AccessSSH Operation",
+          "Secure Shell (SSH) is a secure protocol that uses TCP port 22. It provides a secure (encrypted) management connection to a remote device. SSH should replace Telnet for management connections. SSH provides security for remote connections by providing strong encryption when a device is authenticated (username and password) and also for the transmitted data between the communicating devices.",
+          "The figure shows a Wireshark capture of an SSH session. The threat actor can track the session using the IP address of the administrator device. However, unlike Telnet, with SSH the username and password are encrypted."
+        ],
+        "title": "Secure Remote AccessSSH Operation",
+        "image": "/assets/network-sources/c1-40.webp"
+      },
+      {
+        "number": 41,
+        "text": [
+          "Secure Remote AccessVerify the Switch Supports SSH",
+          "To enable SSH on a Catalyst 2960 switch, the switch must be using a version of the IOS software including cryptographic (encrypted) features and capabilities. Use the show version command on the switch to see which IOS the switch is currently running. An IOS filename that includes the combination “k9” supports cryptographic (encrypted) features and capabilities. ",
+          "The example shows the output of the show version command."
+        ],
+        "title": "Secure Remote AccessVerify the Switch Supports SSH",
+        "image": "/assets/network-sources/c1-41.webp"
+      },
+      {
+        "number": 42,
+        "text": [
+          "Secure Remote AccessConfigure SSH",
+          "Before configuring SSH, the switch must be minimally configured with a unique hostname and the correct network connectivity settings.",
+          "Step 1: Verify SSH support - Use the show ip ssh command to verify that the switch supports SSH. If the switch is not running an IOS that supports cryptographic features, this command is unrecognized.",
+          "Step 2: Configure the IP domain - Configure the IP domain name of the network using the ip domain-name domain-name global configuration mode command. ",
+          "Step 3: Generate RSA key pairs - Generating an RSA key pair automatically enables SSH. Use the crypto key generate rsa global configuration mode command to enable the SSH server on the switch and generate an RSA key pair. ",
+          "Note: To delete the RSA key pair, use the crypto key zeroize rsa global configuration mode command. After the RSA key pair is deleted, the SSH server is automatically disabled.",
+          "Step 4: Configure user authentication - The SSH server can authenticate users locally or using an authentication server. To use the local authentication method, create a username and password pair using the username username secret password global configuration mode command. ",
+          "Step 5: Configure the vty lines - Enable the SSH protocol on the vty lines by using the transport input ssh line configuration mode command. Use the line vty global configuration mode command and then the login local line configuration mode command to require local authentication for SSH connections from the local username database.",
+          "Step 6: Enable SSH version 2 - By default, SSH supports both versions 1 and 2. When supporting both versions, this is shown in the show ip ssh output as supporting version 2. Enable SSH version using the ip ssh version 2 global configuration command."
+        ],
+        "title": "Secure Remote AccessConfigure SSH",
+        "image": "/assets/network-sources/c1-42.webp"
+      },
+      {
+        "number": 43,
+        "text": [
+          "Secure Remote AccessVerify SSH is Operational",
+          "On a PC, an SSH client such as PuTTY, is used to connect to an SSH server. For example, assume the following is configured:",
+          "SSH is enabled on switch S1",
+          "Interface VLAN 99 (SVI) with IPv4 address 172.17.99.11 on switch S1",
+          "PC1 with IPv4 address 172.17.99.21",
+          "Using a terminal emulator, initiate an SSH connection to the SVI VLAN IPv4 address of S1 from PC1.",
+          "When connected, the user is prompted for a username and password as shown in the example. Using the configuration from the previous example, the username admin and password ccna are entered. After entering the correct combination, the user is connected via SSH to the command line interface (CLI) on the Catalyst 2960 switch."
+        ],
+        "title": "Secure Remote AccessVerify SSH is Operational",
+        "image": "/assets/network-sources/c1-43.webp"
+      },
+      {
+        "number": 44,
+        "text": [
+          "Secure Remote AccessVerify SSH is Operational (Cont.)",
+          "To display the version and configuration data for SSH on the device that you configured as an SSH server, use the show ip ssh command. In the example, SSH version 2 is enabled."
+        ],
+        "title": "Secure Remote AccessVerify SSH is Operational (Cont.)",
+        "image": "/assets/network-sources/c1-44.webp"
+      },
+      {
+        "number": 45,
+        "text": [
+          "Secure Remote AccessPacket Tracer – Configure SSH",
+          "In this Packet Tracer, you will do the following:",
+          "Secure passwords",
+          "Encrypt communications",
+          "Verify SSH implementation"
+        ],
+        "title": "Secure Remote AccessPacket Tracer – Configure SSH",
+        "image": "/assets/network-sources/c1-45.webp"
+      }
+    ],
+    "range": "38–45"
+  },
+  "network-theory-1-4": {
+    "sourceModule": 1,
+    "sourceSlides": [
+      {
+        "number": 46,
+        "text": [
+          "1.4 Basic Router Configuration"
+        ],
+        "title": "1.4 Basic Router Configuration",
+        "image": "/assets/network-sources/c1-46.webp"
+      },
+      {
+        "number": 47,
+        "text": [
+          "Basic Router ConfigurationConfigure Basic Router Settings",
+          "Cisco routers and Cisco switches have many similarities. They support a similar modal operating system, similar command structures, and many of the same commands. In addition, both devices have similar initial configuration steps. For example, the following configuration tasks should always be performed. Name the device to distinguish it from other routers and configure passwords, as shown in the example."
+        ],
+        "title": "Basic Router ConfigurationConfigure Basic Router Settings",
+        "image": "/assets/network-sources/c1-47.webp"
+      },
+      {
+        "number": 48,
+        "text": [
+          "Basic Router ConfigurationConfigure Basic Router Settings (Cont.)",
+          "Configure a banner to provide legal notification of unauthorized access, as shown in the example.",
+          "Save the changes on a router, as shown in the example."
+        ],
+        "title": "Basic Router ConfigurationConfigure Basic Router Settings (Cont.)",
+        "image": "/assets/network-sources/c1-48.webp"
+      },
+      {
+        "number": 49,
+        "text": [
+          "Basic Router ConfigurationDual Stack Topology",
+          "One distinguishing feature between switches and routers is the type of interfaces supported by each. For example, Layer 2 switches support LANs; therefore, they have multiple FastEthernet or Gigabit Ethernet ports. The dual stack topology in the figure is used to demonstrate the configuration of router IPv4 and IPv6 interfaces."
+        ],
+        "title": "Basic Router ConfigurationDual Stack Topology",
+        "image": "/assets/network-sources/c1-49.webp"
+      },
+      {
+        "number": 50,
+        "text": [
+          "Basic Router ConfigurationConfigure Router Interfaces",
+          "Routers support LANs and WANs and can interconnect different types of networks; therefore, they support many types of interfaces. For example, G2 ISRs have one or two integrated Gigabit Ethernet interfaces and High-Speed WAN Interface Card (HWIC) slots to accommodate other types of network interfaces, including serial, DSL, and cable interfaces.",
+          "To be available, an interface must be:",
+          "Configured with at least one IP address - Use the ip address ip-address subnet-mask and the ipv6 address ipv6-address/prefix interface configuration commands.",
+          "Activated - By default, LAN and WAN interfaces are not activated (shutdown). To enable an interface, it must be activated using the no shutdown command. (This is similar to powering on the interface.) The interface must also be connected to another device (a hub, a switch, or another router) for the physical layer to be active.",
+          "Description - Optionally, the interface could also be configured with a short description of up to 240 characters. It is good practice to configure a description on each interface. On production networks, the benefits of interface descriptions are quickly realized as they are helpful in troubleshooting and in identifying a third-party connection and contact information."
+        ],
+        "title": "Basic Router ConfigurationConfigure Router Interfaces",
+        "image": "/assets/network-sources/c1-50.webp"
+      },
+      {
+        "number": 51,
+        "text": [
+          "Basic Router ConfigurationConfigure Router Interfaces (Cont.)",
+          "The example shows the configure for the interfaces on R1:"
+        ],
+        "title": "Basic Router ConfigurationConfigure Router Interfaces (Cont.)",
+        "image": "/assets/network-sources/c1-51.webp"
+      },
+      {
+        "number": 52,
+        "text": [
+          "Basic Router ConfigurationIPv4 Loopback Interfaces",
+          "Another common configuration of Cisco IOS routers is enabling a loopback interface.",
+          "The loopback interface is a logical interface that is internal to the router. It is not assigned to a physical port and can never be connected to any other device. It is considered a software interface that is automatically placed in an “up” state, as long as the router is functioning.",
+          "The loopback interface is useful in testing and managing a Cisco IOS device because it ensures that at least one interface will always be available. For example, it can be used for testing purposes, such as testing internal routing processes, by emulating networks behind the router.",
+          "Loopback interfaces are also commonly used in lab environments to create additional interfaces. For example, you can create multiple loopback interfaces on a router to simulate more networks for configuration practice and testing purposes. The IPv4 address for each loopback interface must be unique and unused by any other interface. In this curriculum, we often use a loopback interface to simulate a link to the internet.",
+          "Enabling and assigning a loopback address is simple:",
+          "Router(config)# interface loopback number ",
+          "Router(config-if)# ip address ip-address subnet-mask "
+        ],
+        "title": "Basic Router ConfigurationIPv4 Loopback Interfaces",
+        "image": "/assets/network-sources/c1-52.webp"
+      },
+      {
+        "number": 53,
+        "text": [
+          "Basic Router ConfigurationPacket Tracer – Configure Router Interfaces",
+          "In this Packet Tracer activity, you will do the following:",
+          "Configure IPv4 addressing and verify connectivity",
+          "Configure IPv6 addressing and verify connectivity"
+        ],
+        "title": "Basic Router ConfigurationPacket Tracer – Configure Router Interfaces",
+        "image": "/assets/network-sources/c1-53.webp"
+      }
+    ],
+    "range": "46–53"
+  },
+  "network-theory-1-5": {
+    "sourceModule": 1,
+    "sourceSlides": [
+      {
+        "number": 54,
+        "text": [
+          "1.5 Verify Directly Connected Networks"
+        ],
+        "title": "1.5 Verify Directly Connected Networks",
+        "image": "/assets/network-sources/c1-54.webp"
+      },
+      {
+        "number": 55,
+        "text": [
+          "Verify Directly Connected NetworksInterface Verification Commands",
+          "There are several show commands that can be used to verify the operation and configuration of an interface. ",
+          "The following commands are especially useful to quickly identify the status of an interface:",
+          "show ip interface brief and show ipv6 interface brief - These display a summary for all interfaces including the IPv4 or IPv6 address of the interface and current operational status.",
+          "show running-config interface interface-id - This displays the commands applied to the specified interface.",
+          "show ip route and show ipv6 route - These display the contents of the IPv4 or IPv6 routing table stored in RAM. In Cisco IOS 15, active interfaces should appear in the routing table with two related entries identified by the code ‘C’ (Connected) or ‘L’ (Local). In previous IOS versions, only a single entry with the code ‘C’ will appear."
+        ],
+        "title": "Verify Directly Connected NetworksInterface Verification Commands",
+        "image": "/assets/network-sources/c1-55.webp"
+      },
+      {
+        "number": 56,
+        "text": [
+          "Verify Directly Connected NetworksVerify Interface Status",
+          "The output of the show ip interface brief and show ipv6 interface brief commands can be used to quickly reveal the status of all interfaces on the router. You can verify that the interfaces are active and operational as indicated by the Status of “up” and Protocol of “up”, as shown in the example. A different output would indicate a problem with either the configuration or the cabling."
+        ],
+        "title": "Verify Directly Connected NetworksVerify Interface Status",
+        "image": "/assets/network-sources/c1-56.webp"
+      },
+      {
+        "number": 57,
+        "text": [
+          "Verify Directly Connected NetworksVerify IPv6 Link Local and Multicast Addresses",
+          "The output of the show ipv6 interface brief command displays two configured IPv6 addresses per interface. One address is the IPv6 global unicast address that was manually entered. The other address, which begins with FE80, is the link-local unicast address for the interface. A link-local address is automatically added to an interface whenever a global unicast address is assigned. An IPv6 network interface is required to have a link-local address, but not necessarily a global unicast address.",
+          "The show ipv6 interface gigabitethernet 0/0/0 command displays the interface status and all of the IPv6 addresses belonging to the interface. Along with the link local address and global unicast address, the output includes the multicast addresses assigned to the interface, beginning with prefix FF02, as shown in the example."
+        ],
+        "title": "Verify Directly Connected NetworksVerify IPv6 Link Local and Multicast Addresses",
+        "image": "/assets/network-sources/c1-57.webp"
+      },
+      {
+        "number": 58,
+        "text": [
+          "Verify Directly Connected NetworksVerify Interface Configuration",
+          "The output of the show running-config interface command displays the current commands applied to the specified interface, as shown.",
+          "The following two commands are used to gather more detailed interface information:",
+          "show interfaces- Displays interface information and packet flow count for all interfaces on the device.",
+          "show ip interface and show ipv6 interface - Displays the IPv4 and IPv6 related information for all interfaces on a router.."
+        ],
+        "title": "Verify Directly Connected NetworksVerify Interface Configuration",
+        "image": "/assets/network-sources/c1-58.webp"
+      },
+      {
+        "number": 59,
+        "text": [
+          "Verify Directly Connected NetworksVerify Routes",
+          "The output of the show ip route and show ipv6 route commands reveal the three directly connected network entries and the three local host route interface entries, as shown in the example. ",
+          "The local host route has an administrative distance of 0. It also has a /32 mask for IPv4, and a /128 mask for IPv6. The local host route is for routes on the router that owns the IP address. It is used to allow the router to process packets destined to that IP."
+        ],
+        "title": "Verify Directly Connected NetworksVerify Routes",
+        "image": "/assets/network-sources/c1-59.webp"
+      },
+      {
+        "number": 60,
+        "text": [
+          "Verify Directly Connected NetworksVerify Routes (Cont.)",
+          "A ‘C’ next to a route within the routing table indicates that this is a directly connected network. When the router interface is configured with a global unicast address and is in the “up/up” state, the IPv6 prefix and prefix length are added to the IPv6 routing table as a connected route.",
+          "The IPv6 global unicast address applied to the interface is also installed in the routing table as a local route. The local route has a /128 prefix. Local routes are used by the routing table to efficiently process packets with the interface address of the router as the destination."
+        ],
+        "title": "Verify Directly Connected NetworksVerify Routes (Cont.)",
+        "image": "/assets/network-sources/c1-60.webp"
+      },
+      {
+        "number": 61,
+        "text": [
+          "Verify Directly Connected NetworksFilter Show Command Output",
+          "Commands that generate multiple screens of output are, by default, paused after 24 lines. At the end of the paused output, the --More-- text displays. Pressing Enter displays the next line and pressing the spacebar displays the next set of lines. Use the terminal length command to specify the number of lines to be displayed. A value of 0 (zero) prevents the router from pausing between screens of output.",
+          "Another very useful feature that improves the user experience in the CLI is the filtering of show output. Filtering commands can be used to display specific sections of output. To enable the filtering command, enter a pipe (|) character after the show command and then enter a filtering parameter and a filtering expression.",
+          "There are four filtering parameters that can be configured after the pipe:",
+          "section - Shows the entire section that starts with the filtering expression.",
+          "include - Includes all output lines that match the filtering expression.",
+          "exclude - Excludes all output lines that match the filtering expression.",
+          "begin - Shows all the output lines from a certain point, starting with the line that matches the filtering expression"
+        ],
+        "title": "Verify Directly Connected NetworksFilter Show Command Output",
+        "image": "/assets/network-sources/c1-61.webp"
+      },
+      {
+        "number": 62,
+        "text": [
+          "Verify Directly Connected NetworksCommand History Feature",
+          "The command history feature is useful because it temporarily stores the list of executed commands to be recalled.",
+          "To recall commands in the history buffer, press Ctrl+P or the Up Arrow key. The command output begins with the most recent command. Repeat the key sequence to recall successively older commands. To return to more recent commands in the history buffer, press Ctrl+N or the Down Arrow key. Repeat the key sequence to recall successively more recent commands.",
+          "By default, command history is enabled and the system captures the last 10 command lines in its history buffer. Use the show history privileged EXEC command to display the contents of the buffer.",
+          "It is also practical to increase the number of command lines that the history buffer records during the current terminal session only. Use the terminal history size user EXEC command to increase or decrease the size of the buffer."
+        ],
+        "title": "Verify Directly Connected NetworksCommand History Feature",
+        "image": "/assets/network-sources/c1-62.webp"
+      },
+      {
+        "number": 63,
+        "text": [
+          "Verify Directly Connected NetworksPacket Tracer – Verify Directly Connected Networks",
+          "In this Packet Tracer activity, you will complete the following objectives:",
+          "Verify IPv4 directly connected networks",
+          "Verify IPv6 directly connected networks",
+          "Troubleshoot connectivity issues"
+        ],
+        "title": "Verify Directly Connected NetworksPacket Tracer – Verify Directly Connected Networks",
+        "image": "/assets/network-sources/c1-63.webp"
+      }
+    ],
+    "range": "54–63"
+  },
+  "network-theory-1-6": {
+    "sourceModule": 1,
+    "sourceSlides": [
+      {
+        "number": 64,
+        "text": [
+          "1.6 Module Practice and Quiz"
+        ],
+        "title": "1.6 Module Practice and Quiz",
+        "image": "/assets/network-sources/c1-64.webp"
+      },
+      {
+        "number": 65,
+        "text": [
+          "Module Practice and QuizPacket Tracer – Implement a Small Network",
+          "In this Packet Tracer activity, you will do the following:",
+          "Create a network topology",
+          "Configure devices and verify connectivity"
+        ],
+        "title": "Module Practice and QuizPacket Tracer – Implement a Small Network",
+        "image": "/assets/network-sources/c1-65.webp"
+      },
+      {
+        "number": 66,
+        "text": [
+          "Module Practice and QuizLab– Configure Basic Router Settings",
+          "In this lab, you will complete the following objectives:",
+          "Set up the topology and initialize devices",
+          "Cable equipment to match the network topology",
+          "Initialize and restart the router and switch",
+          "Configure devices and verify connectivity",
+          "Assign static IPv4 and IPv6 information to the PC interface",
+          "Configure basic router settings",
+          "Configure the router for SSH",
+          "Verify network connectivity"
+        ],
+        "title": "Module Practice and QuizLab– Configure Basic Router Settings",
+        "image": "/assets/network-sources/c1-66.webp"
+      },
+      {
+        "number": 67,
+        "text": [
+          "Module Practice and QuizWhat Did I Learn In This Module?",
+          "After a Cisco switch is powered on, it goes through a five-step boot sequence. ",
+          "The BOOT environment variable is set using the boot system global configuration mode command. ",
+          "Use the switch LEDs to monitor switch activity and performance: SYST, RPS, STAT, DUPLX, SPEED, and PoE. ",
+          "The boot loader provides access into the switch if the operating system cannot be used because of missing or damaged system files. ",
+          "To prepare a switch for remote management access, the switch must be configured with an IP address and a subnet mask. ",
+          "To manage the switch from a remote network, the switch must be configured with a default gateway. ",
+          "Full-duplex communication increases effective bandwidth by allowing both ends of a connection to transmit and receive data simultaneously. ",
+          "Switch ports can be manually configured with specific duplex and speed settings. ",
+          "Use autonegotiation when the speed and duplex settings of the device connecting to the port are unknown or may change. ",
+          "When auto-MDIX is enabled, the interface automatically detects the required cable connection type (straight-through or crossover) and configures the connection appropriately. "
+        ],
+        "title": "Module Practice and QuizWhat Did I Learn In This Module?",
+        "image": "/assets/network-sources/c1-67.webp"
+      },
+      {
+        "number": 68,
+        "text": [
+          "Module Practice and QuizWhat Did I Learn In This Module? (Cont.)",
+          "There are several show commands to use when verifying switch configurations. ",
+          "Telnet (using TCP port 23) is an older protocol that uses unsecure plaintext transmission of both the login authentication (username and password) and the data transmitted between the communicating devices. ",
+          "SSH (using TCP port 22) provides security for remote connections by providing strong encryption when a device is authenticated (username and password) and also for the transmitted data between the communicating devices. ",
+          "An IOS filename that includes the combination “k9” supports cryptographic features and capabilities. ",
+          "To configure SSH you must verify that the switch supports it, configure the IP domain, generate RSA key pairs, configure use authentication, configure the VTY lines, and enable SSH version 2. ",
+          "To verify that SSH is operational, use the show ip ssh command to display the version and configuration data for SSH on the device.",
+          "The following initial configuration tasks should always be performed: name the device to distinguish it from other routers and configure passwords, configure a banner to provide legal notification of unauthorized access, and save the changes on a router. "
+        ],
+        "title": "Module Practice and QuizWhat Did I Learn In This Module? (Cont.)",
+        "image": "/assets/network-sources/c1-68.webp"
+      },
+      {
+        "number": 69,
+        "text": [
+          "Module Practice and QuizWhat Did I Learn In This Module? (Cont.)",
+          "One distinguishing feature between switches and routers is the type of interfaces supported by each. ",
+          "Routers support LANs and WANs and can interconnect different types of networks; therefore, they support many types of interfaces. ",
+          "The IPv4 loopback interface is a logical interface that is internal to the router. It is not assigned to a physical port and can never be connected to any other device.",
+          "Use the following commands to quickly identify the status of an interface: ",
+          "show ip interface brief and show ipv6 interface brief to see summary all interfaces (IPv4 and IPv6 addresses and operational status), ",
+          "show running-config interface interface-id to see the commands applied to a specified interface, and ",
+          "show ip route and show ipv6 route to see the contents of the IPv4 or IPv6 routing table stored in RAM. ",
+          "Filter show command output using the pipe (|) character. Use filter expressions: section, include, exclude, and begin. ",
+          "By default, command history is enabled, and the system captures the last 10 command lines in its history buffer. ",
+          "Use the show history privileged EXEC command to display the contents of the buffer."
+        ],
+        "title": "Module Practice and QuizWhat Did I Learn In This Module? (Cont.)",
+        "image": "/assets/network-sources/c1-69.webp"
+      },
+      {
+        "number": 70,
+        "text": [
+          "Module 1: Basic Device ConfigurationNew Terms and Commands",
+          "boot system flash",
+          "Power over Ethernet (PoE)",
+          "duplex",
+          "speed",
+          "auto-mdix",
+          "show controllers ethernet controller X",
+          "phy",
+          "show flash",
+          "show history",
+          "show ip ssh",
+          "ip ssh version 2",
+          "Loopback Interface",
+          "interface loopback x",
+          "include",
+          "exclude",
+          "section",
+          "show history",
+          "terminal history size"
+        ],
+        "title": "Module 1: Basic Device ConfigurationNew Terms and Commands",
+        "image": "/assets/network-sources/c1-70.webp"
+      }
+    ],
+    "range": "64–70"
+  },
+  "network-theory-2-1": {
+    "sourceModule": 2,
+    "sourceSlides": [
+      {
+        "number": 11,
+        "text": [
+          "Module Objectives",
+          "Module Title: Switching Concepts",
+          "Module Objective: Explain how Layer 2 switches forward data.",
+          "Topic Title",
+          "Topic Objective",
+          "Frame Forwarding",
+          "Explain how frames are forwarded in a switched network.",
+          "Switching Domains",
+          "Compare a collision domain to a broadcast domain."
+        ],
+        "title": "Module Objectives",
+        "image": "/assets/network-sources/c2-11.webp"
+      },
+      {
+        "number": 12,
+        "text": [
+          "2.1 Frame Forwarding"
+        ],
+        "title": "2.1 Frame Forwarding",
+        "image": "/assets/network-sources/c2-12.webp"
+      },
+      {
+        "number": 13,
+        "text": [
+          "Frame ForwardingSwitching in Networking",
+          "Two terms are associated with frames entering or leaving an interface:",
+          "Ingress – entering the interface",
+          "Egress – exiting the interface",
+          "A switch forwards based on the ingress interface and the destination MAC address.",
+          "A switch uses its MAC address table to make forwarding decisions.",
+          "Note: A switch will never allow traffic to be forwarded out the interface it received the traffic."
+        ],
+        "title": "Frame ForwardingSwitching in Networking",
+        "image": "/assets/network-sources/c2-13.webp"
+      },
+      {
+        "number": 14,
+        "text": [
+          "Frame ForwardingThe Switch MAC Address Table",
+          "A switch will use the destination MAC address to determine the egress interface.",
+          "Before a switch can make this decision it must learn what interface the destination is located.",
+          "A switch builds a MAC address table, also known as a Content Addressable Memory (CAM) table, by recording the source MAC address into the table along with the port it was received."
+        ],
+        "title": "Frame ForwardingThe Switch MAC Address Table",
+        "image": "/assets/network-sources/c2-14.webp"
+      },
+      {
+        "number": 15,
+        "text": [
+          "Frame ForwardingThe Switch Learn and Forward Method",
+          "The switch uses a two step process:",
+          "Step 1. Learn – Examines Source Address",
+          "Adds the source MAC if not in table",
+          "Resets the time out setting back to 5 minutes if source is in the table",
+          "Step 2. Forward – Examines Destination Address",
+          "If the destination MAC is in the MAC address table it is forwarded out the specified port.",
+          "If a destination MAC is not in the table, it is flooded out all interfaces except the one it was received."
+        ],
+        "title": "Frame ForwardingThe Switch Learn and Forward Method",
+        "image": "/assets/network-sources/c2-15.webp"
+      },
+      {
+        "number": 16,
+        "text": [
+          "Frame ForwardingVideo – MAC Address Tables on Connected Switches",
+          "This video will cover the following:",
+          "How switches build MAC address tables",
+          "How switches forward frames based on the content of their MAC address tables"
+        ],
+        "title": "Frame ForwardingVideo – MAC Address Tables on Connected Switches",
+        "image": "/assets/network-sources/c2-16.webp"
+      },
+      {
+        "number": 17,
+        "text": [
+          "Frame ForwardingSwitch Forwarding Methods",
+          "Switches use software on application-specific-integrated circuits (ASICs) to make very quick decisions.",
+          "A switch will use one of two methods to make forwarding decisions after it receives a frame:",
+          "Store-and-forward switching - Receives the entire frame and ensures the frame is valid. Store-and-forward switching is Cisco’s preferred switching method.",
+          "Cut-through switching – Forwards the frame immediately after determining the destination MAC address of an incoming frame and the egress port. "
+        ],
+        "title": "Frame ForwardingSwitch Forwarding Methods",
+        "image": "/assets/network-sources/c2-17.webp"
+      },
+      {
+        "number": 18,
+        "text": [
+          "Frame ForwardingStore-and-Forward Switching",
+          "Store-and-forward has two primary characteristics: ",
+          "Error Checking – The switch will check the Frame Check Sequence (FCS) for CRC errors. Bad frames will be discarded.",
+          "Buffering – The ingress interface will buffer the frame while it checks the FCS. This also allows the switch to adjust to a potential difference in speeds between the ingress and egress ports."
+        ],
+        "title": "Frame ForwardingStore-and-Forward Switching",
+        "image": "/assets/network-sources/c2-18.webp"
+      },
+      {
+        "number": 19,
+        "text": [
+          "Frame ForwardingCut-Through Switching",
+          "Cut-through forwards the frame immediately after determining the destination MAC.",
+          "Fragment (Frag) Free method will check the destination and ensure that the frame is at least 64 Bytes. This will eliminate runts.",
+          "Concepts of Cut-Through switching:",
+          "Is appropriate for switches needing latency to be under 10 microseconds",
+          "Does not check the FCS, so it can propagate errors",
+          "May lead to bandwidth issues if the switch propagates too many errors",
+          "Cannot support ports with differing speeds going from ingress to egress"
+        ],
+        "title": "Frame ForwardingCut-Through Switching",
+        "image": "/assets/network-sources/c2-19.webp"
+      }
+    ],
+    "range": "11–19"
+  },
+  "network-theory-2-2": {
+    "sourceModule": 2,
+    "sourceSlides": [
+      {
+        "number": 20,
+        "text": [
+          "2.2 Switching Domains"
+        ],
+        "title": "2.2 Switching Domains",
+        "image": "/assets/network-sources/c2-20.webp"
+      },
+      {
+        "number": 21,
+        "text": [
+          "Switching DomainsCollision Domains",
+          "Switches eliminate collision domains and reduce congestion.",
+          "When there is full duplex on the link the collision domains are eliminated.",
+          "When there is one or more devices in half-duplex there will now be a collision domain.",
+          "There will now be contention for the bandwidth.",
+          "Collisions are now possible.",
+          "Most devices, including Cisco and Microsoft use auto-negotiation as the default setting for duplex and speed."
+        ],
+        "title": "Switching DomainsCollision Domains",
+        "image": "/assets/network-sources/c2-21.webp"
+      },
+      {
+        "number": 22,
+        "text": [
+          "Switching DomainsBroadcast Domains",
+          "A broadcast domain extends across all Layer 1 or Layer 2 devices on a LAN.",
+          "Only a layer 3 device (router) will break the broadcast domain, also called a MAC broadcast domain.",
+          "The broadcast domain consists of all devices on the LAN that receive the broadcast traffic.",
+          "When the layer 2 switch receives the broadcast it will flood it out all interfaces except for the ingress interface. ",
+          "Too many broadcasts may cause congestion and poor network performance.",
+          "Increasing devices at Layer 1 or layer 2 will cause the broadcast domain to expand."
+        ],
+        "title": "Switching DomainsBroadcast Domains",
+        "image": "/assets/network-sources/c2-22.webp"
+      },
+      {
+        "number": 23,
+        "text": [
+          "Switching DomainsAlleviated Network Congestion",
+          "Switches use the MAC address table and full-duplex to  eliminate collisions and avoid congestion.",
+          "Features of the switch that alleviate congestion are as follows:",
+          "Protocol",
+          "Function",
+          "Fast Port Speeds",
+          "Depending on the model, switches may have up to 100Gbps port speeds.",
+          "Fast Internal Switching",
+          "This uses fast internal bus or shared memory to improve performance.",
+          "Large Frame Buffers",
+          "This allows for temporary storage while processing large quantities of frames.",
+          "High Port Density",
+          "This provides many ports for devices to be connected to LAN with less cost. This also provides for more local traffic with less congestion."
+        ],
+        "title": "Switching DomainsAlleviated Network Congestion",
+        "image": "/assets/network-sources/c2-23.webp"
+      }
+    ],
+    "range": "20–23"
+  },
+  "network-theory-2-3": {
+    "sourceModule": 2,
+    "sourceSlides": [
+      {
+        "number": 24,
+        "text": [
+          "2.3 Module Practice and Quiz"
+        ],
+        "title": "2.3 Module Practice and Quiz",
+        "image": "/assets/network-sources/c2-24.webp"
+      },
+      {
+        "number": 25,
+        "text": [
+          "Module Practice and QuizWhat did I learn in this module?",
+          "Frame Forwarding",
+          "Ingress is the entry port, egress is the exit port.",
+          "The switch builds a MAC address table to forward frames on the LAN.",
+          "The switch can use either the store-and-forward or cut-through method of switch forwarding.",
+          "Switching Domains",
+          "Ethernet ports in half-duplex will be a part of a collision domain.",
+          "Full-duplex will eliminate collision domains.",
+          "A switch will flood out all interfaces except the ingress port if the frame is a broadcast or if the unicast destination MAC is unknown. ",
+          "Broadcast domains may be broken up by a layer 3 device, like a router.",
+          "Switches extend broadcast domains, but can eliminate collision domains and relieve congestion."
+        ],
+        "title": "Module Practice and QuizWhat did I learn in this module?",
+        "image": "/assets/network-sources/c2-25.webp"
+      },
+      {
+        "number": 26,
+        "text": [
+          "Module 2: Switching ConceptsNew Terms and Commands",
+          "content accessible memory (CAM)",
+          "MAC address table",
+          "store-and-forward switching",
+          "cut-through switching",
+          "automatic buffering",
+          "fragment free switching",
+          "collision domains",
+          "broadcast domains"
+        ],
+        "title": "Module 2: Switching ConceptsNew Terms and Commands",
+        "image": "/assets/network-sources/c2-26.webp"
+      }
+    ],
+    "range": "24–26"
+  },
+  "network-theory-3-1": {
+    "sourceModule": 3,
+    "sourceSlides": [
+      {
+        "number": 13,
+        "text": [
+          "Module Objectives",
+          "Module Title: Protocols and Models",
+          "Module Objective: Explain how network protocols enable devices to access local and remote network resources.",
+          "Topic Title",
+          "Topic Objective",
+          "Overview of VLANs",
+          "Explain the purpose of VLANs in a switched network.",
+          "VLANs in a Multi-Switched Environment",
+          "Explain how a switch forwards frames based on VLAN configuration in a multi-switch environment.",
+          "VLAN Configuration",
+          "Configure a switch port to be assigned to a VLAN based on requirements.",
+          "VLAN Trunks",
+          "Configure a trunk port on a LAN switch.",
+          "Dynamic Trunking Protocol",
+          "Configure Dynamic Trunking Protocol (DTP)."
+        ],
+        "title": "Module Objectives",
+        "image": "/assets/network-sources/c3-13.webp"
+      },
+      {
+        "number": 14,
+        "text": [
+          "3.1 Overview of VLANs"
+        ],
+        "title": "3.1 Overview of VLANs",
+        "image": "/assets/network-sources/c3-14.webp"
+      },
+      {
+        "number": 15,
+        "text": [
+          "Overview of VLANsVLAN Definitions",
+          "VLANs are logical connections with other similar devices.",
+          "Placing devices into various VLANs have the following characteristics:",
+          "Provides segmentation of the various groups of devices on the same switches",
+          "Provide organization that is more manageable",
+          "Broadcasts, multicasts and unicasts are isolated in the individual VLAN",
+          "Each VLAN will have its own unique range of IP addressing",
+          "Smaller broadcast domains"
+        ],
+        "title": "Overview of VLANsVLAN Definitions",
+        "image": "/assets/network-sources/c3-15.webp"
+      },
+      {
+        "number": 16,
+        "text": [
+          "Overview of VLANsBenefits of a VLAN Design",
+          "Benefits of using VLANs are as follows: ",
+          "Benefits",
+          "Description",
+          "Smaller Broadcast Domains",
+          "Dividing the LAN reduces the number of broadcast domains",
+          "Improved Security",
+          "Only users in the same VLAN can communicate together",
+          "Improved IT Efficiency",
+          "VLANs can group devices with similar requirements, e.g. faculty vs. students",
+          "Reduced Cost",
+          "One switch can support multiple groups or VLANs",
+          "Better Performance",
+          "Small broadcast domains reduce traffic, improving bandwidth",
+          "Simpler Management",
+          "Similar groups will need similar applications and other network resources"
+        ],
+        "title": "Overview of VLANsBenefits of a VLAN Design",
+        "image": "/assets/network-sources/c3-16.webp"
+      },
+      {
+        "number": 17,
+        "text": [
+          "Overview of VLANsTypes of VLANs",
+          "Default VLAN",
+          "   VLAN 1 is the following: ",
+          "The default VLAN",
+          "The default Native VLAN",
+          "The default Management VLAN",
+          "Cannot be deleted or renamed",
+          "Note: While we cannot delete VLAN1 Cisco will recommend that we assign these default features to other VLANs"
+        ],
+        "title": "Overview of VLANsTypes of VLANs",
+        "image": "/assets/network-sources/c3-17.webp"
+      },
+      {
+        "number": 18,
+        "text": [
+          "Overview of VLANsTypes of VLANs (Cont.)",
+          "Data VLAN ",
+          "Dedicated to user-generated traffic (email and web traffic). ",
+          "VLAN 1 is the default data VLAN because all interfaces are assigned to this VLAN.",
+          "Native VLAN",
+          "This is used for trunk links only. ",
+          "All frames are tagged on an 802.1Q trunk link except for those on the native VLAN. ",
+          "Management VLAN ",
+          "This is used for SSH/Telnet VTY traffic and should not be carried with end user traffic.",
+          "Typically, the VLAN that is the SVI for the Layer 2 switch.  "
+        ],
+        "title": "Overview of VLANsTypes of VLANs (Cont.)",
+        "image": "/assets/network-sources/c3-18.webp"
+      },
+      {
+        "number": 19,
+        "text": [
+          "Overview of VLANsTypes of VLANs (Cont.)",
+          "Voice VLAN  ",
+          "A separate VLAN is required because Voice traffic requires:",
+          "Assured bandwidth",
+          "High QoS priority",
+          "Ability to avoid congestion",
+          "Delay less that 150 ms from source to destination",
+          "The entire network must be designed to support voice."
+        ],
+        "title": "Overview of VLANsTypes of VLANs (Cont.)",
+        "image": "/assets/network-sources/c3-19.webp"
+      },
+      {
+        "number": 20,
+        "text": [
+          "Overview of VLANsPacket Tracer – Who Hears the Broadcast?",
+          "In this Packet Tracer activity, you will do the following:",
+          "Observe Broadcast Traffic in a VLAN Implementation",
+          "Complete Review Questions"
+        ],
+        "title": "Overview of VLANsPacket Tracer – Who Hears the Broadcast?",
+        "image": "/assets/network-sources/c3-20.webp"
+      }
+    ],
+    "range": "13–20"
+  },
+  "network-theory-3-2": {
+    "sourceModule": 3,
+    "sourceSlides": [
+      {
+        "number": 21,
+        "text": [
+          "3.2 VLANs in a Multi-Switched Environment"
+        ],
+        "title": "3.2 VLANs in a Multi-Switched Environment",
+        "image": "/assets/network-sources/c3-21.webp"
+      },
+      {
+        "number": 22,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentDefining VLAN Trunks",
+          "A trunk is a point-to-point link between two network devices.",
+          "Cisco trunk functions:",
+          "Allow more than one VLAN",
+          "Extend the VLAN across the entire network",
+          "By default, supports all VLANs",
+          "Supports 802.1Q trunking"
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentDefining VLAN Trunks",
+        "image": "/assets/network-sources/c3-22.webp"
+      },
+      {
+        "number": 23,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentNetworks without VLANs",
+          "Without VLANs, all devices connected to the switches will receive all unicast, multicast, and broadcast traffic."
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentNetworks without VLANs",
+        "image": "/assets/network-sources/c3-23.webp"
+      },
+      {
+        "number": 24,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentNetworks with VLANs",
+          "With VLANs, unicast, multicast, and broadcast traffic is confined to a VLAN. Without a Layer 3 device to connect the VLANs, devices in different VLANs cannot communicate. "
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentNetworks with VLANs",
+        "image": "/assets/network-sources/c3-24.webp"
+      },
+      {
+        "number": 25,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentVLAN Identification with a Tag",
+          "The IEEE 802.1Q header is 4 Bytes",
+          "When the tag is created the FCS must be recalculated.",
+          "When sent to end devices, this tag must be removed and the FCS recalculated back to its original number.",
+          "802.1Q VLAN Tag Field",
+          "Function",
+          "Type",
+          "2-Byte field with hexadecimal 0x8100",
+          "This is referred to as Tag Protocol ID (TPID)",
+          "User Priority",
+          "3-bit value that supports ",
+          "Canonical Format Identifier (CFI)",
+          "1-bit value that can support token ring frames on Ethernet",
+          "VLAN ID (VID)",
+          "12-bit VLAN identifier that can support up to 4096 VLANs"
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentVLAN Identification with a Tag",
+        "image": "/assets/network-sources/c3-25.webp"
+      },
+      {
+        "number": 26,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentNative VLANs and 802.1Q Tagging",
+          "802.1Q trunk basics:",
+          "Tagging is typically done on all VLANs.",
+          "The use of a native VLAN was designed for legacy use, like the hub in the example.",
+          "Unless changed, VLAN1 is the native VLAN.",
+          "Both ends of a trunk link must be configured with the same native VLAN.",
+          "Each trunk is configured separately, so it is possible to have a different native VLANs on separate trunks."
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentNative VLANs and 802.1Q Tagging",
+        "image": "/assets/network-sources/c3-26.webp"
+      },
+      {
+        "number": 27,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentVoice VLAN Tagging",
+          "The VoIP phone is a three port switch:",
+          "The switch will use CDP  to inform the phone of the Voice VLAN.",
+          "The phone will tag its own traffic (Voice) and can set Cost of Service (CoS). CoS is QoS for layer 2.",
+          "The phone may or may not tag frames from the PC.",
+          "Traffic",
+          "Tagging Function",
+          "Voice VLAN",
+          "tagged with an appropriate Layer 2 class of service (CoS) priority value",
+          "Access VLAN",
+          "can also be tagged with a Layer 2 CoS priority value",
+          "Access VLAN",
+          "is not tagged (no Layer 2 CoS priority value)"
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentVoice VLAN Tagging",
+        "image": "/assets/network-sources/c3-27.webp"
+      },
+      {
+        "number": 28,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentVoice VLAN Verification Example",
+          "The show interfaces fa0/18 switchport command can show us both data and voice VLANs assigned to the interface."
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentVoice VLAN Verification Example",
+        "image": "/assets/network-sources/c3-28.webp"
+      },
+      {
+        "number": 29,
+        "text": [
+          "VLANs in a Multi-Switched EnvironmentPacket Tracer – Investigate a VLAN Implementation",
+          "In this Packet Tracer activity, you will:",
+          "Part 1: Observe Broadcast Traffic in a VLAN Implementation",
+          "Part 2: Observe Broadcast Traffic without VLANs"
+        ],
+        "title": "VLANs in a Multi-Switched EnvironmentPacket Tracer – Investigate a VLAN Implementation",
+        "image": "/assets/network-sources/c3-29.webp"
+      }
+    ],
+    "range": "21–29"
+  },
+  "network-theory-3-3": {
+    "sourceModule": 3,
+    "sourceSlides": [
+      {
+        "number": 30,
+        "text": [
+          "3.3 VLAN Configuration"
+        ],
+        "title": "3.3 VLAN Configuration",
+        "image": "/assets/network-sources/c3-30.webp"
+      },
+      {
+        "number": 31,
+        "text": [
+          "VLAN ConfigurationVLAN Ranges on Catalyst Switches",
+          "Catalyst switches 2960 and 3650 support over 4000 VLANs.",
+          "Normal Range VLAN 1 – 1005 ",
+          "Extended Range VLAN 1006 - 4095",
+          "Used in Small to Medium sized businesses",
+          "Used by Service Providers",
+          "1002 – 1005 are reserved for legacy VLANs",
+          "Are in Running-Config",
+          "1, 1002 – 1005 are auto created and cannot be deleted",
+          "Supports fewer VLAN features",
+          "Stored in the vlan.dat file in flash",
+          "Requires VTP configurations",
+          "VTP can synchronize between switches"
+        ],
+        "title": "VLAN ConfigurationVLAN Ranges on Catalyst Switches",
+        "image": "/assets/network-sources/c3-31.webp"
+      },
+      {
+        "number": 32,
+        "text": [
+          "VLAN ConfigurationVLAN Creation Commands",
+          "VLAN details are stored in the vlan.dat file. You create VLANs in the global configuration mode.",
+          "Task",
+          "IOS Command",
+          "Enter global configuration mode.",
+          "Switch# configure terminal",
+          "Create a VLAN with a valid ID number.",
+          "Switch(config)# vlan vlan-id",
+          "Specify a unique name to identify the VLAN.",
+          "Switch(config-vlan)# name vlan-name",
+          "Return to the privileged EXEC mode.",
+          "Switch(config-vlan)# end",
+          "Enter global configuration mode.",
+          "Switch# configure terminal"
+        ],
+        "title": "VLAN ConfigurationVLAN Creation Commands",
+        "image": "/assets/network-sources/c3-32.webp"
+      },
+      {
+        "number": 33,
+        "text": [
+          "VLAN ConfigurationVLAN Creation Example",
+          "If the Student PC is going to be in VLAN 20, we will create the VLAN first and then name it.",
+          "If you do not name it, the Cisco IOS will give it a default name of vlan and the four digit number of the VLAN. E.g. vlan0020 for VLAN 20.",
+          "Prompt",
+          "Command",
+          "S1#",
+          "Configure terminal",
+          "S1(config)#",
+          "vlan 20",
+          "S1(config-vlan)#",
+          "name student",
+          "S1(config-vlan)#",
+          "end"
+        ],
+        "title": "VLAN ConfigurationVLAN Creation Example",
+        "image": "/assets/network-sources/c3-33.webp"
+      },
+      {
+        "number": 34,
+        "text": [
+          "VLAN ConfigurationVLAN Port Assignment Commands",
+          "Once the VLAN is created, we can then assign it to the correct interfaces.",
+          "Task ",
+          "Command",
+          "Enter global configuration mode.",
+          "Switch# configure terminal",
+          "Enter interface configuration mode.",
+          "Switch(config)# interface interface-id",
+          "Set the port to access mode.",
+          "Switch(config-if)# switchport mode access",
+          "Assign the port to a VLAN.",
+          "Switch(config-if)# switchport access vlan vlan-id",
+          "Return to the privileged EXEC mode.",
+          "Switch(config-if)# end"
+        ],
+        "title": "VLAN ConfigurationVLAN Port Assignment Commands",
+        "image": "/assets/network-sources/c3-34.webp"
+      },
+      {
+        "number": 35,
+        "text": [
+          "VLAN ConfigurationVLAN Port Assignment Example",
+          "We can assign the VLAN to the port interface.",
+          "Once the device is assigned the VLAN, then the end device will need the IP address information for that VLAN",
+          "Here, Student PC receives 172.17.20.22",
+          "Prompt",
+          "Command",
+          "S1#",
+          "Configure terminal",
+          "S1(config)#",
+          "Interface fa0/18",
+          "S1(config-if)#",
+          "Switchport mode access",
+          "S1(config-if)#",
+          "Switchport access vlan 20",
+          "S1(config-if)#",
+          "end"
+        ],
+        "title": "VLAN ConfigurationVLAN Port Assignment Example",
+        "image": "/assets/network-sources/c3-35.webp"
+      },
+      {
+        "number": 36,
+        "text": [
+          "VLAN ConfigurationData and Voice VLANs",
+          "An access port may only be assigned to one data VLAN. However it may also be assigned to one Voice VLAN for when a phone and an end device are off of the same switchport."
+        ],
+        "title": "VLAN ConfigurationData and Voice VLANs",
+        "image": "/assets/network-sources/c3-36.webp"
+      },
+      {
+        "number": 37,
+        "text": [
+          "VLAN ConfigurationData and Voice VLAN Example",
+          "We will want to create and name both Voice and Data VLANs.",
+          "In addition to assigning the data VLAN, we will also assign the Voice VLAN and turn on QoS for the voice traffic to the interface.",
+          "The newer catalyst switch will automatically create the VLAN, if it does not already exist, when it is assigned to an interface.",
+          "Note: QoS is beyond the scope of this course. Here we do show the use of the mls qos trust [cos | device cisco-phone | dscp | ip-precedence] command."
+        ],
+        "title": "VLAN ConfigurationData and Voice VLAN Example",
+        "image": "/assets/network-sources/c3-37.webp"
+      },
+      {
+        "number": 38,
+        "text": [
+          "VLAN ConfigurationVerify VLAN Information",
+          "Use the show vlan command. The complete syntax is: ",
+          "show vlan [brief | id vlan-id | name vlan-name | summary]",
+          "Task",
+          "Command Option",
+          "Display VLAN name, status, and its ports one VLAN per line.",
+          "brief",
+          "Display information about the identified VLAN ID number. ",
+          "id vlan-id",
+          "Display information about the identified VLAN name. The vlan-name is an ASCII string from 1 to 32 characters.",
+          "name vlan-name",
+          "Display VLAN summary information.",
+          "summary"
+        ],
+        "title": "VLAN ConfigurationVerify VLAN Information",
+        "image": "/assets/network-sources/c3-38.webp"
+      },
+      {
+        "number": 39,
+        "text": [
+          "VLAN ConfigurationChange VLAN Port Membership",
+          "There are a number of ways to change VLAN membership:",
+          "re-enter switchport access vlan vlan-id command",
+          "use the no switchport access vlan to place interface back in VLAN 1",
+          "Use the show vlan brief or the show interface fa0/18 switchport commands to verify the correct VLAN association."
+        ],
+        "title": "VLAN ConfigurationChange VLAN Port Membership",
+        "image": "/assets/network-sources/c3-39.webp"
+      },
+      {
+        "number": 40,
+        "text": [
+          "VLAN ConfigurationDelete VLANs",
+          "Delete VLANs with the no vlan vlan-id command.",
+          "Caution: Before deleting a VLAN, reassign all member ports to a different VLAN.",
+          "Delete all VLANs with the delete flash:vlan.dat or delete vlan.dat commands.",
+          "Reload the switch when deleting all VLANs.",
+          "Note: To restore to factory default – unplug all data cables, erase the startup-configuration and delete the vlan.dat file, then reload the device."
+        ],
+        "title": "VLAN ConfigurationDelete VLANs",
+        "image": "/assets/network-sources/c3-40.webp"
+      },
+      {
+        "number": 41,
+        "text": [
+          "VLAN ConfigurationPacket Tracer – VLAN Configuration",
+          "In this Packet Tracer activity, you will perform the following:",
+          "Verify the Default VLAN Configuration",
+          "Configure VLANs",
+          "Assign VLANs to Ports"
+        ],
+        "title": "VLAN ConfigurationPacket Tracer – VLAN Configuration",
+        "image": "/assets/network-sources/c3-41.webp"
+      }
+    ],
+    "range": "30–41"
+  },
+  "network-theory-3-4": {
+    "sourceModule": 3,
+    "sourceSlides": [
+      {
+        "number": 42,
+        "text": [
+          "3.4 VLAN Trunks"
+        ],
+        "title": "3.4 VLAN Trunks",
+        "image": "/assets/network-sources/c3-42.webp"
+      },
+      {
+        "number": 43,
+        "text": [
+          "VLAN TrunksTrunk Configuration Commands",
+          "Configure and verify VLAN trunks. Trunks are layer 2 and carry traffic for all VLANs.",
+          "Task",
+          "IOS Command",
+          "Enter global configuration mode.",
+          "Switch# configure terminal",
+          "Enter interface configuration mode.",
+          "Switch(config)# interface interface-id",
+          "Set the port to permanent trunking mode.",
+          "Switch(config-if)# switchport mode trunk",
+          "Sets the native VLAN to something other than VLAN 1.",
+          "Switch(config-if)# switchport trunk native vlan vlan-id",
+          "Specify the list of VLANs to be allowed on the trunk link.",
+          "Switch(config-if)# switchport trunk allowed vlan vlan-list",
+          "Return to the privileged EXEC mode.",
+          "Switch(config-if)# end"
+        ],
+        "title": "VLAN TrunksTrunk Configuration Commands",
+        "image": "/assets/network-sources/c3-43.webp"
+      },
+      {
+        "number": 44,
+        "text": [
+          "VLAN TrunksTrunk Configuration Example",
+          "The subnets associated with each VLAN are:",
+          "VLAN 10 - Faculty/Staff - 172.17.10.0/24",
+          "VLAN 20 - Students - 172.17.20.0/24",
+          "VLAN 30 - Guests - 172.17.30.0/24",
+          "VLAN 99 - Native - 172.17.99.0/24",
+          "F0/1 port on S1 is configured as a trunk port.",
+          "Note: This assumes a 2960 switch using 802.1q tagging. Layer 3 switches require the encapsulation to be configured before the trunk mode. ",
+          "Prompt",
+          "Command",
+          "S1(config)#",
+          "Interface fa0/1",
+          "S1(config-if)#",
+          "Switchport mode trunk",
+          "S1(config-if)#",
+          "Switchport trunk native vlan 99",
+          "S1(config-if)#",
+          "Switchport trunk allowed vlan 10,20,30,99",
+          "S1(config-if)#",
+          "end"
+        ],
+        "title": "VLAN TrunksTrunk Configuration Example",
+        "image": "/assets/network-sources/c3-44.webp"
+      },
+      {
+        "number": 45,
+        "text": [
+          "VLAN TrunksVerify Trunk Configuration",
+          "Set the trunk mode and native vlan.",
+          "Notice sh int fa0/1 switchport command:",
+          "Is set to trunk administratively",
+          "Is set as trunk operationally (functioning)",
+          "Encapsulation is dot1q",
+          "Native VLAN set to VLAN 99 ",
+          "All VLANs created on the switch will pass traffic on this trunk"
+        ],
+        "title": "VLAN TrunksVerify Trunk Configuration",
+        "image": "/assets/network-sources/c3-45.webp"
+      },
+      {
+        "number": 46,
+        "text": [
+          "VLAN TrunksReset the Trunk to the Default State",
+          "Reset the default trunk settings with the no command.",
+          "All VLANs allowed to pass traffic",
+          "Native VLAN = VLAN 1",
+          "Verify the default settings with a     sh int fa0/1 switchport command."
+        ],
+        "title": "VLAN TrunksReset the Trunk to the Default State",
+        "image": "/assets/network-sources/c3-46.webp"
+      },
+      {
+        "number": 47,
+        "text": [
+          "VLAN TrunksReset the Trunk to the Default State (Cont.)",
+          "Reset the trunk to an access mode with the switchport mode access command:",
+          "Is set to an access interface administratively",
+          "Is set as an access interface operationally (functioning)"
+        ],
+        "title": "VLAN TrunksReset the Trunk to the Default State (Cont.)",
+        "image": "/assets/network-sources/c3-47.webp"
+      },
+      {
+        "number": 48,
+        "text": [
+          "VLAN TrunksPacket Tracer – Configure Trunks",
+          "In this Packet Tracer activity, you will perform the following:",
+          "Verify VLANs",
+          "Configure Trunks"
+        ],
+        "title": "VLAN TrunksPacket Tracer – Configure Trunks",
+        "image": "/assets/network-sources/c3-48.webp"
+      },
+      {
+        "number": 49,
+        "text": [
+          "VLAN TrunksLab – Configure VLANs and Trunks",
+          "In this lab, you will perform the following:",
+          "Build the Network and Configure Basic Device Settings",
+          "Create VLANs and Assign Switch Ports",
+          "Maintain VLAN Port Assignments and the VLAN Database",
+          "Configure an 802.1Q Trunk between the Switches",
+          "Delete the VLAN Database"
+        ],
+        "title": "VLAN TrunksLab – Configure VLANs and Trunks",
+        "image": "/assets/network-sources/c3-49.webp"
+      }
+    ],
+    "range": "42–49"
+  },
+  "network-theory-3-5": {
+    "sourceModule": 3,
+    "sourceSlides": [
+      {
+        "number": 50,
+        "text": [
+          "3.5 Dynamic Trunking Protocol"
+        ],
+        "title": "3.5 Dynamic Trunking Protocol",
+        "image": "/assets/network-sources/c3-50.webp"
+      },
+      {
+        "number": 51,
+        "text": [
+          "Dynamic Trunking ProtocolIntroduction to DTP",
+          "Dynamic Trunking Protocol (DTP) is a proprietary Cisco protocol.",
+          "DTP characteristics are as follows:",
+          "On by default on Catalyst 2960 and 2950 switches",
+          "Dynamic-auto is default on the 2960 and 2950 switches",
+          "May be turned off with the nonegotiate command",
+          "May be turned back on by setting the interface to dynamic-auto",
+          "Setting a switch to a static trunk or static access will avoid negotiation issues with the switchport mode trunk or the switchport mode access commands."
+        ],
+        "title": "Dynamic Trunking ProtocolIntroduction to DTP",
+        "image": "/assets/network-sources/c3-51.webp"
+      },
+      {
+        "number": 52,
+        "text": [
+          "Dynamic Trunking ProtocolNegotiated Interface Modes",
+          "The switchport mode command has additional options.",
+          "Use the switchport nonegotiate interface configuration command to stop DTP negotiation.",
+          "Option",
+          "Description",
+          "access",
+          "Permanent access mode and negotiates to convert the neighboring link into an access link",
+          "dynamic auto",
+          "Will becomes a trunk interface if the neighboring interface is set to trunk or desirable mode",
+          "dynamic desirable",
+          "Actively seeks to become a trunk by negotiating with other auto or desirable interfaces",
+          "trunk",
+          "Permanent trunking mode and negotiates to convert the neighboring link into a trunk link"
+        ],
+        "title": "Dynamic Trunking ProtocolNegotiated Interface Modes",
+        "image": "/assets/network-sources/c3-52.webp"
+      },
+      {
+        "number": 53,
+        "text": [
+          "Dynamic Trunking ProtocolResults of a DTP Configuration",
+          "DTP configuration options are as follows:",
+          "Dynamic Auto",
+          "Dynamic Desirable",
+          "Trunk",
+          "Access",
+          "Dynamic Auto",
+          "Access",
+          "Trunk",
+          "Trunk",
+          "Access",
+          "Dynamic Desirable",
+          "Trunk",
+          "Trunk",
+          "Trunk",
+          "Access",
+          "Trunk",
+          "Trunk",
+          "Trunk",
+          "Trunk",
+          "Limited connectivity",
+          "Access",
+          "Access",
+          "Access",
+          "Limited connectivity",
+          "Access"
+        ],
+        "title": "Dynamic Trunking ProtocolResults of a DTP Configuration",
+        "image": "/assets/network-sources/c3-53.webp"
+      },
+      {
+        "number": 54,
+        "text": [
+          "Dynamic Trunking ProtocolVerify DTP Mode",
+          "The default DTP configuration is dependent on the Cisco IOS version and platform.",
+          "Use the show dtp interface command to determine the current DTP mode.",
+          "Best practice recommends that the interfaces be set to access or trunk and to turnoff DTP"
+        ],
+        "title": "Dynamic Trunking ProtocolVerify DTP Mode",
+        "image": "/assets/network-sources/c3-54.webp"
+      },
+      {
+        "number": 55,
+        "text": [
+          "Dynamic Trunking ProtocolPacket Tracer – Configure DTP",
+          "In this Packet Tracer activity, you will perform the following:",
+          "Configure static trunking ",
+          "Configure and verify DTP "
+        ],
+        "title": "Dynamic Trunking ProtocolPacket Tracer – Configure DTP",
+        "image": "/assets/network-sources/c3-55.webp"
+      }
+    ],
+    "range": "50–55"
+  },
+  "network-theory-3-6": {
+    "sourceModule": 3,
+    "sourceSlides": [
+      {
+        "number": 56,
+        "text": [
+          "3.6 Module Practice and Quiz "
+        ],
+        "title": "3.6 Module Practice and Quiz ",
+        "image": "/assets/network-sources/c3-56.webp"
+      },
+      {
+        "number": 57,
+        "text": [
+          "Module Practice and QuizPacket Tracer – Implement VLANs and Trunking",
+          "In this Packet Tracer activity, you will perform the following:",
+          "Configure VLANs",
+          "Assign Ports to VLANs",
+          "Configure Static Trunking",
+          "Configure Dynamic Trunking"
+        ],
+        "title": "Module Practice and QuizPacket Tracer – Implement VLANs and Trunking",
+        "image": "/assets/network-sources/c3-57.webp"
+      },
+      {
+        "number": 58,
+        "text": [
+          "Module Practice and QuizLab – Implement VLANs and Trunking",
+          "In this lab, you will perform the following:",
+          "Build the Network and Configure Basic Device Settings",
+          "Create VLANs and Assign Switch Ports",
+          "Configure an 802.1Q Trunk between the Switches"
+        ],
+        "title": "Module Practice and QuizLab – Implement VLANs and Trunking",
+        "image": "/assets/network-sources/c3-58.webp"
+      },
+      {
+        "number": 59,
+        "text": [
+          "Module Practice and QuizWhat did I learn in this module?",
+          "VLANs are based on logical instead of physical connections.",
+          "VLANs can segment networks based on function, team, or application.",
+          "Each VLAN is considered a separate logical network.",
+          "A trunk is a point-to-point link that carries more than one VLAN. ",
+          "VLAN tag fields include the type, user priority, CFI and VID.",
+          "A separate voice VLAN is required to support VoIP.",
+          "Normal range VLAN configurations are stored in the vlan.dat file in flash.",
+          "An access port can belong to one data VLAN at a time, but may also have a Voice VLAN."
+        ],
+        "title": "Module Practice and QuizWhat did I learn in this module?",
+        "image": "/assets/network-sources/c3-59.webp"
+      },
+      {
+        "number": 60,
+        "text": [
+          "Module Practice and QuizWhat did I learn in this module? (Cont.)",
+          "A trunk is a Layer 2 link between two switches that carries traffic for all VLANs.",
+          "Trunks will need tagging for the various VLANs, typically 802.1q .",
+          "IEEE 802.1q tagging makes provision for one native VLAN that will remain untagged.",
+          "An interface can be set to trunking or nontrunking.",
+          "Trunk negotiation is managed by the Dynamic Trunking Protocol (DTP).",
+          "DTP is a Cisco proprietary protocol that manages trunk negotiations."
+        ],
+        "title": "Module Practice and QuizWhat did I learn in this module? (Cont.)",
+        "image": "/assets/network-sources/c3-60.webp"
+      },
+      {
+        "number": 61,
+        "text": [
+          "Module Practice and QuizNew Terms and Commands",
+          "VLAN",
+          "Logical broadcast domain",
+          "Data VLAN",
+          "Default VLAN",
+          "Native VLAN",
+          "Management VLAN",
+          "show vlan brief",
+          "Voice VLAN",
+          "VLAN Trunk",
+          "VLAN Segmentation",
+          "IEEE 802.1Q",
+          "VLAN Tagging",
+          "Canonical Format Identifier (CFI)",
+          "User Priority",
+          "VLAN ID",
+          "Type",
+          "show interfaces int switchport"
+        ],
+        "title": "Module Practice and QuizNew Terms and Commands",
+        "image": "/assets/network-sources/c3-61.webp"
+      },
+      {
+        "number": 62,
+        "text": [
+          "Module Practice and QuizNew Terms and Commands",
+          "Normal Range VLANs",
+          "Extended Range VLANs",
+          "vlan vlan-id",
+          "name vlan-name",
+          "switchport mode access",
+          "switchport access vlan vlan-id",
+          "interface range",
+          "no switchport access vlan vlan-id",
+          "no vlan vlan-id",
+          "delete flash:vlan.dat",
+          "delete vlan.dat",
+          "show vlan",
+          "show interfaces",
+          "show vlan summary",
+          "show interfaces vlan vlan_id",
+          "switchport mode trunk",
+          "switchport trunk allowed vlan vlan_list",
+          "switchport trunk native vlan vlan_id",
+          "no switchport trunk allowed vlan",
+          "no switchport trunk native vlan",
+          "show interfaces switchport",
+          "no switchport access vlan vlan_id",
+          "show interfaces trunk",
+          "show interfaces int_id trunk"
+        ],
+        "title": "Module Practice and QuizNew Terms and Commands",
+        "image": "/assets/network-sources/c3-62.webp"
+      }
+    ],
+    "range": "56–62"
+  }
+}

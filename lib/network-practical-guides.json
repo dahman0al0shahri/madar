@@ -1,0 +1,1606 @@
+[
+  {
+    "id": "network-guide-01",
+    "subject": "Network",
+    "unit": 1,
+    "section": "practice-guide",
+    "title": "1 · إنشاء شبكة والإعدادات الأولية — R1",
+    "video": null,
+    "summary": "جهز Router من نوع 1941 والحاسبين والتوصيلات كما في الرسم الأصلي. الملف الأول يستخدم Switch واحدًا، والثاني يستخدم S1 وS2. طابق اسم الواجهة على جهازك قبل كتابة الأوامر. على الحاسب افتح إعداد IPv4 (وفي Packet Tracer: Desktop ثم IP Configuration) وأدخل IP والقناع والبوابة من الجدول.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "التوصيل وجدول العناوين",
+      "الاسم وكلمات مرور Console وVTY",
+      "عناوين الواجهات وتفعيلها",
+      "الفحص وتفسير النتيجة"
+    ],
+    "source": "تمرين انشاء شبكة وبسيطة وعمل الاعدادات الاولية.docx",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 1,
+      "part": "عملي 1",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "تمرين انشاء شبكة وبسيطة وعمل الاعدادات الاولية.docx",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "التوصيل وجدول العناوين",
+          "slides": "1",
+          "paragraphs": [
+            "جهز Router من نوع 1941 والحاسبين والتوصيلات كما في الرسم الأصلي. الملف الأول يستخدم Switch واحدًا، والثاني يستخدم S1 وS2. طابق اسم الواجهة على جهازك قبل كتابة الأوامر. على الحاسب افتح إعداد IPv4 (وفي Packet Tracer: Desktop ثم IP Configuration) وأدخل IP والقناع والبوابة من الجدول."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "G0/0",
+              "192.168.0.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "G0/1",
+              "192.168.1.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-A",
+              "192.168.1.3",
+              "255.255.255.0",
+              "192.168.1.1"
+            ],
+            [
+              "PC-B",
+              "192.168.0.3",
+              "255.255.255.0",
+              "192.168.0.1"
+            ]
+          ],
+          "note": "استخدم بيئة مختبر جاهزة أو أجهزة مخصصة للتدريب. لا تمسح جهازًا مستخدمًا لمجرد أن مقدمة المصدر تطلب بدءًا نظيفًا."
+        },
+        {
+          "title": "الاسم وكلمات مرور Console وVTY",
+          "slides": "إعداد Router",
+          "paragraphs": [
+            "افتح CLI. enable يفتح Privileged EXEC، وconfigure terminal يفتح Global Configuration. بعد hostname يتغير Prompt إلى الاسم الجديد. line console 0 لضبط الدخول المحلي، وline vty 0 4 للخطوط الافتراضية. لا يكفي password دون login. banner motd يعرض النص بين علامتي الفصل."
+          ],
+          "code": "! الجهاز: R1\nenable\nconfigure terminal\nhostname R1\nline console 0\npassword 123\nlogin\nexit\nline vty 0 4\npassword 456\nlogin\nexit\nbanner motd \" Be careful\"",
+          "note": "مقدمة المصدر الأول تذكر SSH وIPv6، لكن الأجزاء التنفيذية المرفقة تنتهي بالإعداد الأساسي وIPv4؛ لم ننشئ أجزاء مفقودة."
+        },
+        {
+          "title": "عناوين الواجهات وتفعيلها",
+          "slides": "إعداد الواجهات",
+          "paragraphs": [
+            "ادخل Interface Configuration لكل منفذ عبر interface. description توثق الطرف المتصل، وip address يضبط عنوان البوابة، وno shutdown يرفع الإغلاق الإداري. exit يرجع للإعداد العام قبل الانتقال للمنفذ الثاني."
+          ],
+          "code": "! الجهاز: R1\ninterface g0/0\ndescription Connection to PC-B\nip address 192.168.0.1 255.255.255.0\nno shutdown\nexit\ninterface g0/1\ndescription Connection to S1\nip address 192.168.1.1 255.255.255.0\nno shutdown\nend"
+        },
+        {
+          "title": "الفحص وتفسير النتيجة",
+          "slides": "التحقق",
+          "paragraphs": [
+            "راجع show ip interface brief؛ ينبغي أن تكون الواجهتان المستخدمتان up/up مع العناوين الصحيحة. اختبر من كل حاسب بوابته، ثم الحاسب الآخر. من PC-B نفذ الأمر التالي نحو PC-A. إذا فشل الاتصال افحص التوصيل وحالة المنفذ والقناع والبوابة، ثم سياسة ICMP في جدار الحماية. لا تعطل الحماية كاملة كأول معالجة."
+          ],
+          "code": "R1# show ip interface brief\nPC-B> ping 192.168.1.3",
+          "note": "التوقع ليس نتيجة اختبار أجراه مدار. سجل ما يظهر في بيئتك، وأعد الفحص بعد إصلاح السبب."
+        }
+      ],
+      "checks": [
+        {
+          "question": "لماذا نكتب login بعد password؟",
+          "answer": "لتفعيل طلب كلمة المرور على الخط المحدد."
+        },
+        {
+          "question": "هل no shutdown وحده يثبت أن المنفذ يعمل؟",
+          "answer": "لا؛ تحقق من up/up ومن التوصيل والعنوان وPing."
+        }
+      ],
+      "glossary": {
+        "Console": "اتصال محلي بسطر أوامر الجهاز.",
+        "VTY": "خطوط افتراضية للدخول عن بعد.",
+        "Default Gateway": "عنوان الجهاز الذي يمرر الحركة إلى شبكة أخرى."
+      },
+      "sourceId": "SRC-M100-ROUTING1-20261028-01",
+      "sourceFile": "/assets/network-labs/lab-1.docx",
+      "originalFile": "/assets/network-labs/lab-1.docx",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-1-figure-1.webp"
+        },
+        {
+          "number": 2,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-1-figure-2.webp"
+        }
+      ]
+    }
+  },
+  {
+    "id": "network-guide-02",
+    "subject": "Network",
+    "unit": 2,
+    "section": "practice-guide",
+    "title": "2 · إنشاء شبكة والإعدادات الأولية — Network",
+    "video": null,
+    "summary": "جهز Router من نوع 1941 والحاسبين والتوصيلات كما في الرسم الأصلي. الملف الأول يستخدم Switch واحدًا، والثاني يستخدم S1 وS2. طابق اسم الواجهة على جهازك قبل كتابة الأوامر. على الحاسب افتح إعداد IPv4 (وفي Packet Tracer: Desktop ثم IP Configuration) وأدخل IP والقناع والبوابة من الجدول.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "التوصيل وجدول العناوين",
+      "الاسم وكلمات مرور Console وVTY",
+      "عناوين الواجهات وتفعيلها",
+      "الفحص وتفسير النتيجة"
+    ],
+    "source": "Lab - Configure Basic Router Settings -  2.docx",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 2,
+      "part": "عملي 2",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "Lab - Configure Basic Router Settings -  2.docx",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "التوصيل وجدول العناوين",
+          "slides": "1",
+          "paragraphs": [
+            "جهز Router من نوع 1941 والحاسبين والتوصيلات كما في الرسم الأصلي. الملف الأول يستخدم Switch واحدًا، والثاني يستخدم S1 وS2. طابق اسم الواجهة على جهازك قبل كتابة الأوامر. على الحاسب افتح إعداد IPv4 (وفي Packet Tracer: Desktop ثم IP Configuration) وأدخل IP والقناع والبوابة من الجدول."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "G0/0",
+              "192.10.100.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "G0/1",
+              "192.10.200.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-A",
+              "192.10.200.3",
+              "255.255.255.0",
+              "192.10.200.1"
+            ],
+            [
+              "PC-B",
+              "192.10.100.3",
+              "255.255.255.0",
+              "192.10.100.1"
+            ]
+          ],
+          "note": "استخدم بيئة مختبر جاهزة أو أجهزة مخصصة للتدريب. لا تمسح جهازًا مستخدمًا لمجرد أن مقدمة المصدر تطلب بدءًا نظيفًا."
+        },
+        {
+          "title": "الاسم وكلمات مرور Console وVTY",
+          "slides": "إعداد Router",
+          "paragraphs": [
+            "افتح CLI. enable يفتح Privileged EXEC، وconfigure terminal يفتح Global Configuration. بعد hostname يتغير Prompt إلى الاسم الجديد. line console 0 لضبط الدخول المحلي، وline vty 0 4 للخطوط الافتراضية. لا يكفي password دون login. banner motd يعرض النص بين علامتي الفصل."
+          ],
+          "code": "! الجهاز: Network\nenable\nconfigure terminal\nhostname Network\nline console 0\npassword 123456\nlogin\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nbanner motd \"Welcome in Network\"",
+          "note": "يستمر المصدر بطباعة R1 بعد تغيير الاسم إلى Network؛ الاسم الفعلي في Prompt يصبح Network. الأوامر أدناه تستخدم الاسم الصحيح."
+        },
+        {
+          "title": "عناوين الواجهات وتفعيلها",
+          "slides": "إعداد الواجهات",
+          "paragraphs": [
+            "ادخل Interface Configuration لكل منفذ عبر interface. description توثق الطرف المتصل، وip address يضبط عنوان البوابة، وno shutdown يرفع الإغلاق الإداري. exit يرجع للإعداد العام قبل الانتقال للمنفذ الثاني."
+          ],
+          "code": "! الجهاز: Network\ninterface g0/0\ndescription Connection to S2\nip address 192.10.100.1 255.255.255.0\nno shutdown\nexit\ninterface g0/1\ndescription Connection to S1\nip address 192.10.200.1 255.255.255.0\nno shutdown\nend"
+        },
+        {
+          "title": "الفحص وتفسير النتيجة",
+          "slides": "التحقق",
+          "paragraphs": [
+            "راجع show ip interface brief؛ ينبغي أن تكون الواجهتان المستخدمتان up/up مع العناوين الصحيحة. اختبر من كل حاسب بوابته، ثم الحاسب الآخر. من PC-B نفذ الأمر التالي نحو PC-A. إذا فشل الاتصال افحص التوصيل وحالة المنفذ والقناع والبوابة، ثم سياسة ICMP في جدار الحماية. لا تعطل الحماية كاملة كأول معالجة."
+          ],
+          "code": "Network# show ip interface brief\nPC-B> ping 192.10.200.3",
+          "note": "التوقع ليس نتيجة اختبار أجراه مدار. سجل ما يظهر في بيئتك، وأعد الفحص بعد إصلاح السبب."
+        }
+      ],
+      "checks": [
+        {
+          "question": "لماذا نكتب login بعد password؟",
+          "answer": "لتفعيل طلب كلمة المرور على الخط المحدد."
+        },
+        {
+          "question": "هل no shutdown وحده يثبت أن المنفذ يعمل؟",
+          "answer": "لا؛ تحقق من up/up ومن التوصيل والعنوان وPing."
+        }
+      ],
+      "glossary": {
+        "Console": "اتصال محلي بسطر أوامر الجهاز.",
+        "VTY": "خطوط افتراضية للدخول عن بعد.",
+        "Default Gateway": "عنوان الجهاز الذي يمرر الحركة إلى شبكة أخرى."
+      },
+      "sourceId": "SRC-M100-ROUTING1-20261028-02",
+      "sourceFile": "/assets/network-labs/lab-2.docx",
+      "originalFile": "/assets/network-labs/lab-2.docx",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-2-figure-1.webp"
+        },
+        {
+          "number": 2,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-2-figure-2.webp"
+        },
+        {
+          "number": 3,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-2-figure-3.webp"
+        },
+        {
+          "number": 4,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-2-figure-4.webp"
+        },
+        {
+          "number": 5,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-2-figure-5.webp"
+        }
+      ]
+    }
+  },
+  {
+    "id": "network-guide-03",
+    "subject": "Network",
+    "unit": 3,
+    "section": "practice-guide",
+    "title": "3 · تنفيذ VLAN وTrunk — 3.6.2",
+    "video": null,
+    "summary": "صل PC-A بالمنفذ S1 F0/6 وPC-B بالمنفذ S2 F0/18، ووصل S1 F0/1 مع S2 F0/1. طابق الرسم وجدول العناوين قبل التكوين. جهز حواسيبك بعناوين الجدول، مع البوابات في تمريني التوجيه.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "التوصيل والعنونة",
+      "الإعداد الأساسي لكل جهاز",
+      "إنشاء VLAN وإدارة المنافذ",
+      "تهيئة Trunk ومطابقة الطرفين",
+      "اختبارات الوصول وتفسير الفشل"
+    ],
+    "source": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 3,
+      "part": "عملي 3",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "التوصيل والعنونة",
+          "slides": "1–2",
+          "paragraphs": [
+            "صل PC-A بالمنفذ S1 F0/6 وPC-B بالمنفذ S2 F0/18، ووصل S1 F0/1 مع S2 F0/1. طابق الرسم وجدول العناوين قبل التكوين. جهز حواسيبك بعناوين الجدول، مع البوابات في تمريني التوجيه."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "S1 VLAN 10",
+              "192.168.10.11",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "S2 VLAN 10",
+              "192.168.10.12",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-A",
+              "192.168.20.13",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-B",
+              "192.168.30.13",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "S1 VLAN 20",
+              "192.168.20.11",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "S1 VLAN 30",
+              "192.168.30.11",
+              "255.255.255.0",
+              "—"
+            ]
+          ]
+        },
+        {
+          "title": "الإعداد الأساسي لكل جهاز",
+          "slides": "الجزء 1",
+          "paragraphs": [
+            "ابدأ من Console. ينتقل enable من User EXEC (الجهاز>) إلى Privileged EXEC (الجهاز#)، ثم configure terminal إلى Global Configuration (الجهاز(config)#). يغير hostname الاسم، وenable secret كلمة مرور الوضع ذي الامتيازات. داخل Line Configuration تضبط password ثم login لتفعيل طلبها. exit يرجع مستوى، وend يرجع إلى Privileged EXEC.",
+            "no ip domain-lookup يمنع محاولة تفسير الأمر الخاطئ كاسم مضيف. service password-encryption يخفي كلمات المرور النصية في التكوين؛ لا يشفر جلسة Telnet. logging synchronous يعيد سطر الكتابة بعد رسائل Console. كلمات المرور هنا قيم المختبر وليست توصية لشبكة إنتاج.",
+            "نفذ كتلة كل جهاز على الجهاز المكتوب فوقها. احفظ بالإجابة عن اسم الملف الافتراضي في copy running-config startup-config. "
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\nhostname S1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\nhostname S2\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config"
+        },
+        {
+          "title": "إنشاء VLAN وإدارة المنافذ",
+          "slides": "الجزء 2",
+          "paragraphs": [
+            "أنشئ VLAN على كلا Switches، واضبط SVI للإدارة. عيّن المنافذ غير المستخدمة إلى Parking VLAN ثم shutdown. استثنِ منافذ الحواسيب والروابط المستخدمة من هذه المجموعة. اختر وضع Access لشبكة الحاسب، ثم no shutdown.",
+            "SVI واجهة منطقية لشبكة VLAN وليست منفذ الحاسب. على Layer 2 Switch لا تنشئ SVI متعددة عملية توجيه بين VLAN. ip default-gateway في تمريني التوجيه يخص حركة إدارة Switch نحو الشبكات الأخرى."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\nvlan 10\nname Management\nexit\nvlan 20\nname Sales\nexit\nvlan 30\nname Operations\nexit\nvlan 999\nname ParkingLot\nexit\nvlan 1000\nname Native\nexit\ninterface vlan 10\nip address 192.168.10.11 255.255.255.0\nno shutdown\nexit\ninterface vlan 20\nip address 192.168.20.11 255.255.255.0\nno shutdown\nexit\ninterface vlan 30\nip address 192.168.30.11 255.255.255.0\nno shutdown\nexit\ninterface range f0/2 - 5, f0/7 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 999\nshutdown\nexit\ninterface f0/6\nswitchport mode access\nswitchport access vlan 20\nno shutdown\nend\nshow vlan brief\n\n! الجهاز: S2\nenable\nconfigure terminal\nvlan 10\nname Management\nexit\nvlan 20\nname Sales\nexit\nvlan 30\nname Operations\nexit\nvlan 999\nname ParkingLot\nexit\nvlan 1000\nname Native\nexit\ninterface vlan 10\nip address 192.168.10.12 255.255.255.0\nno shutdown\nexit\ninterface range f0/2 - 17, f0/19 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 999\nshutdown\nexit\ninterface f0/18\nswitchport mode access\nswitchport access vlan 30\nno shutdown\nend\nshow vlan brief",
+          "note": "تظهر فروق مطبعية في أسماء ParkingLot وحالة حروف Sales في المصدر؛ اعتمد رقم VLAN وجدول المتطلبات. أضيف no shutdown إلى SVI للتحقق من جاهزيتها؛ يلزم أيضًا منفذ عامل يحمل VLAN."
+        },
+        {
+          "title": "تهيئة Trunk ومطابقة الطرفين",
+          "slides": "الجزء 3",
+          "paragraphs": [
+            "Trunk يحمل عدة VLAN على وصلة واحدة. طابق Native VLAN وقائمة allowed VLAN على الطرفين. يضبط الأمر allowed دون add القائمة كاملة؛ لا تستخدمه عشوائيًا على شبكة قائمة. تظهر الوصلة في show interfaces trunk بعد أن تعمل فعليًا. "
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\ninterface range f0/1\nswitchport mode trunk\nswitchport trunk native vlan 1000\nswitchport trunk allowed vlan 10,20,30,1000\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\ninterface range f0/1\nswitchport mode trunk\nswitchport trunk native vlan 1000\nswitchport trunk allowed vlan 10,20,30,1000\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config"
+        },
+        {
+          "title": "اختبارات الوصول وتفسير الفشل",
+          "slides": "الجزء 3 · الفحص",
+          "paragraphs": [
+            "اختبر PC-A نحو S1 VLAN 20: يلزم أن تعمل SVI وتحمل المنافذ VLAN الصحيحة. اختبار PC-B نحو S2 VLAN 10 يفشل لأن الشبكتين مختلفتان ولا يوجد Router في هذا التمرين. لا تعالج هذا الفشل المتوقع بتغيير VLAN عشوائيًا.",
+            "راجع IP والقناع والبوابة، ثم Access وTrunk وSVI أوSubinterfaces. احفظ المخرجات التي تثبت السبب والتصحيح، وأعد الاختبارات. صور التكوين النهائي بالمصدر مرجع للمقارنة وليست أوامر لتنسخ كل الخدمات الافتراضية."
+          ],
+          "code": "PC-A> ping 192.168.20.11\nPC-B> ping 192.168.10.12"
+        }
+      ],
+      "checks": [
+        {
+          "question": "لماذا قد يغيب Trunk من المخرجات رغم كتابة الأوامر؟",
+          "answer": "قد تكون الوصلة أو واجهة الطرف المقابل مغلقة، أو لم يصبح الوضع التشغيلي Trunk."
+        },
+        {
+          "question": "هل إنشاء SVI إدارة على Switch من Layer 2 يسمح بتوجيه كل VLAN؟",
+          "answer": "لا؛ يحتاج التوجيه إلى جهاز Layer 3 وإعداداته ومساراته."
+        }
+      ],
+      "glossary": {
+        "SVI": "Switch Virtual Interface، واجهة IP منطقية لشبكة VLAN.",
+        "Native VLAN": "شبكة الحركة غير الموسومة على Trunk في هذا الإعداد.",
+        "Subinterface": "واجهة Router منطقية تحت منفذ فعلي."
+      },
+      "sourceId": "SRC-M100-ROUTING1-20261028-03",
+      "sourceFile": "/assets/network-labs/lab-3.pdf",
+      "originalFile": "/assets/network-labs/lab-3.pdf",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 1",
+          "image": "/assets/network-labs/lab-3-p1.webp"
+        },
+        {
+          "number": 2,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 2",
+          "image": "/assets/network-labs/lab-3-p2.webp"
+        },
+        {
+          "number": 3,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 3",
+          "image": "/assets/network-labs/lab-3-p3.webp"
+        },
+        {
+          "number": 4,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 4",
+          "image": "/assets/network-labs/lab-3-p4.webp"
+        },
+        {
+          "number": 5,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 5",
+          "image": "/assets/network-labs/lab-3-p5.webp"
+        },
+        {
+          "number": 6,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 6",
+          "image": "/assets/network-labs/lab-3-p6.webp"
+        },
+        {
+          "number": 7,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 7",
+          "image": "/assets/network-labs/lab-3-p7.webp"
+        },
+        {
+          "number": 8,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 8",
+          "image": "/assets/network-labs/lab-3-p8.webp"
+        },
+        {
+          "number": 9,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 9",
+          "image": "/assets/network-labs/lab-3-p9.webp"
+        },
+        {
+          "number": 10,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 10",
+          "image": "/assets/network-labs/lab-3-p10.webp"
+        },
+        {
+          "number": 11,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 11",
+          "image": "/assets/network-labs/lab-3-p11.webp"
+        },
+        {
+          "number": 12,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 12",
+          "image": "/assets/network-labs/lab-3-p12.webp"
+        },
+        {
+          "number": 13,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 13",
+          "image": "/assets/network-labs/lab-3-p13.webp"
+        },
+        {
+          "number": 14,
+          "title": "3.6.2 Lab - Implement VLANs and Trunking - ILM.pdf · الصفحة 14",
+          "image": "/assets/network-labs/lab-3-p14.webp"
+        }
+      ]
+    }
+  },
+  {
+    "id": "network-guide-04",
+    "subject": "Network",
+    "unit": 4,
+    "section": "practice-guide",
+    "title": "4 · Router-on-a-Stick — 4.2.8",
+    "video": null,
+    "summary": "صل PC-A بالمنفذ S1 F0/6 وPC-B بالمنفذ S2 F0/18، ووصل S1 F0/1 مع S2 F0/1. صل S1 F0/5 بمنفذ R1 G0/0/1. طابق الرسم وجدول العناوين قبل التكوين. جهز حواسيبك بعناوين الجدول، مع البوابات في تمريني التوجيه.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "التوصيل والعنونة",
+      "الإعداد الأساسي لكل جهاز",
+      "إنشاء VLAN وإدارة المنافذ",
+      "تهيئة Trunk ومطابقة الطرفين",
+      "واجهات Router الفرعية",
+      "اختبارات الوصول وتفسير الفشل"
+    ],
+    "source": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 4,
+      "part": "عملي 4",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "التوصيل والعنونة",
+          "slides": "1–2",
+          "paragraphs": [
+            "صل PC-A بالمنفذ S1 F0/6 وPC-B بالمنفذ S2 F0/18، ووصل S1 F0/1 مع S2 F0/1. صل S1 F0/5 بمنفذ R1 G0/0/1. طابق الرسم وجدول العناوين قبل التكوين. جهز حواسيبك بعناوين الجدول، مع البوابات في تمريني التوجيه."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "S1 VLAN 3",
+              "192.168.3.11",
+              "255.255.255.0",
+              "192.168.3.1"
+            ],
+            [
+              "S2 VLAN 3",
+              "192.168.3.12",
+              "255.255.255.0",
+              "192.168.3.1"
+            ],
+            [
+              "PC-A",
+              "192.168.3.3",
+              "255.255.255.0",
+              "192.168.3.1"
+            ],
+            [
+              "PC-B",
+              "192.168.4.3",
+              "255.255.255.0",
+              "192.168.4.1"
+            ],
+            [
+              "R1 G0/0/1.3",
+              "192.168.3.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "R1 G0/0/1.4",
+              "192.168.4.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "R1 G0/0/1.8",
+              "دون عنوان",
+              "—",
+              "—"
+            ]
+          ]
+        },
+        {
+          "title": "الإعداد الأساسي لكل جهاز",
+          "slides": "الجزء 1",
+          "paragraphs": [
+            "ابدأ من Console. ينتقل enable من User EXEC (الجهاز>) إلى Privileged EXEC (الجهاز#)، ثم configure terminal إلى Global Configuration (الجهاز(config)#). يغير hostname الاسم، وenable secret كلمة مرور الوضع ذي الامتيازات. داخل Line Configuration تضبط password ثم login لتفعيل طلبها. exit يرجع مستوى، وend يرجع إلى Privileged EXEC.",
+            "no ip domain-lookup يمنع محاولة تفسير الأمر الخاطئ كاسم مضيف. service password-encryption يخفي كلمات المرور النصية في التكوين؛ لا يشفر جلسة Telnet. logging synchronous يعيد سطر الكتابة بعد رسائل Console. كلمات المرور هنا قيم المختبر وليست توصية لشبكة إنتاج.",
+            "نفذ كتلة كل جهاز على الجهاز المكتوب فوقها. احفظ بالإجابة عن اسم الملف الافتراضي في copy running-config startup-config. اضبط الساعة الحالية بأمر clock set من Privileged EXEC؛ استخدم clock set ? لمعرفة الصيغة بدل نسخ تاريخ المثال القديم."
+          ],
+          "code": "! الجهاز: R1\nenable\nconfigure terminal\nhostname R1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S1\nenable\nconfigure terminal\nhostname S1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\nhostname S2\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config"
+        },
+        {
+          "title": "إنشاء VLAN وإدارة المنافذ",
+          "slides": "الجزء 2",
+          "paragraphs": [
+            "أنشئ VLAN على كلا Switches، واضبط SVI للإدارة. عيّن المنافذ غير المستخدمة إلى Parking VLAN ثم shutdown. استثنِ منافذ الحواسيب والروابط المستخدمة من هذه المجموعة. اختر وضع Access لشبكة الحاسب، ثم no shutdown.",
+            "SVI واجهة منطقية لشبكة VLAN وليست منفذ الحاسب. على Layer 2 Switch لا تنشئ SVI متعددة عملية توجيه بين VLAN. ip default-gateway في تمريني التوجيه يخص حركة إدارة Switch نحو الشبكات الأخرى."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\nvlan 3\nname Management\nexit\nvlan 4\nname Operations\nexit\nvlan 7\nname ParkingLot\nexit\nvlan 8\nname Native\nexit\ninterface vlan 3\nip address 192.168.3.11 255.255.255.0\nno shutdown\nexit\nip default-gateway 192.168.3.1\ninterface range f0/2 - 4, f0/7 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 7\nshutdown\nexit\ninterface f0/6\nswitchport mode access\nswitchport access vlan 3\nno shutdown\nend\nshow vlan brief\n\n! الجهاز: S2\nenable\nconfigure terminal\nvlan 3\nname Management\nexit\nvlan 4\nname Operations\nexit\nvlan 7\nname ParkingLot\nexit\nvlan 8\nname Native\nexit\ninterface vlan 3\nip address 192.168.3.12 255.255.255.0\nno shutdown\nexit\nip default-gateway 192.168.3.1\ninterface range f0/2 - 17, f0/19 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 7\nshutdown\nexit\ninterface f0/18\nswitchport mode access\nswitchport access vlan 4\nno shutdown\nend\nshow vlan brief",
+          "note": "تظهر فروق مطبعية في أسماء ParkingLot وحالة حروف Sales في المصدر؛ اعتمد رقم VLAN وجدول المتطلبات. أضيف no shutdown إلى SVI للتحقق من جاهزيتها؛ يلزم أيضًا منفذ عامل يحمل VLAN."
+        },
+        {
+          "title": "تهيئة Trunk ومطابقة الطرفين",
+          "slides": "الجزء 3",
+          "paragraphs": [
+            "Trunk يحمل عدة VLAN على وصلة واحدة. طابق Native VLAN وقائمة allowed VLAN على الطرفين. يضبط الأمر allowed دون add القائمة كاملة؛ لا تستخدمه عشوائيًا على شبكة قائمة. تظهر الوصلة في show interfaces trunk بعد أن تعمل فعليًا. قد لا يظهر F0/5 قبل تفعيل منفذ Router؛ لا يعد ذلك وحده خطأ في أمر Trunk."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\ninterface range f0/1, f0/5\nswitchport mode trunk\nswitchport trunk native vlan 8\nswitchport trunk allowed vlan 3,4,8\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\ninterface range f0/1\nswitchport mode trunk\nswitchport trunk native vlan 8\nswitchport trunk allowed vlan 3,4,8\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config",
+          "note": "في نسخة 4.2.8 تظهر مخرجات باسم F0/3 رغم أن التعليمات والرسم يستخدمان F0/1؛ اتبع التوصيل الفعلي وتحقق منه."
+        },
+        {
+          "title": "واجهات Router الفرعية",
+          "slides": "الجزء 4",
+          "paragraphs": [
+            "فعّل الواجهة الرئيسية، ثم أنشئ Subinterface لكل VLAN مطلوبة. encapsulation dot1Q يربط الواجهة بالوسم. لكل شبكة مستخدمين عنوان بوابة مستقل. واجهة Native في هذا المختبر بلا IP؛ لا تضع عنوانًا على الواجهة الرئيسية بدل الواجهات الفرعية.",
+            "أضف description لكل واجهة كما في المصدر. تحقق من up/up والعناوين والمسارات المتصلة، ثم احفظ. لا تخلط أرقام VLAN بين تمرين 4.2.8 وتمرين 4.5.2."
+          ],
+          "code": "! الجهاز: R1\nenable\nconfigure terminal\ninterface g0/0/1\nno shutdown\nexit\ninterface g0/0/1.3\ndescription Management Network\nencapsulation dot1Q 3\nip address 192.168.3.1 255.255.255.0\nexit\ninterface g0/0/1.4\ndescription Operations Network\nencapsulation dot1Q 4\nip address 192.168.4.1 255.255.255.0\nexit\ninterface g0/0/1.8\ndescription Native Network\nencapsulation dot1Q 8 native\nexit\nend\nshow ip interface brief\nshow ip route\ncopy running-config startup-config"
+        },
+        {
+          "title": "اختبارات الوصول وتفسير الفشل",
+          "slides": "الجزء 5",
+          "paragraphs": [
+            "من PC-A اختبر بوابته، ثم PC-B، ثم S2. من PC-B نفذ tracert نحو PC-A؛ في السيناريو السليم تكون القفزة الأولى بوابة PC-B ثم PC-A. النتيجة الفعلية قد تعرض مهلات إذا حجبت رسائل ICMP؛ افحص السبب قبل تغيير التصميم.",
+            "راجع IP والقناع والبوابة، ثم Access وTrunk وSVI أوSubinterfaces. احفظ المخرجات التي تثبت السبب والتصحيح، وأعد الاختبارات. صور التكوين النهائي بالمصدر مرجع للمقارنة وليست أوامر لتنسخ كل الخدمات الافتراضية."
+          ],
+          "code": "PC-A> ping 192.168.3.1\nPC-A> ping 192.168.4.3\nPC-A> ping 192.168.3.12\nPC-B> tracert 192.168.3.3"
+        }
+      ],
+      "checks": [
+        {
+          "question": "لماذا قد يغيب Trunk من المخرجات رغم كتابة الأوامر؟",
+          "answer": "قد تكون الوصلة أو واجهة الطرف المقابل مغلقة، أو لم يصبح الوضع التشغيلي Trunk."
+        },
+        {
+          "question": "هل إنشاء SVI إدارة على Switch من Layer 2 يسمح بتوجيه كل VLAN؟",
+          "answer": "لا؛ يحتاج التوجيه إلى جهاز Layer 3 وإعداداته ومساراته."
+        }
+      ],
+      "glossary": {
+        "SVI": "Switch Virtual Interface، واجهة IP منطقية لشبكة VLAN.",
+        "Native VLAN": "شبكة الحركة غير الموسومة على Trunk في هذا الإعداد.",
+        "Subinterface": "واجهة Router منطقية تحت منفذ فعلي."
+      },
+      "sourceId": "SRC-LAB428-EXAM-20261001",
+      "sourceFile": "/assets/network-labs/lab-4.pdf",
+      "originalFile": "/assets/network-labs/lab-4.pdf",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 1",
+          "image": "/assets/network-labs/lab-4-p1.webp"
+        },
+        {
+          "number": 2,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 2",
+          "image": "/assets/network-labs/lab-4-p2.webp"
+        },
+        {
+          "number": 3,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 3",
+          "image": "/assets/network-labs/lab-4-p3.webp"
+        },
+        {
+          "number": 4,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 4",
+          "image": "/assets/network-labs/lab-4-p4.webp"
+        },
+        {
+          "number": 5,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 5",
+          "image": "/assets/network-labs/lab-4-p5.webp"
+        },
+        {
+          "number": 6,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 6",
+          "image": "/assets/network-labs/lab-4-p6.webp"
+        },
+        {
+          "number": 7,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 7",
+          "image": "/assets/network-labs/lab-4-p7.webp"
+        },
+        {
+          "number": 8,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 8",
+          "image": "/assets/network-labs/lab-4-p8.webp"
+        },
+        {
+          "number": 9,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 9",
+          "image": "/assets/network-labs/lab-4-p9.webp"
+        },
+        {
+          "number": 10,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 10",
+          "image": "/assets/network-labs/lab-4-p10.webp"
+        },
+        {
+          "number": 11,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 11",
+          "image": "/assets/network-labs/lab-4-p11.webp"
+        },
+        {
+          "number": 12,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 12",
+          "image": "/assets/network-labs/lab-4-p12.webp"
+        },
+        {
+          "number": 13,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 13",
+          "image": "/assets/network-labs/lab-4-p13.webp"
+        },
+        {
+          "number": 14,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 14",
+          "image": "/assets/network-labs/lab-4-p14.webp"
+        },
+        {
+          "number": 15,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 15",
+          "image": "/assets/network-labs/lab-4-p15.webp"
+        },
+        {
+          "number": 16,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 16",
+          "image": "/assets/network-labs/lab-4-p16.webp"
+        },
+        {
+          "number": 17,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 17",
+          "image": "/assets/network-labs/lab-4-p17.webp"
+        },
+        {
+          "number": 18,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 18",
+          "image": "/assets/network-labs/lab-4-p18.webp"
+        },
+        {
+          "number": 19,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 19",
+          "image": "/assets/network-labs/lab-4-p19.webp"
+        },
+        {
+          "number": 20,
+          "title": "4.2.8 Lab - Configure Router-on-a-Stick Inter-VLAN Routing - ILM (1).pdf · الصفحة 20",
+          "image": "/assets/network-labs/lab-4-p20.webp"
+        }
+      ]
+    }
+  },
+  {
+    "id": "network-guide-05",
+    "subject": "Network",
+    "unit": 5,
+    "section": "practice-guide",
+    "title": "5 · تطبيق Inter-VLAN كاملًا — 4.5.2",
+    "video": null,
+    "summary": "صل PC-A بالمنفذ S1 F0/6 وPC-B بالمنفذ S2 F0/18، ووصل S1 F0/1 مع S2 F0/1. صل S1 F0/5 بمنفذ R1 G0/0/1. طابق الرسم وجدول العناوين قبل التكوين. جهز حواسيبك بعناوين الجدول، مع البوابات في تمريني التوجيه.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "التوصيل والعنونة",
+      "الإعداد الأساسي لكل جهاز",
+      "إنشاء VLAN وإدارة المنافذ",
+      "تهيئة Trunk ومطابقة الطرفين",
+      "واجهات Router الفرعية",
+      "اختبارات الوصول وتفسير الفشل"
+    ],
+    "source": "Lab 4.5.2.pdf",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 5,
+      "part": "عملي 5",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "Lab 4.5.2.pdf",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "التوصيل والعنونة",
+          "slides": "1–2",
+          "paragraphs": [
+            "صل PC-A بالمنفذ S1 F0/6 وPC-B بالمنفذ S2 F0/18، ووصل S1 F0/1 مع S2 F0/1. صل S1 F0/5 بمنفذ R1 G0/0/1. طابق الرسم وجدول العناوين قبل التكوين. جهز حواسيبك بعناوين الجدول، مع البوابات في تمريني التوجيه."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "S1 VLAN 10",
+              "192.168.10.11",
+              "255.255.255.0",
+              "192.168.10.1"
+            ],
+            [
+              "S2 VLAN 10",
+              "192.168.10.12",
+              "255.255.255.0",
+              "192.168.10.1"
+            ],
+            [
+              "PC-A",
+              "192.168.20.3",
+              "255.255.255.0",
+              "192.168.20.1"
+            ],
+            [
+              "PC-B",
+              "192.168.30.3",
+              "255.255.255.0",
+              "192.168.30.1"
+            ],
+            [
+              "R1 G0/0/1.10",
+              "192.168.10.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "R1 G0/0/1.20",
+              "192.168.20.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "R1 G0/0/1.30",
+              "192.168.30.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "R1 G0/0/1.1000",
+              "دون عنوان",
+              "—",
+              "—"
+            ]
+          ]
+        },
+        {
+          "title": "الإعداد الأساسي لكل جهاز",
+          "slides": "الجزء 1",
+          "paragraphs": [
+            "ابدأ من Console. ينتقل enable من User EXEC (الجهاز>) إلى Privileged EXEC (الجهاز#)، ثم configure terminal إلى Global Configuration (الجهاز(config)#). يغير hostname الاسم، وenable secret كلمة مرور الوضع ذي الامتيازات. داخل Line Configuration تضبط password ثم login لتفعيل طلبها. exit يرجع مستوى، وend يرجع إلى Privileged EXEC.",
+            "no ip domain-lookup يمنع محاولة تفسير الأمر الخاطئ كاسم مضيف. service password-encryption يخفي كلمات المرور النصية في التكوين؛ لا يشفر جلسة Telnet. logging synchronous يعيد سطر الكتابة بعد رسائل Console. كلمات المرور هنا قيم المختبر وليست توصية لشبكة إنتاج.",
+            "نفذ كتلة كل جهاز على الجهاز المكتوب فوقها. احفظ بالإجابة عن اسم الملف الافتراضي في copy running-config startup-config. اضبط الساعة الحالية بأمر clock set من Privileged EXEC؛ استخدم clock set ? لمعرفة الصيغة بدل نسخ تاريخ المثال القديم."
+          ],
+          "code": "! الجهاز: R1\nenable\nconfigure terminal\nhostname R1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S1\nenable\nconfigure terminal\nhostname S1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\nhostname S2\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config"
+        },
+        {
+          "title": "إنشاء VLAN وإدارة المنافذ",
+          "slides": "الجزء 2",
+          "paragraphs": [
+            "أنشئ VLAN على كلا Switches، واضبط SVI للإدارة. عيّن المنافذ غير المستخدمة إلى Parking VLAN ثم shutdown. استثنِ منافذ الحواسيب والروابط المستخدمة من هذه المجموعة. اختر وضع Access لشبكة الحاسب، ثم no shutdown.",
+            "SVI واجهة منطقية لشبكة VLAN وليست منفذ الحاسب. على Layer 2 Switch لا تنشئ SVI متعددة عملية توجيه بين VLAN. ip default-gateway في تمريني التوجيه يخص حركة إدارة Switch نحو الشبكات الأخرى."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\nvlan 10\nname Management\nexit\nvlan 20\nname Sales\nexit\nvlan 30\nname Operations\nexit\nvlan 999\nname Parking_Lot\nexit\nvlan 1000\nname Native\nexit\ninterface vlan 10\nip address 192.168.10.11 255.255.255.0\nno shutdown\nexit\nip default-gateway 192.168.10.1\ninterface range f0/2 - 4, f0/7 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 999\nshutdown\nexit\ninterface f0/6\nswitchport mode access\nswitchport access vlan 20\nno shutdown\nend\nshow vlan brief\n\n! الجهاز: S2\nenable\nconfigure terminal\nvlan 10\nname Management\nexit\nvlan 20\nname Sales\nexit\nvlan 30\nname Operations\nexit\nvlan 999\nname Parking_Lot\nexit\nvlan 1000\nname Native\nexit\ninterface vlan 10\nip address 192.168.10.12 255.255.255.0\nno shutdown\nexit\nip default-gateway 192.168.10.1\ninterface range f0/2 - 17, f0/19 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 999\nshutdown\nexit\ninterface f0/18\nswitchport mode access\nswitchport access vlan 30\nno shutdown\nend\nshow vlan brief",
+          "note": "تظهر فروق مطبعية في أسماء ParkingLot وحالة حروف Sales في المصدر؛ اعتمد رقم VLAN وجدول المتطلبات. أضيف no shutdown إلى SVI للتحقق من جاهزيتها؛ يلزم أيضًا منفذ عامل يحمل VLAN."
+        },
+        {
+          "title": "تهيئة Trunk ومطابقة الطرفين",
+          "slides": "الجزء 3",
+          "paragraphs": [
+            "Trunk يحمل عدة VLAN على وصلة واحدة. طابق Native VLAN وقائمة allowed VLAN على الطرفين. يضبط الأمر allowed دون add القائمة كاملة؛ لا تستخدمه عشوائيًا على شبكة قائمة. تظهر الوصلة في show interfaces trunk بعد أن تعمل فعليًا. قد لا يظهر F0/5 قبل تفعيل منفذ Router؛ لا يعد ذلك وحده خطأ في أمر Trunk."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\ninterface range f0/1, f0/5\nswitchport mode trunk\nswitchport trunk native vlan 1000\nswitchport trunk allowed vlan 10,20,30,1000\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\ninterface range f0/1\nswitchport mode trunk\nswitchport trunk native vlan 1000\nswitchport trunk allowed vlan 10,20,30,1000\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config"
+        },
+        {
+          "title": "واجهات Router الفرعية",
+          "slides": "الجزء 4",
+          "paragraphs": [
+            "فعّل الواجهة الرئيسية، ثم أنشئ Subinterface لكل VLAN مطلوبة. encapsulation dot1Q يربط الواجهة بالوسم. لكل شبكة مستخدمين عنوان بوابة مستقل. واجهة Native في هذا المختبر بلا IP؛ لا تضع عنوانًا على الواجهة الرئيسية بدل الواجهات الفرعية.",
+            "أضف description لكل واجهة كما في المصدر. تحقق من up/up والعناوين والمسارات المتصلة، ثم احفظ. لا تخلط أرقام VLAN بين تمرين 4.2.8 وتمرين 4.5.2."
+          ],
+          "code": "! الجهاز: R1\nenable\nconfigure terminal\ninterface g0/0/1\nno shutdown\nexit\ninterface g0/0/1.10\ndescription Management Network\nencapsulation dot1Q 10\nip address 192.168.10.1 255.255.255.0\nexit\ninterface g0/0/1.20\ndescription Sales Network\nencapsulation dot1Q 20\nip address 192.168.20.1 255.255.255.0\nexit\ninterface g0/0/1.30\ndescription Operations Network\nencapsulation dot1Q 30\nip address 192.168.30.1 255.255.255.0\nexit\ninterface g0/0/1.1000\ndescription Native Network\nencapsulation dot1Q 1000 native\nexit\nend\nshow ip interface brief\nshow ip route\ncopy running-config startup-config"
+        },
+        {
+          "title": "اختبارات الوصول وتفسير الفشل",
+          "slides": "الجزء 5",
+          "paragraphs": [
+            "من PC-A اختبر بوابته، ثم PC-B، ثم S2. من PC-B نفذ tracert نحو PC-A؛ في السيناريو السليم تكون القفزة الأولى بوابة PC-B ثم PC-A. النتيجة الفعلية قد تعرض مهلات إذا حجبت رسائل ICMP؛ افحص السبب قبل تغيير التصميم.",
+            "راجع IP والقناع والبوابة، ثم Access وTrunk وSVI أوSubinterfaces. احفظ المخرجات التي تثبت السبب والتصحيح، وأعد الاختبارات. صور التكوين النهائي بالمصدر مرجع للمقارنة وليست أوامر لتنسخ كل الخدمات الافتراضية."
+          ],
+          "code": "PC-A> ping 192.168.20.1\nPC-A> ping 192.168.30.3\nPC-A> ping 192.168.10.12\nPC-B> tracert 192.168.20.3"
+        }
+      ],
+      "checks": [
+        {
+          "question": "لماذا قد يغيب Trunk من المخرجات رغم كتابة الأوامر؟",
+          "answer": "قد تكون الوصلة أو واجهة الطرف المقابل مغلقة، أو لم يصبح الوضع التشغيلي Trunk."
+        },
+        {
+          "question": "هل إنشاء SVI إدارة على Switch من Layer 2 يسمح بتوجيه كل VLAN؟",
+          "answer": "لا؛ يحتاج التوجيه إلى جهاز Layer 3 وإعداداته ومساراته."
+        }
+      ],
+      "glossary": {
+        "SVI": "Switch Virtual Interface، واجهة IP منطقية لشبكة VLAN.",
+        "Native VLAN": "شبكة الحركة غير الموسومة على Trunk في هذا الإعداد.",
+        "Subinterface": "واجهة Router منطقية تحت منفذ فعلي."
+      },
+      "sourceId": "SRC-LAB452-ADDITIONAL-20261012",
+      "sourceFile": "/assets/network-labs/lab-5.pdf",
+      "originalFile": "/assets/network-labs/lab-5.pdf",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "Lab 4.5.2.pdf · الصفحة 1",
+          "image": "/assets/network-labs/lab-5-p1.webp"
+        },
+        {
+          "number": 2,
+          "title": "Lab 4.5.2.pdf · الصفحة 2",
+          "image": "/assets/network-labs/lab-5-p2.webp"
+        },
+        {
+          "number": 3,
+          "title": "Lab 4.5.2.pdf · الصفحة 3",
+          "image": "/assets/network-labs/lab-5-p3.webp"
+        },
+        {
+          "number": 4,
+          "title": "Lab 4.5.2.pdf · الصفحة 4",
+          "image": "/assets/network-labs/lab-5-p4.webp"
+        },
+        {
+          "number": 5,
+          "title": "Lab 4.5.2.pdf · الصفحة 5",
+          "image": "/assets/network-labs/lab-5-p5.webp"
+        },
+        {
+          "number": 6,
+          "title": "Lab 4.5.2.pdf · الصفحة 6",
+          "image": "/assets/network-labs/lab-5-p6.webp"
+        },
+        {
+          "number": 7,
+          "title": "Lab 4.5.2.pdf · الصفحة 7",
+          "image": "/assets/network-labs/lab-5-p7.webp"
+        },
+        {
+          "number": 8,
+          "title": "Lab 4.5.2.pdf · الصفحة 8",
+          "image": "/assets/network-labs/lab-5-p8.webp"
+        },
+        {
+          "number": 9,
+          "title": "Lab 4.5.2.pdf · الصفحة 9",
+          "image": "/assets/network-labs/lab-5-p9.webp"
+        },
+        {
+          "number": 10,
+          "title": "Lab 4.5.2.pdf · الصفحة 10",
+          "image": "/assets/network-labs/lab-5-p10.webp"
+        },
+        {
+          "number": 11,
+          "title": "Lab 4.5.2.pdf · الصفحة 11",
+          "image": "/assets/network-labs/lab-5-p11.webp"
+        },
+        {
+          "number": 12,
+          "title": "Lab 4.5.2.pdf · الصفحة 12",
+          "image": "/assets/network-labs/lab-5-p12.webp"
+        },
+        {
+          "number": 13,
+          "title": "Lab 4.5.2.pdf · الصفحة 13",
+          "image": "/assets/network-labs/lab-5-p13.webp"
+        },
+        {
+          "number": 14,
+          "title": "Lab 4.5.2.pdf · الصفحة 14",
+          "image": "/assets/network-labs/lab-5-p14.webp"
+        },
+        {
+          "number": 15,
+          "title": "Lab 4.5.2.pdf · الصفحة 15",
+          "image": "/assets/network-labs/lab-5-p15.webp"
+        },
+        {
+          "number": 16,
+          "title": "Lab 4.5.2.pdf · الصفحة 16",
+          "image": "/assets/network-labs/lab-5-p16.webp"
+        },
+        {
+          "number": 17,
+          "title": "Lab 4.5.2.pdf · الصفحة 17",
+          "image": "/assets/network-labs/lab-5-p17.webp"
+        },
+        {
+          "number": 18,
+          "title": "Lab 4.5.2.pdf · الصفحة 18",
+          "image": "/assets/network-labs/lab-5-p18.webp"
+        }
+      ]
+    }
+  },
+  {
+    "id": "network-guide-06",
+    "subject": "Network",
+    "unit": 6,
+    "section": "practice-guide",
+    "title": "6 · EtherChannel باستخدام LACP — 6.4.2",
+    "video": null,
+    "summary": "صل S1 F0/1 وF0/2 مع المنفذين المقابلين في S2. PC-A على S1 F0/6 وPC-B على S2 F0/18. تجميع الوصلتين يعطي وصلة منطقية واحدة لدى STP؛ لا يعني مضاعفة سرعة كل تدفق منفرد.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "التوصيل وجدول العناوين",
+      "الإعداد الأساسي لكل جهاز",
+      "VLAN وAccess وإيقاف المنافذ غير المستخدمة",
+      "Trunk قبل التجميع",
+      "إنشاء LACP والتحقق من الأعضاء"
+    ],
+    "source": "6.4.2 Lab - Implement Etherchannel - ILM.pdf",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 6,
+      "part": "عملي 6",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "6.4.2 Lab - Implement Etherchannel - ILM.pdf",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "التوصيل وجدول العناوين",
+          "slides": "1–2",
+          "paragraphs": [
+            "صل S1 F0/1 وF0/2 مع المنفذين المقابلين في S2. PC-A على S1 F0/6 وPC-B على S2 F0/18. تجميع الوصلتين يعطي وصلة منطقية واحدة لدى STP؛ لا يعني مضاعفة سرعة كل تدفق منفرد."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "S1 VLAN 10",
+              "192.168.10.11",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "S2 VLAN 10",
+              "192.168.10.12",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-A",
+              "192.168.20.3",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-B",
+              "192.168.20.4",
+              "255.255.255.0",
+              "—"
+            ]
+          ]
+        },
+        {
+          "title": "الإعداد الأساسي لكل جهاز",
+          "slides": "2–3",
+          "paragraphs": [
+            "ابدأ من Console. ينتقل enable من User EXEC (الجهاز>) إلى Privileged EXEC (الجهاز#)، ثم configure terminal إلى Global Configuration (الجهاز(config)#). يغير hostname الاسم، وenable secret كلمة مرور الوضع ذي الامتيازات. داخل Line Configuration تضبط password ثم login لتفعيل طلبها. exit يرجع مستوى، وend يرجع إلى Privileged EXEC.",
+            "no ip domain-lookup يمنع محاولة تفسير الأمر الخاطئ كاسم مضيف. service password-encryption يخفي كلمات المرور النصية في التكوين؛ لا يشفر جلسة Telnet. logging synchronous يعيد سطر الكتابة بعد رسائل Console. كلمات المرور هنا قيم المختبر وليست توصية لشبكة إنتاج.",
+            "نفذ كتلة كل جهاز على الجهاز المكتوب فوقها. احفظ بالإجابة عن اسم الملف الافتراضي في copy running-config startup-config. اضبط الساعة الحالية بأمر clock set من Privileged EXEC؛ استخدم clock set ? لمعرفة الصيغة بدل نسخ تاريخ المثال القديم."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\nhostname S1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\nhostname S2\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config"
+        },
+        {
+          "title": "VLAN وAccess وإيقاف المنافذ غير المستخدمة",
+          "slides": "3–5",
+          "paragraphs": [
+            "أنشئ VLAN 10 و20 و999 و1000، وSVI الإدارة. اجعل منفذي الحاسبين Access في VLAN 20 وفعّلهما. يستثني المثال المصحح F0/6 من مجموعة الإغلاق على S1."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\nvlan 10\nname Management\nexit\nvlan 20\nname Clients\nexit\nvlan 999\nname Parking_Lot\nexit\nvlan 1000\nname Native\nexit\ninterface vlan 10\nip address 192.168.10.11 255.255.255.0\nno shutdown\nexit\ninterface range f0/3 - 5, f0/7 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 999\nshutdown\nexit\ninterface f0/6\nswitchport mode access\nswitchport access vlan 20\nno shutdown\nend\nshow vlan brief\n\n! الجهاز: S2\nenable\nconfigure terminal\nvlan 10\nname Management\nexit\nvlan 20\nname Clients\nexit\nvlan 999\nname Parking_Lot\nexit\nvlan 1000\nname Native\nexit\ninterface vlan 10\nip address 192.168.10.12 255.255.255.0\nno shutdown\nexit\ninterface range f0/3 - 17, f0/19 - 24, g0/1 - 2\nswitchport mode access\nswitchport access vlan 999\nshutdown\nexit\ninterface f0/18\nswitchport mode access\nswitchport access vlan 20\nno shutdown\nend\nshow vlan brief",
+          "note": "المصدر يغلق F0/3–24 على S1 ثم يعيد تخصيص F0/6 دون إظهار no shutdown. استثناء المنفذ المستخدم أو إعادة تفعيله ضروري. كما يسمي خرج أحد الجداول VLAN 20 باسم Sales؛ الاسم المطلوب هنا Clients."
+        },
+        {
+          "title": "Trunk قبل التجميع",
+          "slides": "5–7",
+          "paragraphs": [
+            "اضبط F0/1 وF0/2 على الطرفين Trunk، وNative 1000، وallowed 10,20,1000. افحص show interfaces trunk وshow spanning-tree. قبل التجميع قد يحجب STP أحد الروابط لمنع الحلقة؛ هذا متوقع."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\ninterface range f0/1 - 2\nswitchport mode trunk\nswitchport trunk native vlan 1000\nswitchport trunk allowed vlan 10,20,1000\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\ninterface range f0/1 - 2\nswitchport mode trunk\nswitchport trunk native vlan 1000\nswitchport trunk allowed vlan 10,20,1000\nno shutdown\nend\nshow interfaces trunk\ncopy running-config startup-config"
+        },
+        {
+          "title": "إنشاء LACP والتحقق من الأعضاء",
+          "slides": "7–8",
+          "paragraphs": [
+            "نفذ channel-group 1 mode active على المنفذين في كل Switch. تنشأ Port-channel 1 منطقيًا. افحص show etherchannel summary: الرمز S يعني Layer 2 وU يعني مستخدمة وP يعني عضوًا مجمعًا. افحص أيضًا أن Po1 هو Trunk بالقائمة وNative الصحيحين.",
+            "إذا ظهر I أوs بدل P، قارن أوضاع البروتوكول والسرعة وDuplex وAccess/Trunk وVLAN. لا تستخدم on لمعالجة اختلاف LACP. ثم اختبر الحاسبين داخل VLAN 20 وSVI الإدارة داخل VLAN 10، واحفظ على كلا الجهازين."
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\ninterface range f0/1 - 2\nchannel-group 1 mode active\nno shutdown\nend\nshow etherchannel summary\nshow interfaces trunk\nshow spanning-tree\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\ninterface range f0/1 - 2\nchannel-group 1 mode active\nno shutdown\nend\nshow etherchannel summary\nshow interfaces trunk\nshow spanning-tree\ncopy running-config startup-config"
+        }
+      ],
+      "checks": [
+        {
+          "question": "ماذا يعني Po1(SU) وFa0/1(P)؟",
+          "answer": "Po1 وصلة Layer 2 مستخدمة؛ F0/1 عضو مجمع فيها."
+        },
+        {
+          "question": "لماذا كان STP يحجب رابطًا قبل التجميع؟",
+          "answer": "لأن الوصلتين المستقلتين تنشئان مسارًا دائريًا، بينما يرى التجميع كوصلة منطقية واحدة."
+        }
+      ],
+      "glossary": {
+        "LACP": "Link Aggregation Control Protocol، بروتوكول تفاوض لتجميع الوصلات.",
+        "Port-channel": "واجهة منطقية تمثل المنافذ المجمعة."
+      },
+      "sourceId": "SRC-M100-ROUTING1-20261028-06",
+      "sourceFile": "/assets/network-labs/lab-6.pdf",
+      "originalFile": "/assets/network-labs/lab-6.pdf",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 1",
+          "image": "/assets/network-labs/lab-6-p1.webp"
+        },
+        {
+          "number": 2,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 2",
+          "image": "/assets/network-labs/lab-6-p2.webp"
+        },
+        {
+          "number": 3,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 3",
+          "image": "/assets/network-labs/lab-6-p3.webp"
+        },
+        {
+          "number": 4,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 4",
+          "image": "/assets/network-labs/lab-6-p4.webp"
+        },
+        {
+          "number": 5,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 5",
+          "image": "/assets/network-labs/lab-6-p5.webp"
+        },
+        {
+          "number": 6,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 6",
+          "image": "/assets/network-labs/lab-6-p6.webp"
+        },
+        {
+          "number": 7,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 7",
+          "image": "/assets/network-labs/lab-6-p7.webp"
+        },
+        {
+          "number": 8,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 8",
+          "image": "/assets/network-labs/lab-6-p8.webp"
+        },
+        {
+          "number": 9,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 9",
+          "image": "/assets/network-labs/lab-6-p9.webp"
+        },
+        {
+          "number": 10,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 10",
+          "image": "/assets/network-labs/lab-6-p10.webp"
+        },
+        {
+          "number": 11,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 11",
+          "image": "/assets/network-labs/lab-6-p11.webp"
+        },
+        {
+          "number": 12,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 12",
+          "image": "/assets/network-labs/lab-6-p12.webp"
+        },
+        {
+          "number": 13,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 13",
+          "image": "/assets/network-labs/lab-6-p13.webp"
+        },
+        {
+          "number": 14,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 14",
+          "image": "/assets/network-labs/lab-6-p14.webp"
+        },
+        {
+          "number": 15,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 15",
+          "image": "/assets/network-labs/lab-6-p15.webp"
+        },
+        {
+          "number": 16,
+          "title": "6.4.2 Lab - Implement Etherchannel - ILM.pdf · الصفحة 16",
+          "image": "/assets/network-labs/lab-6-p16.webp"
+        }
+      ]
+    }
+  },
+  {
+    "id": "network-guide-07",
+    "subject": "Network",
+    "unit": 7,
+    "section": "practice-guide",
+    "title": "7 · EtherChannel باستخدام PAgP وLACP — 3.2.1.4",
+    "video": null,
+    "summary": "تختلف هذه التجربة عن 6.4.2: ثلاثة Switches وVLAN 99 للإدارة وVLAN 10 باسم Staff للحواسيب. صل S1 F0/3–4 مع S3 F0/3–4، وS1 F0/1–2 مع S2 F0/1–2، وS2 F0/3–4 مع S3 F0/1–2. طابق منافذ الحواسيب بالرسم الأصلي.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "خريطة الأجهزة الثلاثة",
+      "الإعداد الأساسي لكل جهاز",
+      "VLAN وعزل المنافذ قبل التكوين",
+      "PAgP بين S1 وS3 وفحصه قبل Trunk",
+      "تحويل Po1 إلى Trunk",
+      "LACP للمجموعتين Po2 وPo3",
+      "التحقق النهائي وتشخيص عدم التجميع"
+    ],
+    "source": "3.2.1.4 Lab - Configuring EtherChannel.pdf",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 7,
+      "part": "عملي 7",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "3.2.1.4 Lab - Configuring EtherChannel.pdf",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "خريطة الأجهزة الثلاثة",
+          "slides": "1–2",
+          "paragraphs": [
+            "تختلف هذه التجربة عن 6.4.2: ثلاثة Switches وVLAN 99 للإدارة وVLAN 10 باسم Staff للحواسيب. صل S1 F0/3–4 مع S3 F0/3–4، وS1 F0/1–2 مع S2 F0/1–2، وS2 F0/3–4 مع S3 F0/1–2. طابق منافذ الحواسيب بالرسم الأصلي."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "S1 VLAN 99",
+              "192.168.99.11",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "S2 VLAN 99",
+              "192.168.99.12",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "S3 VLAN 99",
+              "192.168.99.13",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-A",
+              "192.168.10.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-B",
+              "192.168.10.2",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-C",
+              "192.168.10.3",
+              "255.255.255.0",
+              "—"
+            ]
+          ]
+        },
+        {
+          "title": "الإعداد الأساسي لكل جهاز",
+          "slides": "2",
+          "paragraphs": [
+            "ابدأ من Console. ينتقل enable من User EXEC (الجهاز>) إلى Privileged EXEC (الجهاز#)، ثم configure terminal إلى Global Configuration (الجهاز(config)#). يغير hostname الاسم، وenable secret كلمة مرور الوضع ذي الامتيازات. داخل Line Configuration تضبط password ثم login لتفعيل طلبها. exit يرجع مستوى، وend يرجع إلى Privileged EXEC.",
+            "no ip domain-lookup يمنع محاولة تفسير الأمر الخاطئ كاسم مضيف. service password-encryption يخفي كلمات المرور النصية في التكوين؛ لا يشفر جلسة Telnet. logging synchronous يعيد سطر الكتابة بعد رسائل Console. كلمات المرور هنا قيم المختبر وليست توصية لشبكة إنتاج.",
+            "نفذ كتلة كل جهاز على الجهاز المكتوب فوقها. احفظ بالإجابة عن اسم الملف الافتراضي في copy running-config startup-config. "
+          ],
+          "code": "! الجهاز: S1\nenable\nconfigure terminal\nhostname S1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S2\nenable\nconfigure terminal\nhostname S2\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: S3\nenable\nconfigure terminal\nhostname S3\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 15\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config"
+        },
+        {
+          "title": "VLAN وعزل المنافذ قبل التكوين",
+          "slides": "2–3",
+          "paragraphs": [
+            "على كل Switch أنشئ vlan 99 باسم Management وvlan 10 باسم Staff. اضبط interface vlan 99 بالعنوان المحدد وno shutdown. اجعل منفذ الحاسب Access في VLAN 10 وفعّله. أغلق بقية المنافذ كما يطلب المصدر حتى تكمل التجميع، ثم فعّل روابط التجميع في الخطوات التالية.",
+            "اضبط الحواسيب بعناوين الجدول. لا تضف بوابة غير موجودة في هذا السيناريو. راجع show vlan brief واحفظ. أوامر التكوين الأساسية أعلاه لا تعوض إنشاء VLAN وSVI وعضوية الحاسب.",
+            "منافذ الحواسيب من الرسم: S1 F0/6 إلى PC-A، وS2 F0/18 إلى PC-B، وS3 F0/18 إلى PC-C. تغلق الكتل المنافذ ثم تعيد فتح منفذ الحاسب؛ تعاد بقية وصلات التجميع في خطواتها التالية. اضغط Enter لقبول اسم ملف الحفظ الافتراضي."
+          ],
+          "code": "! على S1 من Privileged EXEC\nconfigure terminal\ninterface range f0/1 - 24, g0/1 - 2\nshutdown\nexit\nvlan 99\nname Management\nexit\nvlan 10\nname Staff\nexit\ninterface vlan 99\nip address 192.168.99.11 255.255.255.0\nno shutdown\nexit\ninterface f0/6\nswitchport mode access\nswitchport access vlan 10\nno shutdown\nend\nshow vlan brief\ncopy running-config startup-config\n\n! على S2 من Privileged EXEC\nconfigure terminal\ninterface range f0/1 - 24, g0/1 - 2\nshutdown\nexit\nvlan 99\nname Management\nexit\nvlan 10\nname Staff\nexit\ninterface vlan 99\nip address 192.168.99.12 255.255.255.0\nno shutdown\nexit\ninterface f0/18\nswitchport mode access\nswitchport access vlan 10\nno shutdown\nend\nshow vlan brief\ncopy running-config startup-config\n\n! على S3 من Privileged EXEC\nconfigure terminal\ninterface range f0/1 - 24, g0/1 - 2\nshutdown\nexit\nvlan 99\nname Management\nexit\nvlan 10\nname Staff\nexit\ninterface vlan 99\nip address 192.168.99.13 255.255.255.0\nno shutdown\nexit\ninterface f0/18\nswitchport mode access\nswitchport access vlan 10\nno shutdown\nend\nshow vlan brief\ncopy running-config startup-config"
+        },
+        {
+          "title": "PAgP بين S1 وS3 وفحصه قبل Trunk",
+          "slides": "3–5",
+          "paragraphs": [
+            "اضبط S1 على desirable وS3 على auto؛ الأول يبدأ التفاوض والثاني يستجيب. فعّل المنافذ بعد إعداد المجموعة. افحص show run interface f0/3 وshow interfaces f0/3 switchport ثم show etherchannel summary. قبل الخطوة التالية قد تكون المجموعة في وضع Access؛ وجود التجميع لا يساوي وجود Trunk."
+          ],
+          "code": "! الجهاز: S1\nconfigure terminal\ninterface range f0/3 - 4\nchannel-group 1 mode desirable\nno shutdown\nend\n\n! الجهاز: S3\nconfigure terminal\ninterface range f0/3 - 4\nchannel-group 1 mode auto\nno shutdown\nend\nshow etherchannel summary"
+        },
+        {
+          "title": "تحويل Po1 إلى Trunk",
+          "slides": "5–6",
+          "paragraphs": [
+            "على S1 وS3 افتح interface port-channel 1، واضبط trunk وNative 99. افحص إعداد Po1 والأعضاء ثم show interfaces trunk وshow spanning-tree. قارن Cost وPort Priority من مخرجاتك؛ لا تخترع قيمة ثابتة دون معرفة الطراز وحالة الشبكة."
+          ],
+          "code": "! الجهاز: S1\nconfigure terminal\ninterface port-channel 1\nswitchport mode trunk\nswitchport trunk native vlan 99\nend\nshow running-config interface port-channel 1\nshow running-config interface f0/3\nshow interfaces trunk\nshow spanning-tree\n\n! الجهاز: S3\nconfigure terminal\ninterface port-channel 1\nswitchport mode trunk\nswitchport trunk native vlan 99\nend\nshow running-config interface port-channel 1\nshow running-config interface f0/3\nshow interfaces trunk\nshow spanning-tree"
+        },
+        {
+          "title": "LACP للمجموعتين Po2 وPo3",
+          "slides": "6–7",
+          "paragraphs": [
+            "هذه المرة اضبط Trunk وNative على المنافذ الفعلية قبل تجميعها. Po2 بين S1 active وS2 passive؛ Po3 بين S2 active وS3 passive. passive مع passive لا يبدأ التفاوض. انتبه إلى اختلاف منافذ Po3 بين الطرفين."
+          ],
+          "code": "! الجهاز: S1\nconfigure terminal\ninterface range f0/1 - 2\nswitchport mode trunk\nswitchport trunk native vlan 99\nchannel-group 2 mode active\nno shutdown\nend\nshow etherchannel summary\n\n! الجهاز: S2\nconfigure terminal\ninterface range f0/1 - 2\nswitchport mode trunk\nswitchport trunk native vlan 99\nchannel-group 2 mode passive\nno shutdown\nend\nshow etherchannel summary\n\n! الجهاز: S2\nconfigure terminal\ninterface range f0/3 - 4\nswitchport mode trunk\nswitchport trunk native vlan 99\nchannel-group 3 mode active\nno shutdown\nend\nshow etherchannel summary\n\n! الجهاز: S3\nconfigure terminal\ninterface range f0/1 - 2\nswitchport mode trunk\nswitchport trunk native vlan 99\nchannel-group 3 mode passive\nno shutdown\nend\nshow etherchannel summary"
+        },
+        {
+          "title": "التحقق النهائي وتشخيص عدم التجميع",
+          "slides": "7",
+          "paragraphs": [
+            "اختبر Ping بين الحواسيب في VLAN 10، وبين عناوين الإدارة في VLAN 99. افحص أن كل عضو يظهر P وأن بروتوكول كل مجموعة مطابق. يمكن أن يحجب STP مجموعة كاملة في المثلث؛ هذا لا يعني فشل EtherChannel.",
+            "أسباب عدم التجميع تشمل عدم توافق الأوضاع، واختلاف Speed/Duplex، وعدم تطابق VLAN أوTrunk أوالقائمة المسموحة. افحص ICMP في جدار حماية الحاسب إذا كانت الطبقات الأخرى سليمة، ثم احفظ على الأجهزة الثلاثة."
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "question": "لماذا لا تنشأ مجموعة PAgP من auto على الطرفين؟",
+          "answer": "لأن كليهما ينتظر بدء التفاوض؛ يلزم desirable في طرف واحد على الأقل."
+        },
+        {
+          "question": "هل ظهور Po1 يعني أنها Trunk؟",
+          "answer": "لا؛ تحقق من show interfaces trunk ومن وضع الواجهة التشغيلي."
+        }
+      ],
+      "glossary": {
+        "PAgP": "Port Aggregation Protocol، تفاوض تجميع تدعمه Cisco.",
+        "active / passive": "بدء تفاوض LACP / الاستجابة له."
+      },
+      "sourceId": "SRC-M100-ROUTING1-20261028-07",
+      "sourceFile": "/assets/network-labs/lab-7.pdf",
+      "originalFile": "/assets/network-labs/lab-7.pdf",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "3.2.1.4 Lab - Configuring EtherChannel.pdf · الصفحة 1",
+          "image": "/assets/network-labs/lab-7-p1.webp"
+        },
+        {
+          "number": 2,
+          "title": "3.2.1.4 Lab - Configuring EtherChannel.pdf · الصفحة 2",
+          "image": "/assets/network-labs/lab-7-p2.webp"
+        },
+        {
+          "number": 3,
+          "title": "3.2.1.4 Lab - Configuring EtherChannel.pdf · الصفحة 3",
+          "image": "/assets/network-labs/lab-7-p3.webp"
+        },
+        {
+          "number": 4,
+          "title": "3.2.1.4 Lab - Configuring EtherChannel.pdf · الصفحة 4",
+          "image": "/assets/network-labs/lab-7-p4.webp"
+        },
+        {
+          "number": 5,
+          "title": "3.2.1.4 Lab - Configuring EtherChannel.pdf · الصفحة 5",
+          "image": "/assets/network-labs/lab-7-p5.webp"
+        },
+        {
+          "number": 6,
+          "title": "3.2.1.4 Lab - Configuring EtherChannel.pdf · الصفحة 6",
+          "image": "/assets/network-labs/lab-7-p6.webp"
+        },
+        {
+          "number": 7,
+          "title": "3.2.1.4 Lab - Configuring EtherChannel.pdf · الصفحة 7",
+          "image": "/assets/network-labs/lab-7-p7.webp"
+        }
+      ]
+    }
+  },
+  {
+    "id": "network-guide-08",
+    "subject": "Network",
+    "unit": 8,
+    "section": "practice-guide",
+    "title": "8 · IPv4 Static وDefault Routes — 2.2.2.5",
+    "video": null,
+    "summary": "صل شبكتي الحاسبين إلى R1 وR3 عبر Switches، ثم الوصلة Serial بين R1 S0/0/1 وR3 S0/0/0. طرف DCE هو R3، وهو الذي يحتاج clock rate. أنشئ Loopback 0 و1 على R3 لتمثيل شبكتين بعيدتين. تحقق من أسماء المنافذ حسب طرازك.",
+    "steps": [
+      "كيف تستخدم هذا الدليل؟",
+      "التوصيل والعناوين",
+      "الإعداد الأساسي لكل جهاز",
+      "تهيئة الواجهات وفحص الشبكات المتصلة",
+      "مسار Next Hop ثم طريق العودة",
+      "مسارا Loopback وإزالتهما",
+      "Default Route والتحقق النهائي"
+    ],
+    "source": "2.2.2.5 Lab - Configuring IPv4 Static and Default Routes.docx",
+    "theory": {
+      "guide": true,
+      "skill": null,
+      "chapter": 8,
+      "part": "عملي 8",
+      "chapterTitle": "التوجيه والتحويل ١ · دليل تطبيق",
+      "english": "2.2.2.5 Lab - Configuring IPv4 Static and Default Routes.docx",
+      "range": "المصدر كاملًا",
+      "topics": [
+        {
+          "title": "كيف تستخدم هذا الدليل؟",
+          "slides": "المصدر كاملًا",
+          "paragraphs": [
+            "ابدأ من التطبيق العملي: وصّل الأجهزة واضبط إعداداتها بنفسك داخل محاكي مدار، ثم تحقّق من النتيجة. ارجع إلى هذا الشرح والصور عند الحاجة. كشف الأوامر مساعدة كاملة، ولا يُعد الاطلاع عليها تنفيذًا مستقلًا. المحاكي تعليمي ضمن المهارات المبيّنة؛ لا يعادل Cisco IOS كاملًا.",
+            "جدول المحتويات يحفظ موضع قراءتك، ويمكنك إضافة ملاحظاتك وبلاغك. يحتوي مرجع الدرس على جميع صفحات الملف الأصلي، بما فيها الرسم والأسئلة وتكوينات المقارنة. توقعات النتائج في الشرح ليست نتائج مقاسة على جهازك."
+          ]
+        },
+        {
+          "title": "التوصيل والعناوين",
+          "slides": "جدول العنونة والجزء 1",
+          "paragraphs": [
+            "صل شبكتي الحاسبين إلى R1 وR3 عبر Switches، ثم الوصلة Serial بين R1 S0/0/1 وR3 S0/0/0. طرف DCE هو R3، وهو الذي يحتاج clock rate. أنشئ Loopback 0 و1 على R3 لتمثيل شبكتين بعيدتين. تحقق من أسماء المنافذ حسب طرازك."
+          ],
+          "table": [
+            [
+              "الجهاز / الواجهة",
+              "IPv4",
+              "القناع",
+              "البوابة"
+            ],
+            [
+              "R1 G0/1",
+              "192.168.0.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "R1 S0/0/1",
+              "10.1.1.1",
+              "255.255.255.252",
+              "—"
+            ],
+            [
+              "R3 G0/1",
+              "192.168.1.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "R3 S0/0/0 DCE",
+              "10.1.1.2",
+              "255.255.255.252",
+              "—"
+            ],
+            [
+              "R3 Lo0",
+              "209.165.200.225",
+              "255.255.255.224",
+              "—"
+            ],
+            [
+              "R3 Lo1",
+              "198.133.219.1",
+              "255.255.255.0",
+              "—"
+            ],
+            [
+              "PC-A",
+              "192.168.0.10",
+              "255.255.255.0",
+              "192.168.0.1"
+            ],
+            [
+              "PC-C",
+              "192.168.1.10",
+              "255.255.255.0",
+              "192.168.1.1"
+            ]
+          ]
+        },
+        {
+          "title": "الإعداد الأساسي لكل جهاز",
+          "slides": "الجزء 2",
+          "paragraphs": [
+            "ابدأ من Console. ينتقل enable من User EXEC (الجهاز>) إلى Privileged EXEC (الجهاز#)، ثم configure terminal إلى Global Configuration (الجهاز(config)#). يغير hostname الاسم، وenable secret كلمة مرور الوضع ذي الامتيازات. داخل Line Configuration تضبط password ثم login لتفعيل طلبها. exit يرجع مستوى، وend يرجع إلى Privileged EXEC.",
+            "no ip domain-lookup يمنع محاولة تفسير الأمر الخاطئ كاسم مضيف. service password-encryption يخفي كلمات المرور النصية في التكوين؛ لا يشفر جلسة Telnet. logging synchronous يعيد سطر الكتابة بعد رسائل Console. كلمات المرور هنا قيم المختبر وليست توصية لشبكة إنتاج.",
+            "نفذ كتلة كل جهاز على الجهاز المكتوب فوقها. احفظ بالإجابة عن اسم الملف الافتراضي في copy running-config startup-config. "
+          ],
+          "code": "! الجهاز: R1\nenable\nconfigure terminal\nhostname R1\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config\n\n! الجهاز: R3\nenable\nconfigure terminal\nhostname R3\nno ip domain-lookup\nenable secret class\nline console 0\npassword cisco\nlogin\nlogging synchronous\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nbanner motd $ Authorized Users Only! $\nend\ncopy running-config startup-config"
+        },
+        {
+          "title": "تهيئة الواجهات وفحص الشبكات المتصلة",
+          "slides": "الجزء 2",
+          "paragraphs": [
+            "ضبط العناوين لا يغني عن no shutdown. أضف clock rate 128000 لطرف DCE فقط. اختبر من كل حاسب بوابته، ثم من R1 العنوان 10.1.1.2. قبل إضافة المسارات لا تتوقع الوصول إلى الشبكات البعيدة.",
+            "راجع show ip interface brief وshow ip route في الجهازين. في الحالة المطلوبة لدى R1 واجهتان فعالتان مستخدمتان، ولدى R3 واجهتان فعليتان وواجهتا Loopback. عدد السطور الكلي يتغير بالطراز؛ ميّز C للشبكة وL لعنوان الواجهة."
+          ],
+          "code": "! الجهاز: R1\nconfigure terminal\ninterface g0/1\nip address 192.168.0.1 255.255.255.0\nno shutdown\nexit\ninterface s0/0/1\nip address 10.1.1.1 255.255.255.252\nno shutdown\nend\nshow ip interface brief\nshow ip route\n\n! الجهاز: R3\nconfigure terminal\ninterface g0/1\nip address 192.168.1.1 255.255.255.0\nno shutdown\nexit\ninterface s0/0/0\nip address 10.1.1.2 255.255.255.252\nclock rate 128000\nno shutdown\nexit\ninterface loopback 0\nip address 209.165.200.225 255.255.255.224\nexit\ninterface loopback 1\nip address 198.133.219.1 255.255.255.0\nend\nshow ip interface brief\nshow ip route\nPC-A> ping 192.168.0.1\nPC-C> ping 192.168.1.1\nR1# ping 10.1.1.2\nPC-A> ping 192.168.1.10\nPC-A> ping 209.165.200.225\nPC-A> ping 198.133.219.1",
+          "note": "قبل المسارات: تنجح البوابات والوصلة المباشرة، وتفشل الوجهات البعيدة. تميّز المهام العملية بين هذه النتائج، ولا تعد الفشل المتوقع عطلًا."
+        },
+        {
+          "title": "مسار Next Hop ثم طريق العودة",
+          "slides": "الجزء 3 · الخطوتان 1–2",
+          "paragraphs": [
+            "على R1 أضف مسارًا لشبكة PC-C عبر عنوان R3. هذه صيغة Recursive؛ يحتاج الجهاز معرفة الوصول إلى Next Hop. يظهر المسار برمز S. قد تصل حزمة PC-A إلى PC-C لكن الرد يفشل لأن R3 لا يملك طريق عودة.",
+            "أضف على R3 مسار شبكة PC-A باستخدام واجهة الخروج Serial. هذه صيغة Exit Interface وتناسب الوصلة Point-to-Point هنا. بعد الإضافة أعد Ping بين الحاسبين. لا تعمم استعمال واجهة خروج فقط على Ethernet متعدد الوصول دون فحص التصميم."
+          ],
+          "code": "R1# configure terminal\nR1(config)# ip route 192.168.1.0 255.255.255.0 10.1.1.2\nR1(config)# end\nR1# show ip route\nPC-A> ping 192.168.1.10\nR3# configure terminal\nR3(config)# ip route 192.168.0.0 255.255.255.0 s0/0/0\nR3(config)# end\nR3# show ip route\nPC-A> ping 192.168.1.10",
+          "note": "بعد مسار R1 وحده يُتوقع فشل Ping لغياب مسار العودة على R3. بعد إضافته يُتوقع النجاح. كلمة R1 بجوار عنوان 198.133.219.1 لاحقًا خطأ في المصدر؛ العنوان تابع لـLo1 على R3 وفق جدول العناوين."
+        },
+        {
+          "title": "مسارا Loopback وإزالتهما",
+          "slides": "الجزء 3 · الخطوتان 3–4",
+          "paragraphs": [
+            "أضف على R1 مسار 198.133.219.0/24 بصيغة Next Hop ومسار 209.165.200.224/27 بصيغة واجهة الخروج. افحص الجدول واختبر عنواني Loopback. عنوان 198.133.219.1 على R3؛ إسناده إلى R1 في أحد أسئلة المصدر خطأ مطبعي.",
+            "احذف المسارين بإعادة الأمر مسبوقًا بـno مع معاملاته نفسها. يبقى مسار LAN البعيدة والمسارات المتصلة، ولا يكون Gateway of last resort محددًا بعد. افحص ذلك فعليًا قبل إنشاء Default."
+          ],
+          "code": "R1# configure terminal\nR1(config)# ip route 198.133.219.0 255.255.255.0 10.1.1.2\nR1(config)# ip route 209.165.200.224 255.255.255.224 s0/0/1\nR1(config)# end\nR1# show ip route\nPC-A> ping 198.133.219.1\nPC-A> ping 209.165.200.225\nR1# configure terminal\nR1(config)# no ip route 198.133.219.0 255.255.255.0 10.1.1.2\nR1(config)# no ip route 209.165.200.224 255.255.255.224 s0/0/1\nR1(config)# end\nR1# show ip route"
+        },
+        {
+          "title": "Default Route والتحقق النهائي",
+          "slides": "الجزء 4 وReflection",
+          "paragraphs": [
+            "أضف على R1 الوجهة والقناع 0.0.0.0 ثم واجهة Serial. يظهر S* كمسار افتراضي مرشح، ويصبح طريق الملاذ الأخير متاحًا. يستخدم عند عدم وجود مسار أكثر تحديدًا؛ لا يتجاوز مسارًا موجودًا لشبكة أخرى.",
+            "اختبر عنواني Loopback مرة أخرى، وتحقق من بقاء طريق العودة على R3. للمراجعة: إذا أضفت 192.168.3.0/24 خلف R1، يستطيع R3 الوصول عبر Next Hop 10.1.1.1 أوواجهة Serial نفسها في هذا السيناريو. اختيار Default يقلل عدد المسارات عند وجود مخرج واحد لكنه لا يصنع اتصالًا إذا كانت الواجهة أوالعودة معطلة."
+          ],
+          "code": "R1# configure terminal\nR1(config)# ip route 0.0.0.0 0.0.0.0 s0/0/1\nR1(config)# end\nR1# show ip route\nPC-A> ping 209.165.200.225\nPC-A> ping 198.133.219.1\n! مثال Reflection على R3، وليس جزءًا من التكوين الأصلي:\nR3# configure terminal\nR3(config)# ip route 192.168.3.0 255.255.255.0 10.1.1.1\nR3(config)# end"
+        }
+      ],
+      "checks": [
+        {
+          "question": "لماذا فشل Ping بعد إضافة مسار R1 وحده؟",
+          "answer": "لأن R3 لم يكن يملك طريق عودة لشبكة PC-A."
+        },
+        {
+          "question": "متى يستخدم المسار 0.0.0.0/0؟",
+          "answer": "عند عدم وجود تطابق أكثر تحديدًا مع عنوان الوجهة."
+        },
+        {
+          "question": "كيف تتراجع عن Static Route محدد؟",
+          "answer": "استخدم no قبل أمر ip route نفسه، ثم تحقق من الجدول ومن أثر الإزالة."
+        }
+      ],
+      "glossary": {
+        "Static Route": "مسار تضبط وجهته وطريقه يدويًا.",
+        "DCE": "طرف يوفر توقيت الوصلة Serial في المختبر.",
+        "Loopback": "واجهة منطقية تبقى متاحة دون كابل فعلي.",
+        "Recursive": "اختيار Next Hop ثم حل طريقة الوصول إليه."
+      },
+      "sourceId": "SRC-M100-ROUTING1-20261028-08",
+      "sourceFile": "/assets/network-labs/lab-8.docx",
+      "originalFile": "/assets/network-labs/lab-8.docx",
+      "sourceSlides": [
+        {
+          "number": 1,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-8-figure-1.webp"
+        },
+        {
+          "number": 2,
+          "title": "رسم من ملف التمرين",
+          "image": "/assets/network-labs/lab-8-figure-2.webp"
+        }
+      ]
+    }
+  }
+]

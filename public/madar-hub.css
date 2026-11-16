@@ -1,0 +1,895 @@
+#madar-hub{--mh-bg:#101118;--mh-panel:#191c24;--mh-line:#343640;--mh-ink:#f2eee4;--mh-muted:#babac4;--mh-gold:#e9c691;--mh-blue:#7db8ff;--mh-green:#74d4b0;--mh-red:#fa91a9;--mh-copper:#efb472;position:relative;isolation:isolate;background:var(--mh-bg);color:var(--mh-ink);font:15px/1.8 "Segoe UI",Tahoma,Arial,sans-serif;border-radius:18px;overflow:clip;min-width:0;color-scheme:dark;text-align:right}
+#madar-hub *{box-sizing:border-box}#madar-hub [hidden]{display:none!important}#madar-hub button,#madar-hub input,#madar-hub textarea,#madar-hub select{font:inherit}#madar-hub button{cursor:pointer;color:inherit;border:1px solid var(--mh-line);border-radius:10px;background:#20232c;padding:9px 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .18s,border-color .18s,transform .18s}#madar-hub button:hover{background:#2b2e38;border-color:#73717a}#madar-hub button:active{transform:translateY(1px)}#madar-hub button:disabled{opacity:.5;cursor:default}#madar-hub button:focus-visible,#madar-hub input:focus-visible,#madar-hub textarea:focus-visible,#madar-hub select:focus-visible,#madar-hub summary:focus-visible{outline:2px solid var(--mh-gold);outline-offset:4px}#madar-hub button.mh-primary{background:var(--mh-gold);color:#221b14;border-color:transparent;font-weight:600}#madar-hub .mh-quiet{background:transparent}#madar-hub .mh-icon{padding:9px;width:44px;height:44px;flex:none}#madar-hub svg{flex:none;width:19px;height:19px}#madar-hub h1,#madar-hub h2,#madar-hub h3,#madar-hub p{margin:0}#madar-hub h1{font-size:34px;line-height:1.4;font-weight:650}#madar-hub h2{font-size:25px;line-height:1.5;font-weight:600}#madar-hub h3{font-size:20px;font-weight:600;line-height:1.6}#madar-hub .mh-muted{color:var(--mh-muted)}#madar-hub small,#madar-hub .mh-small{font-size:12px}#madar-hub a{color:inherit}#madar-hub .mh-atmosphere{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 85% 5%,#32303a70,transparent 35%),radial-gradient(ellipse at 7% 50%,#29334730,transparent 40%)}#madar-hub .mh-atmosphere:after{content:"";position:absolute;inset:0;opacity:.38;background-image:radial-gradient(circle at 18px 32px,#e9d8b5 0 1px,transparent 1.4px),radial-gradient(circle at 80px 130px,#a5bcdb 0 .7px,transparent 1px);background-size:257px 229px,191px 277px}
+#madar-hub .mh-header{display:flex;gap:25px;align-items:center;padding:24px 34px 20px;border-bottom:1px solid #ffffff12;background:#111219ec;position:relative;z-index:8}#madar-hub .mh-brand{border:0;background:none;padding:0;gap:10px;font-size:30px;font-weight:700;text-align:right}#madar-hub .mh-brand small{display:block;font-size:8px;letter-spacing:1.7px;color:#c8b795;line-height:1.2;font-weight:400}#madar-hub .mh-orbit{width:31px;height:31px;border:1px solid #e9c69170;border-radius:50%;position:relative;transform:rotate(-28deg)}#madar-hub .mh-orbit:before{content:"";position:absolute;inset:7px -7px;border:1px solid var(--mh-gold);border-radius:50%}#madar-hub .mh-orbit:after{content:"";position:absolute;width:5px;height:5px;background:var(--mh-gold);border-radius:50%;top:3px;left:2px;box-shadow:0 0 12px #efbc6c80}#madar-hub .mh-global{display:flex;gap:6px;align-items:center}#madar-hub .mh-global>button,#madar-hub #mh-picker-button{border-color:transparent;background:transparent;color:var(--mh-muted);padding:8px 14px}#madar-hub .mh-global button[aria-current=page],#madar-hub #mh-picker-button[aria-expanded=true]{color:var(--mh-gold);background:#e9c6910c}#madar-hub .mh-header-tools{margin-inline-start:auto;display:flex;gap:8px}#madar-hub .mh-header-tools button{background:transparent;border-color:#ffffff16}#madar-hub .mh-picker-wrap{position:relative}#madar-hub .mh-picker{position:absolute;top:calc(100% + 12px);right:0;width:288px;max-width:calc(100vw - 40px);padding:10px;border:1px solid #4b4641;border-radius:15px;background:#1c1e27;box-shadow:0 18px 50px #0008;display:grid;gap:6px}#madar-hub .mh-picker button{justify-content:flex-start;background:transparent;border-color:transparent;padding:12px}#madar-hub .mh-picker button[aria-current]{background:#b8874824;border-color:#e9c6914a}#madar-hub .mh-picker .mh-all-courses{border-top:1px solid var(--mh-line);border-radius:0;color:var(--mh-gold)}
+#madar-hub .mh-subbar{padding:16px 34px;border-bottom:1px solid var(--mh-line);background:#14171e;display:flex;flex-wrap:wrap;align-items:center;gap:14px}#madar-hub .mh-return{color:var(--mh-gold);background:transparent;border:0;padding:3px 0}#madar-hub .mh-course-name{padding-inline-start:14px;border-inline-start:1px solid #ffffff25;font-weight:600}#madar-hub .mh-course-nav{display:flex;gap:4px;flex-wrap:wrap;width:100%}#madar-hub .mh-course-nav button{background:transparent;border-color:transparent;padding:7px 14px;color:var(--mh-muted)}#madar-hub .mh-course-nav button[aria-current=page]{background:color-mix(in srgb,var(--mh-accent,var(--mh-gold)) 12%,#171b23);color:var(--mh-accent,var(--mh-gold));border-color:color-mix(in srgb,var(--mh-accent,var(--mh-gold)) 40%,transparent)}#madar-hub .mh-save{min-height:28px;padding:3px 34px;color:var(--mh-muted);font-size:11px;text-align:left}#madar-hub .mh-error{margin:0 30px 16px;padding:16px;border:1px solid #d47777;border-radius:12px;background:#341e24;display:flex;flex-wrap:wrap;gap:10px}#madar-hub .mh-error strong,#madar-hub .mh-error span{width:100%}#madar-hub #mh-main{padding:7px 34px 46px;position:relative;min-height:650px}#madar-hub .mh-section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 18px}#madar-hub .mh-eyebrow{font-size:12px;letter-spacing:.5px;color:var(--mh-gold);display:flex;align-items:center;gap:8px}#madar-hub .mh-eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}#madar-hub .mh-kicker{color:var(--mh-muted);font-size:12px}#madar-hub .mh-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}#madar-hub .mh-space-top{margin-top:30px}
+#madar-hub .mh-carousel{position:relative}#madar-hub .mh-news-shell{border:1px solid #ffffff1e;border-radius:22px;overflow:hidden;background:#181b24;position:relative}#madar-hub .mh-news-slide{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;min-height:338px;position:relative;isolation:isolate;padding:30px 35px;gap:25px;overflow:hidden}#madar-hub .mh-news-slide:before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse at 15% 50%,color-mix(in srgb,var(--slide-accent) 17%,transparent),transparent 60%),linear-gradient(110deg,#ffffff02,#ffffff00)}#madar-hub .mh-news-copy{display:grid;gap:18px}#madar-hub .mh-news-copy h2{font-size:32px;line-height:1.5;max-width:440px}#madar-hub .mh-news-copy p{color:#d0d0d8;max-width:420px;line-height:1.95}#madar-hub .mh-news-copy .mh-actions{margin-top:4px}#madar-hub .mh-news-meta{display:flex;gap:12px;align-items:center;flex-wrap:wrap;color:var(--slide-accent);font-size:12px}#madar-hub .mh-news-meta time{color:var(--mh-muted)}#madar-hub .mh-news-control{display:flex;gap:8px;align-items:center;margin-top:12px}#madar-hub .mh-news-control .mh-pause{margin-inline-start:auto;font-size:12px;padding:7px 12px;background:transparent}#madar-hub .mh-dots{display:flex;gap:5px}#madar-hub .mh-dots button{padding:0;width:28px;height:28px;background:transparent;border:0}#madar-hub .mh-dots button:after{content:"";width:6px;height:6px;background:#747580;border-radius:10px;transition:width .25s}#madar-hub .mh-dots button[aria-pressed=true]:after{width:23px;background:var(--mh-gold)}#madar-hub .mh-slide-num{font-size:11px;color:var(--mh-muted);direction:ltr;margin:0 8px}#madar-hub .mh-timing{height:2px;background:#ffffff0c}#madar-hub .mh-timing span{display:block;height:100%;width:0;background:var(--mh-gold);transition:width .12s linear}#madar-hub .mh-visual{position:relative;min-height:236px;display:grid;align-items:center;justify-items:center;direction:ltr;user-select:none}#madar-hub .mh-window{width:100%;max-width:330px;background:#11161e;border:1px solid #525865;border-radius:13px;box-shadow:-12px 18px 0 #0002,0 30px 40px #0003;transform:perspective(900px) rotateY(9deg) rotateX(4deg);overflow:hidden;text-align:left}#madar-hub .mh-window-bar{padding:10px 14px;border-bottom:1px solid #343a46;display:flex;gap:5px;align-items:center;color:#aeb5c5;font:10px/1.5 monospace}#madar-hub .mh-window-bar b{margin-left:auto;font-weight:400}#madar-hub .mh-window-bar i{width:5px;height:5px;border-radius:50%;background:#7e8390}#madar-hub .mh-code{padding:24px 20px;font:12px/2 monospace;color:#b3bfce;min-height:165px}#madar-hub .mh-code strong{color:var(--slide-accent);font-weight:500}#madar-hub .mh-code .mh-code-line{display:block;animation:mh-code-in 1.2s both;animation-delay:calc(var(--i)*.6s)}#madar-hub .mh-code .mh-code-line:last-child:after{content:"▌";color:var(--slide-accent)}#madar-hub .mh-float-label{position:absolute;bottom:4px;left:-5px;background:#222a30;border:1px solid #567460;color:#a6e6c3;padding:7px 13px;border-radius:8px;font-size:11px;box-shadow:0 10px 28px #0004}#madar-hub .mh-office-scene{width:100%;height:230px;display:flex;justify-content:center;align-items:center;gap:15px;perspective:900px}#madar-hub .mh-file{width:85px;height:120px;position:relative;border:1px solid currentColor;background:#1a202c;border-radius:11px;color:var(--mh-blue);box-shadow:0 17px 30px #0003;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:13px;transform:rotate(-9deg) translateY(9px)}#madar-hub .mh-file:nth-child(2){color:var(--mh-green);transform:translateY(-14px);z-index:1}#madar-hub .mh-file:nth-child(3){color:var(--mh-red);transform:rotate(9deg) translateY(9px)}#madar-hub .mh-file b{font-size:26px;font-weight:500}#madar-hub .mh-file-lines{width:35px;height:23px;background:repeating-linear-gradient(0deg,currentColor 0 1px,transparent 1px 7px);opacity:.8}#madar-hub .mh-file-grid{width:32px;height:24px;border:1px solid currentColor;background:linear-gradient(90deg,transparent 48%,currentColor 49% 51%,transparent 52%),linear-gradient(transparent 48%,currentColor 49% 51%,transparent 52%)}#madar-hub .mh-file-db{width:30px;height:25px;border:1px solid currentColor;border-radius:50%/20%;position:relative}#madar-hub .mh-file-db:before{content:"";position:absolute;inset:5px 0;border-top:1px solid currentColor;border-bottom:1px solid currentColor;border-radius:50%/20%}#madar-hub .mh-scene-paused *{animation-play-state:paused!important}#madar-hub .mh-office-scene .mh-file{animation:mh-card-arrive 1.4s both;animation-delay:calc(var(--i)*.2s)}#madar-hub .mh-main-mark{position:relative;width:180px;height:180px;border-radius:50%;border:1px solid #c4a6794d;display:grid;place-items:center;box-shadow:0 0 0 25px #c4a67905,0 0 0 60px #c4a67903}#madar-hub .mh-main-mark:after{content:"";position:absolute;inset:40px -22px;border:1px solid #e9c69180;border-radius:50%;transform:rotate(-30deg)}#madar-hub .mh-main-mark span{font-size:43px;letter-spacing:-2px;color:var(--mh-gold)}
+#madar-hub .mh-about{padding:54px 0 42px;margin-top:18px;position:relative}#madar-hub .mh-about-intro{display:grid;grid-template-columns:.6fr 1.4fr;gap:38px;align-items:start;margin-top:14px}#madar-hub .mh-about-intro h2{font-size:31px;line-height:1.6}#madar-hub .mh-about-intro>p{font-size:18px;line-height:2.05;color:#dedbd4}#madar-hub .mh-beliefs{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:34px}#madar-hub .mh-belief{padding:24px 26px;background:#191b22e8;border:1px solid #ffffff13;border-radius:16px}#madar-hub .mh-belief-title{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:var(--mh-gold)}#madar-hub .mh-belief p{color:#c4c4cf;line-height:2;font-size:14px}#madar-hub .mh-resume{display:flex;flex-wrap:wrap;align-items:center;gap:20px;padding:25px 28px;border:1px solid #70604a;background:linear-gradient(110deg,#222027,#29251f);border-radius:17px;margin-bottom:28px}#madar-hub .mh-resume .mh-resume-copy{flex:1;min-width:160px}#madar-hub .mh-resume h3{margin:4px 0 2px}#madar-hub .mh-resume p{color:var(--mh-muted);font-size:13px}#madar-hub .mh-course-door{padding:30px 0 8px;display:flex;align-items:center;justify-content:space-between;gap:25px;border-top:1px solid var(--mh-line)}#madar-hub .mh-course-door p{color:var(--mh-muted);margin-top:4px}
+#madar-hub .mh-page-heading{padding:18px 0 28px;display:flex;align-items:end;justify-content:space-between;gap:18px}#madar-hub .mh-page-heading .mh-kicker{margin-bottom:7px}#madar-hub .mh-courses{display:grid;grid-template-columns:1fr 1fr;gap:24px}#madar-hub .mh-course-card{position:relative;background:#191c24;border:1px solid #3e424f;border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .25s,border-color .25s}#madar-hub .mh-course-card:hover{transform:translateY(-3px);border-color:var(--mh-accent)}#madar-hub .mh-course-art{height:185px;position:relative;isolation:isolate;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid #ffffff10;background:#11151d}#madar-hub .mh-course-card.office .mh-course-art{background:radial-gradient(ellipse at 90% 15%,#3971b738,transparent 60%),radial-gradient(ellipse at 42% 90%,#28825e2b,transparent 60%),radial-gradient(ellipse at 0 50%,#9d40582c,transparent 55%),#13171e}#madar-hub .mh-course-card.office .mh-office-scene{height:180px;transform:scale(.78)}#madar-hub .mh-course-art .mh-network-map{width:100%;height:100%;color:#ce9661}#madar-hub .mh-network-map svg{width:100%;height:100%;overflow:visible}#madar-hub .mh-network-map line,#madar-hub .mh-network-map path{stroke:currentColor;stroke-width:1;opacity:.35;fill:none}#madar-hub .mh-network-map circle{fill:#e8b778;stroke:#3c3024;stroke-width:5px}#madar-hub .mh-network-map .mh-packet{fill:#ffd6a0;stroke:none;opacity:.9}#madar-hub .mh-network-center{position:absolute;inset:0;display:grid;place-items:center}#madar-hub .mh-network-center span{width:64px;height:52px;background:#282522;border:1px solid #9f7956;box-shadow:0 10px 35px #0006;display:grid;place-items:center;border-radius:12px;color:#efbf8b}#madar-hub .mh-network-center svg{width:29px;height:29px}#madar-hub .mh-course-body{padding:26px;display:flex;flex-direction:column;gap:15px;flex:1}#madar-hub .mh-course-body>p{color:var(--mh-muted);font-size:14px}#madar-hub .mh-course-tags{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--mh-accent)}#madar-hub .mh-course-tags span{border:1px solid #ffffff15;padding:2px 9px;border-radius:20px}#madar-hub .mh-course-body .mh-actions{margin-top:auto;padding-top:8px}#madar-hub .mh-course-body .mh-last{border-top:1px solid #ffffff10;padding-top:12px;color:#cac8c1;font-size:12px}#madar-hub .mh-course-cover{padding:28px 0 22px}#madar-hub .mh-course-cover h1{margin-top:8px}#madar-hub .mh-course-cover p{margin-top:10px;max-width:610px;color:var(--mh-muted)}#madar-hub .mh-section-links{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:30px 0}#madar-hub .mh-section-link{border:1px solid #45434a;background:#1a1d25;border-radius:14px;padding:20px;display:grid;gap:16px}#madar-hub .mh-section-link>svg{color:var(--mh-accent)}#madar-hub .mh-section-link p{font-size:13px;color:var(--mh-muted)}#madar-hub .mh-section-link button{justify-self:start;background:transparent;padding:5px 10px}
+#madar-hub .mh-list{display:grid;gap:12px}#madar-hub .mh-list-row{display:flex;align-items:center;gap:18px;padding:20px;background:#1b1e26;border:1px solid #3b3f48;border-radius:12px}#madar-hub .mh-list-row>div{flex:1;min-width:0}#madar-hub .mh-list-row .mh-muted{font-size:13px}#madar-hub .mh-list-row>svg{color:var(--mh-accent,var(--mh-gold))}#madar-hub .mh-learning-layout{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:24px}#madar-hub .mh-lesson{background:#1b1e26;border:1px solid #3e444e;border-radius:17px;padding:28px}#madar-hub .mh-lesson h2{margin:16px 0}#madar-hub .mh-step{display:flex;gap:10px;align-items:center;margin:20px 0;flex-wrap:wrap}#madar-hub .mh-step span{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:#30343e;border:1px solid #5a5d67}#madar-hub .mh-step span.mh-step-current{background:var(--mh-gold);color:#242019;border-color:transparent}#madar-hub .mh-note-box{background:#191c24;border:1px solid #3d404b;border-radius:17px;padding:20px}#madar-hub label{display:grid;gap:8px;color:#d4d1cb;font-size:13px}#madar-hub input,#madar-hub textarea,#madar-hub select{width:100%;max-width:100%;min-width:0;border-radius:9px;border:1px solid #555762;padding:11px 13px;background:#10141c;color:var(--mh-ink);font-size:16px}#madar-hub textarea{min-height:170px;resize:vertical}#madar-hub .mh-check{display:flex;gap:9px;align-items:center}#madar-hub .mh-check input{width:18px;height:18px}#madar-hub .mh-empty{padding:35px 24px;border:1px dashed #52515b;border-radius:15px;color:var(--mh-muted);display:grid;justify-items:start;gap:15px}#madar-hub .mh-footnote{font-size:12px;color:var(--mh-muted);margin-top:15px}#madar-hub .mh-account-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}#madar-hub .mh-account-tabs button[aria-pressed=true]{background:#e9c6911a;border-color:#b29468;color:var(--mh-gold)}
+#madar-hub .mh-footer{margin:0 34px;padding:26px 0;border-top:1px solid #ffffff18;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;color:#aaa8b3;font-size:12px}#madar-hub .mh-footer button{border:0;background:none;padding:4px 8px;font-size:12px}#madar-hub .mh-footer-dot{padding:0 7px;color:var(--mh-gold)}#madar-hub .mh-preview-tools{background:#0c1016;border-top:1px solid #30333c;font-size:12px;padding:12px 34px;color:#aeb6c2}#madar-hub .mh-preview-tools summary{cursor:pointer;padding:5px 0}#madar-hub .mh-preview-tools summary span{margin-inline-start:16px;color:#858e9d}#madar-hub .mh-preview-inner{display:flex;flex-wrap:wrap;gap:16px;align-items:end;padding:20px 0 8px}#madar-hub .mh-preview-inner>p{width:100%;font-size:12px;color:#9fa8b7}#madar-hub .mh-preview-inner>label{min-width:180px}#madar-hub .mh-dialog{max-width:650px;width:calc(100% - 32px);max-height:85%;background:#191d27;color:var(--mh-ink);border:1px solid #68616a;border-radius:18px;padding:26px;box-shadow:0 25px 90px #0009;direction:rtl;overflow:auto}#madar-hub .mh-dialog::backdrop{background:#05080dd4}#madar-hub .mh-dialog-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px;gap:15px}#madar-hub #mh-search-form{display:grid;grid-template-columns:1.5fr 1fr;gap:15px}#madar-hub #mh-search-results{margin-top:22px;display:grid;gap:10px}#madar-hub .mh-search-hit{text-align:right;justify-content:space-between;padding:15px;background:#222733}#madar-hub .mh-search-hit span{display:grid;gap:4px}#madar-hub .mh-search-hit small{color:#b6bcc9}#madar-hub .mh-danger{border-color:#ac5360;background:#47262d;color:#ffc6c6}#madar-hub #mh-confirm p{margin:20px 0}#madar-hub .mh-toast{padding:12px 20px;background:#263a31;color:#c5f2da;border-top:1px solid #537e67}#madar-hub .mh-admin-block{border:1px solid #44454e;background:#1b1e27;border-radius:16px;padding:24px;margin-top:22px}#madar-hub .mh-admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}#madar-hub .mh-admin-grid .mh-wide{grid-column:1/-1}#madar-hub .mh-admin-row{display:flex;flex-wrap:wrap;gap:15px;align-items:center;justify-content:space-between;padding:15px 0;border-top:1px solid #ffffff16}#madar-hub .mh-admin-row label{min-width:190px}#madar-hub .mh-admin-block h3{margin-bottom:10px}#madar-hub .mh-badge{font-size:11px;padding:2px 9px;border-radius:20px;background:#e9c69112;color:var(--mh-gold);border:1px solid #e9c69135}
+#madar-hub #mh-scene,#madar-hub #mh-scene:hover{border:0;background:transparent;padding:0;display:grid;width:100%;color:inherit}#madar-hub #mh-scene:active{transform:none}
+#madar-hub .mh-scene-paused *:before,#madar-hub .mh-scene-paused *:after{animation-play-state:paused!important}
+#madar-hub[data-course=network] .mh-atmosphere{background:radial-gradient(ellipse at 85% 10%,#6f412a28,transparent 55%),radial-gradient(ellipse at 10% 70%,#704b2520,transparent 55%),#141416}
+#madar-hub[data-course=network] .mh-atmosphere:after{opacity:.17;background-image:linear-gradient(28deg,transparent 49.6%,#b28457 49.8% 50%,transparent 50.2%),linear-gradient(145deg,transparent 49.6%,#b28457 49.8% 50%,transparent 50.2%);background-size:370px 420px,470px 490px;mask-image:linear-gradient(transparent,#000 15%,#000 70%,transparent)}
+#madar-hub[data-course=office] .mh-atmosphere{background:radial-gradient(ellipse at 95% 20%,#30578b30,transparent 55%),radial-gradient(ellipse at 40% 70%,#27795619,transparent 50%),radial-gradient(ellipse at 0 60%,#93344f19,transparent 50%),#10131b}
+#madar-hub .mh-main-mark:after{animation:mh-orbit-turn 12s linear infinite}
+@keyframes mh-orbit-turn{from{transform:rotate(-30deg)}to{transform:rotate(330deg)}}
+@keyframes mh-code-in{from{opacity:0;transform:translateX(-7px)}to{opacity:1;transform:translateX(0)}}@keyframes mh-card-arrive{from{opacity:0;translate:0 18px}to{opacity:1;translate:0 0}}
+@media(max-width:700px){#madar-hub .mh-header{padding:22px 20px;gap:15px;flex-wrap:wrap}#madar-hub .mh-brand{font-size:28px}#madar-hub .mh-global{order:3;width:100%;border-top:1px solid #ffffff10;padding-top:10px}#madar-hub .mh-header-tools{margin-inline-start:auto}#madar-hub #mh-main{padding:5px 20px 32px}#madar-hub .mh-subbar{padding:15px 20px}#madar-hub .mh-news-slide{grid-template-columns:1fr;gap:20px;padding:24px;min-height:0}#madar-hub .mh-news-copy h2{font-size:28px}#madar-hub .mh-visual{min-height:190px;max-width:350px;width:100%;justify-self:center}#madar-hub .mh-window{max-width:300px}#madar-hub .mh-code{min-height:135px;padding:18px}#madar-hub .mh-about-intro{grid-template-columns:1fr;gap:15px}#madar-hub .mh-about-intro>p{font-size:16px}#madar-hub .mh-beliefs{gap:15px}#madar-hub .mh-belief{padding:20px}#madar-hub .mh-courses{gap:18px}#madar-hub .mh-course-body{padding:20px}#madar-hub .mh-learning-layout{grid-template-columns:1fr}#madar-hub .mh-section-links{grid-template-columns:1fr}#madar-hub .mh-footer{margin:0 20px}#madar-hub .mh-preview-tools{padding:12px 20px}#madar-hub .mh-save{padding:3px 20px}#madar-hub .mh-admin-grid{grid-template-columns:1fr}#madar-hub .mh-admin-grid .mh-wide{grid-column:auto}}
+@media(max-width:480px){#madar-hub{border-radius:12px}#madar-hub .mh-header{padding:22px 16px 12px;gap:12px}#madar-hub .mh-account{padding:9px}#madar-hub .mh-account span{display:none}#madar-hub #mh-main{padding:3px 16px 28px}#madar-hub h1{font-size:28px}#madar-hub h2{font-size:22px}#madar-hub h3{font-size:19px}#madar-hub .mh-section-head{flex-wrap:wrap}#madar-hub .mh-news-slide{padding:23px 18px}#madar-hub .mh-news-copy h2{font-size:26px}#madar-hub .mh-news-copy p{font-size:14px}#madar-hub .mh-news-copy .mh-actions button{width:100%}#madar-hub .mh-news-control{gap:3px;flex-wrap:wrap}#madar-hub .mh-news-control .mh-icon{width:38px;padding:6px}#madar-hub .mh-news-control .mh-pause{padding:7px 8px}#madar-hub .mh-slide-num{margin:0 3px}#madar-hub .mh-beliefs,#madar-hub .mh-courses{grid-template-columns:1fr}#madar-hub .mh-about{padding:30px 0}#madar-hub .mh-about-intro h2{font-size:27px}#madar-hub .mh-course-door{flex-wrap:wrap;gap:16px}#madar-hub .mh-resume{padding:22px;gap:13px}#madar-hub .mh-resume .mh-primary{width:100%}#madar-hub .mh-list-row{align-items:flex-start;gap:10px;flex-wrap:wrap;padding:18px}#madar-hub .mh-list-row>div{min-width:160px}#madar-hub .mh-list-row>button{margin-inline-start:29px}#madar-hub .mh-subbar{padding:13px 16px;gap:10px}#madar-hub .mh-course-name{font-size:13px;padding-inline-start:10px}#madar-hub .mh-course-nav{gap:3px}#madar-hub .mh-course-nav button{font-size:12px;padding:7px 9px;min-height:40px}#madar-hub .mh-picker{right:-50px;width:260px}#madar-hub #mh-search-form{grid-template-columns:1fr}#madar-hub .mh-dialog{padding:18px}#madar-hub .mh-lesson{padding:22px}#madar-hub .mh-admin-block{padding:18px}#madar-hub .mh-admin-row label{min-width:0;width:100%}#madar-hub .mh-news-control button{min-height:40px}}
+@media(prefers-reduced-motion:reduce){#madar-hub *,#madar-hub *:before,#madar-hub *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:480px){#madar-hub .mh-brand small{display:none}#madar-hub .mh-brand{font-size:27px;gap:8px}#madar-hub .mh-orbit{width:27px;height:27px}}
+
+#madar-hub #mh-picker .mh-course-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 40px;width:40px;height:44px}#madar-hub #mh-picker .mh-course-icon svg{width:40px;height:40px;flex:none;stroke-width:1}#madar-hub #mh-picker>button{gap:10px;line-height:1.65}
+
+#madar-hub .nt-source-gallery img{max-width:100%;height:auto;border-radius:10px;display:block}#madar-hub .nt-source-gallery figure{margin:24px 0}#madar-hub .nt-source-gallery figcaption{margin-bottom:10px;color:#a8bec8}#madar-hub .nt-code summary{cursor:pointer;font-weight:700;padding:12px}#madar-hub .nt-source-gallery a{color:#b8d8e3}
+
+/* Local design refinement. Course identities and interaction contracts stay scoped. */
+@font-face{font-family:MadarArabic;src:url('/assets/arabic.ttf') format('truetype');font-display:swap}
+#madar-hub{--mh-bg:#0e1016;--mh-panel:#191d25;--mh-line:#353945;--mh-muted:#b9bdc9;--mh-gold:#edc995;font-size:16px;font-family:MadarArabic,"Segoe UI",Tahoma,sans-serif}
+#madar-hub #mh-main{max-width:1440px;margin-inline:auto;padding:24px 48px 64px}
+#madar-hub .mh-header{padding:22px max(32px,calc((100vw - 1344px)/2));background:#0e1016f5;box-shadow:0 1px 0 #ffffff04}
+#madar-hub .mh-brand{font-size:34px}
+#madar-hub .mh-global{margin-inline-start:36px;gap:12px}
+#madar-hub .mh-global button[aria-current=page]{box-shadow:inset 0 -2px var(--mh-gold);border-radius:8px 8px 3px 3px}
+#madar-hub .mh-header-tools button{border-radius:50px;min-height:46px}
+#madar-hub h1{font-size:clamp(30px,3.4vw,46px);font-weight:700;letter-spacing:-.7px}
+#madar-hub h2{font-weight:700}
+#madar-hub button{min-height:44px;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s}
+#madar-hub button.mh-primary{background:linear-gradient(120deg,#f3d6aa,#dfb578);box-shadow:inset 0 1px #fff7,0 4px 16px #0002;padding:13px 23px;border-radius:12px}
+#madar-hub button.mh-primary:hover{background:linear-gradient(120deg,#ffe6c1,#ebc28c);box-shadow:inset 0 1px #fff9,0 7px 22px #0003;transform:translateY(-2px)}
+#madar-hub .mh-section-head{margin-bottom:22px}
+#madar-hub .mh-section-head h2{font-size:clamp(23px,2.3vw,32px)}
+#madar-hub .mh-eyebrow{color:#e4bf88;font-size:12px}
+#madar-hub .mh-news-shell{background:#151922;border-color:#474345;border-radius:24px;box-shadow:0 24px 65px #0003,inset 0 1px #ffffff0a}
+#madar-hub .mh-news-slide{min-height:410px;padding:48px 52px;gap:48px;grid-template-columns:1.05fr 1fr}
+#madar-hub .mh-news-slide:before{background:radial-gradient(ellipse at 8% 85%,color-mix(in srgb,var(--slide-accent) 10%,transparent),transparent 65%),linear-gradient(120deg,#1e242c,#141820 78%)}
+#madar-hub .mh-news-copy{gap:22px;position:relative;z-index:1}
+#madar-hub .mh-news-copy h2{font-size:clamp(30px,3.2vw,46px);line-height:1.4;letter-spacing:-.6px;max-width:520px}
+#madar-hub .mh-news-copy p{font-size:16px;line-height:2;color:#c6ccd6}
+#madar-hub .mh-news-meta{font-size:12px;gap:14px}
+#madar-hub .mh-news-meta>span:first-child{border:1px solid color-mix(in srgb,var(--slide-accent) 30%,transparent);background:color-mix(in srgb,var(--slide-accent) 7%,transparent);padding:3px 12px;border-radius:30px}
+#madar-hub .mh-visual{min-height:290px}
+#madar-hub .mh-news-control{margin-top:16px;gap:10px}
+#madar-hub .mh-news-control .mh-icon{border-radius:50%;background:#1b2029}
+#madar-hub .mh-dots button{min-height:32px;width:32px}
+#madar-hub .mh-timing{height:3px}
+#madar-hub .mh-main-mark{width:242px;height:242px;border-color:#b4a28640;background:radial-gradient(circle at 34% 25%,#41413d,#1b2026 61%,#14181e);box-shadow:inset -15px -17px 36px #0006,inset 2px 2px 3px #eee1,0 20px 50px #0004,0 0 0 34px #d6bc8c04,0 0 0 74px #d6bc8c03}
+#madar-hub .mh-main-mark:before{content:"";position:absolute;inset:-45px;border:1px solid #c5a47826;border-radius:50%;transform:rotateX(56deg) rotate(-25deg);box-shadow:0 0 0 18px #c5a47806}
+#madar-hub .mh-main-mark:after{inset:48px -53px;border-color:#eac68b8c;box-shadow:0 1px 0 #ffffff18;animation-duration:28s}
+#madar-hub .mh-main-mark>span{font-size:58px;color:#f1d3a5;text-shadow:0 2px 14px #0005}
+#madar-hub .mh-orbit-node{position:absolute;width:32px;height:32px;border:1px solid #9fb5d76b;border-radius:9px;display:grid;place-items:center;background:#1e2b3b;color:#a9cfff;box-shadow:0 7px 22px #0006;z-index:2}
+#madar-hub .mh-orbit-node:nth-of-type(1){top:5%;right:-25px;transform:rotate(12deg)}
+#madar-hub .mh-orbit-node:nth-of-type(2){bottom:4%;left:-24px;background:#1c302a;color:#9cddbb;border-color:#7dcfa45e;transform:rotate(-12deg)}
+#madar-hub .mh-orbit-node:nth-of-type(3){top:-25px;left:22%;background:#34252c;color:#ecb0bf;border-color:#b8798b66}
+#madar-hub .mh-about{padding:64px 0 38px}
+#madar-hub .mh-about-intro{grid-template-columns:.8fr 1.25fr;gap:64px;align-items:center}
+#madar-hub .mh-about-intro h2{font-size:clamp(29px,3vw,41px);line-height:1.6}
+#madar-hub .mh-about-intro>p{font-size:17px;color:#c5c7ce;line-height:2.15;max-width:680px}
+#madar-hub .mh-beliefs{gap:24px;margin-top:40px}
+#madar-hub .mh-belief{padding:30px 32px;border-radius:18px;border-color:#ffffff15;background:linear-gradient(140deg,#1b1e25e8,#14181ee8);position:relative;overflow:hidden}
+#madar-hub .mh-belief:before{content:"";position:absolute;inset:0 0 auto;height:1px;background:linear-gradient(90deg,transparent,#d8b98977,transparent)}
+#madar-hub .mh-belief-title{gap:14px;margin-bottom:16px}
+#madar-hub .mh-belief-title>svg{width:42px;height:42px;padding:10px;border:1px solid #c7a26a38;border-radius:12px;background:#d0a5610b}
+#madar-hub .mh-belief p{font-size:15px;color:#bfc3ce}
+#madar-hub .mh-course-door{padding:30px;border:1px solid #b79a663a;border-radius:18px;background:linear-gradient(105deg,#24231f,#181b22);margin-top:8px}
+#madar-hub .mh-courses{gap:28px}
+#madar-hub .mh-course-card{border-radius:22px;background:linear-gradient(155deg,#20252e,#141920);box-shadow:0 16px 40px #0002;border-color:#ffffff22;transition:transform .25s,border-color .25s,box-shadow .25s}
+#madar-hub .mh-course-card:hover{box-shadow:0 22px 44px #0004;transform:translateY(-5px)}
+#madar-hub .mh-course-card:focus-within{border-color:var(--mh-accent,var(--mh-gold))}
+#madar-hub .mh-course-art{height:240px}
+#madar-hub .mh-course-body{padding:30px;gap:20px}
+#madar-hub .mh-course-body h2{font-size:29px}
+#madar-hub .mh-course-body>p{font-size:15px}
+#madar-hub .mh-course-tags{font-size:12px;gap:8px}
+#madar-hub .mh-course-tags span{padding:4px 12px;background:#ffffff04}
+#madar-hub .mh-course-cover{padding:24px 0 30px}
+#madar-hub .mh-section-link{padding:26px;border-color:#bc986038;background:linear-gradient(135deg,#252724f5,#15191ff5);box-shadow:inset 0 1px #ffffff09;gap:18px}
+#madar-hub .mh-section-link>svg{width:30px;height:30px}
+#madar-hub .mh-list-row{padding:24px;border-color:#ffffff1a;background:#191e26f5;box-shadow:inset 3px 0 #d3aa6c40;transition:border-color .2s,background .2s}
+#madar-hub .mh-list-row:hover{border-color:#b696625e;background:#20262ef5}
+#madar-hub .mh-lesson,#madar-hub .mh-note-box{background:#171c24f5;border-color:#ffffff20;box-shadow:0 14px 40px #0002}
+#madar-hub .mh-lesson{padding:34px}
+#madar-hub .mh-step{gap:10px}
+#madar-hub .mh-step span{width:36px;height:36px}
+#madar-hub .mh-subbar{padding-inline:max(32px,calc((100vw - 1344px)/2));background:#12161de8;border-color:#ffffff15}
+#madar-hub .mh-course-nav{gap:8px}
+#madar-hub .mh-dialog{border-color:#766447;border-radius:20px;box-shadow:0 30px 100px #0009;padding:28px}
+#madar-hub .mh-dialog::backdrop{background:#05080cc9;backdrop-filter:blur(6px)}
+#madar-hub .mh-footer{max-width:1344px;margin-inline:auto;padding:30px 0;color:#aeb5c0}
+#madar-hub #mh-save:empty{display:none}
+@media(min-width:1600px){#madar-hub:has(#mh-network-lab) #mh-main{max-width:1600px}}
+@media(max-width:800px){#madar-hub #mh-main{padding:22px 24px 40px}#madar-hub .mh-header{padding:20px 24px}#madar-hub .mh-global{margin-inline-start:0}#madar-hub .mh-news-slide{padding:32px;gap:24px}#madar-hub .mh-about-intro{gap:24px;grid-template-columns:1fr}#madar-hub .mh-belief{padding:24px}#madar-hub .mh-footer{margin-inline:24px}#madar-hub .mh-course-body{padding:24px}#madar-hub .mh-subbar{padding-inline:24px}}
+@media(max-width:700px){#madar-hub .mh-news-slide{grid-template-columns:1fr}#madar-hub .mh-visual{min-height:240px}#madar-hub .mh-main-mark{width:185px;height:185px}#madar-hub .mh-main-mark>span{font-size:46px}#madar-hub .mh-main-mark:after{inset:42px -35px}#madar-hub .mh-main-mark:before{inset:-27px}#madar-hub .mh-news-copy h2{font-size:34px}#madar-hub .mh-courses{grid-template-columns:1fr}#madar-hub .mh-about{padding-top:42px}}
+@media(max-width:480px){#madar-hub #mh-main{padding:16px 16px 32px}#madar-hub .mh-header{padding:18px 16px;gap:16px}#madar-hub .mh-brand{font-size:30px}#madar-hub .mh-global{padding-top:12px}#madar-hub .mh-news-slide{padding:26px 20px;gap:12px}#madar-hub .mh-news-copy{gap:16px}#madar-hub .mh-news-copy h2{font-size:30px}#madar-hub .mh-news-copy p{font-size:15px}#madar-hub .mh-news-shell{border-radius:18px}#madar-hub .mh-news-meta{gap:9px;font-size:11px}#madar-hub .mh-visual{min-height:225px}#madar-hub .mh-about-intro>p{font-size:16px}#madar-hub .mh-beliefs{gap:16px;margin-top:26px}#madar-hub .mh-course-door{padding:22px}#madar-hub .mh-course-art{height:200px}#madar-hub .mh-course-body h2{font-size:26px}#madar-hub .mh-subbar{padding-inline:16px}#madar-hub .mh-course-nav button{min-height:44px}#madar-hub .mh-lesson{padding:22px}#madar-hub .mh-footer{margin-inline:16px}#madar-hub .mh-dialog{padding:20px}}
+@media(prefers-reduced-motion:reduce){#madar-hub *,#madar-hub *:before,#madar-hub *:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media(max-width:700px){#madar-hub:has(#mh-network-lab) #mh-main{padding-inline:8px}#madar-hub:has(#mh-network-lab) .mh-page-heading{padding-inline:8px}}
+/* Search and reference keep detail optional and preserve keyboard orientation. */
+#madar-hub .mh-skip{position:fixed;inset-block-start:10px;inset-inline-start:20px;z-index:1000;transform:translateY(-180%);background:#f0cc94;color:#162023;padding:12px 22px}
+#madar-hub .mh-skip:focus{transform:translateY(0)}
+#madar-hub #mh-main:focus{outline:none}
+#madar-hub .mh-search-count{color:#b9c9c9;font-size:13px;margin:8px 0 14px}
+#madar-hub #mh-search-more{width:100%;margin-top:12px}
+#madar-hub .mh-reference-search{display:grid;gap:8px;max-width:540px;margin:22px 0;font-size:14px}
+#madar-hub .mh-reference-search input{width:100%;background:#101a20;color:#f3eadc;border:1px solid #81705a;border-radius:12px;padding:14px;min-height:48px;font:inherit}
+#madar-hub .mh-reference-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start}
+#madar-hub .mh-command-card{background:#151f24e8;border:1px solid #7f6c4b66;border-radius:12px;min-width:0;overflow-wrap:anywhere}
+#madar-hub .mh-command-card summary{display:flex;gap:14px;align-items:center;justify-content:space-between;min-height:66px;padding:16px;cursor:pointer;list-style:none}
+#madar-hub .mh-command-card summary:after{content:'＋';color:#e0ba80}
+#madar-hub .mh-command-card[open] summary:after{content:'−'}
+#madar-hub .mh-command-card summary code{font:14px/1.7 Consolas,monospace;flex:1;overflow-wrap:anywhere;color:#ebd7b5}
+#madar-hub .mh-command-card summary span{font-size:12px;color:#aebfc0}
+#madar-hub .mh-command-card>div{border-top:1px solid #ffffff16;padding:4px 18px 18px;font-size:14px;line-height:1.9}
+#madar-hub .mh-command-card small{color:#c8b58f}
+#madar-hub .mh-command-card summary:focus-visible,#madar-hub .mh-reference-search input:focus-visible{outline:2px solid #f2c383;outline-offset:3px}
+#madar-hub .mh-command-card[hidden]{display:none}
+@media(max-width:700px){#madar-hub .mh-reference-list{grid-template-columns:1fr}#madar-hub .mh-command-card summary{gap:8px;padding:13px}#madar-hub .mh-command-card summary code{font-size:13px}}
+#madar-hub .mh-feedback-fold{margin-top:28px;border:1px solid #80705b66;border-radius:14px;background:#131c22ee}
+#madar-hub .mh-feedback-fold>h2{padding:18px;font-size:18px;color:#e6c28f;font-weight:700}
+
+#madar-hub .feedback-center{padding:20px;min-width:0}
+#madar-hub .feedback-center .field{display:grid;gap:8px;margin:16px 0}
+#madar-hub .feedback-center textarea,#madar-hub .feedback-center select{width:100%;min-width:0;border:1px solid #776a57;border-radius:9px;background:#0f171c;color:#f1eadc;padding:12px;font:inherit}
+#madar-hub .feedback-context{color:#cfb48b;font-size:14px}
+#madar-hub .feedback-paths button{background:#172127;border-color:#677375}
+#madar-hub .feedback-paths button[aria-pressed=true]{background:#302b24;border-color:#e7c885}
+.mh-selftest-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:22px;margin:24px 0}.mh-selftest-card{display:flex;flex-direction:column;align-items:flex-start;gap:14px;padding:clamp(24px,4vw,44px);border:1px solid #a17c4a55;border-radius:24px;background:linear-gradient(145deg,#242b33ed,#111820f5);box-shadow:0 18px 55px #0003}.mh-selftest-card h2{font-size:clamp(24px,3vw,34px);line-height:1.5;margin:0}.mh-selftest-card p{line-height:1.9;color:#c2c8d0;margin:0 0 12px}.mh-selftest-card button{margin-top:auto}.mh-selftest-back{margin:0 0 18px}
+.mh-lab-loading{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:20px;margin-bottom:16px;border:1px solid #65767a;border-radius:16px;background:#142027;color:#f4e9d9}.mh-lab-loading span{flex:1;min-width:180px}.mh-lab-loading a{color:#efd09b;text-underline-offset:5px}.mh-lab-loading [hidden]{display:none}
+
+/* Only the shared MADAR hub gets this sky; existing course themes are untouched. */
+#madar-hub[data-course=global]{background:#070a10}
+#madar-hub[data-course=global] .mh-atmosphere{position:fixed;inset:0;height:100vh;height:100svh;overflow:hidden;background:#070a10;contain:strict}
+#madar-hub[data-course=global] .mh-atmosphere:after{background:radial-gradient(ellipse at 50% 40%,transparent 20%,#02040955 100%);opacity:1}
+#madar-hub .mh-space-field,#madar-hub .mh-space-glints{position:absolute;inset:0;width:100%;height:100%;display:none;pointer-events:none}
+#madar-hub[data-course=global] .mh-space-field,#madar-hub[data-course=global] .mh-space-glints{display:block}
+#madar-hub .mh-space-field{animation:mh-space-drift 90s ease-in-out infinite alternate;transform:scale(1.045);transform-origin:50% 50%}
+#madar-hub .mh-space-glints{animation:mh-space-near 70s ease-in-out infinite alternate}
+#madar-hub .mh-space-star{position:absolute;width:var(--star-size);height:var(--star-size);border-radius:50%;color:rgb(var(--star-color));background:#fff4dc;box-shadow:0 0 5px 1px currentColor,0 0 13px 2px rgba(var(--star-color),.22);animation:mh-space-twinkle var(--star-time) ease-in-out var(--star-delay) infinite alternate}
+#madar-hub .mh-space-star:nth-child(5n):after{content:"";position:absolute;inset:-5px 1px;background:linear-gradient(transparent,currentColor,transparent);opacity:.5}
+#madar-hub .mh-atmosphere[data-motion=paused] .mh-space-field,#madar-hub .mh-atmosphere[data-motion=paused] .mh-space-glints,#madar-hub .mh-atmosphere[data-motion=paused] .mh-space-star{animation-play-state:paused}
+#madar-hub .mh-space-motion{position:fixed;left:max(14px,env(safe-area-inset-left));bottom:max(14px,env(safe-area-inset-bottom));z-index:12;width:44px;height:44px;padding:10px;border:1px solid #d4af7045;border-radius:50%;background:#0a0f19e8;color:#ebc78f;box-shadow:0 4px 18px #0005}
+#madar-hub .mh-space-motion svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#madar-hub .mh-space-motion .mh-space-play,#madar-hub .mh-space-motion[aria-pressed=true] .mh-space-pause{display:none}
+#madar-hub .mh-space-motion[aria-pressed=true] .mh-space-play{display:block}
+#madar-hub .mh-space-motion:disabled{opacity:.65}
+@keyframes mh-space-drift{from{transform:scale(1.045) translate(-.7%,.4%)}to{transform:scale(1.065) translate(.7%,-.4%)}}
+@keyframes mh-space-near{from{transform:translate(-3px,2px)}to{transform:translate(5px,-3px)}}
+@keyframes mh-space-twinkle{0%,15%{opacity:.4;transform:scale(.82)}80%,100%{opacity:.95;transform:scale(1.12)}}
+@media(max-width:600px){#madar-hub .mh-space-star{box-shadow:0 0 4px 1px currentColor,0 0 9px rgba(var(--star-color),.2)}#madar-hub .mh-space-motion{bottom:max(12px,env(safe-area-inset-bottom));left:max(10px,env(safe-area-inset-left))}}
+@media(prefers-reduced-motion:reduce){#madar-hub .mh-space-field,#madar-hub .mh-space-glints,#madar-hub .mh-space-star{animation:none!important}}
+
+/* Fixed orbital geometry; only the liquid satellite moves. */
+#madar-hub .mh-main-mark{background:none;box-shadow:none;border:0;isolation:isolate;flex:none}
+#madar-hub .mh-main-mark:before{display:none}
+#madar-hub .mh-main-mark:after{inset:auto;left:50%;top:50%;width:144%;height:62%;transform:translate(-50%,-50%) rotate(-15deg);animation:none!important;z-index:3;border-color:#eac68b70;box-shadow:0 1px 0 #ffffff0a;pointer-events:none}
+#madar-hub .mh-orbit-core{position:absolute;inset:0;border:1px solid #b4a28640;border-radius:50%;background:radial-gradient(circle at 34% 25%,#383b3c,#1b2026 61%,#14181e);box-shadow:inset -15px -17px 36px #0006,inset 2px 2px 3px #eee1,0 20px 50px #0003;z-index:2}
+#madar-hub .mh-main-mark>span{position:relative;z-index:3;pointer-events:none}
+#madar-hub .mh-liquid-bubble{position:absolute;left:50%;top:50%;width:36px;height:36px;border-radius:50%;padding:0;overflow:hidden;box-shadow:0 4px 10px #0005,0 0 12px #9ad8e315;border:1px solid #eafaff80;will-change:transform;pointer-events:none}
+#madar-hub .mh-liquid-bubble canvas{width:100%;height:100%;display:block;border-radius:50%}
+#madar-hub .mh-liquid-bubble:after{content:'';position:absolute;inset:0;border-radius:inherit;background:radial-gradient(ellipse at 30% 18%,#ffffffc9,transparent 11%),radial-gradient(ellipse at 70% 90%,#d8f8ff55,transparent 25%);box-shadow:inset -5px -8px 12px #060c1b70,inset 2px 2px 5px #ffffff70;pointer-events:none}
+@media(max-width:700px){#madar-hub .mh-liquid-bubble{width:28px;height:28px}}
+@media(max-width:380px){#madar-hub .mh-main-mark{width:150px;height:150px}#madar-hub .mh-liquid-bubble{width:24px;height:24px}#madar-hub .mh-main-mark>span{font-size:40px}}
+/* Header emblem shares the liquid renderer without enlarging the brand. */
+#madar-hub .mh-brand .mh-orbit{transform:none;flex:none;isolation:isolate;overflow:visible}
+#madar-hub .mh-brand .mh-orbit:before{inset:auto;left:50%;top:50%;width:144%;height:62%;transform:translate(-50%,-50%) rotate(-15deg);animation:none;pointer-events:none}
+#madar-hub .mh-brand .mh-orbit:after{display:none}
+#madar-hub .mh-brand .mh-liquid-bubble{width:9px;height:9px;border-width:.5px;box-shadow:0 1px 4px #0005,0 0 6px #b7e4f12a}
+#madar-hub .mh-brand .mh-liquid-bubble:after{box-shadow:inset -1px -1px 2px #060c1b45,inset .5px .5px 1px #ffffff70}
+
+/* Celebration belongs only to the Office course entrance, not its learning pages. */
+#madar-hub .mh-course-card.office{border-color:#88b9d76b;background:linear-gradient(#1b202a,#181c25);box-shadow:0 15px 45px #0002}
+#madar-hub .mh-course-card.office .mh-course-art{background:radial-gradient(ellipse at 83% 15%,#4f9af051,transparent 61%),radial-gradient(ellipse at 47% 100%,#35c48c40,transparent 64%),radial-gradient(ellipse at 5% 34%,#dd659643,transparent 58%),#121921;border-bottom-color:#8db5c033}
+#madar-hub .mh-course-card.office .mh-course-art:before{content:'';position:absolute;width:270px;height:170px;left:50%;top:51%;transform:translate(-50%,-50%) rotate(-12deg);border-radius:50%;border:1px solid #8bc8ff24;box-shadow:0 0 0 15px #84bdea05,0 0 0 35px #b2c8ef04;pointer-events:none}
+#madar-hub .mh-office-celebration{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+#madar-hub .mh-office-celebration i{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:calc(var(--size)*1.8);background:currentColor;color:var(--party-color);opacity:.7;border-radius:1px;box-shadow:0 0 7px color-mix(in srgb,currentColor 22%,transparent);animation:mh-festive-drift var(--duration) ease-in-out infinite;animation-delay:var(--delay);animation-play-state:paused}
+#madar-hub .mh-office-celebration i:nth-child(3n){clip-path:polygon(50% 0,62% 37%,100% 50%,62% 63%,50% 100%,38% 63%,0 50%,38% 37%);width:calc(var(--size)*2);height:calc(var(--size)*2);border-radius:0}
+#madar-hub .mh-office-celebration i:nth-child(5n){height:var(--size);border-radius:50%;width:var(--size)}
+#madar-hub .mh-celebration-ribbon{position:absolute;width:160px;height:64px;border:2px solid; border-radius:50%;opacity:.5;transform:rotate(-35deg);left:-55px;bottom:28px;border-color:#f394b9 transparent #f394b91c transparent}
+#madar-hub .mh-celebration-ribbon:last-child{left:auto;right:-55px;bottom:auto;top:32px;transform:rotate(-35deg);border-color:#8bc7ff transparent #8bc7ff1c transparent}
+#madar-hub .mh-course-card.office .mh-office-scene{position:relative;z-index:1;transform:scale(.88);gap:18px}
+#madar-hub .mh-course-card.office .mh-file{background:linear-gradient(145deg,#263345,#17222f);border-color:#8abfffbb;box-shadow:inset 0 1px #dceeff30,0 13px 28px #0005,0 0 25px #559cff17;animation:mh-festive-file 6s ease-in-out infinite;animation-delay:calc(var(--i)*-.95s);animation-play-state:paused}
+#madar-hub .mh-course-card.office .mh-file:nth-child(2){background:linear-gradient(145deg,#244237,#172c26);border-color:#71d6acb3;box-shadow:inset 0 1px #d5ffef30,0 13px 28px #0005,0 0 25px #4ed99e18}
+#madar-hub .mh-course-card.office .mh-file:nth-child(3){background:linear-gradient(145deg,#432c3b,#2d1e2b);border-color:#ec8cabb3;box-shadow:inset 0 1px #ffe3ee30,0 13px 28px #0005,0 0 25px #ef79ae17}
+#madar-hub .mh-course-card.office.mh-celebration-active .mh-office-celebration i,#madar-hub .mh-course-card.office.mh-celebration-active .mh-file{animation-play-state:running}
+#madar-hub .mh-course-card.office .mh-course-tags span:nth-child(1){color:#a9d1ff;background:#72adfa0c;border-color:#72adfa30}
+#madar-hub .mh-course-card.office .mh-course-tags span:nth-child(2){color:#93e3be;background:#60d6a40c;border-color:#60d6a430}
+#madar-hub .mh-course-card.office .mh-course-tags span:nth-child(3){color:#f3afc9;background:#ea85ad0c;border-color:#ea85ad30}
+@keyframes mh-festive-drift{0%,100%{translate:0 12px;rotate:var(--turn);opacity:.35}50%{translate:var(--drift) -13px;rotate:calc(var(--turn) + 55deg);opacity:.9}}
+@keyframes mh-festive-file{0%,100%{translate:0 3px}50%{translate:0 -5px}}
+@media(max-width:480px){#madar-hub .mh-course-card.office .mh-office-scene{transform:scale(.78);gap:15px}#madar-hub .mh-office-celebration i{opacity:.6}}
+@media(prefers-reduced-motion:reduce){#madar-hub .mh-course-card.office .mh-office-celebration i,#madar-hub .mh-course-card.office .mh-file{animation:none!important}}
+#madar-hub .mh-course-card.office .mh-course-tags{align-items:center;gap:8px}
+#madar-hub .mh-course-card.office .mh-course-badge{display:inline-flex;align-items:center;gap:7px;white-space:nowrap;position:relative;isolation:isolate;overflow:hidden;padding:4px 11px;min-height:30px;font-size:12px}
+#madar-hub .mh-course-badge b{font-weight:500}
+#madar-hub .mh-course-card.office .mh-featured-badge{color:#f5d79c;background:linear-gradient(120deg,#e8b7621c,#e8b76208);border-color:#edc47d50}
+#madar-hub .mh-featured-badge svg{width:15px;height:15px;fill:#e8ba6533;stroke-width:1.7;animation:mh-featured-star 3.8s ease-in-out infinite;animation-play-state:paused}
+#madar-hub .mh-course-card.office .mh-origin-badge{color:#e2e9ff;background:linear-gradient(110deg,#df78a626,#61c6a323,#66a9ed29);border-color:#b3bfe451}
+#madar-hub .mh-origin-badge svg{width:16px;height:16px;color:#acdaca;animation:mh-origin-cheer 4.8s ease-in-out infinite;animation-play-state:paused;transform-origin:30% 80%}
+#madar-hub .mh-course-badge:after{content:'';position:absolute;inset:-20% -80%;z-index:-1;background:linear-gradient(110deg,transparent 40%,#fff2 49%,transparent 58%);translate:-60% 0;animation:mh-badge-sheen 6s ease-in-out infinite;animation-play-state:paused;pointer-events:none}
+#madar-hub .mh-origin-badge:after{animation-delay:1.5s}
+#madar-hub .mh-celebration-active .mh-course-badge svg,#madar-hub .mh-celebration-active .mh-course-badge:after{animation-play-state:running}
+@keyframes mh-featured-star{0%,100%{transform:rotate(-9deg) scale(.95);filter:drop-shadow(0 0 1px #edc47d44)}45%{transform:rotate(12deg) scale(1.13);filter:drop-shadow(0 0 4px #edc47dbb)}70%{transform:rotate(-3deg) scale(1)}}
+@keyframes mh-origin-cheer{0%,65%,100%{transform:rotate(0)}15%{transform:rotate(-13deg)}28%{transform:rotate(9deg)}40%{transform:rotate(-5deg)}}
+@keyframes mh-badge-sheen{0%,35%{translate:-60% 0}80%,100%{translate:60% 0}}
+@media(prefers-reduced-motion:reduce){#madar-hub .mh-course-badge svg,#madar-hub .mh-course-badge:after{animation:none!important}}
+
+/* Copper/charcoal network illustration, scoped to the course entrance card. */
+#madar-hub .mh-course-card.network{border-color:#c9905d66;background:linear-gradient(155deg,#262521,#15191f)}
+#madar-hub .mh-course-card.network .mh-course-art{background:radial-gradient(ellipse at 52% 48%,#a26e3036,transparent 59%),radial-gradient(ellipse at 5% 90%,#b7703621,transparent 57%),linear-gradient(125deg,#1c2024,#12171c);border-bottom-color:#d49a5d30}
+#madar-hub .mh-course-card.network .mh-course-art:before{content:'';position:absolute;inset:0;background-image:radial-gradient(#e8c69529 .7px,transparent 1px);background-size:22px 22px;mask-image:radial-gradient(ellipse at center,#000,transparent 76%);pointer-events:none}
+#madar-hub .mh-course-card.network .mh-course-art:after{content:'';position:absolute;width:235px;height:118px;border-radius:50%;border:1px solid #d8a05c1c;box-shadow:0 0 0 21px #dbb57a05,0 0 0 43px #dbb57a03;transform:rotate(-18deg);pointer-events:none;z-index:0}
+#madar-hub .mh-course-card.network .mh-network-map{position:relative;z-index:1}
+#madar-hub .mh-course-card.network .mh-network-wire{stroke:#b38454;stroke-width:1;opacity:.37;fill:none}
+#madar-hub .mh-course-card.network .mh-network-flow{fill:none;stroke-linecap:round;stroke:#ffd99a;opacity:.95;stroke-dasharray:3 97;stroke-dashoffset:100;animation:mh-network-delivery var(--flow-duration) linear infinite;animation-delay:var(--flow-delay);animation-play-state:paused}
+#madar-hub .mh-course-card.network .mh-network-trail{stroke:#efa94f;stroke-width:5;opacity:.12;stroke-dasharray:10 90}
+#madar-hub .mh-course-card.network .mh-network-signal{stroke-width:1.7;filter:drop-shadow(0 0 2px #ffc56a99)}
+#madar-hub .mh-course-card.network .mh-network-node-halo{fill:#dba96c0a;stroke:#e4b57940;stroke-width:1;animation:mh-network-node-ring 4s ease-in-out infinite;animation-delay:var(--node-delay);animation-play-state:paused;transform-box:fill-box;transform-origin:center}
+#madar-hub .mh-course-card.network .mh-network-node{fill:#f4c887;stroke:#6b4a2c;stroke-width:2;animation:mh-network-node-light 4s ease-in-out infinite;animation-delay:var(--node-delay);animation-play-state:paused}
+#madar-hub .mh-course-card.network .mh-network-center{z-index:2;pointer-events:none}
+#madar-hub .mh-course-card.network .mh-network-center>span{width:88px;height:72px;border-radius:16px;position:relative;background:linear-gradient(145deg,#4a4033,#252923 48%,#20252a);border:1px solid #c89a62aa;box-shadow:inset 0 1px 1px #fff2,inset 0 -3px 8px #0004,0 12px 26px #0007,0 0 24px #de9e431c;transform:perspective(700px) rotateX(8deg) rotateY(-9deg)}
+#madar-hub .mh-course-card.network .mh-network-center>span:before,#madar-hub .mh-course-card.network .mh-network-center>span:after{content:'';position:absolute;width:3px;height:3px;border-radius:50%;background:#9f8a69;box-shadow:inset 0 1px #fff4;top:7px;left:8px}
+#madar-hub .mh-course-card.network .mh-network-center>span:after{left:auto;right:8px}
+#madar-hub .mh-course-card.network .mh-network-center svg{width:34px;height:34px;color:#f3ce98;translate:0 -4px;stroke-width:1.5}
+#madar-hub .mh-network-leds{position:absolute;bottom:11px;left:0;right:0;display:flex;justify-content:center;gap:5px}
+#madar-hub .mh-network-leds b{width:3px;height:3px;border-radius:50%;background:#64ff8b;animation:mh-network-led .2s steps(1,end) infinite;animation-play-state:paused;box-shadow:0 0 4px #64ff8b,0 0 9px #64ff8bb3}
+#madar-hub .mh-network-leds b:nth-child(-n+2){animation:none}
+#madar-hub .mh-course-card.network.mh-network-active .mh-network-flow,#madar-hub .mh-course-card.network.mh-network-active .mh-network-node,#madar-hub .mh-course-card.network.mh-network-active .mh-network-node-halo,#madar-hub .mh-course-card.network.mh-network-active .mh-network-leds b{animation-play-state:running}
+#madar-hub .mh-course-card.network .mh-course-tags span{color:#efc28b;border-color:#d5a66d38;background:#dcaa6210}
+@keyframes mh-network-delivery{to{stroke-dashoffset:0}}
+@keyframes mh-network-node-ring{0%,100%{scale:.85;opacity:.3}45%{scale:1.25;opacity:.85}}
+@keyframes mh-network-node-light{0%,100%{fill:#b78b58}45%{fill:#ffe1a8}}
+@keyframes mh-network-led{0%,100%{background:#64ff8b;box-shadow:0 0 4px #64ff8b,0 0 9px #64ff8bb3}50%{background:#17241b;box-shadow:none}}
+@media(prefers-reduced-motion:reduce){#madar-hub .mh-course-card.network .mh-network-flow,#madar-hub .mh-course-card.network .mh-network-node,#madar-hub .mh-course-card.network .mh-network-node-halo,#madar-hub .mh-network-leds b{animation:none!important}#madar-hub .mh-course-card.network .mh-network-flow{stroke-dashoffset:45}}
+
+#madar-hub .mh-network-showcase{display:block;border:0;width:100%;height:350px;pointer-events:auto;background:transparent;color-scheme:dark}
+#madar-hub .mh-visual:has(.mh-network-showcase){width:100%;min-width:0;overflow:visible;min-height:350px;padding:0;grid-template-columns:minmax(0,1fr)}
+@media(max-width:700px){#madar-hub .mh-network-showcase{height:280px}#madar-hub .mh-visual:has(.mh-network-showcase){max-width:none;min-height:280px}}
+
+#madar-hub .nt-skill{background:linear-gradient(125deg,#24211e,#141a20 65%);border:1px solid #69533c;border-radius:22px;padding:clamp(22px,4vw,42px);margin-bottom:28px}
+#madar-hub .nt-skill h2{max-width:950px;font-size:clamp(22px,2.7vw,34px);line-height:1.65;margin:12px 0}
+#madar-hub .nt-meta{display:flex;gap:12px;flex-wrap:wrap;color:#d1b68e;font-size:13px}
+#madar-hub .nt-chapters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:30px 0}
+#madar-hub .nt-chapter{min-width:0;background:#151b21;border:1px solid #3c424b;border-radius:18px;overflow:hidden}
+#madar-hub .nt-chapter header{display:flex;gap:16px;align-items:center;padding:25px 22px;background:linear-gradient(135deg,#30271e70,transparent)}
+#madar-hub .nt-chapter h2{font-size:19px;margin:8px 0;line-height:1.5;text-align:right}
+#madar-hub .nt-chapter header p{font-size:13px;color:#b4bbc3;margin:0}
+#madar-hub .nt-number{font-size:30px;color:#edc78f;border:1px solid #856848;border-radius:14px;padding:5px 14px}
+#madar-hub .nt-part{border:0;border-top:1px solid #343b43;border-radius:0;background:transparent;display:flex;justify-content:space-between;align-items:center;gap:15px;text-align:right;width:100%;padding:20px;color:#ebe6de;white-space:normal}
+#madar-hub .nt-part:hover{background:#e8b46e0e}#madar-hub .nt-part b{line-height:1.7}#madar-hub .nt-part small{display:block;text-align:right;font-size:12px;color:#aeb8c2;margin-top:6px;line-height:1.5}
+#madar-hub .nt-resource{margin:20px 0;border:1px solid #3d454e;border-radius:14px;background:#151c22;padding:22px}
+#madar-hub .nt-resource summary,#madar-hub .nt-outline summary{cursor:pointer;min-height:36px;font-weight:700;align-content:center}
+#madar-hub .nt-resource p,#madar-hub .nt-resource li{line-height:1.9;color:#c6cdd3}#madar-hub .nt-resource input{width:100%;margin:12px 0;box-sizing:border-box}
+#madar-hub .nt-dictionary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 24px;margin:0}#madar-hub .nt-dictionary>div{padding:15px 0;border-bottom:1px solid #333d46;min-width:0}#madar-hub .nt-dictionary>div[hidden]{display:none}
+#madar-hub .nt-dictionary dt{color:#edc78f;text-align:right;font-weight:700;overflow-wrap:anywhere}#madar-hub .nt-dictionary dd{margin:7px 0 0;font-size:15px;line-height:1.9;color:#c2cbd3}
+#madar-hub .nt-breadcrumb{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:20px;color:#bfc7ce;font-size:14px}
+#madar-hub .nt-reader{display:grid;grid-template-columns:260px minmax(0,1fr);gap:26px;align-items:start}
+#madar-hub .nt-outline{min-width:0;background:#161d23;border:1px solid #404750;border-radius:16px;padding:20px;position:sticky;top:18px;max-height:85vh;overflow:auto}
+#madar-hub .nt-outline h2{font-size:18px;margin:0}#madar-hub .nt-outline nav{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin:16px 0}
+#madar-hub .nt-outline nav button{display:grid;grid-template-columns:auto minmax(0,1fr);min-width:0;gap:10px;align-items:baseline;border:1px solid transparent;background:transparent;text-align:right;line-height:1.7;padding:9px;color:#c9d0d7;white-space:normal}
+#madar-hub .nt-outline nav button[aria-current]{border-color:#ba8d52;background:#342b20;color:#ffdda8}#madar-hub .nt-outline nav button .nt-outline-number{font-size:12px;opacity:.8}#madar-hub .nt-outline-title{min-width:0;overflow-wrap:anywhere}
+#madar-hub .nt-outline details{border-top:1px solid #39414a;padding:12px 0;font-size:14px}#madar-hub .nt-outline li{line-height:1.9;margin:7px 0}#madar-hub .nt-outline .nt-dictionary{grid-template-columns:1fr}
+#madar-hub .nt-reading{min-width:0}#madar-hub .nt-topic{padding:clamp(22px,4vw,44px);border:1px solid #49505a;border-radius:20px;background:#161d24;box-shadow:0 12px 38px #0002}
+#madar-hub .nt-topic-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:#aeb9c4}#madar-hub .nt-topic h2{font-size:clamp(24px,2.8vw,34px);line-height:1.65;margin:24px 0}
+#madar-hub .nt-topic>p{font-size:18px;line-height:2.1;color:#e0e4e8;max-width:900px}#madar-hub .nt-topic h3{font-size:17px}
+#madar-hub .nt-code{margin:26px 0}#madar-hub .nt-code p{font-size:13px;color:#aeb9c4}#madar-hub .nt-code pre{font:14px/1.9 Consolas,monospace;text-align:left;background:#0a1118;color:#d7e8f8;padding:22px;border:1px solid #3b5062;border-inline-start:3px solid #e7ba7d;border-radius:10px;overflow:auto;white-space:pre;max-width:100%;box-sizing:border-box}
+#madar-hub .nt-note{padding:18px 22px;background:#2e261a;border:1px solid #806139;border-radius:12px;margin-top:24px}#madar-hub .nt-note p{line-height:1.9;font-size:15px;color:#ead5b9}
+#madar-hub .nt-table-wrap{overflow:auto;max-width:100%;margin:24px 0}#madar-hub .nt-table-wrap table{width:100%;border-collapse:collapse;min-width:410px;font-size:15px}#madar-hub .nt-table-wrap th,#madar-hub .nt-table-wrap td{padding:14px;text-align:right;border:1px solid #414b55;line-height:1.8}#madar-hub .nt-table-wrap th{background:#25313c;color:#f3d5aa}
+#madar-hub .nt-flow{display:flex;flex-wrap:wrap;gap:12px;padding:0;list-style-position:inside;margin:26px 0}#madar-hub .nt-flow li{padding:18px;background:#21303b;border:1px solid #476071;border-radius:12px;line-height:1.8;flex:1;min-width:150px}
+#madar-hub .nt-next{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:35px;border-top:1px solid #414850;padding-top:22px}#madar-hub .nt-next>span{font-size:13px;color:#b8c3cd}
+#madar-hub .nt-review{margin-top:26px;padding:26px;background:#141c21;border:1px solid #3d4b54;border-radius:16px}#madar-hub .nt-review>p{font-size:14px;color:#aebac5;line-height:1.9}#madar-hub .nt-check{border-top:1px solid #38454e;margin-top:20px;padding-top:14px}#madar-hub .nt-check h3{font-size:17px;line-height:1.9}#madar-hub .nt-check summary{cursor:pointer;color:#e9c28c;min-height:42px;align-content:center}#madar-hub .nt-check p{line-height:2;color:#d5dde5}
+#madar-hub .nt-part-nav{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}#madar-hub .nt-part-nav button{white-space:normal;text-align:right;line-height:1.7}#madar-hub .nt-reader a,#madar-hub .nt-resource a{color:#f4ca91;text-decoration:underline;text-underline-offset:4px}
+#madar-hub .nt-reader :focus-visible,#madar-hub .nt-resource :focus-visible,#madar-hub .nt-part:focus-visible{outline:2px solid #f1c17e;outline-offset:4px}
+@media(max-width:1000px){#madar-hub .nt-chapters{grid-template-columns:1fr}#madar-hub .nt-reader{grid-template-columns:210px minmax(0,1fr)}}
+@media(max-width:700px){#madar-hub .nt-reader{display:block}#madar-hub .nt-outline{position:static;max-height:none;margin-bottom:18px}#madar-hub .nt-outline nav{display:flex;overflow-x:auto;padding-bottom:8px}#madar-hub .nt-outline nav button{min-width:170px;flex:0 0 170px}#madar-hub .nt-dictionary{grid-template-columns:1fr}#madar-hub .nt-topic>p{font-size:17px}#madar-hub .nt-topic{padding:22px 18px}#madar-hub .nt-review{padding:22px 18px}#madar-hub .nt-next button{padding:10px;min-height:44px}#madar-hub .nt-next>span{white-space:nowrap}}
+
+#madar-hub .nt-original-deck{display:block;padding:15px 20px;color:#efd0a2;border-top:1px solid #3f4b53;line-height:1.8;text-decoration:underline;text-underline-offset:4px}#madar-hub .nt-original-deck:focus-visible{outline:2px solid #efd0a2;outline-offset:3px}
+
+body[data-view="network"] .nt-srwe-entry{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px;margin:24px 0;border:1px solid #55766c;border-radius:18px;background:radial-gradient(ellipse at 0 0,#538d7140,transparent 65%),#142b31;box-shadow:0 12px 35px #0002}body[data-view="network"] .nt-srwe-entry h2{margin:8px 0;color:#eac28b}body[data-view="network"] .nt-srwe-entry p{max-width:650px;color:#c6d6d7;line-height:1.8}body[data-view="network"] .nt-srwe-entry a{flex-shrink:0;display:inline-block;text-decoration:none;padding:14px 18px;border-radius:10px;background:#dfbd8c;color:#1b2528;font-weight:700}body[data-view="network"] .nt-srwe-tags{display:flex;gap:8px;flex-wrap:wrap;font-size:12px}body[data-view="network"] .nt-srwe-tags span{border:1px solid #42636a;border-radius:6px;padding:4px 9px;color:#a8d8ce}@media(max-width:700px){body[data-view="network"] .nt-srwe-entry{flex-direction:column;align-items:stretch;padding:20px}}
+
+#madar-hub .np-intro{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px;background:#172329;border:1px solid #3c5058;border-radius:18px;margin-bottom:24px}
+#madar-hub .np-intro h2{font-size:23px;margin:8px 0}
+#madar-hub .np-intro p{max-width:720px;color:#c5d0d5;line-height:1.9;margin:0}
+#madar-hub .np-intro>button{flex-shrink:0}
+#madar-hub .np-lessons{list-style:none;padding:0;display:grid;gap:16px}
+#madar-hub .np-lesson{display:flex;align-items:flex-start;gap:20px;padding:24px;background:#141d23;border:1px solid #39464e;border-radius:16px}
+#madar-hub .np-number{font:24px/1.3 Georgia,serif;color:#ebc58f;background:#263039;padding:13px;border-radius:12px;min-width:34px;text-align:center}
+#madar-hub .np-body{flex:1;min-width:0}
+#madar-hub .np-body h2{font-size:21px;line-height:1.7;margin:0 0 8px;overflow-wrap:anywhere}
+#madar-hub .np-body>p,#madar-hub .np-review>p{color:#bac7d0;line-height:1.9;margin:0 0 10px}
+#madar-hub .np-source{color:#aebfc8;font-size:14px;margin:8px 0 16px}
+#madar-hub .np-source p{overflow-wrap:anywhere;line-height:1.8}
+#madar-hub .np-source summary,#madar-hub .np-review>summary{cursor:pointer;min-height:44px;align-content:center}
+#madar-hub .np-actions{display:flex;flex-wrap:wrap;gap:10px}
+#madar-hub .np-actions button{min-height:44px;white-space:normal}
+#madar-hub .np-review{padding:22px;background:#11191e;border:1px solid #39464e;border-radius:16px;margin-top:30px}
+#madar-hub .np-review>summary{font-size:18px;color:#e8c899}
+#madar-hub .np-lessons :focus-visible,#madar-hub .np-review :focus-visible{outline:2px solid #efc78f;outline-offset:4px}
+@media(max-width:700px){#madar-hub .np-intro{display:block;padding:20px}#madar-hub .np-intro>button{margin-top:16px}#madar-hub .np-lesson{padding:18px;gap:12px}#madar-hub .np-number{font-size:19px;padding:8px;min-width:25px}#madar-hub .np-body h2{font-size:18px}#madar-hub .np-actions{flex-direction:column}#madar-hub .np-actions button{width:100%;text-align:center}#madar-hub .np-review{padding:16px}}
+
+/* Operating Systems: quiet architectural blue, brushed metal, clear reading surfaces. */
+#madar-hub[data-course=os1]{background:#060e18;color:#e9f3fc;--mh-accent:#9eceff;--os-line:#87bde22b;--os-dim:#a0b5c9;isolation:isolate}
+#madar-hub[data-course=os1] .mh-atmosphere{display:none}
+#os-background{position:fixed;inset:0;width:100%;height:100%;border:0;pointer-events:none;z-index:-1}
+#os-background[hidden]{display:none}
+#madar-hub[data-course=os1] .mh-header{background:linear-gradient(#091421f5,#091421bb);border-color:var(--os-line)}
+#madar-hub[data-course=os1] .mh-subbar{background:#0b1928d9;border-color:var(--os-line);backdrop-filter:blur(18px)}
+#madar-hub[data-course=os1] .mh-footer{background:#060e18b8}
+#madar-hub[data-course=os1] .mh-primary{background:linear-gradient(120deg,#cce8ff,#8ebee9);color:#0c243b;border:1px solid #d9efff;box-shadow:0 5px 25px #3a8bc51a}
+.os-quiet{background:#102337b0!important;border:1px solid #9ccbf433!important;color:#d5e9fa!important;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:10px 15px;border-radius:12px;min-height:44px;font:inherit}
+.os-quiet:disabled{opacity:.4;cursor:default}.os-eyebrow{font:11px/1.7 ui-monospace,monospace;letter-spacing:2px;color:#a4c4e2;direction:ltr;display:inline-block}.os-kicker{color:#9ebdd8;font-size:13px}.os-home-top{display:flex;justify-content:space-between;align-items:center;gap:15px;padding-top:15px}
+.os-hero{min-height:470px;display:flex;align-items:center;justify-content:space-between;position:relative;padding:30px 0 65px}.os-hero-copy{position:relative;z-index:1}.os-hero h1{font-size:clamp(48px,5.4vw,90px);line-height:1.23;letter-spacing:-2px;margin:16px 0 35px;font-weight:750;text-shadow:0 4px 45px #000a}.os-hero h1 em{font-style:normal;color:#bee0ff}.os-hero-actions{display:flex;gap:12px;flex-wrap:wrap}.os-glass-spec{align-self:flex-end;width:250px;min-height:120px;padding:22px 26px;background:linear-gradient(115deg,#18314980,#091724d9);border:1px solid #bad7ec38;backdrop-filter:blur(12px);border-radius:15px;display:grid;grid-template-columns:auto 1fr;gap:10px;direction:ltr;box-shadow:inset 0 1px 0 #d0e9ff22,0 20px 45px #0003}.os-glass-spec>i{width:6px;height:6px;border-radius:50%;background:#7fe2ce;box-shadow:0 0 10px #4fffff;align-self:center}.os-glass-spec>span{font:10px monospace;letter-spacing:2px;color:#b1cbde}.os-glass-spec>b{font:30px monospace;grid-column:1/-1;letter-spacing:9px;color:#d5e6f2}.os-glass-spec>small{grid-column:1/-1;font:8px monospace;letter-spacing:2px;color:#9ab2c5}
+.os-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:15px;margin:5px 0 25px}.os-section-head h2{font-size:26px;margin:0}.os-section-head>span{font-size:13px;color:#acc2d5}.os-section-head i{font-style:normal;padding:0 8px;color:#668099}.os-lesson-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.os-lesson-card{position:relative;overflow:hidden;display:flex;flex-direction:column;padding:30px;background:linear-gradient(140deg,#1d3145f5,#0b1725fa 63%);border:1px solid #95bfd434;border-radius:22px;box-shadow:inset 0 1px #c6e8ff15,0 12px 35px #0003;transition:transform .25s,border-color .25s}.os-lesson-card:hover{transform:translateY(-4px);border-color:#a5dcff75}.os-lesson-card:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 2px,#fff 3px 3.5px);opacity:.018;pointer-events:none}.os-card-index{font:70px/1 monospace;position:absolute;left:22px;top:20px;color:#b8d9f115;letter-spacing:-6px}.os-card-meta{display:flex;justify-content:space-between;color:#97b4cc;font-size:12px}.os-card-meta bdi{font:12px monospace;color:#c4ddf0}.os-lesson-card h3{font-size:23px;line-height:1.6;margin:13px 0 10px}.os-lesson-card p{color:#b0c0ce;font-size:14px;line-height:1.9;flex:1;margin:0 0 30px}.os-card-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--os-line);padding-top:20px;gap:10px}.os-card-bottom>span{font-size:12px;color:#88a5bd}.os-card-bottom button{display:flex;align-items:center;gap:10px;background:#23405b;border:1px solid #a5c8e340;border-radius:11px;padding:10px 14px;color:#d9eeff;font:inherit;font-size:13px;min-height:44px}
+.os-card-art{width:100%;height:100%;position:relative;background:radial-gradient(ellipse at 50% 65%,#3972a541,#07111d 75%);display:grid;place-items:center;overflow:hidden}.os-card-art img{width:82%;max-height:240px;object-fit:contain;mix-blend-mode:lighten;filter:contrast(1.06)}.os-rack-number,.os-equipment-label{position:absolute;direction:ltr;font:10px monospace;letter-spacing:2px;color:#93b6d2}.os-rack-number{top:24px;left:24px}.os-equipment-label{bottom:23px;right:24px;display:flex;align-items:center;gap:10px}.os-equipment-label i{width:5px;height:5px;background:#7be3bc;border-radius:50%;box-shadow:0 0 10px #7fffd4}
+.os-lesson-heading{display:flex;gap:24px;align-items:center;margin:10px 0 28px}.os-lesson-heading>div{flex:1;min-width:0}.os-lesson-heading h1{font-size:28px;line-height:1.5;margin:5px 0}.os-lesson-heading .os-eyebrow{font-size:10px;letter-spacing:.5px}.os-studio{display:grid;grid-template-columns:260px minmax(0,1fr);align-items:start;gap:24px}.os-scenes{position:sticky;top:20px;background:linear-gradient(160deg,#15283beb,#0a1622f5);border:1px solid var(--os-line);border-radius:20px;padding:15px;backdrop-filter:blur(14px);max-height:calc(100dvh - 35px);overflow:auto;scrollbar-width:thin;scrollbar-color:#3e6688 transparent}.os-scenes-title{display:flex;justify-content:space-between;align-items:center;padding:9px 6px 20px;color:#dbe9f5;font-size:14px}.os-scenes-title small{color:#8da8be;font-size:11px}.os-scenes button{width:100%;display:flex;gap:12px;align-items:center;text-align:right;background:transparent;border:1px solid transparent;padding:14px 10px;border-radius:12px;color:#adbecd;margin:3px 0;font:inherit;min-height:64px;transition:background .2s,border-color .2s}.os-scenes button:hover{background:#91bbdc0d}.os-scenes button[aria-current=step]{background:linear-gradient(110deg,#3a76a725,#5397cf30);border-color:#91cfff65;color:#e5f4ff;box-shadow:inset -3px 0 #9cdbff}.os-step-index{font:14px monospace;color:#6e93b0}.os-scenes [aria-current=step] .os-step-index{color:#9ed7ff}.os-step-name{flex:1;font-size:13px;line-height:1.8}.os-step-name small{display:block;color:#87a5bd;font-size:10px;margin-top:3px}.os-scenes svg{width:13px;flex-shrink:0}.os-reader{min-width:0;border:1px solid #9abbd334;border-radius:22px;background:linear-gradient(160deg,#101e2dec,#08131ff7);box-shadow:0 24px 70px #0005;overflow:hidden}.os-video-shell{background:#020509;scroll-margin-top:20px}.os-video-shell video{display:block;width:100%;aspect-ratio:5/3;max-height:65dvh;object-fit:contain;background:#020509}.os-player-caption{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 22px;background:#08101b;border-block:1px solid #6c8aa326;color:#7092ad;font:9px monospace;letter-spacing:1.7px;direction:ltr}.os-player-caption bdi{color:#b1cbe0;font-size:12px}.os-scene-heading{display:flex;align-items:center;gap:18px;padding:28px 32px 12px}.os-scene-heading>div{flex:1;min-width:0}.os-scene-heading h2{font-size:26px;line-height:1.6;margin:5px 0;color:#ecf6ff;outline:none}.os-bookmark{width:44px;height:44px;border-radius:12px;border:1px solid #8aaac64a;background:#21374a66;color:#b6d3e9;flex-shrink:0}.os-bookmark[aria-pressed=true]{color:#ffdb9c;background:#7b592c40;border-color:#cfae76}.os-recap{padding:6px 32px 14px}.os-recap h3{font-size:13px;font-weight:500;color:#8aa6bc;margin:5px 0 20px}.os-recap ol{list-style:none;counter-reset:os-steps;padding:0;margin:0;display:grid;gap:15px}.os-recap li{counter-increment:os-steps;display:flex;gap:14px;align-items:flex-start;color:#d2dfeb;font-size:15px;line-height:2}.os-recap li:before{content:counter(os-steps,decimal-leading-zero);font:11px/26px monospace;color:#87b7dc;border:1px solid #77b6dd2a;border-radius:7px;min-width:26px;text-align:center;margin-top:5px;background:#2343602a}.os-recap li>span{min-width:0;overflow-wrap:anywhere;unicode-bidi:plaintext}.os-context{margin:20px 0 0;padding:15px 18px;border-right:2px solid #7bb8e9;background:#82bde00a;border-radius:7px;color:#b9cddd;font-size:13px;line-height:1.95;overflow-wrap:anywhere}
+.os-warning{position:relative;margin:18px 32px;padding:19px 21px;border:1px solid #ff657b48;border-right:3px solid #ff6379;border-radius:13px;background:linear-gradient(110deg,#451e2a47,#2b182388);box-shadow:inset 0 1px #ffb6c00c,0 0 28px #ff294b08;overflow:hidden}.os-warning strong{display:flex;align-items:center;gap:9px;font-size:15px;color:#ff8e9f}.os-warning-symbol{display:inline-grid;place-items:center;width:20px;height:20px;border:1px solid #ff7e9299;border-radius:6px;font:bold 13px monospace;color:#ff8c9f}.os-warning p{font-size:14px;line-height:1.95;margin:9px 0 0;overflow-wrap:anywhere;unicode-bidi:plaintext}.os-shine-text{color:#ff91a2;background:linear-gradient(110deg,#ff91a2 0%,#ff91a2 40%,#ffe4e8 48%,#fff8fa 50%,#ffacbb 53%,#ff91a2 61%,#ff91a2 100%);background-size:280% 100%;background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:os-warning-shine 4.8s ease-in-out infinite;text-shadow:0 0 13px #f2546f28}.os-warning:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 40%,#ffd4dc08 50%,transparent 60%);background-size:280% 100%;animation:os-warning-shine 4.8s ease-in-out infinite}
+@keyframes os-warning-shine{0%,22%{background-position:150% 0}70%,100%{background-position:-80% 0}}
+.os-step-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:30px 32px;padding-top:22px;border-top:1px solid var(--os-line)}.os-step-actions>span{font-size:12px;color:#91aec4}.os-step-actions .mh-primary{font-size:14px;padding:12px 18px}.os-notes{margin:0 32px 30px;border:1px solid #6d97b52b;border-radius:12px;background:#0a1621}.os-notes>summary{padding:16px 18px;cursor:pointer;color:#c4d8e8;font-size:14px}.os-notes>summary svg{vertical-align:middle;width:16px;margin-right:8px}.os-notes #lesson-notes{padding:0 18px 18px}.os-notes .notes-hint{font-size:12px}.os-source-caption{color:#8ca5b9;font-size:11px;line-height:1.9;margin:18px 5px}.os-video-error{padding:15px 25px;color:#ff9eaf;background:#3c202a}.os-video-error[hidden]{display:none}.os-video-error button{background:transparent;color:inherit;border:1px solid currentColor;border-radius:7px;padding:6px 10px;font:inherit}
+.os-source-list{display:grid;gap:15px}.os-source-list article{display:flex;gap:25px;background:#0e1d2be8;border:1px solid #8cb0cc30;border-radius:16px;padding:24px}.os-source-list article>span{font:34px monospace;color:#6a8ba4}.os-source-list h2{font-size:20px;margin:0 0 8px}.os-source-list p{font-size:11px;color:#a7bed2}.os-source-list button{font:inherit;background:transparent;color:#c4e6ff;border:0;padding:12px 0;display:flex;gap:10px;align-items:center}.os-feedback{margin-top:35px;padding:25px;background:#0a1624ed;border:1px solid var(--os-line);border-radius:18px}.os-feedback h2{font-size:23px}.os-library,.os-reference{min-height:65vh}
+@media(min-width:1600px){.os-studio{grid-template-columns:300px minmax(0,1fr);gap:32px}.os-recap li{font-size:17px}.os-warning p{font-size:16px}}
+@media(max-width:1050px){.os-lesson-grid{gap:12px}.os-lesson-card{padding:23px}.os-studio{grid-template-columns:215px minmax(0,1fr);gap:14px}.os-hero{min-height:430px}.os-glass-spec{width:210px}.os-scene-heading,.os-recap{padding-inline:22px}.os-warning,.os-notes,.os-step-actions{margin-inline:22px}}
+@media(max-width:760px){.os-home-top .os-eyebrow{font-size:8px;letter-spacing:1px}.os-home-top .os-quiet{font-size:11px;padding:8px 10px}.os-hero{min-height:440px;padding-top:90px;align-items:flex-end}.os-hero h1{font-size:52px}.os-glass-spec{display:none}.os-hero-actions{gap:9px}.os-hero-actions button{font-size:13px;padding:12px}.os-section-head{align-items:flex-start;flex-direction:column;gap:8px}.os-section-head h2{font-size:23px}.os-lesson-grid{grid-template-columns:1fr}.os-lesson-card{padding:25px}.os-lesson-heading{flex-wrap:wrap;gap:12px;margin:0 0 18px}.os-lesson-heading>div{order:3;flex-basis:100%}.os-lesson-heading .os-motion{margin-right:auto}.os-lesson-heading h1{font-size:24px}.os-lesson-heading .os-eyebrow{font-size:9px;letter-spacing:0}.os-studio{display:flex;flex-direction:column;gap:14px}.os-scenes{position:static;display:flex;width:100%;max-width:100%;gap:7px;overflow-x:auto;padding:9px;border-radius:13px;scroll-snap-type:x proximity}.os-scenes-title{display:none}.os-scenes button{flex:0 0 185px;min-height:64px;margin:0;padding:10px;scroll-snap-align:start}.os-step-name{font-size:12px}.os-reader{width:100%;border-radius:15px}.os-video-shell video{max-height:46dvh}.os-player-caption{padding:10px 14px;font-size:7px;letter-spacing:.7px}.os-scene-heading{padding:21px 18px 7px;gap:9px}.os-scene-heading h2{font-size:21px}.os-recap{padding:5px 18px 12px}.os-recap li{font-size:14px;gap:10px}.os-recap ol{gap:14px}.os-context{padding:12px;font-size:12px}.os-warning{margin:15px 16px;padding:15px}.os-warning p{font-size:13px}.os-step-actions{margin:22px 16px;gap:7px;flex-wrap:wrap}.os-step-actions .mh-primary,.os-step-actions .os-quiet{font-size:12px;padding:10px}.os-step-actions>span{font-size:11px}.os-notes{margin:0 16px 20px}.os-source-caption{font-size:10px}.os-source-list article{gap:15px;padding:20px}.os-source-list h2{font-size:17px}.os-feedback{padding:18px}.os-feedback h2{font-size:20px}}
+@media(prefers-reduced-motion:reduce){.os-shine-text,.os-warning:after{animation:none;background-position:100% 0}.os-lesson-card{transition:none}.os-lesson-card:hover{transform:none}}
+@media(forced-colors:active){.os-shine-text{background:none;-webkit-text-fill-color:currentColor;color:CanvasText}.os-warning{border:2px solid CanvasText}}
+
+#madar-hub[data-course=os1] .os-hero h1{font-size:clamp(52px,5.4vw,90px);line-height:1.24;margin:18px 0 35px}#madar-hub[data-course=os1] .os-lesson-card h3{font-size:23px;line-height:1.6}#madar-hub[data-course=os1] .os-lesson-card p{font-size:14px;line-height:1.95}#madar-hub[data-course=os1] .os-scenes button[aria-current=step]{background:linear-gradient(110deg,#3a76a725,#5397cf30);border-color:#91cfff65;color:#e5f4ff}#madar-hub[data-course=os1] .os-scene-heading h2{font-size:26px;line-height:1.6}@media(max-width:760px){#madar-hub[data-course=os1] .os-hero h1{font-size:51px}#madar-hub[data-course=os1] .os-scene-heading h2{font-size:21px}}
+
+/* Hardware photography carries the identity; surfaces frame it without fake devices. */
+#madar-hub[data-course=os1] .os-hero{min-height:520px;padding-block:80px 105px;justify-content:flex-start}
+#madar-hub[data-course=os1] .os-hero h1{font-size:clamp(46px,5vw,76px);line-height:1.4;letter-spacing:-1.5px;margin:0 0 35px}
+#madar-hub[data-course=os1] .os-hero h1 em{font-weight:400;color:#9bc8e4}
+#madar-hub[data-course=os1] .os-hero-actions{gap:18px}
+#madar-hub[data-course=os1] .os-hero-actions .os-quiet{background:transparent!important;border-color:transparent!important}
+.os-lesson-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.os-hardware-card{padding:0;border-radius:12px;background:linear-gradient(120deg,#1b252dbf,#10191ff5);border-color:#91a9b12f;box-shadow:inset 0 1px #e7f6ff12,0 16px 45px #0005;transition:border-color .3s,box-shadow .3s;transform:none!important}
+.os-hardware-card:before{display:none}
+.os-hardware-card:hover{border-color:#a6cfe55a;box-shadow:inset 0 1px #e7f6ff1c,0 20px 55px #0006}
+.os-hardware-1{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.25fr)}
+.os-hardware-1 .os-hardware-visual{grid-column:2;grid-row:1}
+.os-hardware-1 .os-hardware-copy{grid-column:1;grid-row:1;justify-content:center;padding:38px}
+.os-hardware-visual{position:relative;isolation:isolate;overflow:hidden;aspect-ratio:1.95;background:#090f14;border-bottom:1px solid #91a9b124}
+.os-hardware-visual img{display:block;width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.65,.3,1);transform:scale(1.005);filter:saturate(.84)}
+.os-hardware-card:hover .os-hardware-visual img{transform:scale(1.035)}
+.os-hardware-1 .os-hardware-visual{aspect-ratio:auto;min-height:330px;border-bottom:0;border-right:1px solid #91a9b124;background:radial-gradient(ellipse at 50% 60%,#26323c,#070e14 80%)}
+.os-hardware-1 .os-hardware-visual img{object-fit:contain;mix-blend-mode:lighten;filter:none}
+.os-hardware-3 .os-hardware-visual img{object-position:26% 48%}
+.os-hardware-visual:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(0deg,#060e17ba,transparent 38%);}
+.os-photo-plate{position:absolute;z-index:1;bottom:20px;left:24px;font:9px/1.5 ui-monospace,monospace;letter-spacing:2px;color:#c2d3de;direction:ltr;border-left:2px solid #83b4d2;padding-left:10px;text-shadow:0 1px 4px #000}
+.os-hardware-copy{display:flex;flex-direction:column;flex:1;padding:30px}
+#madar-hub[data-course=os1] .os-hardware-copy h3{font-size:26px;line-height:1.55;margin:14px 0}
+#madar-hub[data-course=os1] .os-hardware-copy p{font-size:14px;line-height:2;color:#afbfcb;max-width:540px;margin:0 0 23px;flex:1}
+.os-hardware-card .os-card-bottom{padding-top:20px}
+.os-hardware-card .os-card-bottom button{background:#8ebbd21a;border-color:#a6ccdf38;border-radius:6px;color:#d4ebf7}
+#madar-hub[data-course=os1] .mh-primary{border-radius:7px}
+.os-card-art img{width:100%;max-height:none;object-fit:contain;filter:none}
+@media(max-width:1050px){.os-hardware-1{grid-template-columns:1fr 1.1fr}.os-hardware-1 .os-hardware-copy{padding:27px}.os-hardware-1 .os-hardware-visual{min-height:320px}.os-hardware-copy{padding:25px}}
+@media(max-width:760px){#madar-hub[data-course=os1] .os-hero{min-height:440px;align-items:flex-end;padding:70px 0 80px}#madar-hub[data-course=os1] .os-hero h1{font-size:clamp(36px,8vw,52px);letter-spacing:-1px}.os-lesson-grid{grid-template-columns:1fr;gap:22px}.os-hardware-1{display:flex;grid-column:auto}.os-hardware-1 .os-hardware-visual{aspect-ratio:1.55;min-height:0;border-right:0;border-bottom:1px solid #91a9b124}.os-hardware-visual{aspect-ratio:1.65}.os-hardware-1 .os-hardware-visual img{object-fit:contain;width:125%;max-width:none;margin-left:-12.5%;transform:translateX(10%)}.os-hardware-1:hover .os-hardware-visual img{transform:translateX(10%)}.os-hardware-copy,.os-hardware-1 .os-hardware-copy{padding:24px}#madar-hub[data-course=os1] .os-hardware-copy h3{font-size:23px}.os-photo-plate{font-size:8px;bottom:15px;left:18px}}
+@media(prefers-reduced-motion:reduce){.os-hardware-visual img,.os-hardware-card{transition:none}.os-hardware-card:hover .os-hardware-visual img{transform:none}.os-hardware-1:hover .os-hardware-visual img{transform:translateX(10%)}}
+
+@media(max-width:760px){.os-hardware-1 .os-hardware-visual img,.os-hardware-1:hover .os-hardware-visual img{width:100%;margin:0;transform:none}}
+
+.os-lecture-code{display:block;font:12px/1.7 ui-monospace,monospace;color:#a9c7dc;letter-spacing:.3px;margin:0 0 14px;direction:ltr;text-align:right;overflow-wrap:anywhere}.os-lesson-heading .os-lecture-code{margin:0 0 5px;font-size:12px}
+
+.os-video-loading{padding:13px 22px;background:#0b1c2b;color:#b6d4eb;font-size:13px;line-height:1.8}.os-video-loading[hidden]{display:none}
+
+#madar-hub .op-hub,#madar-hub .op-lab{max-width:1260px;margin:auto;color:var(--mh-text,#eef3f8)}#madar-hub .op-hub h1{font-size:clamp(28px,4vw,44px);line-height:1.45;margin:14px 0}#madar-hub .op-eyebrow{font-size:12px;letter-spacing:.04em;color:#9bc8ed}#madar-hub .op-lead{max-width:700px;color:#b4c4d3;line-height:1.9}#madar-hub .op-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:28px 0}#madar-hub .op-card{padding:24px;border:1px solid #304051;border-radius:20px;background:linear-gradient(145deg,#172733e8,#121b27ee);display:flex;flex-direction:column;gap:12px}#madar-hub .op-card h2{font-size:21px;line-height:1.6;margin:0}#madar-hub .op-card p{color:#b3c3d3;line-height:1.9;margin:0}#madar-hub .op-card-number{font-size:12px;color:#9bc8ed}#madar-hub .op-card-bottom{margin-top:auto;padding-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}#madar-hub .op-card-bottom>span{font-size:11px;color:#a9bacc}#madar-hub .op-card button,#madar-hub .op-invite button{background:#d7ebfb;color:#102638;border:0;padding:11px 16px;border-radius:12px;font:inherit;cursor:pointer}#madar-hub .op-context,#madar-hub .op-history,#madar-hub .op-report{padding:18px;border:1px solid #344252;border-radius:14px;margin-top:18px;color:#bac9d7;font-size:13px;line-height:1.9}#madar-hub .op-context summary,#madar-hub .op-history summary,#madar-hub .op-report summary{cursor:pointer;color:#e3edf5;min-height:30px}#madar-hub .op-invite{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:22px;border:1px solid #47657a;border-radius:16px;background:#1a2b38;margin:26px 0}#madar-hub .op-invite p{margin:6px 0;color:#b5c5d2;font-size:13px}#madar-hub .op-invite button{margin-inline-start:auto}#madar-hub .op-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#243e52;color:#b7e0ff}#madar-hub .op-header{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:24px}#madar-hub .op-header span{color:#a5b9cb;font-size:13px}#madar-hub .op-lab button{font:inherit;cursor:pointer}#madar-hub .op-header button,#madar-hub .op-toolbar button,#madar-hub .op-login button,#madar-hub .op-result button,#madar-hub .op-history button{border:1px solid #40566c;border-radius:10px;background:#172636;color:#e5f0fa;min-height:42px;padding:9px 14px}#madar-hub .op-layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}#madar-hub .op-layout>aside{display:grid;gap:18px}#madar-hub .op-main-column{min-width:0}#madar-hub .op-goal{border:1px solid #35516a;background:#172838;border-radius:18px;padding:22px}#madar-hub .op-goal h2{font-size:23px;line-height:1.6;margin:10px 0}#madar-hub .op-goal p{font-size:14px;line-height:1.95;color:#d2dfe9}#madar-hub .op-values{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0 0}#madar-hub .op-values>div{background:#101e2c;border-radius:10px;padding:10px;min-width:0}#madar-hub .op-values dt{font-size:10px;color:#a6bed1;direction:ltr}#madar-hub .op-values dd{font-family:Consolas,monospace;font-size:13px;margin:6px 0 0;color:#e0f2ff;overflow-wrap:anywhere}#madar-hub .op-small{font-size:12px!important;color:#aabccb!important;line-height:1.9}#madar-hub .op-environment{display:grid;gap:10px;padding:16px;border:1px solid #314355;border-radius:16px}#madar-hub .op-environment>div{display:grid;grid-template-columns:12px 1fr;align-items:center;gap:6px}#madar-hub .op-environment small{grid-column:2;color:#a0b2c2}#madar-hub .op-environment bdi{font-family:Consolas,monospace;font-size:13px}#madar-hub .op-status-dot{width:7px;height:7px;border-radius:50%;background:#92d6b8}#madar-hub .op-help{border:1px solid #344252;border-radius:16px;padding:18px}#madar-hub .op-help h3{margin:0;font-size:16px}#madar-hub .op-help p{color:#b7c7d6;font-size:13px;line-height:1.8}#madar-hub .op-help>button{display:flex;gap:8px;flex-wrap:wrap;align-items:center;border:1px solid #43566b;background:#1a2a39;color:#dfecf7;padding:12px;border-radius:12px;width:100%;text-align:right;margin-bottom:10px}#madar-hub .op-help>button small{width:100%;font-size:11px;color:#aabfce}#madar-hub .op-help>button[data-help=reveal]{border-color:#62517d;background:#282138}#madar-hub .op-help>small{font-size:11px;color:#acbccb}#madar-hub .op-help-text{background:#1b3140;padding:14px;border-radius:10px}#madar-hub .op-help-text.op-reveal{background:#30253f}#madar-hub .op-machine{border:1px solid #5a7388;border-radius:16px;overflow:hidden;background:#eaf0f5;box-shadow:0 16px 50px #0003;color:#142c41}#madar-hub .op-windowbar{display:flex;justify-content:space-between;gap:12px;padding:13px 18px;background:#293e51;color:#dce9f3;font-size:12px}#madar-hub .op-window-dots{letter-spacing:3px;color:#88a4b8}#madar-hub .op-machine-body{padding:22px}#madar-hub .op-form{padding:18px;border:1px solid #bdccda;border-radius:12px;background:#f7f9fb;margin-bottom:18px}#madar-hub .op-form h3{font-size:15px;margin:0 0 18px;font-weight:600}#madar-hub .op-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}#madar-hub .op-fields>label{display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:600}#madar-hub .op-fields input,#madar-hub .op-fields select{min-width:0;width:100%;box-sizing:border-box;border:1px solid #9caebf;border-radius:6px;background:white;color:#142c41;padding:10px;font:14px/1.5 Tahoma,Arial,sans-serif;min-height:43px}#madar-hub .op-fields select{direction:ltr;font-size:12px}#madar-hub .op-fields .op-tick{display:flex;flex-direction:row;align-items:center;grid-column:1/-1;line-height:1.6}#madar-hub .op-fields .op-tick input{width:18px;min-height:18px;height:18px;flex-shrink:0;accent-color:#286b9b}#madar-hub .op-fields>.op-small{grid-column:1/-1;color:#4f6272!important}#madar-hub .op-apply{margin-top:18px;border:0;border-radius:8px;background:#215d88;color:white;padding:10px 18px;min-height:42px}#madar-hub .op-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0;font-size:12px}#madar-hub .op-login{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:12px;margin:16px 0}#madar-hub .op-login>span{width:100%;overflow-wrap:anywhere}#madar-hub .op-terminal{background:#0c1822;border-radius:10px;overflow:hidden;border:1px solid #40566a;color:#d4e4ed}#madar-hub .op-terminal-title{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;background:#1c3040;font-size:12px}#madar-hub .op-terminal pre{font:13px/1.75 Consolas,'Courier New',monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:310px;min-height:160px;overflow:auto;margin:0;padding:18px;text-align:start;unicode-bidi:plaintext}#madar-hub .op-command{display:flex;align-items:center;gap:8px;padding:12px;border-top:1px solid #395063;direction:ltr}#madar-hub .op-command input{min-width:0;flex:1;background:#142b3a;color:#edf5fa;border:1px solid #58778c;border-radius:6px;padding:10px;font:15px Consolas,monospace;min-height:42px;box-sizing:border-box}#madar-hub .op-command button{border:0;border-radius:6px;padding:10px;color:#0b263b;background:#c9e6f7;min-height:42px}#madar-hub .op-terminal details{padding:12px 16px;font-size:11px;line-height:1.8;border-top:1px solid #243e50}#madar-hub .op-terminal summary{cursor:pointer}#madar-hub .op-terminal details p{overflow-wrap:anywhere}#madar-hub .op-inspection{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.9 Consolas,monospace;background:#142535;color:#d7ebf9;padding:16px;border-radius:10px;unicode-bidi:plaintext}#madar-hub .op-directory{display:grid;grid-template-columns:1fr 1fr;gap:16px}#madar-hub .op-tree{font-size:12px;line-height:1.9}#madar-hub .op-tree button{width:100%;border:1px solid #b3c6d4;background:#fff;color:#183d58;padding:12px;margin-bottom:8px;text-align:left;border-radius:6px}#madar-hub .op-empty{color:#4e6476;line-height:1.8}#madar-hub .op-live{font-size:13px;line-height:1.9;color:#c8dfef;white-space:pre-line;overflow-wrap:anywhere;min-height:24px}#madar-hub .op-reason{border:1px solid #364c60;border-radius:14px;padding:20px;background:#152331}#madar-hub .op-reason h3{font-size:16px;margin:0 0 10px}#madar-hub .op-reason p{line-height:1.8}#madar-hub .op-reason label{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid #3a5165;border-radius:10px;margin:8px 0;cursor:pointer;font-size:13px;line-height:1.8}#madar-hub .op-reason label:has(input:checked){border-color:#9fc8e9;background:#1e3b51}#madar-hub .op-reason input{margin-top:6px;accent-color:#95c9f1;flex-shrink:0}#madar-hub .op-checkbar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:20px 0}#madar-hub .op-checkbar>span{font-size:12px;color:#a6bdce}#madar-hub .op-result{border:1px solid #9a794b;background:#2b2822;padding:20px;border-radius:16px;line-height:1.9}#madar-hub .op-result.op-success{border-color:#5f9c88;background:#172f2c}#madar-hub .op-result h3{margin:0;font-size:20px}#madar-hub .op-result ul{padding-inline-start:20px;font-size:13px}#madar-hub .op-result p{font-size:14px}#madar-hub .op-history li{margin:10px 0;font-size:12px}#madar-hub .op-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}#madar-hub .op-lab :focus-visible,#madar-hub .op-hub :focus-visible{outline:3px solid #d9ac69;outline-offset:3px}#madar-hub .op-lab svg,#madar-hub .op-hub svg,#madar-hub .op-invite svg{width:18px;height:18px;vertical-align:middle}#madar-hub .op-machine .op-small{color:#4c6274!important}
+@media(max-width:1000px){#madar-hub .op-layout{grid-template-columns:260px minmax(0,1fr);gap:16px}#madar-hub .op-cards{grid-template-columns:repeat(2,minmax(0,1fr))}#madar-hub .op-machine-body{padding:14px}#madar-hub .op-fields{grid-template-columns:1fr}}
+@media(max-width:720px){#madar-hub .op-layout{grid-template-columns:1fr}#madar-hub .op-layout>aside{grid-template-columns:1fr}#madar-hub .op-help{order:3}#madar-hub .op-environment{grid-template-columns:1fr 1fr}#madar-hub .op-cards{grid-template-columns:1fr}#madar-hub .op-card{padding:20px}#madar-hub .op-goal{padding:18px}#madar-hub .op-goal h2{font-size:22px}#madar-hub .op-directory{grid-template-columns:1fr}#madar-hub .op-windowbar{font-size:10px;padding:12px}#madar-hub .op-machine-body{padding:12px}#madar-hub .op-form{padding:14px}#madar-hub .op-terminal pre{font-size:12px;max-height:250px}#madar-hub .op-header button{font-size:12px}#madar-hub .op-invite{padding:16px}#madar-hub .op-invite button{margin:0;width:100%}#madar-hub .op-toolbar button{flex:1}#madar-hub .op-lab{min-width:0}#madar-hub .op-login button{font-size:11px}#madar-hub .op-command input{width:0}#madar-hub .op-checkbar>.mh-primary{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){#madar-hub .op-lab *,#madar-hub .op-hub *{scroll-behavior:auto!important}}
+
+#madar-hub .op-source-note{font-size:12px;line-height:1.9;color:#dcc8a8;border-right:3px solid #b28d52;padding:10px 15px;background:#27261fd9;border-radius:8px;margin-top:0}
+
+#madar-hub .op-fields>label{color:#243c50}#madar-hub .op-reason label{color:#e2edf5}#madar-hub .op-reason input{width:18px;height:18px;padding:0}#madar-hub .op-fields input::placeholder{color:#667989;opacity:1}
+
+
+/* The lesson chrome is Madar; the work surface follows the 2012 R2 desktop. */
+#madar-hub .op-layout{display:block}
+#madar-hub .vm-brief{margin:0 0 16px;padding:16px 22px;border:1px solid #ffffff18;background:#191d28;border-radius:16px}
+#madar-hub .vm-brief>summary{cursor:pointer;font-weight:700;color:#d4e7ff}
+#madar-hub .vm-brief[open]{display:block}
+#madar-hub .vm-brief .op-help{margin-top:16px}
+#madar-hub .vm-workbench{position:relative;isolation:isolate;direction:ltr;text-align:left;color:#17212b;border:1px solid #54728688;border-radius:18px;overflow:hidden;background:#161c24;box-shadow:0 28px 80px #0005;font-family:'Segoe UI',Arial,sans-serif;font-size:13px;line-height:1.45;min-height:740px}
+#madar-hub .vm-workbench *{box-sizing:border-box}
+#madar-hub .vm-workbench button{display:inline-block;min-height:28px;padding:4px 15px;border:1px solid #a6acb2;border-radius:1px;background:#f4f4f4;color:#17212b;font-family:inherit;font-size:12px;font-weight:400;line-height:1.4;box-shadow:none;cursor:pointer;letter-spacing:normal}
+#madar-hub .vm-workbench button:hover{background:#e3f3fb;border-color:#298bb9;transform:none}
+#madar-hub .vm-workbench button:focus-visible,#madar-hub .vm-workbench input:focus-visible,#madar-hub .vm-workbench select:focus-visible{outline:2px solid #087cae;outline-offset:2px}
+#madar-hub .vm-workbench button:disabled{color:#8b9297;background:#eee;cursor:default}
+#madar-hub .vm-workbench p{color:inherit;margin:10px 0;line-height:1.6;font-size:13px}
+#madar-hub .vm-workbench h2{font-size:23px;font-weight:300;color:inherit;margin:12px 0 20px;line-height:1.3}
+#madar-hub .vm-workbench h3{font-size:15px;font-weight:500;color:inherit;margin:14px 0 10px}
+#madar-hub .vm-workbench input:not([type=checkbox]):not([type=radio]),#madar-hub .vm-workbench select{background:#fff;border:1px solid #8b9196;border-radius:0;padding:5px 7px;color:#18212a;min-height:28px;font-family:inherit;font-size:13px;width:100%;box-shadow:none}
+#madar-hub .vm-workbench input[type=checkbox],#madar-hub .vm-workbench input[type=radio]{width:14px;height:14px;accent-color:#087da8;vertical-align:middle;margin:0 6px 0 0}
+#madar-hub .vm-workbench label{color:inherit;font-size:13px;font-weight:400}
+#madar-hub .vm-lab-toolbar{height:74px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 22px;background:linear-gradient(110deg,#122333,#1c3041);color:#eef7ff;border-bottom:1px solid #5bc9e82b;direction:rtl}
+#madar-hub .vm-lab-toolbar b{font-size:23px;letter-spacing:1px}
+#madar-hub .vm-lab-toolbar small{display:block;font-size:9px;letter-spacing:2px;color:#8bafc6}
+#madar-hub .vm-lab-toolbar button{border:1px solid #95c1df35;background:#ffffff08;color:#e2f2ff;border-radius:8px;margin:0 3px;font-size:12px}
+#madar-hub .vm-lab-state{color:#84d4bc;font-size:11px}
+#madar-hub .vm-statusline{height:30px;padding:7px 15px;display:flex;justify-content:space-between;gap:10px;background:#111b24;color:#9fb1c0;direction:rtl;font-size:10px}
+#madar-hub .vm-hyperv{height:638px;background:#fff}
+#madar-hub .vm-host-title{height:32px;background:#72c7df;padding:7px 12px;text-align:center}
+#madar-hub .vm-menubar{height:30px;background:#f3f3f3;border-bottom:1px solid #c8cdd0;padding:5px 12px}
+#madar-hub .vm-host-grid{height:576px;display:grid;grid-template-columns:170px 1fr 170px}
+#madar-hub .vm-host-grid>nav{padding:18px 12px;border-right:1px solid #d4d8da;background:#f9fafb;font-size:12px}
+#madar-hub .vm-host-grid>main{padding:18px;min-width:0}
+#madar-hub .vm-host-grid>aside{padding:12px;background:#edf4fa;border-left:1px solid #c9d8e3}
+#madar-hub .vm-host-grid>aside button{display:block;border:0;background:transparent;color:#1b5d8b;margin:8px 0;padding:4px}
+#madar-hub .vm-workbench table{width:100%;border-collapse:collapse;font-size:12px;text-align:left}
+#madar-hub .vm-workbench th{background:#f2f4f5;color:#4d5a65;padding:8px;border-bottom:1px solid #c9cfd4;font-weight:400}
+#madar-hub .vm-workbench td{padding:9px 8px;border-bottom:1px solid #e7ebee}
+#madar-hub .vm-workbench tr[data-vm-select]{cursor:pointer}
+#madar-hub .vm-workbench .selected{background:#d3eafb!important;color:#123853!important}
+#madar-hub .vm-host-preview{display:flex;align-items:center;gap:25px;margin:40px 0 20px;border:1px solid #d8e0e6;padding:24px;background:#f7fafc}
+#madar-hub .vm-host-preview>span{font-size:70px;color:#1883ac}
+#madar-hub .vm-host-hint{color:#697a89!important;font-size:12px!important}
+#madar-hub .vm-connectionbar{height:32px;padding:5px 14px;background:#c6e8f4;color:#244452;display:flex;align-items:center;justify-content:space-between;font-size:12px}
+#madar-hub .vm-connectionbar button{border:0;background:transparent}
+#madar-hub .vm-desktop{position:relative;height:606px;background:radial-gradient(ellipse at 70% 40%,#293740,#151c23 70%);overflow:hidden}
+#madar-hub .vm-core-desktop{background:#090c10}
+#madar-hub .vm-watermark{position:absolute;bottom:85px;right:45px;color:#f1f5f9;display:flex;align-items:center;gap:13px;opacity:.85;pointer-events:none}
+#madar-hub .vm-watermark>b{font-size:62px;font-weight:300;color:#73cce7}
+#madar-hub .vm-watermark>span{font-size:28px;font-weight:300}
+#madar-hub .vm-watermark small{display:block;font-size:14px;letter-spacing:1px;color:#9cb6c5}
+#madar-hub .vm-taskbar{position:absolute;bottom:0;height:43px;left:0;right:0;display:flex;align-items:center;background:#167795;gap:4px;padding:0 10px;z-index:4;overflow:hidden}
+#madar-hub .vm-taskbar button{background:transparent;border:0;color:#fff;min-width:42px;padding:6px;font-size:18px;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+#madar-hub .vm-taskbar button span{font-size:10px}
+#madar-hub .vm-taskbar button.active{background:#ffffff20;border-bottom:2px solid #c6f3ff}
+#madar-hub .vm-taskbar-tray{margin-left:auto}
+#madar-hub .vm-taskbar-tray button{font-size:11px}
+#madar-hub .vm-desktop-icons{position:absolute;top:20px;left:18px;display:grid;gap:20px}
+#madar-hub .vm-desktop-icons button{width:90px;background:transparent;border:1px solid transparent;color:#d9f2ff;font-size:28px;padding:10px 3px}
+#madar-hub .vm-desktop-icons small{display:block;font-size:11px;color:white}
+#madar-hub .vm-start{position:absolute;inset:0 0 43px;background:#156582;padding:35px 45px;z-index:5;color:white}
+#madar-hub .vm-start h2{font-size:42px}
+#madar-hub .vm-start>div{display:grid;grid-template-columns:repeat(3,160px);gap:12px}
+#madar-hub .vm-start button{height:100px;background:#288baf;color:white;border:1px solid #ffffff20;text-align:left;font-size:16px}
+#madar-hub .vm-logon{position:absolute;top:60px;left:50%;transform:translateX(-50%);width:340px;background:#132936ed;padding:24px;color:white;border:1px solid #76bed344;border-radius:4px;box-shadow:0 20px 60px #0004}
+#madar-hub .vm-avatar{font-size:58px;color:#6dd3ef}
+#madar-hub .vm-logon small{display:block;color:#a0c0d0;font-size:11px;margin-top:12px}
+#madar-hub .vm-logon button{margin-top:14px;width:100%;background:#1d8bb2;border-color:#3bb6df;color:white}
+#madar-hub .vm-remote-note,#madar-hub .vm-off{position:absolute;inset:80px 15% auto;padding:30px;background:#142e3e;color:#e1f2fa;text-align:center}
+#madar-hub .vm-off button{display:block;margin:20px auto}
+#madar-hub .vm-window-layer{position:absolute;top:108px;bottom:73px;left:0;right:0;pointer-events:none;z-index:10}
+#madar-hub .vm-window{position:absolute;left:var(--wx);top:var(--wy);width:min(480px,calc(100% - 30px));max-height:calc(100% - 15px);display:flex;flex-direction:column;background:#f3f3f3;border:1px solid #318ba5;box-shadow:0 15px 38px #0006;pointer-events:auto;overflow:hidden;color:#1e252c}
+#madar-hub .vm-window.vm-wide{width:min(790px,calc(100% - 40px))}
+#madar-hub .vm-window.vm-max{inset:0!important;width:100%;max-height:100%;height:100%}
+#madar-hub .vm-titlebar{height:32px;flex-shrink:0;padding:0 0 0 10px;display:flex;align-items:center;justify-content:space-between;background:#69c5de;color:#082c3a;cursor:move;touch-action:none;user-select:none;gap:8px}
+#madar-hub .vm-titlebar>span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12px}
+#madar-hub .vm-titlebar>div{display:flex;flex-shrink:0}
+#madar-hub .vm-titlebar button{border:0;background:transparent;color:#163744;border-radius:0;min-height:26px;width:33px;padding:2px;font-size:17px}
+#madar-hub .vm-titlebar button:last-child{background:#cc594c;color:white;width:42px}
+#madar-hub .vm-titlebar button:last-child:hover{background:#e34130}
+#madar-hub .vm-window-content{overflow:auto;min-height:0;background:#f6f6f6}
+#madar-hub .vm-dialog{padding:20px 24px}
+#madar-hub .vm-dialog-footer{padding:12px 16px;background:#eee;border-top:1px solid #d3d6d9;display:flex;justify-content:flex-end;gap:8px;position:sticky;bottom:0;z-index:2}
+#madar-hub .vm-dialog-footer button{min-width:82px}
+#madar-hub .vm-field{display:block;margin:12px 0}
+#madar-hub .vm-field input,#madar-hub .vm-field select{display:block;margin-top:5px}
+#madar-hub .vm-tick{display:block;margin:12px 0}
+#madar-hub .vm-indent{padding-left:24px}
+#madar-hub .vm-indent .vm-field{display:grid;grid-template-columns:145px 1fr;align-items:center;margin:9px 0}
+#madar-hub .vm-tabs{padding:10px 15px 6px;background:#eee;border-bottom:1px solid #c5ccd0;color:#3e4952;white-space:nowrap;font-size:12px}
+#madar-hub .vm-properties{display:grid;grid-template-columns:minmax(110px,1fr) 1.5fr;gap:16px 20px;font-size:12px;margin:20px 0}
+#madar-hub .vm-properties dt{color:#63717b}
+#madar-hub .vm-properties dd{margin:0;overflow-wrap:anywhere}
+#madar-hub .vm-properties button{border:0;background:none;color:#0876ae;padding:0;min-height:0;text-align:left}
+#madar-hub .vm-right{text-align:right;margin-top:14px}
+#madar-hub .vm-bordered,#madar-hub .vm-component-list{border:1px solid #aaa;background:white;padding:10px}
+#madar-hub .vm-component-list label,#madar-hub .vm-component-list button{display:block;width:100%;padding:5px;text-align:left;border:0;background:transparent;font-size:12px}
+#madar-hub .vm-address{padding:8px 14px;background:#fff;border-bottom:1px solid #ccc;color:#4f6470}
+#madar-hub .vm-adapter-item{padding:28px;min-height:150px}
+#madar-hub .vm-adapter-item button{background:#e9f4fc;border:1px solid #98c3df;padding:12px 24px;text-align:left}
+#madar-hub .vm-adapter-item small{display:block;color:#586d79;margin-top:6px}
+#madar-hub .vm-manager-head{background:#fff;padding:18px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+#madar-hub .vm-manager-head strong{font-size:19px;font-weight:300;color:#0876a2}
+#madar-hub .vm-manager-head button{background:transparent;border:0;padding:4px 8px;color:#45616e}
+#madar-hub .vm-split{display:grid;grid-template-columns:185px 1fr;min-height:380px}
+#madar-hub .vm-split>nav,#madar-hub .vm-split>aside{background:#e9edef;padding:14px 0;border-right:1px solid #c8d0d5;overflow:auto}
+#madar-hub .vm-split>main{padding:20px 24px;min-width:0;background:#fff}
+#madar-hub .vm-manager nav button{display:block;width:100%;text-align:left;border:0;background:transparent;padding:11px 14px;font-size:13px}
+#madar-hub .vm-manager nav button.selected{background:#167b9f!important;color:white!important}
+#madar-hub .vm-quick{background:#eaf3f7;padding:18px;border-left:5px solid #2993b7;display:grid;gap:8px}
+#madar-hub .vm-quick span{font-size:10px;letter-spacing:2px;color:#577786}
+#madar-hub .vm-quick button{border:0;color:#157ca6;background:transparent;text-align:left;font-size:16px;padding:8px 0}
+#madar-hub .vm-tiles{display:flex;gap:12px;margin-top:24px}
+#madar-hub .vm-tiles>div{flex:1;background:#f2f6f7;border-top:4px solid #3689a4;padding:14px;color:#1b718f;font-size:17px}
+#madar-hub .vm-tiles strong{display:block;color:#458555;font-size:11px;margin-top:20px}
+#madar-hub .vm-menu{position:absolute;z-index:150;background:#fff;padding:8px;box-shadow:0 8px 24px #0004;border:1px solid #a6b8c2;min-width:180px}
+#madar-hub .vm-top-menu{right:12px;top:85px}
+#madar-hub .vm-menu button{display:block;text-align:left;width:100%;background:white;border:0;padding:8px 12px}
+#madar-hub .vm-clock{font-size:85px;float:left;margin:5px 30px 5px 0;color:#248ba8}
+#madar-hub .vm-native-terminal{background:#090909;color:#ececec;font-family:Consolas,'Courier New',monospace;min-height:330px;padding:10px}
+#madar-hub .vm-native-terminal.vm-sconfig{background:#012456}
+#madar-hub .vm-console-window{width:min(780px,calc(100% - 35px))}
+#madar-hub .vm-native-terminal pre{font:13px/1.5 Consolas,'Courier New',monospace;color:#f1f1f1;white-space:pre-wrap;overflow-wrap:anywhere;direction:ltr;text-align:left;background:transparent;border:0;padding:0;max-height:300px;overflow:auto;margin:0 0 8px}
+#madar-hub .vm-native-terminal form{display:flex;align-items:center;gap:5px}
+#madar-hub .vm-native-terminal label{white-space:nowrap;font:12px Consolas,monospace;color:#fff}
+#madar-hub .vm-native-terminal input:not([type=radio]){background:transparent;color:white;border:0;outline:none;font-family:Consolas,monospace;padding:4px;min-width:50px}
+#madar-hub .vm-native-terminal button{background:transparent;color:#fff;border:1px solid #ffffff40;padding:3px 8px}
+#madar-hub .vm-wizard-heading{padding:18px 26px;background:white;display:flex;justify-content:space-between;border-bottom:1px solid #ccc}
+#madar-hub .vm-wizard-heading h2{margin:0;font-size:24px}
+#madar-hub .vm-wizard-heading small{text-align:right;font-size:9px;color:#677b87}
+#madar-hub .vm-wizard{display:grid;grid-template-columns:175px 1fr;min-height:310px}
+#madar-hub .vm-wizard>nav{padding:15px 0;background:#edf1f3;border-right:1px solid #d7dfe3}
+#madar-hub .vm-wizard>nav span{display:block;padding:7px 14px;font-size:12px}
+#madar-hub .vm-wizard>main{padding:18px 25px;background:white;min-width:0}
+#madar-hub .vm-wizard>main .vm-field{margin:8px 0}
+#madar-hub .vm-success{padding:12px;color:#2e7245;background:#eaf7ed;border-left:4px solid #42945e}
+#madar-hub .vm-warning{padding:12px;color:#785d1e;background:#fff7df;border-left:4px solid #d7ac3f}
+#madar-hub .vm-message{display:flex;align-items:center;gap:20px;padding:26px}
+#madar-hub .vm-message>span{color:#158aad;font-size:35px}
+#madar-hub .vm-training-note{font-size:11px!important;color:#617380!important}
+#madar-hub .vm-mmc{grid-template-columns:310px 1fr;min-height:350px}
+#madar-hub .vm-mmc nav{background:#fff;padding:12px 5px}
+#madar-hub .vm-mmc nav button{display:block;white-space:nowrap;padding:4px;border:0;background:transparent;text-align:left;font-size:12px}
+#madar-hub .vm-tree-indent{padding-left:15px}
+#madar-hub .vm-setup-page{padding:24px 30px;background:#fff;min-height:330px}
+#madar-hub .vm-setup-logo{font-size:32px;font-weight:300;color:#186c96;margin:18px 0 35px}
+#madar-hub .vm-license{padding:16px;background:#f4f6f7;border:1px solid #bac5cc;font-size:12px}
+#madar-hub .vm-progress{height:10px;background:#dbe5e9;margin:30px 0}
+#madar-hub .vm-progress i{display:block;width:100%;height:100%;background:#30a8ba}
+#madar-hub .vm-file-list{padding:30px;min-height:130px}
+#madar-hub .vm-control-grid{display:grid;gap:15px;grid-template-columns:1fr 1fr;padding:30px}
+#madar-hub .vm-workbench:fullscreen{border-radius:0;width:100vw;height:100vh}
+#madar-hub .vm-workbench:fullscreen .vm-desktop{height:calc(100vh - 136px)}
+#madar-hub .vm-workbench:fullscreen .vm-hyperv{height:calc(100vh - 104px)}
+@media(max-width:850px){#madar-hub .vm-host-grid{grid-template-columns:110px 1fr 120px}#madar-hub .vm-host-grid>main{padding:12px}#madar-hub .vm-window{left:min(var(--wx),10px);top:min(var(--wy),20px);width:calc(100% - 20px)!important}#madar-hub .vm-lab-state{display:none}#madar-hub .vm-lab-toolbar{padding:12px}#madar-hub .vm-split{grid-template-columns:140px 1fr}#madar-hub .vm-mmc{grid-template-columns:260px 1fr}}
+@media(max-width:560px){#madar-hub .vm-workbench{min-height:730px;border-radius:10px}#madar-hub .vm-host-grid{grid-template-columns:1fr 95px}#madar-hub .vm-host-grid>nav{display:none}#madar-hub .vm-host-grid td,#madar-hub .vm-host-grid th{padding:7px 3px;font-size:10px}#madar-hub .vm-host-grid th:last-child,#madar-hub .vm-host-grid td:last-child{display:none}#madar-hub .vm-host-preview{padding:12px;gap:10px}#madar-hub .vm-host-preview>span{font-size:35px}#madar-hub .vm-host-preview h3{font-size:13px}#madar-hub .vm-host-grid>aside{padding:8px}#madar-hub .vm-lab-toolbar b{font-size:18px}#madar-hub .vm-lab-toolbar small{font-size:7px}#madar-hub .vm-lab-toolbar button{padding:4px 7px;font-size:10px}#madar-hub .vm-connectionbar{font-size:9px}#madar-hub .vm-statusline span:first-child{font-size:8px}#madar-hub .vm-logon{width:280px}#madar-hub .vm-manager-head{display:block;padding:12px}#madar-hub .vm-manager-head>div{margin-top:10px}#madar-hub .vm-manager-head strong{font-size:17px}#madar-hub .vm-manager{grid-template-columns:108px 1fr}#madar-hub .vm-split>main{padding:12px}#madar-hub .vm-manager nav button{font-size:11px;padding:9px}#madar-hub .vm-properties{grid-template-columns:1fr;gap:5px;margin:10px 0}#madar-hub .vm-properties dd{margin-bottom:10px}#madar-hub .vm-quick{padding:10px}#madar-hub .vm-quick button{font-size:13px}#madar-hub .vm-tiles{display:none}#madar-hub .vm-workbench h2{font-size:20px}#madar-hub .vm-dialog{padding:15px}#madar-hub .vm-indent{padding-left:8px}#madar-hub .vm-indent .vm-field{grid-template-columns:120px 1fr}#madar-hub .vm-wizard{display:block}#madar-hub .vm-wizard>nav{display:flex;overflow:auto;border-bottom:1px solid #ccc;padding:6px}#madar-hub .vm-wizard>nav span{white-space:nowrap;padding:5px 10px;font-size:10px}#madar-hub .vm-wizard-heading{padding:14px}#madar-hub .vm-wizard-heading small{display:none}#madar-hub .vm-wizard>main{padding:14px}#madar-hub .vm-mmc{grid-template-columns:1fr}#madar-hub .vm-mmc>main{min-height:90px}#madar-hub .vm-mmc>nav{min-height:210px}#madar-hub .vm-start{padding:25px 18px}#madar-hub .vm-start>div{grid-template-columns:repeat(2,120px)}#madar-hub .vm-watermark{right:20px}#madar-hub .vm-watermark>span{font-size:20px}#madar-hub .vm-taskbar button span{display:none}#madar-hub .vm-setup-page{padding:20px}#madar-hub .vm-setup-logo{font-size:25px}}
+
+#madar-hub .vm-task-title{font-size:23px;margin:8px 0 18px}
+#madar-hub .vm-window{max-height:calc(100% - var(--wy))}
+#madar-hub .vm-window.vm-max{max-height:100%}
+#madar-hub .vm-core-desktop .vm-taskbar{background:#151a20}
+@media(max-width:850px){#madar-hub .vm-window{max-height:calc(100% - 20px)}}
+@media(max-width:350px){#madar-hub .vm-dialog-footer{flex-wrap:wrap}#madar-hub .vm-dialog-footer button{min-width:60px;padding:4px 8px}#madar-hub .vm-indent .vm-field{display:block}#madar-hub .vm-logon{width:calc(100% - 24px)}#madar-hub .vm-workbench .vm-lab-toolbar small{display:none}}
+
+#madar-hub .vm-workbench.vm-expanded{position:fixed;inset:0;z-index:10000;width:100vw;height:100dvh;min-height:0;border-radius:0}
+#madar-hub .vm-expanded .vm-desktop{height:calc(100dvh - 136px)}
+#madar-hub .vm-expanded .vm-hyperv{height:calc(100dvh - 104px)}
+#madar-hub .vm-expanded .vm-host-grid{height:calc(100dvh - 166px)}
+html:has(.vm-expanded),body:has(.vm-expanded){overflow:hidden}
+#madar-hub .vm-workbench.vm-expanded{width:100%}
+
+/* MADAR Night — a complete, quiet dark work surface, including native controls.
+   Geometry and actions follow the lesson; color and decorative art belong to Madar. */
+#madar-hub .vm-workbench{
+ --vm-bg:#10151d;--vm-panel:#1b222d;--vm-raised:#242e3b;--vm-recess:#151c25;
+ --vm-ink:#d3dce6;--vm-muted:#a3b2c2;--vm-line:#3c4b5d;--vm-control:#748599;
+ --vm-accent:#8bbccf;--vm-selected:#263f50;
+ color-scheme:dark;background:var(--vm-bg);color:var(--vm-ink);
+ border-color:#354352;border-radius:18px;box-shadow:0 30px 75px #0006,0 1px 0 #73859c18 inset;
+}
+#madar-hub .vm-workbench ::selection{background:#3c6279;color:#edf3f8}
+#madar-hub .vm-workbench button{background:#293442;color:var(--vm-ink);border-color:var(--vm-control);border-radius:5px;transition:background-color .12s,border-color .12s,color .12s}
+#madar-hub .vm-workbench button:hover{background:#334456;border-color:#96b6cb;color:#eef5fa}
+#madar-hub .vm-workbench button:active{background:#1b2b3c}
+#madar-hub .vm-workbench button:focus-visible,#madar-hub .vm-workbench input:focus-visible,#madar-hub .vm-workbench select:focus-visible{outline:2px solid #9bc9df;outline-offset:3px}
+#madar-hub .vm-workbench button:disabled{color:#8894a3;background:#202832;border-color:#445060;opacity:.75}
+#madar-hub .vm-workbench input:not([type=checkbox]):not([type=radio]),#madar-hub .vm-workbench select{
+ background:var(--vm-recess);border:1px solid var(--vm-control);border-radius:5px;color:var(--vm-ink);min-height:32px;box-shadow:0 1px 2px #0002 inset;color-scheme:dark;
+}
+#madar-hub .vm-workbench input::placeholder{color:#9aaabb;opacity:1}
+#madar-hub .vm-workbench input:disabled{background:#202733;color:#8695a5;border-color:#465265}
+#madar-hub .vm-workbench input[type=checkbox],#madar-hub .vm-workbench input[type=radio]{accent-color:#8bbccf;color-scheme:dark}
+#madar-hub .vm-workbench option{background:#19222e;color:var(--vm-ink)}
+#madar-hub .vm-workbench fieldset{border:1px solid var(--vm-line);border-radius:5px}
+#madar-hub .vm-workbench hr{border:0;border-top:1px solid var(--vm-line);margin:15px 0}
+#madar-hub .vm-glyph{width:18px;height:18px;display:inline-block;vertical-align:middle;flex-shrink:0}
+#madar-hub .vm-lab-toolbar{background:linear-gradient(115deg,#121923,#1c2837);border-bottom-color:#435266;padding-inline:23px;position:relative}
+#madar-hub .vm-lab-toolbar>span:first-child{position:relative;padding-inline-start:45px}
+#madar-hub .vm-lab-toolbar>span:first-child:before{content:'';position:absolute;right:0;top:4px;width:29px;height:29px;border:1px solid #8ab2c6;border-radius:50%;box-shadow:0 0 0 5px #739db20c;transform:rotate(-35deg) scaleX(.7)}
+#madar-hub .vm-lab-toolbar>span:first-child:after{content:'';position:absolute;right:2px;top:6px;width:6px;height:6px;background:#91bcc8;border-radius:50%;box-shadow:-13px 14px 0 -1px #7991b9}
+#madar-hub .vm-lab-toolbar b{font-weight:600;letter-spacing:.4px;color:#d9e4ec}
+#madar-hub .vm-lab-toolbar small{color:#9bacbe;font-size:9px;letter-spacing:1.7px;margin-top:2px}
+#madar-hub .vm-lab-toolbar button{background:#ffffff04;border-color:#53657a;color:#b9cbdb;border-radius:7px;min-height:32px}
+#madar-hub .vm-lab-toolbar button:hover{background:#2d3d50;border-color:#7e9caf}
+#madar-hub .vm-lab-state{color:#9dc4b4}
+#madar-hub .vm-statusline{background:#111822;color:#a1b2c3;border-top:1px solid #344253}
+#madar-hub .vm-connectionbar{background:#202c3a;color:#b5c7d7;border-bottom:1px solid #40546a}
+#madar-hub .vm-connectionbar button{background:transparent;color:#c1d1df;border-color:transparent}
+#madar-hub .vm-desktop{
+ background:radial-gradient(ellipse at 85% 80%,#29425155,transparent 55%),radial-gradient(ellipse at 20% 15%,#38475c33,transparent 55%),linear-gradient(125deg,#10161f,#18222c);
+ isolation:isolate;
+}
+#madar-hub .vm-desktop:before{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(#8197aa05 1px,transparent 1px),linear-gradient(90deg,#8197aa05 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(120deg,transparent 25%,#000);z-index:-1}
+#madar-hub .vm-desktop:after{content:'';position:absolute;width:570px;height:340px;right:-170px;bottom:70px;border:1px solid #7392a21b;border-radius:50%;transform:rotate(-32deg);box-shadow:0 0 0 40px #7392a205,0 0 0 80px #7392a204;pointer-events:none;z-index:-1}
+#madar-hub .vm-core-desktop{background:linear-gradient(120deg,#0b1018,#152131)}
+#madar-hub .vm-watermark{opacity:.65;right:35px;bottom:85px;gap:17px;color:#b4c6d6}
+#madar-hub .vm-watermark>b .vm-glyph{width:48px;height:48px;color:#87a9bb;stroke-width:1}
+#madar-hub .vm-watermark>span{font-size:24px;letter-spacing:-.3px}
+#madar-hub .vm-watermark small{font-size:11px;color:#a1b4c7;letter-spacing:2px;margin-top:5px}
+#madar-hub .vm-desktop-icons{gap:12px}
+#madar-hub .vm-desktop-icons button{background:transparent;border-color:transparent;border-radius:8px;color:#a7c5da;padding:12px 3px}
+#madar-hub .vm-desktop-icons button:hover{background:#283c4f99;border-color:#6f879b}
+#madar-hub .vm-desktop-icons .vm-glyph{width:35px;height:35px;filter:drop-shadow(0 3px 6px #0003);stroke-width:1.3;margin-bottom:7px}
+#madar-hub .vm-desktop-icons small{color:#c1d1de;text-shadow:0 2px 4px #0007}
+#madar-hub .vm-taskbar{background:#152332f2;border-top:1px solid #45566c;gap:5px;backdrop-filter:blur(16px)}
+#madar-hub .vm-taskbar button{background:transparent;border-color:transparent;color:#bacbda;border-radius:4px 4px 0 0;display:flex;align-items:center;gap:7px;height:35px}
+#madar-hub .vm-taskbar button.active{background:#2a3d50;border-bottom:2px solid #8bbccf}
+#madar-hub .vm-taskbar button:hover{background:#34475a}
+#madar-hub .vm-taskbar button span{font-size:11px;overflow:hidden;text-overflow:ellipsis}
+#madar-hub .vm-taskbar-tray button{white-space:nowrap}
+#madar-hub .vm-window{color:var(--vm-ink);background:var(--vm-panel);border-color:#48576b;border-radius:7px;box-shadow:0 22px 52px #0008,0 1px 0 #a2b8d008 inset}
+#madar-hub .vm-window.vm-front{border-color:#829aaf;box-shadow:0 28px 65px #0009,0 0 0 1px #9ab4c512}
+#madar-hub .vm-window.vm-max{border-radius:0}
+#madar-hub .vm-titlebar{height:36px;background:#242f3e;color:#adbdce;border-bottom:1px solid #435166;padding-left:12px}
+#madar-hub .vm-front>.vm-titlebar{background:linear-gradient(100deg,#30465b,#273749);color:#e0e8ee;border-bottom-color:#637e94}
+#madar-hub .vm-titlebar>span{display:flex;align-items:center;gap:8px;font-weight:500}
+#madar-hub .vm-titlebar .vm-glyph{width:15px;height:15px;color:#a2c5d9}
+#madar-hub .vm-titlebar button{background:transparent;color:#b5c8d9;border-radius:0;height:35px;min-height:35px}
+#madar-hub .vm-titlebar button:hover{background:#4a6075;color:#e5eef5}
+#madar-hub .vm-titlebar button:last-child{background:transparent;color:#d1b8bc}
+#madar-hub .vm-titlebar button:last-child:hover{background:#793e47;color:#f8e4e6}
+#madar-hub .vm-window-content{background:var(--vm-panel);scrollbar-color:#62788d #171f29}
+#madar-hub .vm-dialog-footer{background:#171f2a;border-top-color:#46546a;padding-block:13px}
+#madar-hub .vm-dialog-footer button[type=submit],#madar-hub .vm-dialog-footer button[data-vm$="next"]{background:#31566c;border-color:#8db6cc;color:#e3eef5}
+#madar-hub .vm-dialog-footer button[type=submit]:hover,#madar-hub .vm-dialog-footer button[data-vm$="next"]:hover{background:#3b6882}
+#madar-hub .vm-tabs,#madar-hub .vm-address{background:#222d3b;color:#bacbd9;border-bottom-color:#46576c}
+#madar-hub .vm-properties dt{color:var(--vm-muted)}
+#madar-hub .vm-properties button{background:transparent;color:#9acbe0;border-color:transparent}
+#madar-hub .vm-properties button:hover{background:#2a3a4b;color:#c5e4f1}
+#madar-hub .vm-bordered,#madar-hub .vm-component-list{background:#141d28;border-color:#61758b;border-radius:5px}
+#madar-hub .vm-component-list label,#madar-hub .vm-component-list button{color:var(--vm-ink);background:transparent}
+#madar-hub .vm-workbench .selected{background:var(--vm-selected)!important;color:#d4e8f2!important;box-shadow:inset 3px 0 #8bbccf}
+#madar-hub .vm-adapter-item button{background:#243746;border-color:#7892a8;color:#c7e0ee;border-radius:7px}
+#madar-hub .vm-adapter-item small{color:#b1c1ce}
+#madar-hub .vm-manager-head{background:#202b38;border-bottom:1px solid #3b4c60}
+#madar-hub .vm-manager-head strong{color:#b5d0e0;font-weight:400}
+#madar-hub .vm-manager-head button{background:transparent;color:#bdccdb;border-color:transparent}
+#madar-hub .vm-split>nav,#madar-hub .vm-split>aside{background:#171f2b;border-right-color:#3e4d60}
+#madar-hub .vm-split>main{background:var(--vm-panel)}
+#madar-hub .vm-manager nav button{color:#aebfd0;background:transparent}
+#madar-hub .vm-manager nav button.selected{background:#2c4458!important;color:#e0edf5!important;box-shadow:inset 3px 0 #8bbccf}
+#madar-hub .vm-quick{background:linear-gradient(110deg,#233444,#202d3b);border:1px solid #425c70;border-left:3px solid #8bbccf;border-radius:5px}
+#madar-hub .vm-quick span{color:#a6bacb}
+#madar-hub .vm-quick button{color:#b9d5e6;background:transparent;border-color:transparent}
+#madar-hub .vm-tiles>div{background:#222e3b;border:1px solid #46576b;border-top:2px solid #799bb3;border-radius:5px;color:#c4d7e6;font-size:16px}
+#madar-hub .vm-tiles strong{color:#a1c8b4}
+#madar-hub .vm-menu{background:#253140;border:1px solid #73879b;border-radius:6px;box-shadow:0 14px 36px #0008}
+#madar-hub .vm-menu button{background:transparent;color:#d3dce6;border-radius:3px}
+#madar-hub .vm-menu button:hover{background:#375069;color:#eef6fb}
+#madar-hub .vm-clock{color:#9ebed3}
+#madar-hub .vm-native-terminal{background:#10151d;color:#d1dae4}
+#madar-hub .vm-native-terminal.vm-sconfig{background:#16243a}
+#madar-hub .vm-native-terminal pre{color:#c9d7e5}
+#madar-hub .vm-native-terminal label{color:#c8d9e5}
+#madar-hub .vm-native-terminal input:not([type=radio]){background:#172333;border:1px solid #688098;color:#d8e6ee;box-shadow:none}
+#madar-hub .vm-native-terminal button{background:#253b50;border-color:#7994ac;color:#d0e0ed}
+#madar-hub .vm-wizard-heading{background:linear-gradient(110deg,#263443,#222c3a);border-bottom-color:#4a5b6e;padding-block:20px}
+#madar-hub .vm-wizard-heading h2{color:#d4e1ea;font-size:23px;font-weight:400}
+#madar-hub .vm-wizard-heading small{color:#a8bccc;line-height:1.7}
+#madar-hub .vm-wizard>nav{background:#171f2b;border-right-color:#3d4d60;color:#a9bbcb}
+#madar-hub .vm-wizard>nav span{padding-block:9px}
+#madar-hub .vm-wizard>main{background:var(--vm-panel)}
+#madar-hub .vm-success{color:#b3d7c2;background:#223d35;border-left-color:#8ac4a6;border-radius:4px}
+#madar-hub .vm-warning{color:#e1c695;background:#3b3324;border-left-color:#c7a66d;border-radius:4px}
+#madar-hub .vm-message>span{color:#a3c4d8}
+#madar-hub .vm-training-note{color:#a7b8c9!important}
+#madar-hub .vm-mmc nav{background:#17202b}
+#madar-hub .vm-mmc nav button{background:transparent;color:#bfcede}
+#madar-hub .vm-setup-page{background:var(--vm-panel)}
+#madar-hub .vm-setup-logo{color:#b1cfe0}
+#madar-hub .vm-license{background:#17202b;border-color:#586b7e;color:#bbcbd9;border-radius:4px}
+#madar-hub .vm-progress{background:#303f50;border-radius:8px;overflow:hidden;height:6px}
+#madar-hub .vm-progress i{background:#86aebf}
+#madar-hub .vm-hyperv{background:var(--vm-panel)}
+#madar-hub .vm-host-title{background:#2a3c4e;color:#d1e1eb;border-bottom:1px solid #4c6379;display:flex;align-items:center;justify-content:center;gap:8px}
+#madar-hub .vm-menubar{background:#1b2531;border-bottom-color:#44556a;color:#b9cad9}
+#madar-hub .vm-host-grid>nav{background:#171f2b;border-right-color:#3d4e62;color:#b6c9d9}
+#madar-hub .vm-host-grid>aside{background:#1b2735;border-left-color:#3d5066;color:#bfcedb}
+#madar-hub .vm-host-grid>aside button{background:transparent;color:#a4cce0;border-color:transparent}
+#madar-hub .vm-workbench th{background:#202d3c;color:#aec1d2;border-bottom-color:#4e6277;font-size:11px}
+#madar-hub .vm-workbench td{border-bottom-color:#354559;color:#c2d2df}
+#madar-hub .vm-workbench td .vm-glyph{width:15px;height:15px;margin-right:6px;color:#91b4cc}
+#madar-hub .vm-workbench tr[data-vm-select]:hover{background:#283c50}
+#madar-hub .vm-host-preview{background:radial-gradient(ellipse at 0% 50%,#38526d44,transparent 60%),#1a2634;border:1px solid #4b6075;border-radius:10px;box-shadow:0 10px 24px #0002}
+#madar-hub .vm-host-preview>span{display:grid;place-items:center;width:88px;height:88px;background:#24384c;border:1px solid #58738c;border-radius:17px;color:#a5c5da;box-shadow:0 8px 15px #0002}
+#madar-hub .vm-host-preview .vm-glyph{width:48px;height:48px;stroke-width:1.2}
+#madar-hub .vm-host-preview p{color:#a7bdcf;font-size:12px}
+#madar-hub .vm-host-hint{color:#a3b7ca!important}
+#madar-hub .vm-start{background:linear-gradient(130deg,#162332f7,#253448f7);backdrop-filter:blur(12px);color:#d4e3ee}
+#madar-hub .vm-start button{background:#2a3e52;border-color:#657f98;color:#d0e1ed;border-radius:5px}
+#madar-hub .vm-start button:hover{background:#38566e}
+#madar-hub .vm-logon{background:#1b2938f5;border:1px solid #688398;border-radius:12px;box-shadow:0 24px 65px #0007}
+#madar-hub .vm-avatar{display:grid;place-items:center;width:76px;height:76px;border:1px solid #7894ab;border-radius:50%;background:#2a4056;margin:0 auto 20px;color:#b5cfe0}
+#madar-hub .vm-avatar .vm-glyph{width:39px;height:39px}
+#madar-hub .vm-logon h2{color:#d7e3ec;text-align:center}
+#madar-hub .vm-logon button{background:#31546c;border-color:#8fb3cc;color:#dbe8f2}
+#madar-hub .vm-logon small{color:#a6bdce}
+#madar-hub .vm-off,#madar-hub .vm-remote-note{background:#203145;border:1px solid #56728a;border-radius:9px;color:#cadbe9}
+#madar-hub .vm-task-title{font-weight:600;letter-spacing:-.4px}
+#madar-hub .vm-brief{background:#18212e;border-color:#394a60}
+#madar-hub .vm-brief>summary{color:#bed0df}
+@media(max-width:560px){
+ #madar-hub .vm-lab-toolbar{padding-inline:10px;gap:5px}
+ #madar-hub .vm-lab-toolbar>span:first-child{padding-inline-start:30px}
+ #madar-hub .vm-lab-toolbar>span:first-child:before{width:21px;height:21px;top:2px}
+ #madar-hub .vm-lab-toolbar>span:first-child:after{width:4px;height:4px;top:3px;box-shadow:-9px 10px 0 -1px #7991b9}
+ #madar-hub .vm-lab-toolbar small{font-size:6px;letter-spacing:1px}
+ #madar-hub .vm-watermark{right:18px;gap:12px}
+ #madar-hub .vm-watermark>span{font-size:19px}
+ #madar-hub .vm-watermark>b .vm-glyph{width:34px;height:34px}
+ #madar-hub .vm-workbench td .vm-glyph{display:none}
+ #madar-hub .vm-host-preview>span{width:49px;height:62px;border-radius:9px;flex-shrink:0}
+ #madar-hub .vm-host-preview .vm-glyph{width:30px;height:30px}
+ #madar-hub .vm-wizard>nav{border-bottom-color:#46576c}
+ #madar-hub .vm-taskbar button{min-width:31px;padding-inline:6px}
+ #madar-hub .vm-taskbar button span{display:none}
+}
+@media(prefers-reduced-motion:reduce){#madar-hub .vm-workbench *{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* OS edition of the original MADAR sphere: same geometry, lighting and pearl. */
+#madar-hub .vm-lab-toolbar>span:first-child{padding-inline-start:62px}
+#madar-hub .vm-lab-toolbar>span:first-child:before,#madar-hub .vm-lab-toolbar>span:first-child:after{display:none}
+#madar-hub .vm-orbital-mark{display:grid;place-items:center;position:relative;transform:none;margin:0;pointer-events:none}
+#madar-hub .vm-orbital-mark:after{content:'';position:absolute;border:1px solid #eac68b70;border-radius:50%}
+#madar-hub .vm-orbital-mark .vm-orbit-server{display:grid;place-items:center;color:#efd0a1;z-index:3;filter:drop-shadow(0 2px 2px #050709) drop-shadow(0 0 18px #e9c69113)}
+#madar-hub .vm-orbit-server .vm-glyph{width:30%;height:30%;min-width:90px;min-height:90px;stroke-width:.8;stroke:#efd0a1;fill:#dbc49906}
+#madar-hub .vm-orbital-mark>.vm-orbit-server{position:absolute;inset:0;font-size:inherit}
+#madar-hub .vm-orbit-badge{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px}
+#madar-hub .vm-orbit-badge .vm-orbit-server .vm-glyph{min-width:15px;min-height:15px;width:15px;height:15px;stroke-width:1.2}
+#madar-hub .vm-orbit-badge .mh-liquid-bubble{width:7px;height:7px;border-width:.5px}
+#madar-hub .vm-orbit-badge .mh-liquid-bubble:after{box-shadow:inset -1px -1px 2px #060c1b45,inset .5px .5px 1px #ffffff70}
+#madar-hub .vm-desktop,#madar-hub .vm-core-desktop{background:radial-gradient(ellipse at 28% 88%,#33343460,transparent 60%),linear-gradient(125deg,#1b2026,#161b21 65%,#1c2026)}
+#madar-hub .vm-desktop:before,#madar-hub .vm-desktop:after{display:none}
+#madar-hub .vm-desktop-wallpaper{position:absolute;inset:0 0 48px;display:grid;place-items:center;overflow:hidden;pointer-events:none;z-index:0}
+#madar-hub .vm-desktop-icons{position:relative;z-index:2}
+#madar-hub .vm-watermark{z-index:1;opacity:.45;bottom:76px}
+#madar-hub .vm-watermark>span{font-size:18px}
+#madar-hub .vm-watermark>b .vm-glyph{width:35px;height:35px}
+#madar-hub .vm-logon,#madar-hub .vm-off,#madar-hub .vm-remote-note{z-index:4;position:relative}
+#madar-hub .vm-start{z-index:8}
+#madar-hub .vm-taskbar{z-index:9}
+@media(max-width:560px){
+ #madar-hub .vm-lab-toolbar>span:first-child{padding-inline-start:38px}
+ #madar-hub .vm-orbit-badge{width:24px;height:24px;right:3px}
+ #madar-hub .vm-orbit-badge .vm-orbit-server .vm-glyph{min-width:12px;min-height:12px;width:12px;height:12px}
+ #madar-hub .vm-orbit-badge .mh-liquid-bubble{width:6px;height:6px}
+ #madar-hub .vm-watermark{right:16px;bottom:70px}
+ #madar-hub .vm-watermark>span{font-size:14px}
+ #madar-hub .vm-watermark small{font-size:8px}
+}
+
+/* Windows-inspired dark silk: the background itself moves independently. */
+#madar-hub .vm-desktop,#madar-hub .vm-core-desktop{background:#0c1622}
+#madar-hub svg.vm-windows-waves{position:absolute;inset:-5%;width:110%;height:110%;max-width:none;pointer-events:none;z-index:0;opacity:.9}
+#madar-hub .vm-wave-layer{transform-origin:65% 50%;will-change:transform;animation:vm-windows-silk calc(8s / .73) ease-in-out infinite alternate}
+#madar-hub .vm-wave-middle{animation-name:vm-windows-fold;animation-duration:calc(11s / .73);animation-delay:calc(-4s / .73)}
+#madar-hub .vm-wave-near{animation-duration:calc(14s / .73);animation-delay:calc(-7s / .73);animation-direction:alternate-reverse;opacity:.88}
+#madar-hub .vm-workbench[data-motion=paused] .vm-wave-layer{animation-play-state:paused}
+@keyframes vm-windows-silk{from{transform:translate(-120px,48px) rotate(-5deg) scale(1.12)}to{transform:translate(120px,-64px) rotate(5deg) scale(1.18)}}
+@keyframes vm-windows-fold{from{transform:translate(95px,-65px) rotate(4.5deg) scale(1.14)}to{transform:translate(-110px,72px) rotate(-4.5deg) scale(1.2)}}
+@media(prefers-reduced-motion:reduce){#madar-hub .vm-wave-layer{animation:none!important;transform:none;will-change:auto}}
+
+/* Light travels over the folds; the planetary emblem is header branding only. */
+#madar-hub .vm-wave-current{fill:none;stroke:#82c5dc;stroke-width:2.4;stroke-linecap:round;stroke-dasharray:220 770;opacity:.52;animation:vm-current-flow calc(8s / .73) linear infinite}
+#madar-hub .vm-wave-middle .vm-wave-current{animation-duration:calc(10s / .73);animation-delay:calc(-4s / .73);opacity:.42}
+#madar-hub .vm-wave-near .vm-wave-current{animation-duration:calc(12s / .73);animation-delay:calc(-7s / .73);stroke:#91b8d1;opacity:.36}
+#madar-hub .vm-wave-atmosphere{position:absolute;inset:-15%;pointer-events:none;background:radial-gradient(ellipse at 37% 45%,#2b799834,transparent 46%),radial-gradient(ellipse at 72% 72%,#425da928,transparent 38%);mix-blend-mode:screen;animation:vm-soft-light calc(10s / .73) ease-in-out infinite alternate;will-change:transform;z-index:0}
+#madar-hub .vm-workbench[data-motion=paused] .vm-wave-current,#madar-hub .vm-workbench[data-motion=paused] .vm-wave-atmosphere{animation-play-state:paused}
+@keyframes vm-current-flow{from{stroke-dashoffset:1980}to{stroke-dashoffset:0}}
+@keyframes vm-soft-light{from{transform:translate(-5%,-3%) rotate(-5deg) scale(1)}to{transform:translate(7%,6%) rotate(5deg) scale(1.12)}}
+@media(prefers-reduced-motion:reduce){#madar-hub .vm-wave-current,#madar-hub .vm-wave-atmosphere{animation:none!important;will-change:auto}#madar-hub .vm-wave-current{opacity:0}}
+
+#madar-hub .oc-workbench{min-height:680px;overflow:hidden}
+#madar-hub .oc-desktop{position:relative;padding:28px;min-height:620px;isolation:isolate}
+#madar-hub .oc-window{position:relative;border:1px solid #486170;border-radius:8px;overflow:hidden;background:#17232df5;box-shadow:0 24px 55px #0006;direction:ltr}
+#madar-hub .oc-menu{display:flex;gap:5px;padding:7px 12px;background:#202f3d;border-bottom:1px solid #405365}
+#madar-hub .oc-menu button,#madar-hub .oc-tools button{background:transparent;color:#d5e4eb;border:0;padding:7px 12px}
+#madar-hub .oc-console-grid{display:grid;grid-template-columns:215px minmax(0,1fr);min-height:350px}
+#madar-hub .oc-console-grid nav{padding:14px 8px;background:#1b2935;border-right:1px solid #344654}
+#madar-hub .oc-console-grid nav button{display:flex;align-items:center;gap:9px;width:100%;text-align:left;border:0;color:#c8d5de;padding:12px 9px;background:transparent;font-size:12px}
+#madar-hub .oc-console-grid nav .selected,#madar-hub .oc-tools button:hover{background:#344c5d;border-radius:5px}
+#madar-hub .oc-console-grid main{padding:20px;min-width:0}
+#madar-hub .oc-console-grid h2{font-size:21px;font-weight:500;margin:0 0 18px;color:#dfebf3}
+#madar-hub .oc-console-grid nav p{font-size:10px;color:#94aebc;padding:15px}
+#madar-hub .oc-action-list{display:grid;gap:7px;max-height:410px;overflow:auto}
+#madar-hub .oc-action-list article{display:flex;align-items:center;gap:10px;border:1px solid #344651;padding:12px;background:#1b2a35;border-radius:5px}
+#madar-hub .oc-action-list article>div{flex:1;min-width:0}
+#madar-hub .oc-action-list b{display:block;font-size:12px;color:#d6e4ed;overflow-wrap:anywhere}
+#madar-hub .oc-action-list small{display:block;direction:rtl;text-align:left;font-size:11px;margin-top:4px;color:#9eb5c2}
+#madar-hub .oc-action-list button,#madar-hub .oc-host button,#madar-hub .oc-map button,#madar-hub .oc-tiles button{background:#283e4c;color:#d6e8ef;border:1px solid #4e6777;padding:7px 10px;border-radius:5px;font-size:12px}
+#madar-hub .oc-operation-state{color:#7795a9}#madar-hub .oc-operation-state.done{color:#83c8b3}
+#madar-hub .oc-output{background:#101b24;border-top:1px solid #344b5b;padding:12px 18px;color:#bfd6df}
+#madar-hub .oc-output strong{font-size:11px;letter-spacing:.4px}#madar-hub .oc-output pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;max-height:160px;overflow:auto;margin:8px 0 0}
+#madar-hub .oc-state{margin-top:18px;font-size:12px;color:#b6cbd7}#madar-hub .oc-data-table{max-height:220px;overflow:auto}#madar-hub .oc-data-table table{width:100%;border-collapse:collapse}#madar-hub .oc-data-table td,#madar-hub .oc-data-table th{padding:8px;border:1px solid #344754;text-align:left}#madar-hub .oc-data-table pre{font-size:11px;white-space:pre-wrap;overflow-wrap:anywhere}
+#madar-hub .oc-dialog-shade{position:absolute;inset:0;background:#090e14a6;z-index:30;display:flex;justify-content:center;align-items:flex-start;padding:30px 20px;backdrop-filter:blur(3px)}
+#madar-hub .oc-dialog{width:min(650px,100%);max-height:calc(100% - 60px);overflow:auto;background:#1b2934;border:1px solid #5a7383;border-radius:9px;box-shadow:0 20px 70px #0009;direction:ltr;color:#d5e3ec}
+#madar-hub .oc-dialog .vm-titlebar{position:sticky;top:0;z-index:2;background:#2b4354}#madar-hub .oc-dialog-body{padding:20px 25px;display:grid;gap:12px}#madar-hub .oc-dialog footer{display:flex;justify-content:flex-end;gap:8px;padding:14px 20px;border-top:1px solid #405666;background:#192631;position:sticky;bottom:0}
+#madar-hub .oc-dialog button{color:#d9e8f0;background:#2c4659;border:1px solid #58758a;padding:8px 14px;border-radius:5px}
+#madar-hub .oc-dialog input,#madar-hub .oc-dialog select,#madar-hub .oc-dialog textarea{background:#0f1c27;color:#e1edf4;border:1px solid #506777;border-radius:4px;padding:9px;width:100%;box-sizing:border-box;min-width:0}#madar-hub .oc-dialog input[type=checkbox]{width:auto;accent-color:#79b6c2}
+#madar-hub .oc-dialog .vm-field{display:grid;gap:7px;font-size:12px}#madar-hub .oc-dialog .vm-tick{display:flex;align-items:center;gap:8px;font-size:12px}#madar-hub .oc-dialog textarea{min-height:85px}
+#madar-hub .oc-requirements{display:grid;gap:8px;margin:5px 0}#madar-hub .oc-requirements>div{padding:8px 12px;background:#12212b;border-radius:5px}#madar-hub .oc-requirements dt{color:#8cabbc;font-size:11px}#madar-hub .oc-requirements dd{margin:4px 0 0;text-align:left;overflow-wrap:anywhere}
+#madar-hub .oc-wizard-progress{display:flex;gap:7px;padding:15px 24px;border-bottom:1px solid #344b5a;align-items:center}#madar-hub .oc-wizard-progress span{font-size:11px;color:#9db6c4;padding:5px 8px}#madar-hub .oc-wizard-progress .selected{background:#446a7e;border-radius:6px;color:#fff}
+#madar-hub .oc-inline-result{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;color:#dec295}#madar-hub .oc-tools{display:flex;flex-wrap:wrap;border-bottom:1px solid #385264;background:#182934;padding:8px}
+#madar-hub .oc-host{position:relative;background:#233746;padding:18px;border:1px solid #526c7d;border-radius:8px;margin-bottom:20px;color:#d9e4ec}#madar-hub .oc-host button{margin:6px}#madar-hub .oc-host h2{font-size:20px}#madar-hub .oc-host p{font-size:13px}
+#madar-hub .oc-map{margin-top:18px;padding:18px;background:#182733;border-radius:10px}#madar-hub .oc-map>div{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #344653;font-size:12px}#madar-hub .oc-map b{flex:1}#madar-hub .oc-map span{color:#9cb4c0}#madar-hub .oc-tiles{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+#madar-hub .oc-workbench :focus-visible{outline:2px solid #91c4d4;outline-offset:2px}
+@media(max-width:700px){#madar-hub .oc-desktop{padding:10px;min-height:720px}#madar-hub .oc-console-grid{grid-template-columns:1fr}#madar-hub .oc-console-grid nav{display:flex;overflow:auto;padding:5px;max-width:100%;border-right:0;border-bottom:1px solid #405464}#madar-hub .oc-console-grid nav button{min-width:155px;max-width:200px}#madar-hub .oc-console-grid nav p{display:none}#madar-hub .oc-console-grid main{padding:12px}#madar-hub .oc-action-list article{flex-wrap:wrap}#madar-hub .oc-action-list article>div{flex-basis:80%}#madar-hub .oc-dialog-shade{padding:15px 6px}#madar-hub .oc-dialog-body{padding:15px}#madar-hub .oc-dialog footer{padding:10px;flex-wrap:wrap}#madar-hub .oc-map>div{flex-wrap:wrap}#madar-hub .oc-map b{flex-basis:100%}#madar-hub .oc-workbench .vm-lab-toolbar{flex-wrap:wrap;gap:8px}}
+
+#madar-hub .oc-course-index{display:grid;gap:24px}#madar-hub .oc-lesson-group{border:1px solid #344755;border-radius:16px;padding:20px;background:#15232d99}#madar-hub .oc-lesson-group>header{display:flex;gap:16px;align-items:center;margin-bottom:18px}#madar-hub .oc-lesson-group>header>span{color:#d4ba88;background:#253442;border:1px solid #53606a;border-radius:12px;padding:14px;font:24px Georgia,serif}#madar-hub .oc-lesson-group h2{margin:0;font-size:20px}#madar-hub .oc-lesson-group header p{font-size:12px;color:#9ab3c2;margin:5px 0 0}#madar-hub .oc-lesson-group .op-cards{margin:0}#madar-hub .oc-lesson-group .op-card h3{font-size:17px;margin:10px 0}#madar-hub .oc-next{padding:14px 18px;margin:12px 0 18px;border:1px solid #4d6574;border-radius:12px;background:#21333f;display:flex;gap:12px;align-items:center;flex-wrap:wrap}#madar-hub .oc-next>span{color:#b7cbbb;font-size:12px}#madar-hub .oc-next>b{flex:1;font-size:14px}#madar-hub .oc-next>small{color:#abc2cf}#madar-hub .oc-next button{background:#38566a;border:1px solid #648599;border-radius:7px;padding:9px 13px;color:#e3edf2}#madar-hub .oc-dialog-shade{position:fixed;inset:0;padding:clamp(16px,8vh,70px) 16px;z-index:9000}#madar-hub .oc-dialog{max-height:84vh}
+@media(max-width:700px){#madar-hub .oc-lesson-group{padding:12px}#madar-hub .oc-lesson-group h2{font-size:17px}#madar-hub .oc-next>b{flex-basis:75%}#madar-hub .oc-next>small{flex-basis:60%}#madar-hub .oc-dialog{max-height:92vh}#madar-hub .oc-dialog-shade{padding:16px 8px}}
+
+#madar-hub .oc-properties{display:grid;gap:4px;margin:6px 0;font-size:12px}#madar-hub .oc-properties>div{display:grid;grid-template-columns:minmax(100px,35%) minmax(0,1fr);gap:12px;padding:5px 0;border-bottom:1px solid #2d424f}#madar-hub .oc-properties dt{color:#9cb8c8}#madar-hub .oc-properties dd{margin:0;overflow-wrap:anywhere;color:#d0e1eb}#madar-hub .oc-result-data{max-height:190px;overflow:auto}#madar-hub .oc-disks{display:grid;gap:10px;overflow:auto;margin:16px 0}#madar-hub .oc-disk{display:grid;grid-template-columns:100px minmax(280px,1fr);gap:12px;min-width:420px}#madar-hub .oc-disk>div:first-child{display:grid;gap:4px;padding:12px;background:#233a49}#madar-hub .oc-disk span{font-size:11px;color:#b0c7d4}#madar-hub .oc-partitions{display:flex;gap:3px}#madar-hub .oc-partition{display:grid;gap:4px;padding:10px 6px;border:1px solid #597083;border-top:6px solid #7396bc;border-radius:3px;background:#213849;overflow:hidden}#madar-hub .oc-partition b{font-size:11px;overflow-wrap:anywhere}#madar-hub .oc-partition.free{border-top-color:#78868f;background:#172833}#madar-hub .oc-partition small{font-size:10px;color:#a6c7b7}
+
+#madar-hub .oc-filter{display:grid;gap:8px;margin:24px 0;color:#b9d0dc;font-size:14px}#madar-hub .oc-filter select{padding:13px;border:1px solid #577081;border-radius:9px;background:#172c3b;color:#d6e6f0;max-width:100%}#madar-hub .oc-lesson-group[hidden]{display:none}
+
+#madar-hub .oc-task-options{border:1px solid #476172;display:grid;gap:12px;padding:16px}#madar-hub .oc-task-options legend{padding:0 6px;color:#b9d4df;font-size:13px}
+
+html,body{margin:0;background:#101118}#madar-hub{border-radius:0;min-height:100vh}#mh-owner-tools{padding:15px 34px}#mh-network-background{position:fixed;inset:0;width:100%;height:100%;border:0;z-index:-1;pointer-events:none}#madar-hub[data-course=network] .mh-atmosphere{display:none}#madar-hub[data-course=network]{background:#090b0e}#madar-hub[data-course=network] #mh-main{background:transparent}
+/* Isolated homepage announcement: never loaded by /applications. */
+#madar-hub .sa{--sa-mint:#9ce2d5;--sa-gold:#edca97;--sa-violet:#c0aceb;position:relative;isolation:isolate;overflow:hidden;margin:0 0 40px;border:1px solid #637e826e;border-radius:30px;background:#0c1a21;color:#eeeae2;box-shadow:0 30px 80px #0005,0 1px 0 #e4efe619 inset;text-align:right}
+#madar-hub .sa *{box-sizing:border-box}#madar-hub .sa [hidden]{display:none!important}#madar-hub .sa svg:not(.sa-topology>svg){width:19px;height:19px;flex-shrink:0;stroke-width:1.7}#madar-hub .sa button,#madar-hub .sa a{font:inherit}#madar-hub .sa a{color:inherit;text-decoration:none}#madar-hub .sa button{cursor:pointer}#madar-hub .sa :is(button,a):focus-visible{outline:2px solid var(--sa-gold);outline-offset:5px}
+#madar-hub .sa-atmosphere{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 78% 3%,#426d6630,transparent 60%),linear-gradient(125deg,#151f2e55,transparent 65%)}
+#madar-hub .sa-atmosphere>i{position:absolute;width:650px;height:650px;inset:-350px auto auto -140px;border-radius:50%;background:radial-gradient(closest-side,#41648855,transparent);animation:sa-atmosphere 18s ease-in-out infinite alternate;transform:translate(0,0)}#madar-hub .sa-atmosphere>i:nth-child(2){inset:auto -250px -450px auto;background:radial-gradient(closest-side,#b38e5e36,transparent);animation-delay:-8s}
+#madar-hub .sa-grid{position:absolute;inset:0;background-image:linear-gradient(#b5d2d205 1px,transparent 1px),linear-gradient(90deg,#b5d2d205 1px,transparent 1px);background-size:46px 46px;mask-image:linear-gradient(110deg,#000,transparent 68%)}#madar-hub .sa-edge{position:absolute;inset:0 22% auto;height:1px;background:linear-gradient(90deg,transparent,#9ce2d5a1,transparent)}
+#madar-hub .sa-top{position:relative;display:flex;align-items:center;gap:18px;padding:22px 34px;border-bottom:1px solid #91b2b21a;font-size:12px}#madar-hub .sa-release{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:.1px;color:#c1e8df}#madar-hub .sa-release>i,#madar-hub .sa-caption>i{width:7px;height:7px;border-radius:50%;background:#a2e0d3;box-shadow:0 0 14px #77d7c655}#madar-hub .sa-series{font-family:"Segoe UI",sans-serif;letter-spacing:2px;font-size:11px;color:#9bacb8;border-inline-start:1px solid #718c8e44;padding-inline-start:18px}#madar-hub .sa-series b{font-weight:500;color:#c9d6d9;margin-left:8px}#madar-hub .sa-motion{margin-inline-start:auto;display:flex;align-items:center;gap:7px;padding:7px 10px!important;background:#ffffff04!important;border:1px solid #89aaaa32!important;border-radius:9px!important;color:#b8c9ce!important;font-size:11px!important;min-height:34px}#madar-hub .sa-motion svg{width:14px!important;height:14px!important}#madar-hub .sa-motion[aria-pressed=true]{border-color:#edca976b!important;color:#edca97!important}
+#madar-hub .sa-layout{display:grid;grid-template-columns:1fr 1.15fr;align-items:center;gap:50px;padding:42px 38px 38px}#madar-hub .sa-copy{min-width:0}#madar-hub .sa-overline{font-size:13px;color:#b6c6c8;margin-bottom:15px}#madar-hub .sa-copy h1{font-size:38px;line-height:1.5;margin:0;color:#f4ece0;font-weight:800;letter-spacing:-.7px}#madar-hub .sa-copy h1>span{display:block;width:max-content;margin:0 0 4px auto;font:600 72px/1.15 "Segoe UI",sans-serif;letter-spacing:1px;background:linear-gradient(120deg,#fff0d3,#e9c997 55%,#b79769);background-clip:text;-webkit-text-fill-color:transparent}#madar-hub .sa-copy h1 i{font-size:35px;font-style:normal;vertical-align:middle;padding:0 7px;-webkit-text-fill-color:#8a948d}
+#madar-hub .sa-lead{font-size:24px!important;line-height:1.7!important;color:#e3ebe8;margin:14px 0 10px!important}#madar-hub .sa-description{font-size:14px!important;line-height:1.95!important;color:#b1c0c6;max-width:400px;margin:0 0 20px!important}#madar-hub .sa-facts{display:flex;gap:22px;margin:22px 0 25px;align-items:start}#madar-hub .sa-facts>div{display:flex;flex-direction:column;gap:4px}#madar-hub .sa-facts>div+div{border-inline-start:1px solid #a4bbb92b;padding-inline-start:22px}#madar-hub .sa-facts strong{font:600 26px/1.4 "Segoe UI",sans-serif;color:#dbe7e2;white-space:nowrap}#madar-hub .sa-facts strong i{font-size:18px;color:#8eb8b0;font-style:normal}#madar-hub .sa-facts span{font-size:11px;color:#aebdc4}
+#madar-hub a.sa-cta{display:flex;align-items:center;justify-content:space-between;gap:25px;width:max-content;min-width:260px;max-width:100%;padding:14px 20px;border-radius:12px;background:linear-gradient(110deg,#e6c18c,#f4d9ad);color:#1e2829;font-size:15px;font-weight:800;box-shadow:0 7px 24px #caa36b16,0 1px 0 #ffeccc inset;transition:transform .25s,box-shadow .25s}#madar-hub a.sa-cta:hover{transform:translateY(-3px);box-shadow:0 12px 30px #d6b77e2a}#madar-hub .sa-saving{display:flex;align-items:center;gap:7px;font-size:10px;color:#9fb7ba;margin-top:12px}#madar-hub .sa-saving svg{width:14px!important;height:14px!important}
+#madar-hub .sa-showcase{position:relative;min-width:0;perspective:1200px;padding:16px 0}#madar-hub .sa-stage-shadow{position:absolute;inset:35% 4% -18%;background:radial-gradient(ellipse,#23626030,transparent 65%);transform:rotate(-15deg);pointer-events:none}#madar-hub .sa-display{--sa-rx:0deg;--sa-ry:0deg;position:relative;border:1px solid #83b2b45e;border-radius:20px;background:linear-gradient(140deg,#23353ef5,#11232cf5 65%,#202b3bf5);box-shadow:0 28px 55px #0005,0 1px 0 #e3fff222 inset;transform:rotateX(var(--sa-rx)) rotateY(var(--sa-ry));transition:transform .3s ease;isolation:isolate}#madar-hub .sa-display:before,#madar-hub .sa-display:after{content:"";position:absolute;inset:12px 14px -11px;border:1px solid #79aeb835;border-radius:20px;z-index:-1;background:#10212b;transform:rotate(-2deg)}#madar-hub .sa-display:after{inset:20px 25px -20px;transform:rotate(2deg);border-color:#a79bc12b;z-index:-2;background:#18222e}
+#madar-hub .sa-display-top{display:flex;align-items:center;gap:12px;padding:16px 20px;border-bottom:1px solid #84a6b329;font-size:11px;color:#bbc9cc}#madar-hub .sa-window-dots{display:flex;gap:4px;order:3;margin-inline-start:auto;direction:ltr}#madar-hub .sa-window-dots i{height:5px;width:5px;border-radius:50%;background:#758f9b}#madar-hub .sa-window-dots i:first-child{background:#d2b487}#madar-hub .sa-demo{font-size:9px;border:1px solid #879ca636;border-radius:5px;padding:2px 6px;color:#a2b5ba}
+#madar-hub .sa-panels{height:375px;position:relative}#madar-hub .sa-panel{height:100%;padding:23px 24px 14px;animation:sa-panel-in .65s cubic-bezier(.2,.8,.2,1) both}#madar-hub .sa-panel-heading{display:flex;align-items:center;gap:12px}#madar-hub .sa-mini-icon{display:grid;place-items:center;width:40px;height:40px;border:1px solid #8fd0c83d;border-radius:12px;color:#a3ded5;background:#88cfbf0b}#madar-hub .sa-panel-heading small{font-size:10px;color:#a6b6c0}#madar-hub .sa-panel-heading h2{font-size:17px;line-height:1.6;margin:2px 0 0;color:#e1eceb}#madar-hub .sa-chapter{font:300 32px/1 "Segoe UI",sans-serif;color:#a1b5c54a;margin-inline-start:auto}#madar-hub .sa-topology{position:relative;height:252px;padding-top:7px}#madar-hub .sa-topology>svg{width:100%;height:224px;overflow:visible}#madar-hub .sa-topology text{font:11px "Segoe UI",sans-serif;fill:#bbd2d8;text-anchor:middle}#madar-hub .sa-wire{fill:none;stroke:#547883;stroke-width:2}#madar-hub .sa-packet{fill:none;stroke:url(#sa-cable);stroke-width:3;stroke-linecap:round;stroke-dasharray:9 91;animation:sa-packet 4s linear infinite;filter:drop-shadow(0 0 4px #8ad9cf66)}#madar-hub .sa-down{animation-delay:2s}#madar-hub .sa-route-tag{position:absolute;inset:auto 0 1px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:11px;color:#abd2cc}#madar-hub .sa-route-tag svg{width:14px!important;height:14px!important}#madar-hub .sa-source-line{display:flex;align-items:center;gap:7px;font-size:10px;border-top:1px solid #7b9baa24;padding-top:12px;color:#a7bfc4}#madar-hub .sa-source-line span{margin-inline-start:auto;font:10px "Segoe UI",sans-serif;color:#8599a5}#madar-hub .sa-source-line svg{height:14px!important;width:14px!important}
+#madar-hub .sa-lang{margin-inline-start:auto;display:flex;align-items:center;gap:5px;color:#9fd7ce;font-size:9px;padding:5px 7px;border:1px solid #9ad7ca32;border-radius:7px}#madar-hub .sa-lang svg{height:14px!important;width:14px!important}#madar-hub .sa-question{text-align:left;font:600 16px/1.6 "Segoe UI",sans-serif;margin:18px 0!important;color:#e1ebea}#madar-hub .sa-option{display:flex;align-items:center;gap:9px;padding:11px 12px;margin:8px 0;border:1px solid #a3bbc42b;border-radius:8px;color:#aabfc8;background:#0d1b2466;font:12px "Segoe UI",sans-serif;text-align:left}#madar-hub .sa-option>span{display:grid;place-items:center;width:21px;height:21px;border-radius:5px;background:#45637055;font-weight:700}#madar-hub .sa-option>svg{margin-left:auto;color:#a4e8cc}#madar-hub .sa-option-correct{border-color:#85c7ab8a;color:#d1efdf;background:#36725c2b;animation:sa-answer 9s ease-in-out infinite}#madar-hub .sa-explanation{margin:15px 0 12px;border-inline-start:2px solid #8ecfb2;padding:0 12px}#madar-hub .sa-explanation strong{display:flex;align-items:center;gap:5px;font-size:11px;color:#adddcc}#madar-hub .sa-explanation p{margin:5px 0 0!important;font-size:11px!important;line-height:1.7!important;color:#becdce}
+#madar-hub .sa-review-tabs{display:flex;gap:10px;margin:22px 0 15px}#madar-hub .sa-review-tabs span{display:flex;gap:5px;align-items:center;color:#e4b7a3;background:#d18e6815;border:1px solid #d5976b46;border-radius:7px;padding:6px 9px;font-size:10px}#madar-hub .sa-review-tabs span+span{color:#c4b3e4;background:#a291d118;border-color:#a291d13b}#madar-hub .sa-review-tabs svg{width:13px!important;height:13px!important}#madar-hub .sa-review-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #96adb21d}#madar-hub .sa-review-row>div{display:flex;gap:8px;align-items:center;flex:1;min-width:0}#madar-hub .sa-review-row b{font:600 11px "Segoe UI",sans-serif;color:#c4d4d6}#madar-hub .sa-review-row small{font-size:10px;color:#bdcdd0}#madar-hub .sa-review-row svg{width:14px!important;height:14px!important;color:#bfb1df}#madar-hub .sa-review-dot{width:5px;height:5px;border-radius:50%;background:#e2af8b}#madar-hub .sa-purple{background:#c0a9eb}#madar-hub .sa-mint{background:#8ed9bf}#madar-hub .sa-example-badge{font-size:9px;color:#e1ae92}#madar-hub .sa-retry-demo{display:flex;align-items:center;justify-content:center;gap:8px;padding:11px;background:#dbc3940c;border:1px solid #d3b98a44;border-radius:8px;font-size:10px;color:#e0c79d;margin-top:17px}#madar-hub .sa-demo-note{font-size:9px!important;color:#a0b2bb;margin:9px 0 0!important;text-align:center}
+#madar-hub .sa-sequence{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #8caaaa2b;padding:8px;gap:5px;border-radius:0 0 20px 20px;background:#101e2780}#madar-hub .sa-sequence button{position:relative;overflow:hidden;display:flex;gap:8px;align-items:center;justify-content:center;padding:11px 4px!important;background:transparent!important;border:1px solid transparent!important;border-radius:9px!important;font-size:11px!important;color:#93a8b2!important;transition:color .3s,background .3s}#madar-hub .sa-sequence button[aria-selected=true]{color:#dddfd2!important;background:#a7c5bd0d!important;border-color:#91b4b32e!important}#madar-hub .sa-sequence button svg{width:15px!important;height:15px!important}#madar-hub .sa-sequence button i{position:absolute;bottom:0;right:0;width:100%;height:2px;transform:scaleX(0);transform-origin:right;background:linear-gradient(90deg,#a3dfcd,#e2c38f)}#madar-hub .sa-sequence button[aria-selected=true] i{animation:sa-sequence 9s linear both}#madar-hub .sa-caption{display:flex;align-items:center;gap:6px;color:#9daeb6;font-size:9px;margin:36px 14px 0}#madar-hub .sa-caption>i{width:4px;height:4px}#madar-hub .sa-caption span{margin-inline-start:auto;font:8px "Segoe UI",sans-serif;letter-spacing:1.8px;color:#7b8f9e}
+#madar-hub .sa-bottom{border-top:1px solid #8ca4a72b;background:#09171e7d;padding:0 34px}#madar-hub .sa-chapter-links{display:grid;grid-template-columns:repeat(3,1fr)}#madar-hub .sa-chapter-links>a{display:flex;align-items:center;gap:15px;padding:23px 16px;transition:background .25s}#madar-hub .sa-chapter-links>a+a{border-inline-start:1px solid #8ca4a720}#madar-hub .sa-chapter-links>a:hover{background:#88bdb30a}#madar-hub .sa-chapter-links b{font:300 30px "Segoe UI",sans-serif;color:#c6b591}#madar-hub .sa-chapter-links a:nth-child(2) b{color:#a9bdd1}#madar-hub .sa-chapter-links a:nth-child(3) b{color:#b6abd3}#madar-hub .sa-chapter-links a>span{display:flex;flex-direction:column;gap:5px}#madar-hub .sa-chapter-links strong{font:500 13px "Segoe UI",sans-serif;color:#d8e1e1}#madar-hub .sa-chapter-links small{font-size:11px;color:#97abb1}#madar-hub .sa-chapter-links svg{margin-inline-start:auto;width:16px!important;color:#819c9f;transition:transform .25s}#madar-hub .sa-chapter-links>a:hover svg{transform:translate(-2px,-2px)}#madar-hub .sa-detail-strip{border-top:1px solid #8ca4a720;display:flex;align-items:center;justify-content:center;gap:32px;padding:17px 0;color:#a5b8be;font-size:11px}#madar-hub .sa-detail-strip span{display:flex;align-items:center;gap:7px}#madar-hub .sa-detail-strip svg{width:14px!important;height:14px!important;color:#8ec0b9}
+#madar-hub .sa[data-running=false] *,#madar-hub .sa[data-running=false] *:before,#madar-hub .sa[data-running=false] *:after{animation-play-state:paused!important}
+#madar-hub .sa[data-running=false] .sa-panel{animation-play-state:running!important}
+#madar-hub .sa-panel:not([hidden]) .sa-review-row{animation:sa-row-in .65s ease both}#madar-hub .sa-panel:not([hidden]) .sa-review-row:nth-child(3){animation-delay:.15s}#madar-hub .sa-panel:not([hidden]) .sa-review-row:nth-child(4){animation-delay:.3s}#madar-hub .sa-panel:not([hidden]) .sa-review-row:nth-child(5){animation-delay:.45s}#madar-hub .sa[data-running=false] .sa-review-row{animation-play-state:running!important}
+@keyframes sa-row-in{from{opacity:0;transform:translateX(-12px)}to{opacity:1;transform:translateX(0)}}
+@keyframes sa-atmosphere{to{transform:translate(100px,60px) scale(1.18)}}@keyframes sa-packet{0%{stroke-dashoffset:110;opacity:0}8%{opacity:1}48%{stroke-dashoffset:0;opacity:1}52%,100%{stroke-dashoffset:0;opacity:0}}@keyframes sa-panel-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes sa-answer{0%,12%{border-color:#85c7ab40;background:#36725c12}23%,85%{border-color:#85c7ab;box-shadow:0 0 20px #8fd5ac0a}100%{border-color:#85c7ab8a}}@keyframes sa-sequence{to{transform:scaleX(1)}}
+@media(min-width:1450px){#madar-hub .sa-layout{gap:70px;padding-inline:52px}#madar-hub .sa-copy h1{font-size:44px}}
+@media(max-width:1050px){#madar-hub .sa-layout{gap:25px;padding:30px 25px;grid-template-columns:1fr 1.1fr}#madar-hub .sa-copy h1{font-size:30px}#madar-hub .sa-copy h1>span{font-size:62px}#madar-hub .sa-lead{font-size:20px!important}#madar-hub .sa-panel{padding:20px 16px 12px}#madar-hub .sa-facts{gap:15px}#madar-hub .sa-facts>div+div{padding-inline-start:15px}#madar-hub .sa-facts strong{font-size:22px}#madar-hub .sa-bottom{padding-inline:15px}#madar-hub .sa-detail-strip{gap:20px}#madar-hub .sa-chapter-links>a{padding-inline:10px;gap:10px}#madar-hub .sa-chapter-links strong{font-size:11px}}
+@media(max-width:980px){#madar-hub .sa{border-radius:22px}#madar-hub .sa-top{padding:16px 20px;gap:10px}#madar-hub .sa-series{font-size:9px;padding-inline-start:10px;letter-spacing:1px}#madar-hub .sa-series b{display:none}#madar-hub .sa-layout{grid-template-columns:1fr;gap:20px;padding:26px 24px 28px}#madar-hub .sa-copy h1{font-size:34px}#madar-hub .sa-copy h1>span{font-size:65px}#madar-hub .sa-lead{font-size:22px!important}#madar-hub .sa-description{max-width:100%}#madar-hub .sa-facts{gap:27px}#madar-hub .sa-facts>div+div{padding-inline-start:27px}#madar-hub .sa-facts strong{font-size:26px}#madar-hub .sa-showcase{padding:8px 0 0;max-width:510px;width:100%;margin-inline:auto}#madar-hub .sa-display{transform:none!important}#madar-hub .sa-panel{padding-inline:20px}#madar-hub .sa-chapter-links{grid-template-columns:1fr}#madar-hub .sa-chapter-links>a{padding:17px 7px}#madar-hub .sa-chapter-links>a+a{border-inline-start:0;border-top:1px solid #8ca4a720}#madar-hub .sa-chapter-links strong{font-size:13px}#madar-hub .sa-chapter-links b{font-size:27px}#madar-hub .sa-detail-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;font-size:10px;padding:18px 7px}#madar-hub .sa-motion span{font-size:10px}#madar-hub .sa-saving{font-size:9px}}
+@media(max-width:400px){#madar-hub .sa-layout{padding-inline:17px}#madar-hub .sa-top{padding-inline:17px}#madar-hub .sa-copy h1{font-size:30px}#madar-hub .sa-facts{gap:18px}#madar-hub .sa-facts>div+div{padding-inline-start:18px}#madar-hub .sa-facts strong{font-size:22px}#madar-hub .sa-panel{padding-inline:13px}#madar-hub .sa-panel-heading h2{font-size:15px}#madar-hub .sa-question{font-size:14px}#madar-hub .sa-panels{height:380px}#madar-hub .sa-option{font-size:10px;padding:10px 8px}#madar-hub .sa-review-row>div{gap:6px}#madar-hub .sa-review-row small{font-size:9px}#madar-hub .sa-example-badge{font-size:8px}#madar-hub .sa-caption span{display:none}#madar-hub .sa-series{display:none}}
+@media(prefers-reduced-motion:reduce){#madar-hub .sa *,#madar-hub .sa *:before,#madar-hub .sa *:after{animation:none!important;transition:none!important}#madar-hub .sa .sa-packet{opacity:.7;stroke-dasharray:none;stroke-width:2}#madar-hub .sa .sa-display{transform:none!important}}
+/* Exam gateway: explicit Saudi appointment and a wall-clock based countdown. */
+#madar-hub .sa-exam-schedule{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:24px 38px;border-bottom:1px solid #8ca4a72b;background:linear-gradient(100deg,#a6d9d308,#d7b7860a)}
+#madar-hub .sa-exam-date>span{display:flex;align-items:center;gap:8px;color:#b9d3ce;font-size:12px;margin-bottom:8px}#madar-hub .sa-exam-date>span svg{color:#d4bd95}#madar-hub .sa-exam-date time{display:flex;flex-direction:column;gap:6px}#madar-hub .sa-exam-date strong{font-size:21px;color:#eee2cd;font-weight:700}#madar-hub .sa-exam-date small{font-size:13px;color:#aebdc1}#madar-hub .sa-exam-date small b{color:#e7dac1;font-weight:500}
+#madar-hub .sa-countdown-wrap{text-align:center}#madar-hub .sa-countdown-label{display:block;font-size:11px;color:#b0c7c5;margin-bottom:10px}#madar-hub .sa-countdown{display:flex;align-items:center;gap:10px}#madar-hub .sa-time-unit{position:relative;display:flex;flex-direction:column;align-items:center;min-width:80px;padding:9px 13px 8px;background:linear-gradient(#1b3038,#11232c);border:1px solid #8caeac40;border-radius:12px;box-shadow:0 3px 9px #0002,0 1px 0 #d2e8e908 inset}#madar-hub .sa-time-unit:after{content:'';position:absolute;top:50%;left:5px;right:5px;border-top:1px solid #afc7c507;pointer-events:none}#madar-hub .sa-time-unit strong{font:500 35px/1.2 'Segoe UI',sans-serif;font-variant-numeric:tabular-nums;letter-spacing:1px;color:#e9d6b4}#madar-hub .sa-time-unit span{font-size:10px;color:#a4bec1;margin-top:3px}#madar-hub .sa-countdown>i{font:300 25px 'Segoe UI',sans-serif;color:#7b999d;font-style:normal;padding-bottom:15px}#madar-hub .sa[data-exam-reached=true] .sa-countdown-label{color:#e0c397}
+@media(max-width:700px){#madar-hub .sa-exam-schedule{flex-direction:column;align-items:stretch;padding:22px 24px;gap:20px}#madar-hub .sa-exam-date strong{font-size:20px}#madar-hub .sa-countdown{justify-content:center}#madar-hub .sa-countdown-wrap{padding-top:16px;border-top:1px solid #8ca4a722}#madar-hub .sa-copy h1{font-size:30px}}
+@media(max-width:400px){#madar-hub .sa-exam-schedule{padding:20px 17px}#madar-hub .sa-exam-date strong{font-size:18px}#madar-hub .sa-countdown{gap:6px}#madar-hub .sa-time-unit{min-width:65px;padding-inline:8px}#madar-hub .sa-time-unit strong{font-size:30px}#madar-hub .sa-copy h1{font-size:26px}}
+#madar-hub .sa-detail-strip.sa-summary{display:flex;gap:16px;padding:23px 12px;text-align:start;max-width:100%;font-size:14px;line-height:2;color:#c1d2d3}#madar-hub .sa-summary p{margin:0!important;max-width:820px;font-size:inherit!important;line-height:inherit!important;color:inherit!important}#madar-hub .sa-summary .sa-summary-icon{display:flex;align-items:center;justify-content:center;flex:0 0 42px;height:42px;border:1px solid #9dc9c139;border-radius:13px;background:linear-gradient(140deg,#34605c40,#152b35);box-shadow:0 0 22px #8dc8bc0a}#madar-hub .sa-summary .sa-summary-icon svg{width:21px!important;height:21px!important;color:#d8c198}@media(max-width:700px){#madar-hub .sa-detail-strip.sa-summary{align-items:flex-start;font-size:12px;gap:12px;padding:23px 5px}#madar-hub .sa-summary .sa-summary-icon{flex-basis:36px;height:36px}}
+/* Translation demo: a visible, operable control with restrained-area motion. */
+#madar-hub #sa-panel-1 .sa-panel-heading{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:10px}#madar-hub #sa-panel-1 .sa-panel-heading>div{min-width:0}
+#madar-hub .sa button.sa-lang{position:relative;isolation:isolate;overflow:hidden;min-width:106px;min-height:48px;padding:7px 11px;border:1px solid #c5f4df;border-radius:13px;background:linear-gradient(115deg,#b9edda,#e9d29d 48%,#a2dedc 75%,#b9edda);background-size:250% 100%;color:#102d33;font-size:13px;gap:9px;box-shadow:0 0 0 3px #a5eadc12,0 0 24px #9eead746,0 5px 16px #0003;animation:sa-translate-glow 3.8s ease-in-out infinite;transition:transform .2s,box-shadow .2s}
+#madar-hub .sa button.sa-lang:before{content:'';position:absolute;inset:-70% -70%;z-index:-1;background:linear-gradient(110deg,transparent 40%,#fff9 49%,transparent 58%);transform:translateX(-60%);animation:sa-translate-sheen 4.8s ease-in-out infinite;pointer-events:none}
+#madar-hub .sa .sa-lang-icon{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:8px;background:#173c3820;border:1px solid #25423e20;animation:sa-translate-icon 3.8s ease-in-out infinite}#madar-hub .sa .sa-lang-icon svg{width:21px!important;height:21px!important;stroke-width:2}#madar-hub .sa .sa-lang-label{display:flex;flex-direction:column;gap:1px;align-items:center;position:relative}#madar-hub .sa .sa-lang-label b{font-size:13px;font-weight:800;line-height:1.4}#madar-hub .sa .sa-lang-label small{font:700 8px/1.4 'Segoe UI',sans-serif;letter-spacing:.6px;color:#31554e}
+#madar-hub .sa button.sa-lang:hover{transform:translateY(-2px);box-shadow:0 0 0 4px #bdeed620,0 0 32px #b6ebcc66,0 7px 18px #0003}#madar-hub .sa button.sa-lang:active{transform:translateY(0) scale(.97)}#madar-hub .sa button.sa-lang[aria-pressed=true]{border-color:#f0d59d;background-position:70% 50%}#madar-hub .sa .sa-option-text{font-weight:400;flex:1;min-width:0}#madar-hub .sa .sa-question[dir=rtl]{font-family:inherit;text-align:right;font-size:15px}#madar-hub .sa .sa-option[dir=rtl]{text-align:right;font-family:inherit}#madar-hub .sa .sa-option[dir=rtl]>svg{margin-left:0;margin-inline-start:auto}
+@keyframes sa-translate-glow{0%,100%{background-position:0% 50%;box-shadow:0 0 0 3px #a5eadc12,0 0 18px #9eead735,0 5px 16px #0003}50%{background-position:100% 50%;box-shadow:0 0 0 5px #c1ebcc20,0 0 34px #a9e9ce6b,0 5px 16px #0003}}
+@keyframes sa-translate-sheen{0%,18%{transform:translateX(-65%)}52%,100%{transform:translateX(65%)}}@keyframes sa-translate-icon{0%,65%,100%{transform:translateY(0) rotate(0)}22%{transform:translateY(-2px) rotate(-8deg)}40%{transform:translateY(1px) rotate(5deg)}}
+@media(max-width:400px){#madar-hub #sa-panel-1 .sa-panel-heading{grid-template-columns:30px minmax(0,1fr) auto;gap:7px}#madar-hub #sa-panel-1 .sa-mini-icon{width:30px;height:34px;border-radius:9px}#madar-hub #sa-panel-1 .sa-panel-heading h2{font-size:13px}#madar-hub .sa button.sa-lang{min-width:90px;padding:7px;gap:6px}#madar-hub .sa .sa-lang-icon{width:24px;height:26px;flex-basis:24px}#madar-hub .sa .sa-lang-label b{font-size:12px}#madar-hub .sa .sa-question[dir=rtl]{font-size:13px}}
+@media(prefers-reduced-motion:reduce){#madar-hub .sa button.sa-lang:hover,#madar-hub .sa button.sa-lang:active{transform:none}}
+
+
+/* Deliberate attention cue: two visible lifts, then a rest between cycles. */
+#madar-hub .sa button.sa-lang{border-color:#f7e9b8;background:linear-gradient(110deg,#8cecd5,#ffe0a1 40%,#9bf0e3 70%,#ffe7b0);background-size:280% 100%;box-shadow:0 0 0 3px #b8f5db29,0 0 32px #8eeacb72,0 7px 18px #0005;animation:sa-translate-attention 3.4s cubic-bezier(.3,.7,.3,1) infinite,sa-translate-glow-strong 3.4s ease-in-out infinite;transform-origin:center;will-change:transform}
+#madar-hub .sa button.sa-lang:before{background:linear-gradient(110deg,transparent 37%,#fff0dbdd 49%,transparent 61%);animation:sa-translate-sheen 3.4s ease-in-out infinite}
+#madar-hub .sa .sa-lang-icon{animation:sa-translate-icon-strong 3.4s ease-in-out infinite;background:#143a3430;border-color:#294b3740}#madar-hub .sa .sa-lang-icon svg{stroke-width:2.3}
+@keyframes sa-translate-attention{0%,34%,100%{transform:translateY(0) rotate(0) scale(1)}9%{transform:translateY(-6px) rotate(-3deg) scale(1.07)}17%{transform:translateY(1px) rotate(1.5deg) scale(1)}25%{transform:translateY(-4px) rotate(2deg) scale(1.045)}}
+@keyframes sa-translate-glow-strong{0%,100%{background-position:0% 50%;box-shadow:0 0 0 3px #b8f5db29,0 0 24px #8eeacb55,0 7px 18px #0005}12%,26%{background-position:100% 50%;box-shadow:0 0 0 6px #f4d4943b,0 0 40px #f1d18f99,0 8px 24px #0005}48%,76%{background-position:60% 50%;box-shadow:0 0 0 3px #b8f5db29,0 0 28px #8eeacb66,0 7px 18px #0005}}
+@keyframes sa-translate-icon-strong{0%,40%,100%{transform:rotate(0) scale(1)}10%{transform:rotate(-20deg) scale(1.2)}25%{transform:rotate(16deg) scale(1.12)}}
+@media(prefers-reduced-motion:reduce){#madar-hub .sa button.sa-lang{will-change:auto}}
+/* One shared animated gradient: face and both spill layers inherit its exact phase. */
+#madar-hub .sa button.sa-lang{overflow:visible;transform:none!important;will-change:auto;border-color:#d8f0dcaa;box-shadow:0 4px 12px #0004;animation:sa-translate-colors 4.8s ease-in-out infinite;transition:border-color .2s}
+#madar-hub .sa button.sa-lang:hover,#madar-hub .sa button.sa-lang:active{transform:none;box-shadow:0 4px 12px #0004}
+#madar-hub .sa button.sa-lang:before,#madar-hub .sa button.sa-lang:after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:inherit;transform:none;animation:none}
+#madar-hub .sa button.sa-lang:before{z-index:-2;filter:blur(7px);opacity:.9}
+#madar-hub .sa button.sa-lang:after{z-index:-3;filter:blur(19px);opacity:.8;animation:sa-translate-spill 4.8s ease-in-out infinite}
+#madar-hub .sa .sa-lang-face{position:absolute;inset:0;z-index:-1;border-radius:inherit;background:inherit;pointer-events:none}
+#madar-hub .sa .sa-lang-icon{animation:none;transform:none}
+@keyframes sa-translate-colors{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes sa-translate-spill{0%,100%{opacity:.65}50%{opacity:.95}}
+/* Soft light shafts, with independent slow sweeps rather than a rotating sunburst. */
+#madar-hub .sa button.sa-lang{--sa-light-gradient:linear-gradient(110deg,#8cecd5,#ffe0a1 40%,#9bf0e3 70%,#ffe7b0);background-image:var(--sa-light-gradient)}
+#madar-hub .sa button.sa-lang:before{filter:blur(5px);opacity:.48}#madar-hub .sa button.sa-lang:after{display:none}
+#madar-hub .sa .sa-lang-rays{position:absolute;inset:0;z-index:-3;display:block;pointer-events:none;filter:blur(2.6px);background-position:inherit}
+#madar-hub .sa .sa-lang-rays i{--sa-beam-angle:0deg;position:absolute;display:block;left:calc(100% - 8px);top:9px;width:124px;height:25px;transform-origin:0 50%;background-image:var(--sa-light-gradient);background-size:280% 100%;background-position:inherit;clip-path:polygon(0 40%,100% 0,100% 100%,0 60%);mask-image:linear-gradient(90deg,#000 0%,#000c 15%,#0005 50%,transparent 96%);opacity:.5;animation:sa-light-shaft 4.8s ease-in-out infinite alternate}
+#madar-hub .sa .sa-lang-rays i:nth-child(1){--sa-beam-angle:-25deg;top:1px;width:100px;height:20px;animation-delay:-1.3s}
+#madar-hub .sa .sa-lang-rays i:nth-child(2){--sa-beam-angle:20deg;top:23px;width:108px;height:22px;animation-delay:-4.1s;animation-duration:5.6s}
+#madar-hub .sa .sa-lang-rays i:nth-child(3){--sa-beam-angle:-158deg;left:7px;top:6px;width:54px;height:14px;animation-delay:-2.8s;animation-duration:5.2s}
+#madar-hub .sa .sa-lang-rays i:nth-child(4){--sa-beam-angle:65deg;left:65%;top:38px;width:72px;height:15px;animation-delay:-5.5s;animation-duration:6s}
+#madar-hub .sa .sa-lang-rays i:nth-child(5){--sa-beam-angle:-72deg;left:62%;top:-5px;width:70px;height:14px;animation-delay:-2s;animation-duration:5.4s}
+@keyframes sa-light-shaft{0%{transform:translateY(-3px) rotate(calc(var(--sa-beam-angle) - 7deg));opacity:.35}50%{opacity:.55}100%{transform:translateY(4px) rotate(calc(var(--sa-beam-angle) + 7deg));opacity:.42}}
+@media(prefers-reduced-motion:reduce){#madar-hub .sa .sa-lang-rays i{transform:rotate(var(--sa-beam-angle));opacity:.45}}
+#madar-hub .sa .sa-lang-rays i:nth-child(6){--sa-beam-angle:155deg;left:7px;top:32px;width:58px;height:14px;animation-delay:-3.2s;animation-duration:5.8s}

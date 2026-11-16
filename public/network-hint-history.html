@@ -1,0 +1,12 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>سجل التلميحات · مدار</title><link rel="stylesheet" href="/hint-history.css"></head><body>
+<main id="history"><div class="intro"><span class="eyebrow">ارجع للمساعدة، وافهم خطوتك</span><h1>سجل التلميحات</h1><p>نصوص المساعدات كما ظهرت لك، من دروسك وتمارينك ومختبراتك. قراءة السجل ما تضيف مساعدة جديدة.</p></div>
+<p id="status" role="status">جارٍ قراءة سجلك المحفوظ…</p><div id="error" role="alert" hidden></div>
+<div class="toolbar"><button id="refresh">تحديث السجل</button><button id="export" disabled>تنزيل السجل كاملًا</button></div>
+<section id="content" hidden><div id="stats" class="stats" aria-label="ملخص السجل"></div>
+<section class="filters" aria-label="البحث والتصفية"><label class="search">ابحث في الخطوات ونصوص المساعدة<input id="query" type="search" placeholder="اسم الخطوة، أمر، أو اسم مختبر…"></label>
+<label>المختبر<select id="lab"><option value="">كل المختبرات</option></select></label><label>نوع المساعدة<select id="degree"><option value="">جميع الدرجات</option><option value="1">الدرجة الأولى</option><option value="2">الدرجة الثانية</option><option value="3">الدرجة الثالثة</option><option value="full">كشف الخطوة كاملة</option></select></label>
+<label>الجزء<select id="scope"><option value="">كل الأجزاء</option></select></label><label>المحاولة<select id="attempt"><option value="">كل المحاولات</option></select></label><label>الترتيب<select id="sort"><option value="new">الأحدث أولًا</option><option value="old">الأقدم أولًا</option></select></label></section>
+<div class="list-tools"><p id="count" role="status"></p><div><button id="clear">مسح التصفية</button><button id="expand">فتح التفاصيل المعروضة</button><button id="collapse">طي التفاصيل</button></div></div>
+<div id="records"></div><p id="empty" hidden></p><button id="more" hidden>عرض المزيد</button>
+<aside class="note">عدد المساعدات وقوة الكشف معلومات للمراجعة، وليست حكمًا على إتقانك. يشمل السجل المختبرات المخفية وآخر مختبر محذوف القابل للاسترجاع؛ الحذف النهائي للمختبر يزيل سجله معه.</aside></section></main>
+<script src="/madar-persistence.js"></script><script src="/hint-history-model.js"></script><script src="/hint-history.js"></script></body></html>

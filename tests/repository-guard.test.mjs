@@ -1,0 +1,34 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import { expected, validateIdentity, validateRemote, validatePath, validatePush, safeFile } from '../scripts/repository-guard.mjs';
+test('accepts exact project and repository identity', () => validateIdentity({ ...expected }));
+test('rejects another project and recreated repository', () => {
+  assert.throws(() => validateIdentity({ ...expected, project: 'OTHER' }));
+  assert.throws(() => validateIdentity({ ...expected, repositoryId: 123 }));
+});
+test('rejects wrong, credential-bearing, and lookalike remotes', () => {
+  for (const v of ['https://github.com/other/madar.git', 'https://github.com.evil/madar.git',
+    'https://token@github.com/dahman0al0shahri/madar.git', expected.remote + '/']) assert.throws(() => validateRemote(v));
+});
+test('rejects traversal, metadata, private state, and credentials', () => {
+  for (const v of ['../a', '/a', 'C:/a', 'a\\b', '.git/config', 'a/../b', '.env', '.env.local', 'x/key.pem',
+    'x/data.sqlite', 'node_modules/a', '.sites-runtime/a', 'a//b']) assert.throws(() => validatePath(v), v);
+  validatePath('app/api/madar/state/route.ts');
+});
+test('allows review branch and blocks main, tags, and deletion', () => {
+  validatePush(expected.remote, 'refs/heads/task abc refs/heads/updates/example def');
+  for (const v of ['refs/heads/task abc refs/heads/main def', 'refs/tags/v1 abc refs/tags/v1 def',
+    '(delete) 000000 refs/heads/updates/example abc', '']) assert.throws(() => validatePush(expected.remote, v));
+});
+test('blocks linked directories and accepts contained files', () => {
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'madar-guard-'));
+  const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'madar-outside-'));
+  try {
+    fs.symlinkSync(outside, path.join(base, 'link'), process.platform === 'win32' ? 'junction' : 'dir');
+    assert.throws(() => safeFile(base, 'link/file.txt'));
+    assert.equal(safeFile(base, 'valid.txt'), path.join(base, 'valid.txt'));
+  } finally { fs.rmSync(base, { recursive: true, force: true }); fs.rmSync(outside, { recursive: true, force: true }); }
+});

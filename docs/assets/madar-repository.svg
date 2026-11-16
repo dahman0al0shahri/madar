@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+<title id="title">MADAR repository</title><desc id="desc">Sage and dark green cover with an orbital diagram and course, practice and progress labels.</desc>
+<rect width="1200" height="300" rx="20" fill="#e8ece2"/><path d="M0 258H1200" stroke="#b6bbae"/>
+<g fill="none" stroke="#294937" opacity=".22"><ellipse cx="960" cy="142" rx="178" ry="80" transform="rotate(-28 960 142)"/><ellipse cx="960" cy="142" rx="178" ry="80" transform="rotate(28 960 142)"/><circle cx="960" cy="142" r="105"/></g>
+<circle cx="960" cy="142" r="43" fill="#294937"/><path d="M941 142h38M960 123v38" stroke="#e8ece2" stroke-width="2"/><circle cx="797" cy="172" r="9" fill="#584322"/><circle cx="1077" cy="66" r="7" fill="#294937"/><circle cx="1038" cy="229" r="5" fill="#584322"/>
+<g font-family="Segoe UI,Arial,sans-serif" fill="#25332c"><text x="56" y="72" font-size="14" letter-spacing="3">PROJECT DOCUMENTATION</text><text x="52" y="167" font-size="78" font-weight="650" letter-spacing="4">MADAR</text><text x="57" y="217" font-size="20">Courses / Practice / Progress</text><text x="56" y="284" font-size="13">SOURCE CODE · DEVELOPMENT · CONTRIBUTIONS</text></g></svg>
