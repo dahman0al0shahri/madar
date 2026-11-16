@@ -31,3 +31,25 @@ test('local database command rejects arguments including --remote before running
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /takes no arguments/);
 });
+
+test('local database configuration rejects a dangling link before writing', t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'madar-db-config-'));
+  try {
+    fs.mkdirSync(path.join(root, 'scripts'));
+    fs.mkdirSync(path.join(root, '.sites-runtime'));
+    for (const name of ['local-database.mjs', 'local-state.mjs', 'execution-profile.mjs']) {
+      fs.copyFileSync(fileURLToPath(new URL('../scripts/' + name, import.meta.url)), path.join(root, 'scripts', name));
+    }
+    const target = path.join(root, 'must-not-be-created.json');
+    try { fs.symlinkSync(target, path.join(root, '.sites-runtime', 'local-database.json')); }
+    catch (error) { if (error.code === 'EPERM') { t.skip('Host does not permit file symlinks'); return; } throw error; }
+    const result = spawnSync(process.execPath, [path.join(root, 'scripts/local-database.mjs')], { encoding: 'utf8', env: { ...process.env, MADAR_LOCAL_STATE_PATH: '.wrangler/state' } });
+    assert.notEqual(result.status, 0);
+    assert.match(result.stderr, /regular file, not a link/);
+    assert.equal(fs.existsSync(target), false);
+  } finally {
+    assert.equal(path.dirname(fs.realpathSync(root)), fs.realpathSync(os.tmpdir()));
+    assert(path.basename(root).startsWith('madar-db-config-'));
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});

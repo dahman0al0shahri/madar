@@ -11,7 +11,12 @@ const state = localStatePath();
 const runtime = localStatePath(projectRoot, '.sites-runtime');
 fs.mkdirSync(runtime, { recursive: true });
 const config = path.join(runtime, 'local-database.json');
-if (fs.existsSync(config) && fs.lstatSync(config).isSymbolicLink()) throw new Error('Local database configuration must not be a link.');
+try {
+  const entry = fs.lstatSync(config);
+  if (entry.isSymbolicLink() || !entry.isFile()) throw new Error('Local database configuration must be a regular file, not a link.');
+} catch (error) {
+  if (error.code !== 'ENOENT') throw error;
+}
 fs.writeFileSync(config, JSON.stringify({
   name: 'madar-local-database', compatibility_date: '2026-05-15',
   d1_databases: [{ binding: 'DB', database_name: 'site-creator-d1',
