@@ -10,6 +10,7 @@ This repository contains the application source and its resources. The documenta
 
 <p align="center">
   <a href="docs/START_HERE.md">Start here</a> ·
+  <a href="docs/STORY.md">The story</a> ·
   <a href="docs/DEVELOPMENT.md">Development</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
   <a href="CONTRIBUTING.md">Contributing</a> ·
@@ -18,6 +19,10 @@ This repository contains the application source and its resources. The documenta
 </p>
 
 **Status:** private development repository. Updates use [checked review branches](docs/GITHUB_WORKFLOW.md); the owner decides when to merge and Codex can execute that decision. A verified public demo and a project-wide distribution license have not been established for this package. See the [repository report](docs/REPOSITORY_REPORT.md) and [release readiness](docs/RELEASE_READINESS.md) for evidence and remaining work.
+
+## The Story Behind MADAR
+
+Read [the project owner's story](docs/STORY.md): the current experimental stage, classmates' use, continuous learning inside and outside college, AI-assisted development, and possible future directions.
 
 ## Courses and learning workflows
 

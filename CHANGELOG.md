@@ -10,6 +10,7 @@ These entries describe work prepared for review. Upload and check evidence is re
 
 ### Added
 
+- The owner-approved English story of MADAR, linked from the repository overview and documentation index.
 - English repository guides for first-time visitors, development, architecture, course integration, security, rights, and publication readiness.
 - A repository cover, contribution templates, and an automated-check workflow.
 - A local command to verify documentation targets and run the five existing code test files.

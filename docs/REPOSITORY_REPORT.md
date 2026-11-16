@@ -32,6 +32,7 @@ The original history is retained locally: the preparation inventory found 154 co
 | Area | Files and purpose |
 | --- | --- |
 | Repository front page | `README.md` updated; `docs/assets/madar-repository.svg` added for a restrained visual introduction and navigation |
+| Project story | `docs/STORY.md` contains the owner-approved English story, including the final AI wording; linked from `README.md` and `docs/README.md`, recorded in `CHANGELOG.md`, and included in the documentation checker. This addition is documentation only and requires owner review before merge. |
 | Beginner and developer navigation | `docs/README.md`, `docs/START_HERE.md`, `docs/DEVELOPMENT.md`, `docs/ARCHITECTURE.md` |
 | Contributions and content boundaries | `CONTRIBUTING.md`, `SECURITY.md`, `docs/RIGHTS.md`, `docs/COURSE_INTEGRATION.md`, `docs/RELEASE_READINESS.md` |
 | Change records | `CHANGELOG.md`, `docs/MAINTENANCE.md`, `docs/templates/RELEASE_NOTES.md` |
