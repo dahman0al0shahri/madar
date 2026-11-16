@@ -3,7 +3,16 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { expected, validateIdentity, validateRemote, validatePath, validatePush, safeFile } from '../scripts/repository-guard.mjs';
+import { expected, validateIdentity, validateRemote, validatePath, validatePush, safeFile, canResumePrepared } from '../scripts/repository-guard.mjs';
+test('resumes interrupted upload/PR creation only at the recorded branch and SHA', () => {
+  const receipt = { status: 'prepared', branch: 'updates/example', commit: 'abc' };
+  assert(canResumePrepared(receipt, 'abc', 'updates/example', ''));
+  assert(canResumePrepared(receipt, 'abc', 'updates/example', 'abc'));
+  assert(!canResumePrepared(receipt, 'abc', 'updates/example', 'changed'));
+  assert(!canResumePrepared(receipt, 'changed', 'updates/example', ''));
+  assert(!canResumePrepared(receipt, 'abc', 'main', ''));
+  assert(!canResumePrepared({ ...receipt, status: 'pushed-awaiting-checks-and-review' }, 'abc', 'updates/example', 'abc'));
+});
 test('accepts exact project and repository identity', () => validateIdentity({ ...expected }));
 test('rejects another project and recreated repository', () => {
   assert.throws(() => validateIdentity({ ...expected, project: 'OTHER' }));

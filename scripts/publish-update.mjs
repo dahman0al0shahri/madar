@@ -4,7 +4,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { root, expected, git, assertCheckout, validateRemote, safeFile, githubClient, assertRepository } from './repository-guard.mjs';
+import { root, expected, git, assertCheckout, validateRemote, safeFile, githubClient, assertRepository, canResumePrepared } from './repository-guard.mjs';
 
 const digest = data => crypto.createHash('sha256').update(data).digest('hex');
 function check(base) {
@@ -18,6 +18,7 @@ function writeJson(file, value) {
 }
 const bindingFile = path.join(root, '.madar-local.json');
 const receiptFile = path.join(root, '.madar-publish-receipt.json');
+let lockFile, lockFd;
 try {
   assertCheckout(root);
   assert(fs.existsSync(bindingFile), 'Local binding missing; follow docs/GITHUB_WORKFLOW.md');
@@ -30,6 +31,9 @@ try {
   assert.notEqual(target, root, 'Publication checkout must be separate');
   assert.equal(fs.realpathSync(git(target, ['rev-parse', '--show-toplevel']).trim()), target, 'Wrong publication root');
   assert.equal(fs.realpathSync(git(target, ['rev-parse', '--path-format=absolute', '--git-common-dir']).trim()), fs.realpathSync(binding.publicationGitDirectory), 'Wrong publication Git history');
+  lockFile = path.join(fs.realpathSync(binding.publicationGitDirectory), 'madar-publish.lock');
+  lockFd = fs.openSync(lockFile, 'wx');
+  fs.writeFileSync(lockFd, JSON.stringify({ pid: process.pid, source: root, started: new Date().toISOString() }));
   validateRemote(git(target, ['remote', 'get-url', 'origin']).trim());
   validateRemote(git(target, ['remote', 'get-url', '--push', 'origin']).trim());
   const args = process.argv.slice(2);
@@ -74,6 +78,10 @@ try {
       branch = previous.branch;
       git(target, ['switch', branch]);
       assert.equal(git(target, ['rev-parse', 'HEAD']).trim(), git(target, ['rev-parse', 'origin/' + branch]).trim(), 'Review branch changed remotely; reconcile before publishing');
+    } else if (previous.status === 'prepared') {
+      const remoteHead = git(target, ['ls-remote', expected.remote, 'refs/heads/' + previous.branch]).trim().split(/\s+/)[0];
+      assert(canResumePrepared(previous, git(target, ['rev-parse', 'HEAD']).trim(), git(target, ['branch', '--show-current']).trim(), remoteHead), 'Interrupted publication needs manual reconciliation');
+      branch = previous.branch;
     }
   }
   if (!branch) {
@@ -106,8 +114,7 @@ try {
   git(target, ['update-index', '--chmod=+x', '.githooks/pre-push']);
   const changed = git(target, ['diff', '--cached', '--name-only']).trim();
   if (!changed && !open.some(item => item.head.ref === branch)) {
-    console.log('No source changes to publish; no PR, merge, or deployment performed.');
-    process.exit(0);
+    if (previous?.status !== 'prepared') throw Object.assign(new Error('No source changes to publish; no PR, merge, or deployment performed.'), { noChanges: true });
   }
   if (changed) git(target, ['commit', '-m', message, '-m', 'Prepared by Codex. Local source commit: ' + sourceCommit]);
   const commit = git(target, ['rev-parse', 'HEAD']).trim();
@@ -125,7 +132,12 @@ try {
   writeJson(receiptFile, receipt);
   console.log(JSON.stringify({ sourceCommit, branch, commit, pullRequest: pr.html_url, status: receipt.status }, null, 2));
 } catch (error) {
-  console.error(error.message);
-  console.error('Stopped. No automatic merge, reset, cleanup, or force push. Inspect any prepared checkout before retrying.');
-  process.exitCode = 1;
+  if (error.noChanges) console.log(error.message);
+  else {
+    console.error(error.message);
+    console.error('Stopped. No automatic merge, reset, cleanup, or force push. Inspect any prepared checkout before retrying.');
+    process.exitCode = 1;
+  }
+} finally {
+  if (lockFd !== undefined) { fs.closeSync(lockFd); fs.unlinkSync(lockFile); }
 }

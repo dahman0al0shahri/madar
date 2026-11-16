@@ -49,6 +49,10 @@ export function assertCheckout(base) {
   assert.equal(fs.realpathSync(git(base, ['rev-parse', '--show-toplevel']).trim()), fs.realpathSync(base), 'Not repository root');
   validateIdentity(JSON.parse(fs.readFileSync(path.join(base, '.madar-repository.json'), 'utf8')));
 }
+export function canResumePrepared(receipt, head, branch, remoteHead) {
+  return receipt?.status === 'prepared' && /^updates\/[a-z0-9][a-z0-9/-]*$/.test(receipt.branch)
+    && branch === receipt.branch && head === receipt.commit && (!remoteHead || remoteHead === head);
+}
 // Never print credentials. Obtain the existing Git credential only for github.com.
 export function githubClient(base) {
   const env = { ...process.env, GIT_TERMINAL_PROMPT: '0', GCM_INTERACTIVE: 'never' };
@@ -59,11 +63,18 @@ export function githubClient(base) {
   assert(token, 'No GitHub credential');
   return async function api(endpoint, method = 'GET', body) {
     assert(endpoint === '/user' || endpoint.startsWith('/repos/' + expected.repository + '/') || endpoint === '/repos/' + expected.repository, 'API destination mismatch');
-    const response = await fetch('https://api.github.com' + endpoint, {
+    let response;
+    for (let attempt = 0; attempt < (method === 'GET' ? 3 : 1); attempt++) {
+      try { response = await fetch('https://api.github.com' + endpoint, {
       method, redirect: 'error', signal: AbortSignal.timeout(30000),
       headers: { Authorization: 'Bearer ' + token, Accept: 'application/vnd.github+json',
         'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' },
-      ...(body ? { body: JSON.stringify(body) } : {}) });
+      ...(body ? { body: JSON.stringify(body) } : {}) }); break;
+      } catch {
+        if (method !== 'GET' || attempt === 2) throw new Error('GitHub network request interrupted at ' + method + ' ' + endpoint + '; inspect remote state before retrying writes');
+        await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1)));
+      }
+    }
     if (!response.ok) throw new Error('GitHub ' + method + ' failed: HTTP ' + response.status + ' at ' + endpoint);
     return response.status === 204 ? null : response.json();
   };
