@@ -51,7 +51,7 @@ To enforce server-side protection later, the owner must choose a supported plan 
 - Wrong identity, directory, remote, account, private status, dirty source, or failing check: stop and report; do not override the guard.
 - A publication file differs from both the prior snapshot and the new source: reconcile the changes; do not overwrite it automatically.
 - A source deletion: the command refuses automatic deletion; review its intent and reconcile the publication copy separately before re-running.
-- Push/API interruption: retain the local commit, receipt, and branch. Inspect `git status`, branch heads, and the remote PR before retrying. The command does not reset, clean, delete, or force-push to recover.
+- Push/API interruption: retain the local commit, receipt, and branch. Inspect `git status`, branch heads, and the remote PR before retrying. A prepared upload can resume only when the recorded branch and local/remote SHA agree; it looks for an existing PR before creating one. Network retries apply only to reads. The command does not reset, clean, delete, or force-push to recover. A local lock in the publication Git directory prevents concurrent publishers; after a terminated process, inspect the recorded PID/state before removing a stale lock.
 - A second open automated PR: reconcile the existing review branch first. Avoid parallel exports of different source trees.
 - Merge completed by the owner: the next update starts from fetched `origin/main`; source-vs-publication conflicts still require reconciliation.
 

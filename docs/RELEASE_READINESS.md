@@ -23,7 +23,7 @@ This is private repository setup under review, not a named release or a comprehe
 | New YAML files | Parsed and passed basic structural checks locally |
 | Clean dependency install and full build | Not performed in this documentation pass |
 | Hosted sign-in and account isolation | Not tested in this pass |
-| GitHub Actions execution | Not run; this draft has not been uploaded |
+| GitHub Actions execution | Passed on the setup review branch for both push and PR events; see the repository report for SHA/run evidence |
 | Preliminary secret-pattern scan | No matches for four patterns across 1,192 historical text objects |
 | Comprehensive secret, history, and content audit | Incomplete; no public-release clearance |
 | Redistribution rights for all content | Not established |

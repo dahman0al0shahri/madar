@@ -16,8 +16,10 @@ These entries describe work prepared for review. Upload and check evidence is re
 - A maintenance guide, release-notes template, and update requirements for contributors and coding agents.
 - A private GitHub repository identity, an isolated publication workflow, and local guards against the wrong repository, path, direct main pushes, tags, and branch deletion.
 - An end-of-update publisher that runs checks, verifies snapshot hashes, pushes a review branch, and creates or updates a draft pull request without merging.
-- Six guard tests, a GitHub workflow guide, and a comprehensive repository setup report.
+- Seven guard tests, a GitHub workflow guide, and a comprehensive repository setup report.
 - Explicit Codex instructions to disclose every change and execute merge decisions only after owner review and instruction.
+
+- Recovery for an upload interrupted before PR creation, with a recorded-head check and a publication lock.
 
 ### Changed
 

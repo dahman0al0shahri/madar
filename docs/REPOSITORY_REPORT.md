@@ -68,15 +68,17 @@ Credentials are handled by Git Credential Manager. The publisher uses the existi
 | GitHub creation and identity | Verified private repository, owner, numeric ID, main branch, and bootstrap SHA through UI/Git/API |
 | Git authentication | Git remote HEAD read successfully after owner completed Git Credential Manager login |
 | Existing application tests | Five existing code-test files passed locally during preparation |
-| Guard tests | Six tests passed: exact identity, wrong identity, wrong/lookalike remote, unsafe paths, forbidden push refs/deletion, linked-directory escape |
+| Guard tests | Seven tests passed: exact identity, wrong identity, wrong/lookalike remote, unsafe paths, forbidden push refs/deletion, linked-directory escape, and safe interrupted-publication recovery |
 | Documentation | Local targets checked; external URLs and anchor fragments are not covered by the checker |
 | Local README preview | Rendered and inspected at desktop and mobile widths; no horizontal overflow in preview |
 | YAML | Prepared templates/workflow parsed locally |
-| End-to-end upload and GitHub Actions | Pending first execution at the time this initial report was prepared; update this row with verified results before final handoff |
+| End-to-end upload and GitHub Actions | Verified [draft PR #1](https://github.com/dahman0al0shahri/madar/pull/1); [push run 43817169606](https://github.com/dahman0al0shahri/madar/actions/runs/43817169606) and [PR run 43817181531](https://github.com/dahman0al0shahri/madar/actions/runs/43817181531) both passed for `b6fa0ac7e856710d8b9340f14fcdfc254eca60cc`. This report update is published through the same workflow; later heads require their own check results. |
 | Full clean install/build, hosted authentication, account isolation | Not validated in this repository-maintenance task |
 | Merge, named release, application deployment | Not performed by this setup workflow |
 
 The historical preliminary secret scan checked four credential patterns across 1,192 text objects and found no matches; 1,210 binary objects and 11 large objects were excluded. The publisher separately screens the current selected text files for limited credential patterns and rejects sensitive local file types. Neither check proves absence of secrets or personal data, and neither verifies redistribution rights. Keeping the repository private does not grant a public license. Public publication remains a separate review.
+
+The actual Git pre-push hook also rejected a `git push --dry-run` targeting main. Remote main remained `9d8df83adefdf44087943a0f211f257998333fcf`, and PR #1 remained unmerged. The first push succeeded but its following network request was interrupted; the recorded branch/SHA were preserved, the recovery path was corrected and tested, and the PR was completed without force push or data loss. A publication lock prevents concurrent exporters.
 
 ## Recovery and ongoing reporting
 
