@@ -2,7 +2,7 @@
 
 Updated: **16 November 2026**. Initial preparation started at `d675b27`; clean-clone work starts from merged `main` commit `284235b`.
 
-The repository setup, story, publication line-ending fix, clean-clone checks, and browser/visual checks are merged in PRs #1–#5. PR #5 merged as `e8f1150a`; all four jobs passed in [main run 43884241447](https://github.com/dahman0al0shahri/madar/actions/runs/43884241447). The next review change adds local backup/recovery verification. Exact new commit and CI evidence belong to its pull request; none of this constitutes a release or comprehensive security audit. See [repository report](REPOSITORY_REPORT.md) and [GitHub workflow](GITHUB_WORKFLOW.md).
+Repository setup, story, publication line endings, clean-clone checks, browser/visual checks, and local backup/recovery verification are merged in PRs #1–#6. PR #6 merged as `fea18fff`; all four jobs passed in [main run 43890784965](https://github.com/dahman0al0shahri/madar/actions/runs/43890784965). The next review change adds an explicit, read-only hosted guest check and offline contract tests. Exact new commit and CI evidence belong to its pull request; none of this constitutes a release or comprehensive security audit. See [repository report](REPOSITORY_REPORT.md) and [GitHub workflow](GITHUB_WORKFLOW.md).
 
 ## Prepared in this pass
 
@@ -28,10 +28,11 @@ The repository setup, story, publication line-ending fix, clean-clone checks, an
 | Local test identity and persistence | Sign-in/sign-out, save/read, stale revisions, owner/origin checks, and forged-header stripping passed locally |
 | Generated content | Build preserves tracked content after fixing CRLF-sensitive network generation; no application appearance change |
 | Browser interactions and visual comparisons | PR #5 passed all eight cases, including six visual comparisons, before and after merge; see [browser checks](BROWSER_TESTS.md) |
-| Account export and local database recovery | Added to the existing application/browser suites; see [backup and recovery](BACKUP_RECOVERY.md) and the new PR's exact-head results |
+| Account export and local database recovery | PR #6 passed before and after merge, including eight browser cases; local synthetic recovery compared 22 tables and 20 rows. See [backup and recovery](BACKUP_RECOVERY.md) |
 | Full-project lint/type checking | Not part of these checks; no blanket application-quality claim |
-| Hosted sign-in and account isolation | Not tested in this pass |
-| GitHub Actions execution | PR #5 and its post-merge run passed all four jobs. Check the current PR's exact SHA and all four jobs before merging |
+| Hosted anonymous access | Twelve read-only checks passed on published version 115 on 16 November 2026; see [hosted verification](HOSTED_VERIFICATION.md) for scope and repeat procedure |
+| Hosted sign-in, two-account isolation and hosted recovery | Not tested: the owner confirmed that no dedicated test accounts are available. Guest rejection and local synthetic accounts do not establish these results |
+| GitHub Actions execution | PR #6 and its post-merge run passed all four jobs. Check the current PR's exact SHA and all four jobs before merging |
 | Preliminary secret-pattern scan | No matches for four patterns across 1,192 historical text objects |
 | Comprehensive secret, history, and content audit | Incomplete; no public-release clearance |
 | Redistribution rights for all content | Not established |
@@ -43,8 +44,8 @@ The initial preparation inventory contained 1,393 tracked files, approximately 3
 
 ## Next steps
 
-1. Review the backup/recovery change and all four jobs at its exact SHA. The owner authorized this next improvement's merge after review and successful checks.
-2. Test hosted sign-in, two real test accounts plus a guest, hosted backup/restore, and R2-backed media in a separately authorized test environment. Local checks do not establish these results.
+1. Review the hosted guest check and all four jobs at its exact SHA. The owner authorized this improvement's merge after review and successful checks; the absence of test accounts remains explicit.
+2. Obtain two dedicated accounts and agree on a separate hosted test environment before testing authenticated isolation, hosted backup/restore and R2 media. Do not use the owner's personal account or copy learner data. Follow [hosted acceptance prerequisites](HOSTED_VERIFICATION.md#completing-authenticated-acceptance-later).
 3. Complete privacy and educational/media rights review before public distribution, then choose a project-wide license.
 4. If server-enforced review protection is desired, resolve the existing private-plan limitation. Local guards are not server-side protection.
 5. Before a public release, verify actual GitHub rendering and any demo link/screenshots with synthetic data, and establish an appropriate private reporting route.
