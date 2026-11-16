@@ -6,5 +6,6 @@
   "ownerId": 281097261,
   "remote": "https://github.com/dahman0al0shahri/madar.git",
   "defaultBranch": "main",
-  "visibility": "private"
+  "visibility": "public",
+  "pullRequestCreationPolicy": "collaborators_only"
 }

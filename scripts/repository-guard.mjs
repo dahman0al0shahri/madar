@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 
 export const expected = Object.freeze({ project: 'MADAR', projectId: 'madar-prd-office-001-v2',
   repository: 'dahman0al0shahri/madar', repositoryId: 1459615658, ownerId: 281097261,
-  remote: 'https://github.com/dahman0al0shahri/madar.git', defaultBranch: 'main', visibility: 'private' });
+  remote: 'https://github.com/dahman0al0shahri/madar.git', defaultBranch: 'main', visibility: 'public',
+  pullRequestCreationPolicy: 'collaborators_only' });
 export const root = fs.realpathSync(fileURLToPath(new URL('../', import.meta.url)));
 export function git(cwd, args, options = {}) {
   const r = spawnSync('git', ['-C', cwd, ...args], { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024,
@@ -88,7 +89,9 @@ export async function assertRepository(api) {
   assert.equal(repo.id, expected.repositoryId, 'Remote numeric repository ID changed');
   assert.equal(repo.owner.id, expected.ownerId, 'Repository owner changed');
   assert.equal(repo.full_name, expected.repository, 'Repository name changed');
-  assert.equal(repo.private, true, 'MADAR must remain private');
+  assert.equal(repo.visibility, expected.visibility, 'Unexpected MADAR visibility');
+  assert.equal(repo.private, false, 'MADAR must remain public');
+  assert.equal(repo.pull_request_creation_policy, expected.pullRequestCreationPolicy, 'Only authorized collaborators may open pull requests');
   assert.equal(repo.default_branch, 'main', 'Unexpected default branch');
   return repo;
 }

@@ -14,12 +14,12 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/HISTORY.md">History</a> ·
   <a href="docs/DEVELOPMENT.md">Development</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
-  <a href="CONTRIBUTING.md">Contributing</a> ·
+  <a href="CONTRIBUTING.md">Maintenance policy</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·
   <a href="docs/README.md">Documentation</a>
 </p>
 
-**Status (16 November 2026):** experimental application; the GitHub repository is currently private and is being prepared for public access at the owner's request. Maintenance PRs #1–#7 are merged. The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) is already public, separately from GitHub; twelve anonymous checks passed against version 115. Real two-account isolation remains untested. See the [repository report](docs/REPOSITORY_REPORT.md) for merge/check evidence and [publication readiness](docs/RELEASE_READINESS.md) for the remaining review.
+**Status (16 November 2026):** experimental application; the GitHub repository is public for viewing and documentation of the owner's work. Maintenance PRs #1–#8 are merged. External code contributions are not accepted: creating pull requests is restricted to authorized collaborators, and no new collaborator was added. Public files can be downloaded and forked; this does not grant write access to this repository. See the [maintenance policy](CONTRIBUTING.md). The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) remains separately public at version 115; real two-account isolation is untested. See the [repository report](docs/REPOSITORY_REPORT.md) and [publication review](docs/RELEASE_READINESS.md) for evidence and limits.
 
 ## The Story Behind MADAR
 
@@ -48,7 +48,7 @@ The code includes progress, notes, review, and feedback workflows. Access depend
 | Understand the project without GitHub experience | [Start here](docs/START_HERE.md) |
 | Set up a local development environment | [Development guide](docs/DEVELOPMENT.md) |
 | Find the source of a feature | [Architecture and source map](docs/ARCHITECTURE.md) |
-| Report a problem or propose a change | [Contributing](CONTRIBUTING.md) |
+| Understand feedback and owner-controlled changes | [Maintenance policy](CONTRIBUTING.md) |
 | Add a course or practice workflow | [Course integration checklist](docs/COURSE_INTEGRATION.md) |
 | Keep application changes and GitHub updates aligned | [Maintenance workflow](docs/MAINTENANCE.md) · [Changelog](CHANGELOG.md) |
 | Review data handling and included sources | [Security](SECURITY.md) · [Bundled components and sources](docs/RIGHTS.md) |
@@ -101,7 +101,7 @@ Identify a generated file's source and generator before changing it. See [archit
 
 ## Publication and included material
 
-Public GitHub access is the planned next distribution step; it has not been enabled. The repository includes original project work, external libraries and course-source files. Their existing notices are listed in [bundled components and sources](docs/RIGHTS.md). Keep real learner data, backups and credentials out of commits.
+The repository is public at the owner's explicit request, with external pull request creation restricted. It includes project work, external libraries and course-source files; existing notices are listed in [bundled components and sources](docs/RIGHTS.md). Public visibility is not a new project-wide license. Keep real learner data, backups and credentials out of commits.
 
 Repository-facing documentation is written in English. The application's Arabic content and original course names retain their source language.
 

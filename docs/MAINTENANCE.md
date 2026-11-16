@@ -6,7 +6,7 @@ Keep the application source, documentation, and change record together. An appli
 
 ## Current publication status
 
-The owner authorized `dahman0al0shahri/madar` and end-of-update publication. It is currently private; the latest request is to reconcile its contents before making it public. That transition is pending the [publication review](RELEASE_READINESS.md), not completed by a documentation edit. Read [GitHub workflow](GITHUB_WORKFLOW.md) for the isolated snapshot bridge, local binding, identity checks, draft pull requests, owner-directed merges, and current server-protection limits. Read the [repository report](REPOSITORY_REPORT.md) for verified setup status.
+The owner authorized `dahman0al0shahri/madar` and end-of-update publication. The repository is public for viewing/documentation; downloading and forking were explicitly accepted, while external contributions are restricted. The owner remains the sole privileged account. Read [GitHub workflow](GITHUB_WORKFLOW.md) for the isolated snapshot bridge, public/collaborator-only guards and owner-directed merges, and [the publication review](RELEASE_READINESS.md) for audit limits.
 
 The original source history and publication clone are separate. Preserve both and reconcile differences explicitly; do not overwrite folders or join histories automatically. The preparation worktree belongs to the original source repository and is not an independent product.
 

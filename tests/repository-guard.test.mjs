@@ -3,7 +3,18 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { expected, validateIdentity, validateRemote, validatePath, validatePush, safeFile, canResumePrepared } from '../scripts/repository-guard.mjs';
+import { expected, validateIdentity, validateRemote, validatePath, validatePush, safeFile, canResumePrepared, assertRepository } from '../scripts/repository-guard.mjs';
+test('public visibility preserves identity, default branch and collaborator-only PR requirements', async () => {
+  const remote = { id: expected.repositoryId, owner: { id: expected.ownerId }, full_name: expected.repository,
+    default_branch: 'main', visibility: 'public', private: false, pull_request_creation_policy: 'collaborators_only' };
+  const api = async endpoint => { assert.equal(endpoint, '/repos/' + expected.repository); return remote; };
+  assert.equal(await assertRepository(api), remote);
+  for (const change of [{ id: 1 }, { owner: { id: 1 } }, { full_name: 'other/madar' },
+    { default_branch: 'other' }, { visibility: 'private', private: true }, { visibility: 'internal' },
+    { private: true }, { pull_request_creation_policy: 'all' }]) {
+    await assert.rejects(assertRepository(async () => ({ ...remote, ...change })));
+  }
+});
 test('resumes interrupted upload/PR creation only at the recorded branch and SHA', () => {
   const receipt = { status: 'prepared', branch: 'updates/example', commit: 'abc' };
   assert(canResumePrepared(receipt, 'abc', 'updates/example', ''));

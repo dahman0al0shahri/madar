@@ -8,7 +8,7 @@ Do not publish credentials, real learner data, or account-exposing reproduction 
 
 The repository exists and Issues are enabled. Use **Security → Report a vulnerability** only if that option is available. Private vulnerability reporting has not been verified as enabled; do not assume that an ordinary Issue is private. Otherwise, contact the owner through an existing private channel rather than posting sensitive details in Issues.
 
-No dedicated security email or response-time commitment has been established. Confirm a usable private reporting route as part of the planned public-access preparation; do not publish a personal address as that route without the owner's decision.
+No dedicated security email or response-time commitment has been established. Confirm a usable private reporting route for the now-public repository; do not publish a personal address as that route without the owner's decision.
 
 ## Keep out of the repository
 

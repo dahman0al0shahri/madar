@@ -6,7 +6,7 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
-Unreleased means that no named release has been created. Maintenance PRs #1–#7 are merged; the reconciliation entry below is proposed in the current review change. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
+Unreleased means that no named release has been created. Maintenance PRs #1–#8 are merged. Public visibility and collaborator-only PR creation are live; the corresponding guard and documentation changes are in the current review. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
 
 ### Added
 
@@ -42,6 +42,8 @@ Unreleased means that no named release has been created. Maintenance PRs #1–#7
 - Publication no longer mistakes LF/CRLF checkout conversion for a remote content conflict. Conflict detection uses committed Git file modes and blob IDs, while exact-byte copy and concurrency checks remain in place. Nine temporary-repository regression tests cover repeated updates, real content conflicts, binary changes, modes, deletions, dirty checkouts, and invalid baselines.
 
 ### Changed
+
+- Public repository visibility at the owner's explicit instruction, with downloading/forking accepted and pull request creation restricted to authorized collaborators. Updated the marker, live guard and regression tests while preserving numeric identity, destination, branch and path checks. Updated public-viewing and owner-maintenance documentation; no collaborator, new license, UI change or application deployment.
 
 - Reconciled current documentation with merged PRs #1–#7, verified hosted guest access and the owner's planned public GitHub access. Replaced the cumulative setup report with current status and a dated merge ledger; marked older design notes as historical. Simplified repeated publication language while preserving actual bundled third-party notices and documenting concrete public-review findings.
 
