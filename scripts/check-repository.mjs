@@ -9,13 +9,14 @@ for (const args of [['scripts/repository-guard.mjs'], ['--test', 'tests/reposito
   const result = spawnSync(process.execPath, args, { cwd: root, stdio: 'inherit', timeout: 60000 });
   if (result.status !== 0) process.exit(1);
 }
-// Deliberately scoped to the documentation prepared for the repository launch.
+// Deliberately scoped to the maintained repository documentation.
 const documents = [
   'README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'docs/README.md',
   'docs/START_HERE.md', 'docs/DEVELOPMENT.md', 'docs/ARCHITECTURE.md',
   'docs/RIGHTS.md', 'docs/RELEASE_READINESS.md', 'docs/COURSE_INTEGRATION.md',
   'CHANGELOG.md', 'AGENTS.md', 'docs/MAINTENANCE.md', 'docs/templates/RELEASE_NOTES.md',
   'docs/GITHUB_WORKFLOW.md', 'docs/REPOSITORY_REPORT.md',
+  'docs/STORY.md',
 ];
 let links = 0;
 const failures = [];
