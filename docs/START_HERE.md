@@ -26,7 +26,7 @@ A **repository** holds source files, documentation, and a history of changes. Th
 
 ## Report a problem
 
-Issues are enabled. If you have repository access, choose **Issues → New issue** and use the relevant template. Explain what you did, what you expected, and what happened. The repository remains private while the requested public-access preparation is reviewed.
+The repository is public to document the project. Issues remain enabled for non-sensitive feedback: choose **Issues → New issue** and describe the problem. External code contributions are not accepted; pull request creation is restricted to authorized collaborators. Viewing, downloading or forking does not grant write access. See the [maintenance policy](../CONTRIBUTING.md).
 
 For learning-content corrections, include the course, lesson or question, and a source supporting the correction. Do not attach account information, real progress backups, or screenshots containing personal data. Follow [SECURITY](../SECURITY.md) for sensitive reports.
 

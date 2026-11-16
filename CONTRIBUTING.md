@@ -1,6 +1,10 @@
-# Contributing to MADAR
+# Maintenance and contribution policy
 
-Focus changes on a specific learning, usability, or maintenance problem. Start with [development](docs/DEVELOPMENT.md) and the [source map](docs/ARCHITECTURE.md).
+MADAR is public to document the project and the owner's work. It is not currently accepting external code contributions. GitHub pull request creation is restricted to authorized collaborators; the owner is the only account with repository access rights beyond public reading. Public visibility allows viewing, downloading and forking the files, but does not grant write access to this repository.
+
+Issues remain available for non-sensitive feedback. An issue, comment or fork does not make its author an authorized maintainer. No collaborator invitation, new license or promise to accept external work is made by this policy.
+
+The workflow below is for owner-authorized maintenance. Focus changes on a specific learning, usability, or maintenance problem. Start with [development](docs/DEVELOPMENT.md) and the [source map](docs/ARCHITECTURE.md).
 
 ## Before changing code
 

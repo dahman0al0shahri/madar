@@ -11,11 +11,11 @@ Choose the guide that matches your task. You do not need to read every document 
 | [Backup and recovery](BACKUP_RECOVERY.md) | Account export, isolated database recovery checks, and hosted recovery limits |
 | [Hosted verification](HOSTED_VERIFICATION.md) | Anonymous live checks, offline CI coverage, and prerequisites for real account tests |
 | [Architecture](ARCHITECTURE.md) | Source locations, generation, data flow, and hosting boundaries |
-| [Contributing](../CONTRIBUTING.md) | Prepare a focused change for review |
+| [Maintenance policy](../CONTRIBUTING.md) | Public viewing, feedback, and owner-authorized changes |
 | [Course integration](COURSE_INTEGRATION.md) | Acceptance requirements for courses and practice workflows |
 | [Security](../SECURITY.md) | Handle sensitive information and report security concerns |
 | [Bundled components and sources](RIGHTS.md) | Existing dependency notices and identified course-source material |
-| [Release readiness](RELEASE_READINESS.md) | Completed checks and outstanding publication work |
+| [Publication review](RELEASE_READINESS.md) | Public-access decision, completed checks and audit limits |
 | [Changelog](../CHANGELOG.md) | Notable additions, changes, and fixes |
 | [Maintenance](MAINTENANCE.md) | Keep source, documentation, GitHub, and release status aligned |
 | [GitHub workflow](GITHUB_WORKFLOW.md) | Automatic update upload, identity guards, and owner-directed review/merge |
