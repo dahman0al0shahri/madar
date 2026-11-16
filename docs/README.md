@@ -7,6 +7,7 @@ Choose the guide that matches your task. You do not need to read every document 
 | [Start here](START_HERE.md) | Explore the repository without prior GitHub experience |
 | [The Story Behind MADAR](STORY.md) | The owner's learning journey, current experiment, and tentative future direction |
 | [Development](DEVELOPMENT.md) | Requirements, commands, checks, and setup limitations |
+| [Backup and recovery](BACKUP_RECOVERY.md) | Account export, isolated database recovery checks, and hosted recovery limits |
 | [Architecture](ARCHITECTURE.md) | Source locations, generation, data flow, and hosting boundaries |
 | [Contributing](../CONTRIBUTING.md) | Prepare a focused change for review |
 | [Course integration](COURSE_INTEGRATION.md) | Acceptance requirements for courses and practice workflows |

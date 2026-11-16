@@ -18,6 +18,7 @@ On Linux CI, install Chromium system libraries with `install --with-deps chromiu
 
 - Desktop (1440 x 1000) and mobile viewport (390 x 844) in pinned Chromium.
 - Local synthetic sign-in, Word lesson navigation, note entry/save, reload, navigation to Excel and back, and recovery in a second browser context without the first context's cache.
+- Actual account JSON download on desktop/mobile, checking filename, parseability, owner, the saved note, course sections and draft array. Database recovery is covered separately in [backup and recovery](BACKUP_RECOVERY.md).
 - Guest Word, Excel, and Access section screenshots at both sizes, using the existing application content. The browser blocks non-local network requests; this is not a media playback test.
 - Linux-only screenshot comparison: Ubuntu 24.04, Playwright 1.65.1 and its Chromium revision, Arabic locale, Riyadh time zone, dark color preference, reduced motion, and a fixed browser date. CSS animation is disabled during capture; ordinary interactions use real timers.
 

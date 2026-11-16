@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 process.chdir(root);
-for (const args of [['scripts/repository-guard.mjs'], ['--test', '--test-concurrency=1', 'tests/repository-guard.test.mjs', 'tests/publication-baseline.test.mjs', 'tests/local-state.test.mjs']]) {
+for (const args of [['scripts/repository-guard.mjs'], ['--test', '--test-concurrency=1', 'tests/repository-guard.test.mjs', 'tests/publication-baseline.test.mjs', 'tests/local-state.test.mjs', 'tests/database-snapshot.test.mjs']]) {
   // Git fixture tests create several independent repositories. Slow local disks
   // can exceed one minute without a test failure; retain a bounded full run.
   const result = spawnSync(process.execPath, args, { cwd: root, stdio: 'inherit', timeout: args[0] === '--test' ? 180000 : 60000 });
@@ -18,7 +18,7 @@ const documents = [
   'docs/RIGHTS.md', 'docs/RELEASE_READINESS.md', 'docs/COURSE_INTEGRATION.md',
   'CHANGELOG.md', 'AGENTS.md', 'docs/MAINTENANCE.md', 'docs/templates/RELEASE_NOTES.md',
   'docs/GITHUB_WORKFLOW.md', 'docs/REPOSITORY_REPORT.md',
-  'docs/STORY.md', 'docs/BROWSER_TESTS.md',
+  'docs/STORY.md', 'docs/BROWSER_TESTS.md', 'docs/BACKUP_RECOVERY.md',
 ];
 let links = 0;
 const failures = [];

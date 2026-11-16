@@ -8,6 +8,7 @@ import { spawn, spawnSync } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
 import { projectRoot, localStatePath } from './local-state.mjs';
 import { readExecutionProfile } from './execution-profile.mjs';
+import { databaseSnapshot } from '../tests/helpers/database-snapshot.mjs';
 
 // Only local processes started by this check are stopped. No existing server,
 // learner database, hosted account, or deployment is used.
@@ -16,7 +17,9 @@ if (readExecutionProfile() !== 'portable') throw new Error('Application checks r
 const runtime = localStatePath(projectRoot, '.sites-runtime');
 fs.mkdirSync(runtime, { recursive: true });
 const runRoot = fs.mkdtempSync(path.join(runtime, 'application-check-'));
-const statePath = path.join(runRoot, 'state');
+// Wrangler's pinned local export resolves .wrangler/state relative to its
+// config; unlike execute/migrations, export has no --persist-to option.
+const statePath = path.join(runRoot, '.wrangler', 'state');
 const env = { ...process.env, CI: 'true', MADAR_LOCAL_STATE_PATH: statePath };
 const preload = ['--import', pathToFileURL(path.join(projectRoot, 'scripts/sites-env.mjs')).href];
 const checks = [];
@@ -44,10 +47,10 @@ function stop(child) {
     try { process.kill(-child.pid, 'SIGTERM'); } catch (error) { if (error.code !== 'ESRCH') throw error; }
   }
 }
-function launch(args, label) {
+function launch(args, label, storage = statePath) {
   const log = path.join(runRoot, `${++sequence}-${label}.log`);
   const descriptor = fs.openSync(log, 'w');
-  const child = spawn(process.execPath, [...preload, ...args], { cwd: projectRoot, env,
+  const child = spawn(process.execPath, [...preload, ...args], { cwd: projectRoot, env: { ...env, MADAR_LOCAL_STATE_PATH: storage },
     windowsHide: true, detached: process.platform !== 'win32', stdio: ['ignore', descriptor, descriptor] });
   fs.closeSync(descriptor);
   child.on('error', error => { child.launchError = error; });
@@ -73,14 +76,14 @@ async function unusedPort() {
   await new Promise(resolve => server.close(resolve));
   return port;
 }
-async function withServer(mode, action) {
+async function withServer(mode, action, storage = statePath) {
   const port = await unusedPort();
   const origin = `http://127.0.0.1:${port}`;
   const args = mode === 'dev'
     ? ['scripts/run-framework.mjs', 'dev', '--hostname', '127.0.0.1', '--port', String(port)]
     : ['node_modules/wrangler/bin/wrangler.js', 'dev', '--config', 'dist/server/wrangler.json',
-      '--local', '--persist-to', statePath, '--ip', '127.0.0.1', '--port', String(port), '--inspector-port', '0'];
-  const { child, log } = launch(args, mode);
+      '--local', '--persist-to', storage, '--ip', '127.0.0.1', '--port', String(port), '--inspector-port', '0'];
+  const { child, log } = launch(args, mode, storage);
   const request = (route, options = {}) => fetch(origin + route, { redirect: 'manual', ...options, signal: AbortSignal.timeout(25_000) });
   try {
     const end = Date.now() + 180_000;
@@ -96,7 +99,12 @@ async function withServer(mode, action) {
   } catch (error) {
     console.error(mode + ' server log:\n' + tail(log));
     throw error;
-  } finally { stop(child); }
+  } finally {
+    stop(child);
+    const end = Date.now() + 15_000;
+    while (child.exitCode === null && child.signalCode === null && !child.launchError && Date.now() < end) await delay(100);
+    assert(child.exitCode !== null || child.signalCode !== null || child.launchError, 'Owned server did not stop.');
+  }
 }
 async function publicChecks(request, mode) {
   for (const route of ['/', '/applications', '/network-lab']) {
@@ -116,6 +124,13 @@ async function publicChecks(request, mode) {
 }
 let snapshot;
 let userId;
+let exported;
+const wordState = { version: 2, bookmarks: ['v01'], mistakes: [], history: [], active: null };
+const noteText = 'Synthetic recovery note — ملاحظة تجريبية، ليست نشاط طالب.\nSecond line: "quoted", \'single\', <text>.';
+const withoutExportTime = ({ exportedAt, ...data }) => {
+  assert(Number.isFinite(Date.parse(exportedAt)), 'Backup must have an export timestamp.');
+  return data;
+};
 async function signedIn(request) {
   const response = await request('/signin-with-chatgpt?return_to=%2F');
   assert.equal(response.status, 302);
@@ -160,6 +175,23 @@ try {
       body: JSON.stringify({ revision: 0, requestId: randomUUID(), snapshot }) })).status, 409);
     assert.equal((await request(route.replace(encodeURIComponent(id), 'another-test-user'), { headers })).status, 409);
     assert.equal((await request(route, { method: 'PUT', headers: { ...headers, origin: 'https://example.test' }, body })).status, 403);
+    assert.equal((await request('/api/study-backup')).status, 401);
+    assert.equal((await request('/api/notes?lesson=v01&owner=' + id, { method: 'PUT', headers,
+      body: JSON.stringify({ text: noteText, revision: 0 }) })).status, 200);
+    assert.equal((await request('/api/progress', { method: 'PUT', headers,
+      body: JSON.stringify({ state: wordState, revision: 0 }) })).status, 200);
+    const backupResponse = await request('/api/study-backup', { headers: { cookie } });
+    assert.equal(backupResponse.status, 200);
+    assert.match(backupResponse.headers.get('cache-control'), /private.*no-store/);
+    exported = withoutExportTime(await backupResponse.json());
+    assert.equal(exported.schema, 1);
+    assert.equal(exported.owner, id);
+    assert.deepEqual(Object.keys(exported.courses).sort(), ['Access', 'Excel', 'Word']);
+    assert.deepEqual(exported.courses.Word, { revision: 1, state: wordState });
+    assert.equal(exported.notes.find(row => row.lesson === 'v01')?.note, noteText);
+    assert.deepEqual(exported.madar.find(row => row.kind === 'profile')?.snapshot, snapshot);
+    assert(Array.isArray(exported.worksheets));
+    pass('signed-in JSON backup contains the saved profile and Unicode note; guests are rejected');
     const logout = await request('/signout-with-chatgpt');
     assert.equal(logout.status, 302);
     assert.match(logout.headers.get('set-cookie'), /Max-Age=0/);
@@ -176,6 +208,34 @@ try {
     pass('server restart and repeated migration preserve the synthetic record');
   });
   await withServer('built', request => publicChecks(request, 'built'));
+  // All original servers are stopped. Export only this run's synthetic DB and
+  // import into a brand-new path, without preapplying schema or replacing data.
+  const original = databaseSnapshot(statePath);
+  const restorePath = path.join(runRoot, 'restored-state');
+  assert(!fs.existsSync(restorePath), 'Recovery target must be new.');
+  const sql = path.join(runRoot, 'synthetic-backup.sql');
+  const databaseConfig = path.join(runRoot, 'recovery-database.json');
+  fs.copyFileSync(path.join(runtime, 'local-database.json'), databaseConfig);
+  const wrangler = 'node_modules/wrangler/bin/wrangler.js';
+  await run([wrangler, 'd1', 'export', 'DB', '--local', '--config', databaseConfig,
+    '--output', sql], 'export-synthetic-db');
+  assert(fs.statSync(sql).size > 0, 'SQL export must not be empty.');
+  await run([wrangler, 'd1', 'execute', 'DB', '--local', '--config', databaseConfig,
+    '--persist-to', restorePath, '--file', sql], 'restore-synthetic-db');
+  const restored = databaseSnapshot(restorePath);
+  assert.deepEqual(restored, original, 'Restored schema or records differ from the original database.');
+  assert.deepEqual(databaseSnapshot(statePath), original, 'Export/restore changed the original database.');
+  pass('SQL recovery preserves ' + Object.keys(original.rows).length + ' tables and ' +
+    Object.values(original.rows).reduce((total, rows) => total + rows.length, 0) + ' rows, schema and integrity');
+  await withServer('dev', async request => {
+    const { cookie, id } = await signedIn(request);
+    assert.equal(id, userId);
+    const response = await request('/api/study-backup', { headers: { cookie } });
+    assert.equal(response.status, 200);
+    assert.deepEqual(withoutExportTime(await response.json()), exported);
+    pass('restored application serves an identical user backup, excluding only export time');
+  }, restorePath);
+  assert.deepEqual(databaseSnapshot(statePath), original, 'Restored server touched the original database.');
   fs.writeFileSync(path.join(runRoot, 'result.json'), JSON.stringify({ status: 'passed', node: process.version, platform: process.platform, checks }, null, 2));
   console.log('Evidence (local synthetic data only): ' + path.relative(projectRoot, runRoot));
 } catch (error) {

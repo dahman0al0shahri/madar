@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import fs from 'node:fs/promises';
 
 async function localRequestsOnly(context, baseURL) {
   // All requests stay on the disposable local server. No production analytics or learner services.
@@ -39,6 +40,21 @@ test('course navigation and saved lesson note survive a fresh browser session', 
     await next.goto('/signin-with-chatgpt?return_to=%2Fapplications%23learn%2Fv01');
     await expect(next.locator('#lesson-note-text')).toHaveValue(text);
   } finally { await fresh.close(); }
+  await page.goto('/account');
+  const downloaded = page.waitForEvent('download');
+  await page.locator('[data-action="backup"]').click();
+  const download = await downloaded;
+  expect(download.suggestedFilename()).toBe('madar-all-my-progress.json');
+  expect(await download.failure()).toBeNull();
+  const backup = JSON.parse(await fs.readFile(await download.path(), 'utf8'));
+  expect(backup.schema).toBe(1);
+  expect(backup.owner).toBe('local_seedy');
+  expect(backup.notes.find(row => row.lesson === 'v01')?.note).toBe(text);
+  expect(Object.keys(backup.courses).sort()).toEqual(['Access', 'Excel', 'Word']);
+  expect(Array.isArray(backup.madar)).toBe(true);
+  expect(Array.isArray(backup.worksheets)).toBe(true);
+  expect(Array.isArray(backup.localDrafts)).toBe(true);
+  expect(errors).toEqual([]);
 });
 
 for (const section of ['word', 'excel', 'access']) {

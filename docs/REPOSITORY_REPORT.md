@@ -131,3 +131,17 @@ The fourth CI job uses Ubuntu 24.04, Node 22, pinned Chromium, read-only reposit
 The existing safeguard test files run sequentially, and their subprocess now has a three-minute timeout (identity checks remain one minute). A local run exceeded the old one-minute wrapper under installation load; the independent Git fixture tests passed after that load. No test is bypassed.
 
 Initial full-page references were individually reviewed and their hashes/provenance retained. A strict-zero color comparison exposed one-channel-level rounding at card corners (4/15/22 pixels in three images). The documented 0.01 perceptual threshold retains a zero differing-pixel allowance after color classification. Original references remain unchanged; offline comparator controls rejected a 400-pixel injected patch in each affected pair. Final CI and merge evidence belong to PR #5.
+
+## Backup and recovery review update — 16 November 2026
+
+PR #5 merged as `e8f1150a581a48fd18a673649a6592b12fd2f870`; all four checks passed in [main run 43884241447](https://github.com/dahman0al0shahri/madar/actions/runs/43884241447), including eight browser cases. This next update is on source branch `test/backup-recovery-checks`. The owner explicitly authorized implementation, verification and merge after review. Exact source/publication commits, review and CI results are recorded in the new PR rather than predicted here.
+
+Changes prepared by Codex:
+
+- Extend `scripts/check-application.mjs` to save synthetic profile/bookmark/Unicode-note records, verify the account JSON export, export the disposable local D1 database, and restore it into a new separate directory. Compare database schema, all application rows and integrity with a read-only Node SQLite helper in `tests/helpers/database-snapshot.mjs`, then compare the restored application's export. Confirm the original synthetic database remains unchanged. Wait for owned servers to exit before inspection.
+- Extend `tests/browser/application.spec.mjs` to use the real account download button and validate the downloaded JSON on desktop/mobile. Retain every existing visual reference and threshold.
+- Add `tests/database-snapshot.test.mjs` to the repository checker: verify that row ordering is harmless while changed/lost records and altered schema are detected, including large integers, binary values and Unicode.
+- Integrate the new assertions into the existing Windows/Linux application and Linux browser jobs; update the application step's label without adding credentials, permissions or a fifth job.
+- Add `docs/BACKUP_RECOVERY.md`, link it from development/browser/index guides, include it in documentation checks, and update the changelog and readiness status. Account JSON and operator SQL backups have different recovery boundaries; no new import UI or runtime endpoint is introduced.
+
+No application source, style, generated interface, media, course content, SQL migration, dependency, lockfile, repository visibility, protection setting, real learner data, release or deployment is changed. The local rehearsal is not evidence of hosted account isolation, R2 recovery or complete coverage of every populated course record. Windows browser execution remains unavailable under the existing Smart App Control policy; Linux CI verifies the download and appearance checks. See [backup and recovery](BACKUP_RECOVERY.md) for the recovery boundary and evidence locations.
