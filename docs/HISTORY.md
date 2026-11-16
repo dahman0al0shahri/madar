@@ -40,6 +40,8 @@ Dates below use the Saudi local calendar date unless explicitly stated otherwise
 
 ## Current stage and possible next steps
 
+Creating the GitHub repository also serves a personal purpose explicitly stated by the owner: documenting the work and the project with the ambition of drawing on that record at important turning points in life. It preserves development and decisions as work that can be presented, explained and built upon. This is the owner's aspiration for the record, not a claim that a job, award or other opportunity has already resulted from it.
+
 MADAR remains experimental. The owner sets its direction and reviews decisions, with **AI** assisting in development, documentation and verification. The owner is tentatively considering a broader social and collaborative educational project beyond the college, with a possible networking focus and other fields later. This is a future possibility, not an announced team, completed expansion or fixed launch commitment.
 
 No earlier project name has been confirmed. The exact dates of the earliest prototypes, first classmate use and first public availability remain unspecified. Future evidence can refine this history without replacing the owner-confirmed beginning with the date of the oldest surviving file.

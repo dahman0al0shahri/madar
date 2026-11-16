@@ -25,6 +25,8 @@ This repository contains the application source and its resources. The documenta
 
 Read [the project owner's story](docs/STORY.md): the current experimental stage, classmates' use, continuous learning inside and outside college, AI-assisted development, and possible future directions.
 
+The repository also documents the owner's work and MADAR's development, with the ambition that this record will support future opportunities and important turning points in the owner's life.
+
 MADAR began on **18 Rabi al-Awwal 1448 AH (31 August 2026, Umm al-Qura)**, as confirmed by its owner. Read [MADAR's history](docs/HISTORY.md) for its development from early Word revision work to multiple courses and the current repository workflow, with the evidence and limits for each milestone.
 
 ## Courses and learning workflows

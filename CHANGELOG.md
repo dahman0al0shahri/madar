@@ -11,6 +11,7 @@ Unreleased means that no named release has been created. Maintenance PRs #1–#7
 ### Added
 
 - An evidence-attributed history of MADAR from the owner-confirmed beginning on 18 Rabi al-Awwal 1448 AH (31 August 2026, Umm al-Qura), through preserved application and deployment milestones. Linked the history from the overview, story and documentation index and included it in the automated documentation-target check.
+- The owner's stated purpose for the repository, placed in the project story with overview/history references: documenting the work and MADAR's development with the ambition of drawing on that record at important turning points in life and for future opportunities.
 
 - An explicitly invoked, credential-free hosted guest check and offline CI contract tests. Documented real sign-in/two-account isolation as unverified because dedicated test accounts are unavailable; no application or hosting changes.
 - An isolated SQL backup/recovery rehearsal in the Windows/Linux application checks, with complete application-table comparison and recovered API verification. Browser checks now inspect the actual account JSON download on desktop and mobile; no application UI or restore feature is changed.
