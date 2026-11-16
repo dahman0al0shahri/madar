@@ -10,6 +10,8 @@ These entries describe work prepared for review. Upload and check evidence is re
 
 ### Added
 
+- A portable local database initialization command and an isolated application check covering build, development/built startup, guest/local sign-in, persistence, and request guards. GitHub runs clean dependency installation and application checks on Windows and Linux.
+
 - The owner-approved English story of MADAR, linked from the repository overview and documentation index.
 - English repository guides for first-time visitors, development, architecture, course integration, security, rights, and publication readiness.
 - A repository cover, contribution templates, and an automated-check workflow.
@@ -23,6 +25,8 @@ These entries describe work prepared for review. Upload and check evidence is re
 - Recovery for an upload interrupted before PR creation, with a recorded-head check and a publication lock.
 
 ### Fixed
+
+- Network review integration and embedded hint-history generation now handle Windows CRLF inputs consistently with LF. A build-content check detects regenerated files that differ from the reviewed source snapshot.
 
 - Publication no longer mistakes LF/CRLF checkout conversion for a remote content conflict. Conflict detection uses committed Git file modes and blob IDs, while exact-byte copy and concurrency checks remain in place. Nine temporary-repository regression tests cover repeated updates, real content conflicts, binary changes, modes, deletions, dirty checkouts, and invalid baselines.
 

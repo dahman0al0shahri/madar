@@ -94,7 +94,30 @@ Final review on 16 November 2026 confirmed that all 1,419 Git-tracked file conte
 
 - The owner authorized final review and merge of setup PR #1 on 16 November 2026; the linked PR records the verified merge result and commit.
 - Optional supported GitHub plan/policy if server-enforced private branch protection is desired; not required for the current owner-directed workflow.
-- Clean-clone build/database setup and hosted authentication testing before claiming full portable deployment readiness.
+- Clean-clone build/database setup is covered by the review update below; hosted authentication and deployment readiness remain separate work.
 - Rights, sensitive-content, and licensing review before any public release.
 
 References used for implementation: [Git hooks](https://git-scm.com/docs/githooks), [GitHub repository identity API](https://docs.github.com/en/rest/repos/repos#get-a-repository), [Actions security](https://docs.github.com/en/actions/reference/security/secure-use), and [protected branch availability](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
+
+## Clean-clone verification update — 16 November 2026
+
+The owner authorized an independent clean-clone trial, fixes, automated checks, documentation, and a separate PR. **No merge is authorized for this update.** Source branch: `fix/clean-clone-verification`. The PR records final source/publication SHAs and CI run links, avoiding self-referential commit IDs in this document.
+
+### Changes prepared by Codex
+
+- `scripts/local-database.mjs`: apply the 14 existing Drizzle SQL files through Wrangler migrations against a placeholder local D1 binding. No CLI arguments, remote flag, hosted migration, new schema, or dependency was added.
+- `scripts/local-state.mjs` and `vite.config.ts`: validate checkout-contained portable storage paths; reject files/links/path escape. Ordinary development keeps `.wrangler/state`; tests use a separate temporary directory.
+- `scripts/check-application.mjs`: build, verify tracked-content stability, initialize isolated SQL storage, run development and built-server HTTP tests, restart, and verify synthetic persistence. Logs/results remain ignored under `.sites-runtime`. Only processes launched by the check are stopped.
+- `tests/local-state.test.mjs` and `scripts/check-repository.mjs`: exercise the path restrictions alongside existing repository/publication safeguards.
+- `modules/network-tabs-preview/build.cjs` and `scripts/build-madar.cjs`: normalize CRLF in two text inputs before exact matching/string embedding. A Windows clone previously lost the review-card integration and generated escaped CRLF in hint markup. Corrected output matches the already committed content; no generated UI files, course content, or Advanced Computer Applications appearance changes are included.
+- `package.json`: add `db:local` and `check:application`. Existing dependency versions and the lockfile remain unchanged.
+- `.github/workflows/repository-checks.yml`: retain the existing lightweight job and add clean installation/build/local integration jobs on Node 22 for Windows and Linux, on pushes and PRs. Read-only permissions and pinned actions remain; no cloud/deployment secrets or automatic merge were added.
+- Update README, development/architecture/readiness guides, workflow/maintenance guidance, this report, and changelog to describe the verified scope.
+
+### Local evidence and limits
+
+An independent clone of publication `main` at `284235b` was created under the parent workspace's `work/madar-clean-20261116`; it received no local database, dependencies, execution profile, or credentials. Locked installation succeeded with **686 installed packages**, followed by a complete build on Windows with Node **24.22.1** and npm **11.6.2**. The command environment lacked npm, so a registry npm archive was downloaded and its SHA-1 checksum checked in the parent workspace's isolated tools directory; no system installation or global configuration change was made.
+
+The final local application check passed all seven groups: build, unchanged tracked content, initial migrations, development guest pages/catalog, local test identity and request/persistence guards, restart/repeated migrations preserving data, and built-server guest pages/catalog. The repository safeguard and five existing application test files also passed. The review PR must record the Windows/Linux CI result for its exact uploaded commit before review is considered complete.
+
+This does not establish browser interaction/visual coverage, full-project lint/type-check coverage, hosted two-account isolation, backup restoration, hosted media delivery, public licensing, or deployment readiness. Existing trusted-gateway authentication requirements remain. No production service, real learner record, project-wide license, repository visibility, release, or deployment was changed. Isolated local evidence and tooling are outside the publication snapshot.

@@ -10,6 +10,8 @@ The private repository is [dahman0al0shahri/madar](https://github.com/dahman0al0
 4. It verifies the remote SHA and creates or updates a **draft pull request** against `main`. GitHub Actions runs on the push and PR. Codex checks the results for that SHA and reports them to the owner.
 5. The owner reviews the result and gives the decision. Codex executes an explicit merge instruction after verifying the current PR SHA and checks; the owner is not required to click Merge manually. Merging, releasing, and deploying are separate actions; the automated publisher performs none of them. Codex retains access needed for authorized execution.
 
+GitHub checks include the dependency-free `local-checks` job and `Application (ubuntu-latest)` / `Application (windows-latest)`. Each application job installs locked dependencies, builds, initializes isolated local SQL storage, and checks local development/built-server HTTP behavior. No cloud credentials, real learner data, or deployment are used. Check **all three jobs** for the exact uploaded SHA; the publisher's local pre-push checks alone do not cover the full application.
+
 ```sh
 node scripts/publish-update.mjs --message "Describe the completed update" --body-file path/to/review-description.md
 ```
@@ -52,7 +54,7 @@ Git Credential Manager stores the user's Git login. The command obtains the exis
 
 The current account plan does **not** enforce protected branches for this private repository. This was confirmed in GitHub Settings on 16 November 2026. The publisher never merges, and the local pre-push guard prevents normal accidental pushes to `main`; these are not server-side access controls. A write-capable person can bypass a local hook or merge through the website.
 
-To enforce server-side protection later, the owner must choose a supported plan or another suitable repository policy. Do not make this repository public to gain the feature: resource rights and public release have not been cleared. With enforced protection available, require PRs, the `local-checks` status, conversation resolution, no force push/deletion, and the appropriate human review. A PR author cannot provide their own approving review, so a one-person project must explicitly decide who the independent reviewer is before requiring one approval.
+To enforce server-side protection later, the owner must choose a supported plan or another suitable repository policy. Do not make this repository public to gain the feature: resource rights and public release have not been cleared. With enforced protection available, require PRs, all three check jobs above, conversation resolution, no force push/deletion, and the appropriate human review. A PR author cannot provide their own approving review, so a one-person project must explicitly decide who the independent reviewer is before requiring one approval.
 
 ## When something stops
 

@@ -54,18 +54,21 @@ Use **Node.js 22.13.0 or later** and npm. From the repository root:
 
 ```sh
 npm run install:ci
+npm run db:local
 npm run dev
 ```
 
-The default portable development profile uses port **5173**. Open the URL printed by the server. A clean dependency installation, full build, and end-to-end setup have **not** been validated in this documentation pass; read the [setup limitations](docs/DEVELOPMENT.md) first.
+The default portable development profile uses port **5173**. Open the URL printed by the server. `db:local` applies the existing SQL migrations to this checkout's local database; it does not access hosted data. See the [development guide](docs/DEVELOPMENT.md) for verification evidence and limits.
 
 Local sign-in uses a test identity. Hosted authentication and storage depend on the Sites environment. Uploading the source to GitHub does not deploy the application or provision those services.
 
-To check local documentation links and run the five existing code test files without installing project dependencies:
+To check repository safeguards, local documentation links, and the five existing application test files without installing project dependencies:
 
 ```sh
 node scripts/check-repository.mjs
 ```
+
+After installing dependencies, `npm run check:application` builds the application and tests local development and built-server startup with isolated synthetic data. GitHub runs installation and this check on Windows and Linux for pushes and pull requests. It does not deploy the application.
 
 ## Repository map
 
