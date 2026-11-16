@@ -1,161 +1,71 @@
-# MADAR repository setup report
+# MADAR repository report
 
-Prepared by **Codex**, 16 November 2026. The owner requested an organized English GitHub repository, a usable starting point for beginners, direct technical references for developers, automatic upload/checks after completed updates, review before merge, explicit disclosure of every change, and safeguards against mixing projects or repositories.
+Reconciled by Codex on **16 November 2026**, using current GitHub metadata, the publication tree, source code, CI evidence and the owner's latest instructions. This replaces the cumulative setup narrative with current status and a historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
 
-## Project and scope
+## Current state
 
-MADAR is an Arabic-language learning application with registered Advanced Computer Applications, Routing and Switching 1, and Operating Systems 1 courses. It includes course material, practice, notes, progress, backup/restore, and account-dependent routes. Registration and code availability do not establish complete coverage, successful deployment, account isolation, or learner mastery.
-
-The application uses React/TypeScript with Vinext/Vite, generated HTML/JavaScript modules, and Sites hosting integrations for identity, D1, and R2. See [architecture](ARCHITECTURE.md) for source ownership and [development](DEVELOPMENT.md) for setup limits. This work organizes and synchronizes the existing application; it does not redesign course interfaces or add product features.
-
-## Confirmed repository identity
-
-| Property | Value |
+| Property | Verified value |
 | --- | --- |
 | Repository | [dahman0al0shahri/madar](https://github.com/dahman0al0shahri/madar) |
-| GitHub repository ID | `1459615658` |
-| Owner ID | `281097261` |
-| Visibility | Private |
-| Default branch | `main` |
-| Bootstrap commit | `9d8df83adefdf44087943a0f211f257998333fcf` |
-| Original local application baseline | `d675b27ee15f85c77288dd87f0eb21477d09c67b` |
-| Review branches | `updates/*` |
-| Source preparation branch | `docs/github-preparation` |
-| Maintained local source branch for this setup | `codex/madar-repository-setup` |
+| Repository / owner IDs | `1459615658` / `281097261` |
+| Visibility / default branch | Private / `main` |
+| Owner's latest direction | Prepare the repository for public access; reconcile existing content first |
+| Merged baseline | PR #7, `d86f5d9411602f01a2dec6c48caca3bc639cad6d` |
+| Baseline tree | `42c3241fcb0711b7a4d6678d07359dd247fa11c2` |
+| Baseline inventory | 1,443 tracked files, 335,499,582 bytes (about 320 MiB); measured before this documentation update |
+| Issues | Enabled for users who can access the repository |
+| Named release | None created by this maintenance work |
+| Hosted Site | [MADAR](https://madar-word-lab.d7d7y7.chatgpt.site), public version 115 |
+| Hosted source | `d675b27ee15f85c77288dd87f0eb21477d09c67b`; GitHub merges do not redeploy it |
 
-The source lives under `business/products/PRD-OFFICE-001/maker/v2.0/site` in Engineering Learning OS. Publication uses an isolated clone at `work/madar-publish`. Exact device paths and Git directories are kept in an ignored local binding. The parent workspace, real study state, learner records, other projects, local databases, caches, and backups are not the upload root.
+MADAR remains experimental. The owner confirmed classmates have used it and that it documents continuous learning inside and outside college. Future expansion beyond the college remains tentative. The approved [English story](STORY.md) retains those distinctions and AI-assisted development wording. No user counts, measured learning gains, active future team or commercial success are inferred.
 
-The original history is retained locally: the preparation inventory found 154 commits on main and 157 reachable across local branches. GitHub receives a selected current snapshot, not that entire object database. The baseline has 1,393 tracked files totaling about 317.6 MiB; the largest current file is about 4.5 MiB. Existing educational media remain in place. No history rewrite, source deletion, public license grant, or public distribution approval is part of this task.
+## Completed merge ledger
 
-## Files added or changed by Codex
+| PR | Delivered change | Merge commit |
+| --- | --- | --- |
+| [#1](https://github.com/dahman0al0shahri/madar/pull/1) | English repository setup, navigation, guarded publication and disclosure instructions | `4b1f2d0` |
+| [#2](https://github.com/dahman0al0shahri/madar/pull/2) | Owner-approved project story | `2235357` |
+| [#3](https://github.com/dahman0al0shahri/madar/pull/3) | LF/CRLF-independent publication conflict checks | `284235b` |
+| [#4](https://github.com/dahman0al0shahri/madar/pull/4) | Clean-clone startup, local migrations and persistence checks; generator line-ending fixes | `d2196e0` |
+| [#5](https://github.com/dahman0al0shahri/madar/pull/5) | Isolated browser interactions and six reviewed visual references | `e8f1150` |
+| [#6](https://github.com/dahman0al0shahri/madar/pull/6) | Synthetic local SQL recovery and account JSON download verification | `fea18ff` |
+| [#7](https://github.com/dahman0al0shahri/madar/pull/7) | Opt-in anonymous hosted check and offline verifier tests; documented missing-account blocker | `d86f5d9` |
 
-| Area | Files and purpose |
+All four jobs passed after PR #7 in [run 43895733024](https://github.com/dahman0al0shahri/madar/actions/runs/43895733024). Linux repository checks passed 24/24 without skips; the five existing simulator/application test files also passed. The browser suite passed 8/8, including six visual comparisons, in 36.3 seconds. The Windows host's earlier local symlink-test skip is not a Linux CI skip. No screenshot reference was replaced to pass this reconciliation.
+
+## Source, publication and instructions
+
+The maintained application source lives under `business/products/PRD-OFFICE-001/maker/v2.0/site` in Engineering Learning OS. `work/madar-publish` is its isolated publication clone. Exact device paths/Git directories are stored in ignored `.madar-local.json`; the synchronization receipt is also ignored. The parent study state, other projects, private reports, databases, caches and backups are outside the upload root.
+
+The two Git histories are deliberately separate. The publisher validates numeric repository/owner IDs, exact remote, branch and path boundaries, clean checkouts, committed blob/mode baselines, copied hashes, and current private visibility. It rejects conflicting edits, links, unexpected deletion and direct `main`/tag/deletion pushes. It exports only the intended tracked snapshot, creates an `updates/*` draft PR, and never force-pushes, erases local work or merges automatically. See [GitHub workflow](GITHUB_WORKFLOW.md).
+
+The owner decides; Codex executes authorized updates and reports every change. An explicit instruction to review and merge a particular update may authorize that sequence in advance; otherwise a PR remains awaiting the owner's merge instruction. Passing CI alone is not authorization. The current reconciliation request prepares public access; it does not silently execute visibility changes or inherit PR #7's completed merge instruction.
+
+Credentials are obtained from Git Credential Manager in memory and are not printed or stored in source. No credential was revoked, rotated or introduced by this reconciliation. Local hooks are not enforced server protection: the previously observed private-plan limitation remains documented until current server settings are verified. A future visibility change must also update the explicit visibility guard without loosening identity/branch checks.
+
+## Current verification boundaries
+
+| Area | Evidence and limitation |
 | --- | --- |
-| Repository front page | `README.md` updated; `docs/assets/madar-repository.svg` added for a restrained visual introduction and navigation |
-| Project story | `docs/STORY.md` contains the owner-approved English story, including the final AI wording; linked from `README.md` and `docs/README.md`, recorded in `CHANGELOG.md`, and included in the documentation checker. This addition is documentation only and requires owner review before merge. |
-| Beginner and developer navigation | `docs/README.md`, `docs/START_HERE.md`, `docs/DEVELOPMENT.md`, `docs/ARCHITECTURE.md` |
-| Contributions and content boundaries | `CONTRIBUTING.md`, `SECURITY.md`, `docs/RIGHTS.md`, `docs/COURSE_INTEGRATION.md`, `docs/RELEASE_READINESS.md` |
-| Change records | `CHANGELOG.md`, `docs/MAINTENANCE.md`, `docs/templates/RELEASE_NOTES.md` |
-| GitHub review forms | `.github/ISSUE_TEMPLATE/bug.yml`, `.github/ISSUE_TEMPLATE/improvement.yml`, `.github/PULL_REQUEST_TEMPLATE.md` |
-| Automated verification | `.github/workflows/repository-checks.yml`, `scripts/check-repository.mjs` |
-| Identity and upload protection | `.madar-repository.json`, `scripts/repository-guard.mjs`, `.githooks/pre-push`, `tests/repository-guard.test.mjs` |
-| Update publication | `scripts/publish-update.mjs`, `docs/GITHUB_WORKFLOW.md`, ignored local binding and synchronization receipt |
-| Checkout-independent conflict detection | `scripts/publication-baseline.mjs` compares committed blob IDs and file modes; `tests/publication-baseline.test.mjs` adds nine real-Git regression tests to `scripts/check-repository.mjs`. Existing receipt commit IDs remain usable; no Git configuration or project-wide line-ending rewrite is required. |
-| Agent obligations | Application `AGENTS.md`; parent Engineering Learning OS `AGENTS.md` updated locally and not uploaded wholesale |
-| This report | `docs/REPOSITORY_REPORT.md` |
-| Local exclusions | `.gitignore` updated for local binding and publication receipts |
+| Source generation and startup | Windows/Linux CI installs locked dependencies, builds, verifies tracked-output stability, initializes 14 existing migrations and checks development/built servers |
+| Data persistence and recovery | Isolated synthetic state only; local SQL comparison covers schema and application rows, and recovered API export. Not real production recovery |
+| Browser and appearance | Pinned Chromium on Ubuntu 24.04, desktop/mobile; synthetic login, notes, reload and account download. Not every browser, screen or accessibility condition |
+| Live hosting | Twelve anonymous GET-only checks passed on 16 November 2026 at 15:05 UTC; no owner session, service token, followed OAuth redirect or application writes |
+| Authenticated hosting | No dedicated test accounts available, as confirmed by the owner. Real sign-in, two-account isolation and hosted recovery remain untested |
+| Full lint/type audit | Not included in the current four-job gate; do not claim full-project lint/type success |
+| Source/publication review | Current tree and publication history inventoried; document text extracted, candidate patterns reviewed. No blanket approval of every image/video frame or GitHub metadata surface |
 
-Existing Arabic course content, historical design records, media, generated application screens, and the Advanced Computer Applications appearance are preserved. The documentation is English as requested. No package dependencies, real learner state, account permissions inside the application, or active hosting deployment were changed by repository preparation.
+## This reconciliation
 
-## Automation and review
+The new [MADAR history](HISTORY.md) records the owner-confirmed beginning, 18 Rabi al-Awwal 1448 AH (31 August 2026 using Umm al-Qura), and separates that date from the earliest preserved source/deployment on 2 October. It covers Word revision, accounts, course integration, networking, Operating Systems 1, appearance protection, hosting and GitHub maintenance. Earlier local commits and saved deployment records are identified as local evidence, not presented as public GitHub commits. The story retains its approved wording and adds the owner's newly stated purpose for creating the repository: documenting the work and project with the ambition of benefiting from that record at important turning points in life. A history link is added. The existing documentation check now includes the history.
 
-Codex must complete the authorized update, review and commit only intended source files, update affected docs/changelog, then run the [publisher](GITHUB_WORKFLOW.md). It checks local paths, Git roots/common directories, fetch/push destination, current account, remote numeric identity, and private visibility. It exports tracked regular files only, rejects links and local-only paths, checks content hashes, and refuses unexpected deletions or publication changes that would be overwritten.
+Codex updated the README, beginner/developer/architecture/browser/recovery/hosting guides, security and contribution guidance, workflow and agent instructions, documentation index, changelog, this report, publication readiness and bundled-source inventory. Dated design records receive a historical-status note without rewriting their original decisions. The course-integration policy's absolute personal device path becomes a portable parent-workspace reference; its requirements remain unchanged.
 
-The workflow pushes an `updates/*` branch and creates or updates a draft PR. GitHub Actions runs on pushes, pull requests, and manual dispatch. Permissions are limited to reading repository contents, action dependencies are pinned to full commit IDs, and checkout does not persist credentials. No release or deployment secrets are stored in Actions.
+The front page no longer repeats broad ownership/publication language. Actual bundled upstream notices remain unchanged. PDF extraction found Cisco Confidential and original notices in source material, and source inspection found embedded personal contact/administrator configuration; the [readiness record](RELEASE_READINESS.md) names the decisions needed before a public transition. The owner expressing a public-access goal does not establish that every included source is original.
 
-This is a required end-of-update command, not a background process monitoring every keystroke. It can fail on authentication, a dirty checkout, conflicts, failed tests, or GitHub service errors; failures must be reported and the work preserved. It never auto-merges, resets, cleans, force-pushes, or deletes branches to recover.
+No application logic, style, generated UI, screenshot reference, course document, media, schema, dependency, lockfile, hosting audience, real learner record, release or deployment is changed. The new PR records its exact branch/commit, changed-file inventory, checks and merge status; no prospective check is marked passed here.
 
-**The owner decides and Codex executes.** Codex retains the necessary access. When the owner reviews a specific change and instructs a merge, Codex verifies the current PR head and checks, carries out that merge with the GitHub tool/API, verifies the result, and reports it. No separate requirement forces the owner to perform manual GitHub clicks. A setup request or a passing check is not merge approval.
+## Remaining work
 
-## Protection limits
-
-GitHub Settings explicitly showed that branch protection rules would **not be enforced** for this private repository on the current plan. No enforced server-side protection is claimed. The local pre-push hook and publisher prevent the normal automated path from pushing to `main`, tags, other repositories, or deleting branches, but an authorized user can bypass a local hook or use the website. A supported plan/policy and an independent reviewer decision would be needed for enforced review rules. The repository remains private; no upgrade was purchased.
-
-Credentials are handled by Git Credential Manager. The publisher uses the existing credential only in memory for GitHub API requests and never logs or writes it into project files. Existing access was not revoked or narrowed. The Git author used for the publication commits is a local maintenance identity; commit messages state that Codex prepared the change. No global Git configuration is changed.
-
-## Verification record
-
-| Check | Evidence/status |
-| --- | --- |
-| GitHub creation and identity | Verified private repository, owner, numeric ID, main branch, and bootstrap SHA through UI/Git/API |
-| Git authentication | Git remote HEAD read successfully after owner completed Git Credential Manager login |
-| Existing application tests | Five existing code-test files passed locally during preparation |
-| Guard tests | Seven tests passed: exact identity, wrong identity, wrong/lookalike remote, unsafe paths, forbidden push refs/deletion, linked-directory escape, and safe interrupted-publication recovery |
-| Documentation | Local targets checked; external URLs and anchor fragments are not covered by the checker |
-| Local README preview | Rendered and inspected at desktop and mobile widths; no horizontal overflow in preview |
-| YAML | Prepared templates/workflow parsed locally |
-| End-to-end upload and GitHub Actions | Verified [draft PR #1](https://github.com/dahman0al0shahri/madar/pull/1); [push run 43817169606](https://github.com/dahman0al0shahri/madar/actions/runs/43817169606) and [PR run 43817181531](https://github.com/dahman0al0shahri/madar/actions/runs/43817181531) both passed for `b6fa0ac7e856710d8b9340f14fcdfc254eca60cc`. This report update is published through the same workflow; later heads require their own check results. |
-| Full clean install/build, hosted authentication, account isolation | Not validated in this repository-maintenance task |
-| Merge, named release, application deployment | Not performed by this setup workflow |
-
-The historical preliminary secret scan checked four credential patterns across 1,192 text objects and found no matches; 1,210 binary objects and 11 large objects were excluded. The publisher separately screens the current selected text files for limited credential patterns and rejects sensitive local file types. Neither check proves absence of secrets or personal data, and neither verifies redistribution rights. Keeping the repository private does not grant a public license. Public publication remains a separate review.
-
-The actual Git pre-push hook also rejected a `git push --dry-run` targeting main. Remote main remained `9d8df83adefdf44087943a0f211f257998333fcf`, and PR #1 remained unmerged. The first push succeeded but its following network request was interrupted; the recorded branch/SHA were preserved, the recovery path was corrected and tested, and the PR was completed without force push or data loss. A publication lock prevents concurrent exporters.
-
-## Recovery and ongoing reporting
-
-Keep the original history and local changes. Inspect the ignored publication receipt, source status, publication branch, and remote SHA before retrying an interrupted upload. Do not overwrite a changed file or erase work to make the bridge run. Review deletions separately. After a reviewed merge, the next export uses fetched main and still detects source/publication differences. See [workflow recovery](GITHUB_WORKFLOW.md) for limitations.
-
-Every future handoff must say what Codex added, changed, removed, configured, or uploaded; list affected files/settings; state checks and untested areas; and separate local, pushed, reviewed, merged, released, and deployed status. Infrastructure changes must also update this report. The detailed report does not replace that direct owner notification.
-
-## Remaining decisions
-
-Final review on 16 November 2026 confirmed that all 1,419 Git-tracked file contents and modes matched between the original source snapshot and the publication branch. Review found and corrected two publishing guard cases: dangling symbolic links must be rejected even when their target does not exist, and an up-to-date push with no refs must be allowed for the exact configured destination. Eight guard tests cover these cases alongside the existing checks. The owner explicitly authorized Codex to complete this review and merge PR #1 after verification; the merged state, final SHA, and subsequent main-branch check are recorded in the PR/GitHub history rather than inferred from this pre-merge report. This authorization does not deploy the application.
-
-- The owner authorized final review and merge of setup PR #1 on 16 November 2026; the linked PR records the verified merge result and commit.
-- Optional supported GitHub plan/policy if server-enforced private branch protection is desired; not required for the current owner-directed workflow.
-- Clean-clone build/database setup is covered by the review update below; hosted authentication and deployment readiness remain separate work.
-- Rights, sensitive-content, and licensing review before any public release.
-
-References used for implementation: [Git hooks](https://git-scm.com/docs/githooks), [GitHub repository identity API](https://docs.github.com/en/rest/repos/repos#get-a-repository), [Actions security](https://docs.github.com/en/actions/reference/security/secure-use), and [protected branch availability](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches).
-
-## Clean-clone verification update — 16 November 2026
-
-The owner authorized an independent clean-clone trial, fixes, automated checks, documentation, and a separate PR. **No merge is authorized for this update.** Source branch: `fix/clean-clone-verification`. The PR records final source/publication SHAs and CI run links, avoiding self-referential commit IDs in this document.
-
-### Changes prepared by Codex
-
-- `scripts/local-database.mjs`: apply the 14 existing Drizzle SQL files through Wrangler migrations against a placeholder local D1 binding. No CLI arguments, remote flag, hosted migration, new schema, or dependency was added.
-- `scripts/local-state.mjs` and `vite.config.ts`: validate checkout-contained portable storage paths; reject files/links/path escape. Ordinary development keeps `.wrangler/state`; tests use a separate temporary directory.
-- `scripts/check-application.mjs`: build, verify tracked-content stability, initialize isolated SQL storage, run development and built-server HTTP tests, restart, and verify synthetic persistence. Logs/results remain ignored under `.sites-runtime`. Only processes launched by the check are stopped.
-- `tests/local-state.test.mjs` and `scripts/check-repository.mjs`: exercise the path restrictions alongside existing repository/publication safeguards.
-- `modules/network-tabs-preview/build.cjs` and `scripts/build-madar.cjs`: normalize CRLF in two text inputs before exact matching/string embedding. A Windows clone previously lost the review-card integration and generated escaped CRLF in hint markup. Corrected output matches the already committed content; no generated UI files, course content, or Advanced Computer Applications appearance changes are included.
-- `package.json`: add `db:local` and `check:application`. Existing dependency versions and the lockfile remain unchanged.
-- `.github/workflows/repository-checks.yml`: retain the existing lightweight job and add clean installation/build/local integration jobs on Node 22 for Windows and Linux, on pushes and PRs. Read-only permissions and pinned actions remain; no cloud/deployment secrets or automatic merge were added.
-- Update README, development/architecture/readiness guides, workflow/maintenance guidance, this report, and changelog to describe the verified scope.
-
-### Local evidence and limits
-
-An independent clone of publication `main` at `284235b` was created under the parent workspace's `work/madar-clean-20261116`; it received no local database, dependencies, execution profile, or credentials. Locked installation succeeded with **686 installed packages**, followed by a complete build on Windows with Node **24.22.1** and npm **11.6.2**. The command environment lacked npm, so a registry npm archive was downloaded and its SHA-1 checksum checked in the parent workspace's isolated tools directory; no system installation or global configuration change was made.
-
-The final local application check passed all seven groups: build, unchanged tracked content, initial migrations, development guest pages/catalog, local test identity and request/persistence guards, restart/repeated migrations preserving data, and built-server guest pages/catalog. The repository safeguard and five existing application test files also passed. The review PR must record the Windows/Linux CI result for its exact uploaded commit before review is considered complete.
-
-This does not establish browser interaction/visual coverage, full-project lint/type-check coverage, hosted two-account isolation, backup restoration, hosted media delivery, public licensing, or deployment readiness. Existing trusted-gateway authentication requirements remain. No production service, real learner record, project-wide license, repository visibility, release, or deployment was changed. Isolated local evidence and tooling are outside the publication snapshot.
-
-## Browser and visual review update
-
-PR #4 was merged into main as `d2196e0`; all three checks passed after that merge. The next review update adds Playwright 1.65.1 as an exact development dependency, three new lockfile entries, a browser runner/configuration, desktop/mobile interaction tests, and six Linux screenshot references. No runtime dependencies, application source, generated UI, content, or SQL migrations are intentionally changed.
-
-The fourth CI job uses Ubuntu 24.04, Node 22, pinned Chromium, read-only repository permissions, and no cloud credentials. It retains only synthetic browser evidence for seven days. It never rewrites references or merges. The local Windows browser attempt encountered a Smart App Control block for Chromium's Vulkan library; protection was not changed. Linux CI is the authoritative browser result, recorded against the PR head. See [browser checks](BROWSER_TESTS.md) for baseline maintenance, isolation, and limits.
-
-The existing safeguard test files run sequentially, and their subprocess now has a three-minute timeout (identity checks remain one minute). A local run exceeded the old one-minute wrapper under installation load; the independent Git fixture tests passed after that load. No test is bypassed.
-
-Initial full-page references were individually reviewed and their hashes/provenance retained. A strict-zero color comparison exposed one-channel-level rounding at card corners (4/15/22 pixels in three images). The documented 0.01 perceptual threshold retains a zero differing-pixel allowance after color classification. Original references remain unchanged; offline comparator controls rejected a 400-pixel injected patch in each affected pair. Final CI and merge evidence belong to PR #5.
-
-## Backup and recovery review update — 16 November 2026
-
-PR #5 merged as `e8f1150a581a48fd18a673649a6592b12fd2f870`; all four checks passed in [main run 43884241447](https://github.com/dahman0al0shahri/madar/actions/runs/43884241447), including eight browser cases. This next update is on source branch `test/backup-recovery-checks`. The owner explicitly authorized implementation, verification and merge after review. Exact source/publication commits, review and CI results are recorded in the new PR rather than predicted here.
-
-Changes prepared by Codex:
-
-- Extend `scripts/check-application.mjs` to save synthetic profile/bookmark/Unicode-note records, verify the account JSON export, export the disposable local D1 database, and restore it into a new separate directory. Compare database schema, all application rows and integrity with a read-only Node SQLite helper in `tests/helpers/database-snapshot.mjs`, then compare the restored application's export. Confirm the original synthetic database remains unchanged. Wait for owned servers to exit before inspection.
-- Extend `tests/browser/application.spec.mjs` to use the real account download button and validate the downloaded JSON on desktop/mobile. Retain every existing visual reference and threshold.
-- Add `tests/database-snapshot.test.mjs` to the repository checker: verify that row ordering is harmless while changed/lost records and altered schema are detected, including large integers, binary values and Unicode.
-- Integrate the new assertions into the existing Windows/Linux application and Linux browser jobs; update the application step's label without adding credentials, permissions or a fifth job.
-- Add `docs/BACKUP_RECOVERY.md`, link it from development/browser/index guides, include it in documentation checks, and update the changelog and readiness status. Account JSON and operator SQL backups have different recovery boundaries; no new import UI or runtime endpoint is introduced.
-
-No application source, style, generated interface, media, course content, SQL migration, dependency, lockfile, repository visibility, protection setting, real learner data, release or deployment is changed. The local rehearsal is not evidence of hosted account isolation, R2 recovery or complete coverage of every populated course record. Windows browser execution remains unavailable under the existing Smart App Control policy; Linux CI verifies the download and appearance checks. See [backup and recovery](BACKUP_RECOVERY.md) for the recovery boundary and evidence locations.
-
-## Hosted guest verification update — 16 November 2026
-
-PR #6 merged as `fea18fff65fd12a22952dcdd8156705b89770e3a`; all four jobs passed in [main run 43890784965](https://github.com/dahman0al0shahri/madar/actions/runs/43890784965). The owner requested hosted testing and authorized a reviewed, passing PR to be merged. The owner then confirmed that no dedicated test accounts are available. **Real hosted sign-in, two-account isolation and hosted recovery remain untested.** This update completes only the independently testable anonymous checks, not the full account acceptance request.
-
-Changes prepared by Codex on source branch `test/hosted-guest-verification`:
-
-- Add `scripts/check-hosted-guest.mjs`: explicit `--run-live` opt-in, fixed verified Site/repository identities, at most twelve credential-free GET requests, manual redirect handling, bounded time/body size, synthetic non-user identity probe, and sanitized local evidence. The command never supplies a service-access token or the owner's session.
-- Add `tests/hosted-guest.test.mjs`: offline success/failure controls for opt-in, target identity, GET-only credential-free requests, guest rejection, client identity rejection, cache policy, redirects and evidence redaction. These run through `scripts/check-repository.mjs` in existing CI; CI does not contact the hosted Site.
-- Add `docs/HOSTED_VERIFICATION.md` with dated Site provenance, the exact anonymous scope, evidence limits and prerequisites for later authenticated/recovery testing. Update the documentation index, development commands, GitHub workflow guide, release readiness, this report and changelog. No fifth CI job or new dependency is added.
-
-The live run passed 12/12 checks at 15:05 UTC against published version 115, whose source is `d675b27ee15f85c77288dd87f0eb21477d09c67b`. GitHub merging does not redeploy the Site. Guest pages and catalog were available; private endpoints rejected anonymous requests and the synthetic client-supplied identity; the sign-in entry redirected without following or completing login. Metadata-only evidence stays under ignored `.sites-runtime`. Native Site metadata was inspected separately from anonymous HTTP requests; no service token was used by the verifier.
-
-No application code, CSS, generated output, screenshot reference, media, course content, schema, dependency, lockfile, hosting manifest, runtime environment, audience, credentials, protection setting, real learner record, release or deployment is changed. Ordinary access logs may record the read-only requests. Exact source/publication commits, review, pre-merge CI and post-merge CI are recorded in the PR and the owner's handoff report. Preserve the account-testing blocker even when all repository CI checks pass.
+Complete the specific public-transition review in [publication readiness](RELEASE_READINESS.md), including course-source inclusion, intended contact exposure, media/history/Actions review, a private reporting route and coordinated visibility guard/protection settings. Dedicated-account and hosted recovery tests remain a separate product-verification task. API integrations, product expansion and a rewrite are not prerequisites for this documentation reconciliation.

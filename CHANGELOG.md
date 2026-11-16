@@ -6,9 +6,12 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
-These entries describe work prepared for review. Upload and check evidence is recorded in the repository report; no entry by itself implies a merge, release, or deployment.
+Unreleased means that no named release has been created. Maintenance PRs #1–#7 are merged; the reconciliation entry below is proposed in the current review change. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
 
 ### Added
+
+- An evidence-attributed history of MADAR from the owner-confirmed beginning on 18 Rabi al-Awwal 1448 AH (31 August 2026, Umm al-Qura), through preserved application and deployment milestones. Linked the history from the overview, story and documentation index and included it in the automated documentation-target check.
+- The owner's stated purpose for the repository, placed in the project story with overview/history references: documenting the work and MADAR's development with the ambition of drawing on that record at important turning points in life and for future opportunities.
 
 - An explicitly invoked, credential-free hosted guest check and offline CI contract tests. Documented real sign-in/two-account isolation as unverified because dedicated test accounts are unavailable; no application or hosting changes.
 - An isolated SQL backup/recovery rehearsal in the Windows/Linux application checks, with complete application-table comparison and recovered API verification. Browser checks now inspect the actual account JSON download on desktop and mobile; no application UI or restore feature is changed.
@@ -19,13 +22,13 @@ These entries describe work prepared for review. Upload and check evidence is re
 - A portable local database initialization command and an isolated application check covering build, development/built startup, guest/local sign-in, persistence, and request guards. GitHub runs clean dependency installation and application checks on Windows and Linux.
 
 - The owner-approved English story of MADAR, linked from the repository overview and documentation index.
-- English repository guides for first-time visitors, development, architecture, course integration, security, rights, and publication readiness.
+- English repository guides for first-time visitors, development, architecture, course integration, security, included sources, and publication readiness.
 - A repository cover, contribution templates, and an automated-check workflow.
 - A local command to verify documentation targets and run the five existing code test files.
 - A maintenance guide, release-notes template, and update requirements for contributors and coding agents.
 - A private GitHub repository identity, an isolated publication workflow, and local guards against the wrong repository, path, direct main pushes, tags, and branch deletion.
 - An end-of-update publisher that runs checks, verifies snapshot hashes, pushes a review branch, and creates or updates a draft pull request without merging.
-- Seven guard tests, a GitHub workflow guide, and a comprehensive repository setup report.
+- Repository guard tests, a GitHub workflow guide, and a repository setup report; later review expanded the guard cases.
 - Explicit Codex instructions to disclose every change and execute merge decisions only after owner review and instruction.
 
 - Recovery for an upload interrupted before PR creation, with a recorded-head check and a publication lock.
@@ -40,10 +43,12 @@ These entries describe work prepared for review. Upload and check evidence is re
 
 ### Changed
 
+- Reconciled current documentation with merged PRs #1–#7, verified hosted guest access and the owner's planned public GitHub access. Replaced the cumulative setup report with current status and a dated merge ledger; marked older design notes as historical. Simplified repeated publication language while preserving actual bundled third-party notices and documenting concrete public-review findings.
+
 - Final review: reject dangling symbolic links during publication path checks, and allow an up-to-date push to finish without creating another commit.
 
 - Replaced the previous Word-only repository introduction with an overview of the registered MADAR courses and current setup limitations.
 
 ## Historical coverage
 
-This changelog starts with repository preparation on 2026-11-16. Earlier application changes remain in Git history and existing project records. They have not been reconstructed into a verified release history.
+This changelog starts with repository preparation on 2026-11-16. [MADAR history](docs/HISTORY.md) reconstructs selected earlier milestones from owner statements, the separate local source history, saved deployment records and dated documents. It is not a complete release ledger; unknown dates and the distinction between local work and deployment remain explicit.

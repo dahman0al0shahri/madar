@@ -6,6 +6,8 @@ MADAR is an educational project I am currently building and testing through the 
 
 This starting point connects the project to my everyday studies and allows the same effort to serve several purposes. When I organize course material and develop an explanation or practice activity, I review the subject for myself, practice teaching it to others, and develop MADAR at the same time. Another purpose of the project is to document my continuous learning, both inside and outside college, allowing its content to grow alongside what I study and explore.
 
+I created this repository to preserve MADAR's development and the work I put into it: what I build, why I make particular decisions, and how the project evolves. My ambition is for this record to support me at important turning points in my life and help open future opportunities through documented work that I can present, explain, and build upon.
+
 One aim of this experimental stage is to train myself to develop foundations for teaching approaches suited to different fields, and to build my ability to teach others in my specialization competently and professionally. Through the project, I am developing my ability to explain concepts, design practice, provide assistance, and check understanding. Being close to the first users also creates opportunities to understand their needs and reconsider how the services are delivered.
 
 MADAR also responds to difficulties I have encountered in my own education. I have found that academic material sometimes needs more explanation and practical application, and that some content needs updating to reflect developments in the field. I have also noticed difficulties in communication and knowledge sharing among students, as well as learning difficulties among several classmates. I began helping them, and developing MADAR became a way to organize and gradually extend that effort.
@@ -16,4 +18,4 @@ Beyond this stage, I am tentatively considering developing MADAR into an educati
 
 ---
 
-[Back to MADAR](../README.md) · [Documentation](README.md)
+[MADAR history and milestones](HISTORY.md) · [Back to MADAR](../README.md) · [Documentation](README.md)

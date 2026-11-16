@@ -18,7 +18,7 @@ const documents = [
   'docs/RIGHTS.md', 'docs/RELEASE_READINESS.md', 'docs/COURSE_INTEGRATION.md',
   'CHANGELOG.md', 'AGENTS.md', 'docs/MAINTENANCE.md', 'docs/templates/RELEASE_NOTES.md',
   'docs/GITHUB_WORKFLOW.md', 'docs/REPOSITORY_REPORT.md',
-  'docs/STORY.md', 'docs/BROWSER_TESTS.md', 'docs/BACKUP_RECOVERY.md', 'docs/HOSTED_VERIFICATION.md',
+  'docs/STORY.md', 'docs/HISTORY.md', 'docs/BROWSER_TESTS.md', 'docs/BACKUP_RECOVERY.md', 'docs/HOSTED_VERIFICATION.md',
 ];
 let links = 0;
 const failures = [];

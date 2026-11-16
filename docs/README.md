@@ -6,6 +6,7 @@ Choose the guide that matches your task. You do not need to read every document 
 | --- | --- |
 | [Start here](START_HERE.md) | Explore the repository without prior GitHub experience |
 | [The Story Behind MADAR](STORY.md) | The owner's learning journey, current experiment, and tentative future direction |
+| [MADAR history](HISTORY.md) | Owner-confirmed beginning, dated development milestones, and evidence boundaries |
 | [Development](DEVELOPMENT.md) | Requirements, commands, checks, and setup limitations |
 | [Backup and recovery](BACKUP_RECOVERY.md) | Account export, isolated database recovery checks, and hosted recovery limits |
 | [Hosted verification](HOSTED_VERIFICATION.md) | Anonymous live checks, offline CI coverage, and prerequisites for real account tests |
@@ -13,7 +14,7 @@ Choose the guide that matches your task. You do not need to read every document 
 | [Contributing](../CONTRIBUTING.md) | Prepare a focused change for review |
 | [Course integration](COURSE_INTEGRATION.md) | Acceptance requirements for courses and practice workflows |
 | [Security](../SECURITY.md) | Handle sensitive information and report security concerns |
-| [Rights and sources](RIGHTS.md) | Review redistribution requirements |
+| [Bundled components and sources](RIGHTS.md) | Existing dependency notices and identified course-source material |
 | [Release readiness](RELEASE_READINESS.md) | Completed checks and outstanding publication work |
 | [Changelog](../CHANGELOG.md) | Notable additions, changes, and fixes |
 | [Maintenance](MAINTENANCE.md) | Keep source, documentation, GitHub, and release status aligned |
@@ -29,5 +30,4 @@ Dated documents in this directory and the repository root record earlier decisio
 
 The historical [appearance reference, in Arabic](APPEARANCE_AR.md) documents an earlier visual system; it does not authorize changes to any course interface. The original [course integration policy, in Arabic](../COURSE_INTEGRATION.md) remains the source for detailed project-specific requirements.
 
-When an older document conflicts with current behavior, verify the code and the applicable decision before updating the documentation.
-
+The current maintenance status and owner decisions are summarized in [the repository report](REPOSITORY_REPORT.md). Dated design notes are historical evidence, not instructions to restore an old screen. The ban on changing Advanced Computer Applications appearance remains in force. Verify current code and the latest explicit owner decision when resolving a discrepancy.

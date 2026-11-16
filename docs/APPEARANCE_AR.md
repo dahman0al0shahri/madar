@@ -1,3 +1,5 @@
+> Historical design/implementation record. Current repository status is in [the repository report](REPOSITORY_REPORT.md). This record does not override later owner decisions or authorize interface changes.
+
 # مظهر مَدار الفاتح — 10 أكتوبر 2026
 
 المرجع البصري: خلفية المريمية المعتمدة، مع النجوم المدببة وأشرطة الاحتفال الأصلية. الخلفية #b6bbae، الأسطح #e8ece2، النص #25332c، النص الثانوي #3b4b3e، الأخضر #294937، البرونزي #584322، وحدود التحكم #536449.

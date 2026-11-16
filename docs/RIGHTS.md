@@ -1,29 +1,23 @@
-# Rights and sources
+# Bundled components and source material
 
-A project-wide distribution license has not been selected in this preparation pass. Source availability or download access should not be treated as an automatic open-source license.
+This page inventories material already present in MADAR. It does not assign ownership of the whole project to another party or select a new project license. The legacy filename is retained so existing links continue to work.
 
-## Review before publication
+## Existing component notices
 
-| Material | Required review |
+| Included component | Original notice |
 | --- | --- |
-| Original code | Owner's intended rights for use, modification, and redistribution |
-| Course files, questions, and solutions | Source and redistribution permission for each collection |
-| Images, fonts, and icons | License, attribution, and redistribution terms |
-| Application screenshots | Synthetic data with no personal information |
-| Git history | Material removed from the current tree but retained in history |
+| Sites Vite integration | [MIT notice](../build/sites-vite-plugin.LICENSE) |
+| Three.js | [MIT notice](../public/vendor/three-LICENSE.txt) |
+| Lucide | [Included notice](../public/vendor/lucide-LICENSE.txt) |
+| IBM Plex font | [SIL Open Font License](../public/assets/FONT-LICENSE.txt) |
+| shadcn Tailwind | [Included notice](../vendor/shadcn-tailwind-4.13.0.LICENSE.md) |
 
-Licensing the application code does not automatically grant rights to educational material included with it.
+These notices are part of the bundled upstream material. They were inspected during the 16 November 2026 reconciliation and are preserved unchanged. This list is not a complete dependency-license audit.
 
-## Existing third-party notices
+## Course-source findings
 
-These are the license files found during preparation, not a complete dependency audit:
+The snapshot includes 22 document files: 8 PDF, 9 PowerPoint, 3 Word and 2 Excel files. Extracted text identifies Cisco material in the network labs and chapter presentations. The three `public/srwe-review/SRWE_Module_4.pdf`, `SRWE_Module_5.pdf` and `SRWE_Module_6.pdf` files contain **Cisco Confidential** and **All rights reserved** markings; the Module 4 cover says **Instructor Materials**. Other lab PDFs include Cisco notices as well. These are observations from the supplied files, not a claim that MADAR or the owner authored those sources, and not an inference of redistribution permission.
 
-- [Sites Vite plugin](../build/sites-vite-plugin.LICENSE).
-- [Three.js](../public/vendor/three-LICENSE.txt).
-- [Lucide](../public/vendor/lucide-LICENSE.txt).
-- [Font license](../public/assets/FONT-LICENSE.txt).
-- [shadcn Tailwind](../vendor/shadcn-tailwind-4.13.0.LICENSE.md).
+The documents and embedded notices were not edited or removed. Before changing repository visibility, resolve whether to include these original files, obtain an applicable permission, or prepare a public source package that references them without redistributing them. Removing a current-tree file alone would leave earlier Git copies and possible derived media accessible; that requires a separately reviewed distribution/history plan.
 
-Preserve these notices when preparing another distribution and review dependency licenses. Do not add MIT or another project license before ownership and licensing scope are established.
-
-Reference: [Licensing a repository on GitHub](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository).
+See [publication readiness](RELEASE_READINESS.md). GitHub explains that a public repository and an open-source license are separate choices in [its licensing guide](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository). No new project-wide license is granted by this documentation update.

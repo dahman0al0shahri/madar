@@ -1,3 +1,5 @@
+> Historical design/implementation record. Current repository status is in [the repository report](docs/REPOSITORY_REPORT.md). This record does not override later owner decisions or authorize interface changes.
+
 # دفعة وضوح مدار وسلامة الحفظ — 15 أكتوبر 2026
 
 النطاق: مشروع مدار المحلي، دون نشر. مصدر الطلب هو تفويض المستخدم بتحسين الأقسام تباعًا، مع تقليل ازدحام المحاكي والحفاظ على التصاميم المعتمدة. لا تتضمن هذه الدفعة قياس تعلم طالب أو تغيير سجلاته الأكاديمية.

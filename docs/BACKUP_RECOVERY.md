@@ -36,7 +36,7 @@ The separate [browser suite](BROWSER_TESTS.md) uses the real account backup butt
 
 ## Limits and an actual recovery
 
-This rehearsal verifies a local database round trip and selected nonempty user records. It is not exhaustive coverage of every course record, malformed JSON, cross-account leakage, hosted authentication, guest export, pending drafts, or R2 restore. Existing empty sections are checked for presence, not treated as evidence of populated-record recovery.
+This rehearsal verifies a local database round trip and selected nonempty user records. It is not exhaustive coverage of every course record, malformed JSON, cross-account leakage, hosted authentication, authenticated cross-account export, pending drafts, or R2 restore. The [hosted guest check](HOSTED_VERIFICATION.md) separately verifies that an anonymous account export is rejected; it does not test authenticated export or recovery. Existing empty sections are checked for presence, not treated as evidence of populated-record recovery.
 
 Before recovering a real service, separately authorize the exact account/environment, database, timestamp and recovery target. Preserve the current database and affected users' exports first. Restore to a separate target, verify schema, records, identities and media references, and review any cutover and rollback plan before replacing a live service. Do not run this test against learner storage or translate its placeholder binding into an unreviewed production command.
 
