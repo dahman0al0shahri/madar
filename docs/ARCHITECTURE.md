@@ -48,5 +48,7 @@ For account and course integration requirements, see the [course checklist](COUR
 
 SQL migrations exist in `drizzle/`, but `db/schema.ts` contains an empty starter template in this version. Do not treat `npm run db:generate` as a way to reconstruct the existing database, or the template as its complete schema.
 
-A documented and tested initialization procedure using the migration history is still required before claiming a complete clean-clone setup.
+For a new portable checkout, `npm run db:local` applies the existing SQL migration history using local Wrangler D1. It uses the same placeholder binding ID and default `.wrangler/state` location as the Vite configuration. The script does not generate schema or modify hosted storage. The application check tests that initialization, restart, and repeated migration preserve a synthetic record; see [development](DEVELOPMENT.md).
+
+`scripts/local-state.mjs` validates checkout-contained storage paths. The integration check selects an isolated directory under `.sites-runtime` via `MADAR_LOCAL_STATE_PATH`; regular development retains its existing default. Hosted authentication, R2 media delivery, and complete backup/restore remain separate verification work.
 

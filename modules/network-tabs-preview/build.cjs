@@ -32,7 +32,7 @@ if(cameraStart<0||cameraEnd<0)throw Error('Engine camera contract changed');
 engine=engine.slice(0,cameraStart)+fs.readFileSync(path.join(dir,'camera.js'),'utf8')+engine.slice(cameraEnd);
 // Initial loading is the only time legacy save has no controller; never write old-format state.
 engine=engine.replace('function save(){if(!window.openai?.setWidgetState)return;','function save(){return; if(!window.openai?.setWidgetState)return;');
-let review=fs.readFileSync(path.join(dir,'../network-review-preview/review-assistance.html'),'utf8');
+let review=fs.readFileSync(path.join(dir,'../network-review-preview/review-assistance.html'),'utf8').replace(/\r\n/g,'\n');
 review=review.replace(' restore(window.openai?.widgetState);','');
 review=review.replace(/ function save\(\)\{render\(\);window\.openai[^\n]+/, ' function save(){render();}');
 review=review.replace(/ if\(typeof window\.openai\?\.widgetState[^\n]+/,'');
