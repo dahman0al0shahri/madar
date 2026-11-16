@@ -47,7 +47,7 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm run install:ci
-      - name: Build and test isolated local startup and persistence
+      - name: Build and test isolated startup, persistence and backup recovery
         run: npm run check:application
   browser-checks:
     name: Browser and visual (Ubuntu 24.04)

@@ -10,6 +10,8 @@ These entries describe work prepared for review. Upload and check evidence is re
 
 ### Added
 
+- An isolated SQL backup/recovery rehearsal in the Windows/Linux application checks, with complete application-table comparison and recovered API verification. Browser checks now inspect the actual account JSON download on desktop and mobile; no application UI or restore feature is changed.
+- Backup/recovery guidance distinguishing user exports, operator database copies, and separately authorized hosted recovery.
 - Isolated Chromium interaction tests and desktop/mobile visual comparisons for the unchanged Advanced Computer Applications interface, with reviewed Linux reference images and a separate read-only CI job.
 - Browser testing guidance covering synthetic storage, evidence retention, baseline review, and Windows security-policy limitations.
 

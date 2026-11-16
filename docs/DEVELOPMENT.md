@@ -58,8 +58,9 @@ The check verifies:
 - HTML responses for home, Advanced Computer Applications, and the network lab; a catalog containing all three registered courses.
 - Guest rejection for private progress, local test sign-in/sign-out, stripped forged identity headers, profile save/read, stale-revision rejection, and owner/origin guards.
 - Guest pages and catalog through the built Wrangler server, with the same local database.
+- User JSON export with a saved profile, Word bookmark and Unicode note; SQL export/import into a separate empty target, complete application schema/row comparison, integrity checks and recovered API verification. See [backup and recovery](BACKUP_RECOVERY.md).
 
-These are HTTP integration checks. The separate [browser checks](BROWSER_TESTS.md) cover selected interactions and screenshots. Neither establishes hosted account isolation, backup restoration, full course correctness, or learner performance. Full-project ESLint and TypeScript checks are not part of these commands. HTTP CI uses Node 22 on `ubuntu-latest` and `windows-latest`; local clean-install verification used Node 24.22.1 and npm 11.6.2 on Windows.
+These are local integration and database recovery checks. The separate [browser checks](BROWSER_TESTS.md) cover selected interactions, JSON download and screenshots. Neither establishes hosted account isolation, hosted backup restoration, full course correctness, or learner performance. Full-project ESLint and TypeScript checks are not part of these commands. HTTP CI uses current Node 22 on `ubuntu-latest` and `windows-latest`; the read-only SQLite comparison requires Node 22.13 or newer. Local clean-install verification used Node 24.22.1 and npm 11.6.2 on Windows.
 
 On failure, read the printed error and the latest `result.json` / numbered logs in the run directory. Never commit these local logs or databases. If the build changes tracked content, fix the original generator and review its output; do not bypass the check or discard unrelated edits.
 

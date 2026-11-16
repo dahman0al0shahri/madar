@@ -2,7 +2,7 @@
 
 Updated: **16 November 2026**. Initial preparation started at `d675b27`; clean-clone work starts from merged `main` commit `284235b`.
 
-The repository setup, story, publication line-ending fix, and clean-clone checks are merged in PRs #1–#4. Browser/visual checks are a separate review change, not a named release or comprehensive security audit. Its exact commit and CI evidence belong to its pull request. See [repository report](REPOSITORY_REPORT.md) and [GitHub workflow](GITHUB_WORKFLOW.md).
+The repository setup, story, publication line-ending fix, clean-clone checks, and browser/visual checks are merged in PRs #1–#5. PR #5 merged as `e8f1150a`; all four jobs passed in [main run 43884241447](https://github.com/dahman0al0shahri/madar/actions/runs/43884241447). The next review change adds local backup/recovery verification. Exact new commit and CI evidence belong to its pull request; none of this constitutes a release or comprehensive security audit. See [repository report](REPOSITORY_REPORT.md) and [GitHub workflow](GITHUB_WORKFLOW.md).
 
 ## Prepared in this pass
 
@@ -27,10 +27,11 @@ The repository setup, story, publication line-ending fix, and clean-clone checks
 | Development and built-server HTTP checks | Home, applications, network lab, three-course catalog, and guest restrictions passed locally |
 | Local test identity and persistence | Sign-in/sign-out, save/read, stale revisions, owner/origin checks, and forged-header stripping passed locally |
 | Generated content | Build preserves tracked content after fixing CRLF-sensitive network generation; no application appearance change |
-| Browser interactions and visual comparisons | Separate Chromium suite; see [browser checks](BROWSER_TESTS.md) and exact PR evidence |
+| Browser interactions and visual comparisons | PR #5 passed all eight cases, including six visual comparisons, before and after merge; see [browser checks](BROWSER_TESTS.md) |
+| Account export and local database recovery | Added to the existing application/browser suites; see [backup and recovery](BACKUP_RECOVERY.md) and the new PR's exact-head results |
 | Full-project lint/type checking | Not part of these checks; no blanket application-quality claim |
 | Hosted sign-in and account isolation | Not tested in this pass |
-| GitHub Actions execution | PR #4 and its post-merge run passed all three jobs. This change adds a fourth browser/visual job. Check the current PR's exact SHA and all four jobs before merging |
+| GitHub Actions execution | PR #5 and its post-merge run passed all four jobs. Check the current PR's exact SHA and all four jobs before merging |
 | Preliminary secret-pattern scan | No matches for four patterns across 1,192 historical text objects |
 | Comprehensive secret, history, and content audit | Incomplete; no public-release clearance |
 | Redistribution rights for all content | Not established |
@@ -42,8 +43,8 @@ The initial preparation inventory contained 1,393 tracked files, approximately 3
 
 ## Next steps
 
-1. Review the browser-check PR, every reference screenshot, and all four CI jobs; merge only on the owner's instruction.
-2. Test hosted sign-in, two real test accounts plus a guest, backup/restore, and R2-backed media in a separately authorized test environment. Local HTTP checks do not establish these results.
+1. Review the backup/recovery change and all four jobs at its exact SHA. The owner authorized this next improvement's merge after review and successful checks.
+2. Test hosted sign-in, two real test accounts plus a guest, hosted backup/restore, and R2-backed media in a separately authorized test environment. Local checks do not establish these results.
 3. Complete privacy and educational/media rights review before public distribution, then choose a project-wide license.
 4. If server-enforced review protection is desired, resolve the existing private-plan limitation. Local guards are not server-side protection.
 5. Before a public release, verify actual GitHub rendering and any demo link/screenshots with synthetic data, and establish an appropriate private reporting route.
