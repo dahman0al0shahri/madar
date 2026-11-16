@@ -42,7 +42,7 @@ test('course navigation and saved lesson note survive a fresh browser session', 
 });
 
 for (const section of ['word', 'excel', 'access']) {
-  test('applications visual: ' + section, async ({ page }) => {
+  test('applications visual: ' + section, async ({ page }, testInfo) => {
     test.skip(process.platform !== 'linux', 'Reference images use Ubuntu 24.04 and pinned Chromium; Windows runs interactions only.');
     await page.clock.setFixedTime(new Date('2026-11-16T12:00:00Z'));
     await page.goto('/applications#' + section);
@@ -50,6 +50,9 @@ for (const section of ['word', 'excel', 'access']) {
     await expect(page.locator('#main')).not.toContainText('نجهّز مساحتك');
     await expect(page.locator('#main h1').first()).toBeVisible();
     await page.evaluate(() => document.fonts.ready);
+    expect(await page.evaluate(() => document.fonts.check('16px Plex'))).toBe(true);
+    // Always retain a full-page candidate for review; missing references still fail.
+    await page.screenshot({ path: testInfo.outputPath(section + '-candidate.png'), fullPage: true, animations: 'disabled', caret: 'hide' });
     await expect(page).toHaveScreenshot(section + '.png', { fullPage: true });
   });
 }

@@ -17,7 +17,7 @@ fs.mkdirSync(runtime, { recursive: true });
 const runRoot = fs.mkdtempSync(path.join(runtime, 'browser-check-'));
 const artifacts = path.join(runRoot, 'artifacts');
 fs.mkdirSync(artifacts);
-const env = { ...process.env, CI: 'true', MADAR_LOCAL_STATE_PATH: path.join(runRoot, 'state'),
+const env = { ...process.env, CI: 'true', WRANGLER_SEND_METRICS: 'false', CLOUDFLARE_CF_FETCH_ENABLED: 'false', MADAR_LOCAL_STATE_PATH: path.join(runRoot, 'state'),
   MADAR_BROWSER_ARTIFACTS: artifacts, MADAR_RECORD_BASELINES: record ? '1' : '0' };
 const preload = ['--import', pathToFileURL(path.join(projectRoot, 'scripts/sites-env.mjs')).href];
 const children = [];
