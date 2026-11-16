@@ -30,7 +30,12 @@ test('rejects traversal, metadata, private state, and credentials', () => {
 test('allows review branch and blocks main, tags, and deletion', () => {
   validatePush(expected.remote, 'refs/heads/task abc refs/heads/updates/example def');
   for (const v of ['refs/heads/task abc refs/heads/main def', 'refs/tags/v1 abc refs/tags/v1 def',
-    '(delete) 000000 refs/heads/updates/example abc', '']) assert.throws(() => validatePush(expected.remote, v));
+    '(delete) 000000 refs/heads/updates/example abc']) assert.throws(() => validatePush(expected.remote, v));
+});
+test('allows an up-to-date push with no refs only for the expected destination', () => {
+  validatePush(expected.remote, '');
+  validatePush(expected.remote, '\n');
+  assert.throws(() => validatePush('https://github.com/other/madar.git', ''));
 });
 test('blocks linked directories and accepts contained files', () => {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), 'madar-guard-'));
@@ -38,6 +43,13 @@ test('blocks linked directories and accepts contained files', () => {
   try {
     fs.symlinkSync(outside, path.join(base, 'link'), process.platform === 'win32' ? 'junction' : 'dir');
     assert.throws(() => safeFile(base, 'link/file.txt'));
+    fs.symlinkSync(path.join(outside, 'missing'), path.join(base, 'dangling'), process.platform === 'win32' ? 'junction' : 'dir');
+    assert.throws(() => safeFile(base, 'dangling/file.txt'));
     assert.equal(safeFile(base, 'valid.txt'), path.join(base, 'valid.txt'));
-  } finally { fs.rmSync(base, { recursive: true, force: true }); fs.rmSync(outside, { recursive: true, force: true }); }
+  } finally {
+    for (const target of [base, outside]) {
+      assert.equal(path.dirname(path.resolve(target)), path.resolve(os.tmpdir()), 'Cleanup must stay inside the test temp directory');
+      fs.rmSync(target, { recursive: true, force: true });
+    }
+  }
 });

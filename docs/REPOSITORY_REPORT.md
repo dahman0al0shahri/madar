@@ -88,7 +88,9 @@ Every future handoff must say what Codex added, changed, removed, configured, or
 
 ## Remaining decisions
 
-- Owner review and merge instruction for the setup PR.
+Final review on 16 November 2026 confirmed that all 1,419 Git-tracked file contents and modes matched between the original source snapshot and the publication branch. Review found and corrected two publishing guard cases: dangling symbolic links must be rejected even when their target does not exist, and an up-to-date push with no refs must be allowed for the exact configured destination. Eight guard tests cover these cases alongside the existing checks. The owner explicitly authorized Codex to complete this review and merge PR #1 after verification; the merged state, final SHA, and subsequent main-branch check are recorded in the PR/GitHub history rather than inferred from this pre-merge report. This authorization does not deploy the application.
+
+- The owner authorized final review and merge of setup PR #1 on 16 November 2026; the linked PR records the verified merge result and commit.
 - Optional supported GitHub plan/policy if server-enforced private branch protection is desired; not required for the current owner-directed workflow.
 - Clean-clone build/database setup and hosted authentication testing before claiming full portable deployment readiness.
 - Rights, sensitive-content, and licensing review before any public release.

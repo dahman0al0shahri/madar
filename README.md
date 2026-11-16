@@ -17,7 +17,7 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/README.md">Documentation</a>
 </p>
 
-**Status:** private repository setup under review. Updates use [checked review branches](docs/GITHUB_WORKFLOW.md); the owner decides when to merge and Codex can execute that decision. A verified public demo and a project-wide distribution license have not been established for this package. See the [repository report](docs/REPOSITORY_REPORT.md) and [release readiness](docs/RELEASE_READINESS.md) for evidence and remaining work.
+**Status:** private development repository. Updates use [checked review branches](docs/GITHUB_WORKFLOW.md); the owner decides when to merge and Codex can execute that decision. A verified public demo and a project-wide distribution license have not been established for this package. See the [repository report](docs/REPOSITORY_REPORT.md) and [release readiness](docs/RELEASE_READINESS.md) for evidence and remaining work.
 
 ## Courses and learning workflows
 

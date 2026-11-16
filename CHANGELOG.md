@@ -23,6 +23,8 @@ These entries describe work prepared for review. Upload and check evidence is re
 
 ### Changed
 
+- Final review: reject dangling symbolic links during publication path checks, and allow an up-to-date push to finish without creating another commit.
+
 - Replaced the previous Word-only repository introduction with an overview of the registered MADAR courses and current setup limitations.
 
 ## Historical coverage

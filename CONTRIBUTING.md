@@ -12,7 +12,7 @@ Focus changes on a specific learning, usability, or maintenance problem. Start w
 
 ## Prepare a change
 
-1. Create a descriptive branch, such as `docs/start-guide` or `fix/progress-conflict`.
+1. Create a descriptive local source branch, such as `docs/start-guide` or `fix/progress-conflict`. The owner's publication command exports it to an `updates/*` GitHub review branch; the publication clone's pre-push guard accepts only that prefix. See [GitHub workflow](docs/GITHUB_WORKFLOW.md).
 2. Identify the source before editing generated files, and review related output.
 3. Run `node scripts/check-repository.mjs` and checks appropriate to the affected behavior.
 4. Run lint and build checks for application changes when the environment is configured. State which checks you could not run and why.

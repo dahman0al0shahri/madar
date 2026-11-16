@@ -28,7 +28,10 @@ export function safeFile(base, name) {
   let current = base;
   for (const part of name.split('/')) {
     current = path.join(current, part);
-    if (fs.existsSync(current)) assert(!fs.lstatSync(current).isSymbolicLink(), 'Links are not allowed: ' + name);
+    // existsSync follows links and returns false for a dangling link. lstat must
+    // inspect the entry itself so a missing target cannot bypass containment.
+    try { assert(!fs.lstatSync(current).isSymbolicLink(), 'Links are not allowed: ' + name); }
+    catch (error) { if (error.code !== 'ENOENT') throw error; }
   }
   const relative = path.relative(fs.realpathSync(base), current);
   assert(relative && !relative.startsWith('..') && !path.isAbsolute(relative), 'Outside project');
@@ -37,7 +40,8 @@ export function safeFile(base, name) {
 export function validatePush(remote, input) {
   validateRemote(remote);
   const lines = input.trim().split(/\r?\n/).filter(Boolean);
-  assert(lines.length > 0, 'No push reference supplied');
+  // Git also calls pre-push with empty stdin when everything is up to date.
+  // With no refs there is no remote write to authorize; destination still checks.
   for (const line of lines) {
     const [localRef, localSha, remoteRef] = line.trim().split(/\s+/);
     assert(localRef && localSha && remoteRef, 'Invalid push reference');
@@ -94,7 +98,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     if (process.argv[2] === '--pre-push') {
       const input = fs.readFileSync(0, 'utf8');
       validatePush(process.argv[4], input);
-      for (const line of input.trim().split(/\r?\n/)) {
+      for (const line of input.trim().split(/\r?\n/).filter(Boolean)) {
         const [, localSha, , remoteSha] = line.trim().split(/\s+/);
         assert(remoteSha, 'Missing remote SHA');
         if (!/^0+$/.test(remoteSha)) git(root, ['merge-base', '--is-ancestor', remoteSha, localSha]);
