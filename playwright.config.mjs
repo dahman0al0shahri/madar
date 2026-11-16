@@ -11,7 +11,7 @@ const record = process.env.MADAR_RECORD_BASELINES === '1';
 export default defineConfig({
   testDir: './tests/browser', fullyParallel: false, workers: 1, retries: 0,
   forbidOnly: true, timeout: 60_000, globalTimeout: 480_000,
-  expect: { timeout: 10_000, toHaveScreenshot: { animations: 'disabled', caret: 'hide', maxDiffPixels: 0, threshold: 0 } },
+  expect: { timeout: 10_000, toHaveScreenshot: { animations: 'disabled', caret: 'hide', maxDiffPixels: 0, threshold: 0.01 } },
   updateSnapshots: record ? 'all' : 'none',
   snapshotPathTemplate: '{testDir}/screenshots/{projectName}/{arg}{ext}',
   outputDir: path.join(artifacts, 'results'),

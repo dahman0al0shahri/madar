@@ -25,7 +25,9 @@ The interaction cases run on Windows too when its security policy permits the te
 
 ## Reference images
 
-Images live in `tests/browser/screenshots/desktop/` and `tests/browser/screenshots/mobile/`. They capture the unchanged applications interface. Default runs use `updateSnapshots: none`, zero differing pixels and zero color-difference threshold, no retries, and fail on missing references or differences. CI does not update or commit references automatically.
+Images live in `tests/browser/screenshots/desktop/` and `tests/browser/screenshots/mobile/`. They capture the unchanged applications interface. Default runs use `updateSnapshots: none`, zero differing pixels after a 0.01 perceptual color threshold, no retries, and fail on missing references or differences. CI does not update or commit references automatically.
+
+The initial strict-zero color trial found only 4, 15, and 22 changed pixels in three multi-million-pixel images, each differing by at most one RGB channel level out of 255, at rounded card corners. The 0.01 color threshold handles this measured rendering noise; it is not a 1% allowance for changed pixels. No baseline was replaced or content masked. An offline control using the installed Playwright comparator accepted those measured pairs and rejected an injected 20 x 20 color patch (400 differing pixels) in each. Full browser comparisons are still required in CI.
 
 To prepare a deliberate reference update in the same Linux environment:
 
