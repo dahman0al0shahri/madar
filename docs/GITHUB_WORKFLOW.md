@@ -38,6 +38,14 @@ Do not copy this binding into another project. Configure it only after verifying
 
 The ignored `.madar-publish-receipt.json` contains per-file hashes, the local source commit, publication commit, branch, and PR URL. It is a synchronization record, not a credential or a backup. The source history is retained locally; GitHub starts with a reviewed snapshot rather than the full historical object database.
 
+### Line endings and conflict detection
+
+The publisher compares committed Git file modes and blob IDs against the receipt's publication commit and the new source commit. A clean Windows checkout can contain CRLF bytes while Git stores LF; that difference alone is not a publication-side edit. The helper `scripts/publication-baseline.mjs` reads Git trees without rewriting text or treating binary line endings as interchangeable.
+
+Both checkouts must be clean. A publication file must match either its previously published entry or the incoming source entry. Divergent text, whitespace, binary data, executable modes, and unreviewed deletions stop publication. An invalid or unavailable baseline commit also stops publication; the tool never silently falls back to ignoring conflicts.
+
+Existing receipts work through their recorded `commit`; no manual hash refresh or migration is needed for LF/CRLF conversion. Raw SHA-256 manifest hashes are still used to verify exact copying and detect concurrent source writes. This fix does not change Git configuration, add line-ending attributes, or normalize project files. Real temporary-repository tests cover both checkout directions and a second update after re-checkout.
+
 Git Credential Manager stores the user's Git login. The command obtains the existing credential in process memory for `api.github.com` requests only, does not print it, and does not write it to the project, workflow, or report. No personal access token is embedded in source. GitHub Actions receives read-only repository permissions and has no deployment credentials.
 
 ## Review policy and actual enforcement
@@ -57,4 +65,4 @@ To enforce server-side protection later, the owner must choose a supported plan 
 
 If GitHub and the original source history need to be unified later, plan that migration explicitly. This snapshot bridge favors a narrow upload boundary and preservation of the existing history over automatic history rewriting.
 
-References: [Git hooks](https://git-scm.com/docs/githooks), [protected branch availability](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches), [GitHub Actions security](https://docs.github.com/en/actions/reference/security/secure-use).
+References: [Git hooks](https://git-scm.com/docs/githooks), [Git tree entries](https://git-scm.com/docs/git-ls-tree), [Git line-ending conversion](https://git-scm.com/docs/gitattributes), [protected branch availability](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-protected-branches/about-protected-branches), [GitHub Actions security](https://docs.github.com/en/actions/reference/security/secure-use).

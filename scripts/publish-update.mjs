@@ -5,6 +5,7 @@ import crypto from 'node:crypto';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { root, expected, git, assertCheckout, validateRemote, safeFile, githubClient, assertRepository, canResumePrepared } from './repository-guard.mjs';
+import { assertPublicationBaseline } from './publication-baseline.mjs';
 
 const digest = data => crypto.createHash('sha256').update(data).digest('hex');
 function check(base) {
@@ -90,12 +91,14 @@ try {
     git(target, ['switch', '-c', branch, 'origin/main']);
   }
   const targetFiles = git(target, ['ls-files', '-z']).split('\0').filter(Boolean);
+  // Git's committed representation is stable across LF/CRLF checkouts. Legacy
+  // receipts already record the commit needed for this comparison; raw manifest
+  // hashes remain copy/concurrency evidence, not the publication conflict baseline.
+  if (previous) assertPublicationBaseline(root, target, sourceCommit, previous.commit);
   for (const name of targetFiles) {
-    const targetFile = safeFile(target, name);
+    safeFile(target, name);
     assert(Object.hasOwn(manifest, name), 'Deletion needs explicit review and reconciliation: ' + name);
-    const current = digest(fs.readFileSync(targetFile));
-    if (previous) assert(current === previous.manifest[name] || current === manifest[name], 'Publication-side change would be overwritten: ' + name);
-    else assert(name === 'README.md' && git(target, ['rev-parse', 'HEAD']).trim() === '9d8df83adefdf44087943a0f211f257998333fcf', 'Unrecognized bootstrap content');
+    if (!previous) assert(name === 'README.md' && git(target, ['rev-parse', 'HEAD']).trim() === '9d8df83adefdf44087943a0f211f257998333fcf', 'Unrecognized bootstrap content');
   }
   for (const name of Object.keys(manifest)) {
     const dest = safeFile(target, name);
