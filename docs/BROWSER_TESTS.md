@@ -44,6 +44,6 @@ The run's `artifacts/` folder contains a Playwright HTML/JSON report, full-page 
 
 Inspect expected/actual/difference images, the failed locator, and the trace before editing a test. Different fonts, browser versions, or runner images can cause rendering drift; reproduce in the documented environment first. Ubuntu 24.04 runner updates can still affect rendering and need review, not automatic acceptance.
 
-This is a limited regression suite, not a full accessibility, cross-browser, video, security, hosted account isolation, backup restoration, or educational-content audit. The HTTP application checks remain separate.
+This limited regression suite verifies selected browser interactions, account JSON download and appearance. It does not establish full accessibility, cross-browser behavior, video correctness, security, hosted account isolation or educational-content correctness. Local SQL recovery is covered separately by the [application checks](BACKUP_RECOVERY.md); hosted recovery remains untested.
 
 Implementation references: [Playwright visual comparisons](https://playwright.dev/docs/test-snapshots), [test isolation](https://playwright.dev/docs/browser-contexts), and [CI setup](https://playwright.dev/docs/ci-intro).

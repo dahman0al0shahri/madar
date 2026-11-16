@@ -1,3 +1,5 @@
+> Historical design/implementation record. Current repository status is in [the repository report](docs/REPOSITORY_REPORT.md). This record does not override later owner decisions or authorize interface changes.
+
 # تحسين التصميم المحلي — 15 أكتوبر 2026
 
 طلب المستخدم اتخاذ قرارات التصميم دون أسئلة، مع استمرار منع النشر. التغييرات داخل المشروع الفعلي، وتنتجها عملية البناء؛ ليست مجرد تعديل في معاينات قديمة.

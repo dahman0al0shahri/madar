@@ -1,3 +1,5 @@
+> Historical design/implementation record. Current repository status is in [the repository report](docs/REPOSITORY_REPORT.md). This record does not override later owner decisions or authorize interface changes.
+
 # دمج مدار المحلي — 15 أكتوبر 2026
 
 النطاق: دمج المعاينات المعتمدة في مصدر الموقع الفعلي محليًا. لم تُرفع المصادر ولم يُنشر الموقع، ولم تُعدّل حالة الطالب الأكاديمية.

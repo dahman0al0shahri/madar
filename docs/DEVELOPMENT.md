@@ -82,9 +82,8 @@ These are code and simulation tests. They do not validate all course content, re
 1. Check `node --version` and confirm that you are in the directory containing `package.json`.
 2. Save the failing command and error message without credentials or account details.
 3. Do not delete databases or working files to troubleshoot installation.
-4. Report the environment and reproduction steps when the GitHub repository is available.
+4. Report the environment and reproduction steps through GitHub Issues if you have repository access; use the private handling described in SECURITY.md for sensitive findings.
 
 This package does not establish a deployment procedure for every hosting provider. Deployment, authentication, and storage provisioning are separate from publishing source code.
 
 Implementation references: [npm ci](https://docs.npmjs.com/cli/npm-ci/), [D1 local development](https://developers.cloudflare.com/d1/best-practices/local-development/), and [D1 migrations](https://developers.cloudflare.com/d1/reference/migrations/).
-

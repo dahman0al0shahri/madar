@@ -6,7 +6,7 @@ On 16 November 2026, the owner requested hosted testing with dedicated accounts 
 
 Sites metadata identified the public MADAR Site at `https://madar-word-lab.d7d7y7.chatgpt.site`, project `appgprj_6abf78ca27ec8191a502c42fe942a0e9`. Published version **115** reports source commit `d675b27ee15f85c77288dd87f0eb21477d09c67b` and a successful deployment. GitHub maintenance commits do not automatically redeploy that Site. Recheck native Site metadata before a later hosted test; these are dated observations, not a permanent availability claim.
 
-The first live run passed **12 checks** on 16 November 2026 at 15:05 UTC. Its local result is retained outside tracked source. This PR records the exact code and review/CI results. No Site source, runtime environment, audience, deployment, database migration or protection setting was changed.
+The first live run passed **12 checks** on 16 November 2026 at 15:05 UTC. Its local result is retained outside tracked source. [PR #7](https://github.com/dahman0al0shahri/madar/pull/7) merged the check; all four post-merge jobs passed in [run 43895733024](https://github.com/dahman0al0shahri/madar/actions/runs/43895733024). No Site source, runtime environment, audience, deployment, database migration or protection setting was changed.
 
 ## Repeat the anonymous check
 

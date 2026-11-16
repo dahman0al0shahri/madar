@@ -15,7 +15,7 @@ Focus changes on a specific learning, usability, or maintenance problem. Start w
 1. Create a descriptive local source branch, such as `docs/start-guide` or `fix/progress-conflict`. The owner's publication command exports it to an `updates/*` GitHub review branch; the publication clone's pre-push guard accepts only that prefix. See [GitHub workflow](docs/GITHUB_WORKFLOW.md).
 2. Identify the source before editing generated files, and review related output.
 3. Run `node scripts/check-repository.mjs` and checks appropriate to the affected behavior.
-4. Run lint and build checks for application changes when the environment is configured. State which checks you could not run and why.
+4. For application changes, run `npm run check:application` after installing dependencies; use `npm run check:browser` for affected interactions/appearance. Full-project lint/type checks are not part of the current CI gate. Report any separately attempted lint/type checks accurately rather than treating an unrun command as passed.
 5. Review the diff before committing. Exclude unrelated output and sensitive information.
 6. Open a pull request explaining the problem, resulting behavior, verification, and limitations.
 

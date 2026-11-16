@@ -11,6 +11,7 @@ This repository contains the application source and its resources. The documenta
 <p align="center">
   <a href="docs/START_HERE.md">Start here</a> ·
   <a href="docs/STORY.md">The story</a> ·
+  <a href="docs/HISTORY.md">History</a> ·
   <a href="docs/DEVELOPMENT.md">Development</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
   <a href="CONTRIBUTING.md">Contributing</a> ·
@@ -18,11 +19,13 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/README.md">Documentation</a>
 </p>
 
-**Status:** private development repository. Updates use [checked review branches](docs/GITHUB_WORKFLOW.md); the owner decides when to merge and Codex can execute that decision. A verified public demo and a project-wide distribution license have not been established for this package. See the [repository report](docs/REPOSITORY_REPORT.md) and [release readiness](docs/RELEASE_READINESS.md) for evidence and remaining work.
+**Status (16 November 2026):** experimental application; the GitHub repository is currently private and is being prepared for public access at the owner's request. Maintenance PRs #1–#7 are merged. The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) is already public, separately from GitHub; twelve anonymous checks passed against version 115. Real two-account isolation remains untested. See the [repository report](docs/REPOSITORY_REPORT.md) for merge/check evidence and [publication readiness](docs/RELEASE_READINESS.md) for the remaining review.
 
 ## The Story Behind MADAR
 
 Read [the project owner's story](docs/STORY.md): the current experimental stage, classmates' use, continuous learning inside and outside college, AI-assisted development, and possible future directions.
+
+MADAR began on **18 Rabi al-Awwal 1448 AH (31 August 2026, Umm al-Qura)**, as confirmed by its owner. Read [MADAR's history](docs/HISTORY.md) for its development from early Word revision work to multiple courses and the current repository workflow, with the evidence and limits for each milestone.
 
 ## Courses and learning workflows
 
@@ -46,7 +49,7 @@ The code includes progress, notes, review, and feedback workflows. Access depend
 | Report a problem or propose a change | [Contributing](CONTRIBUTING.md) |
 | Add a course or practice workflow | [Course integration checklist](docs/COURSE_INTEGRATION.md) |
 | Keep application changes and GitHub updates aligned | [Maintenance workflow](docs/MAINTENANCE.md) · [Changelog](CHANGELOG.md) |
-| Review data handling and distribution requirements | [Security](SECURITY.md) · [Rights and sources](docs/RIGHTS.md) |
+| Review data handling and included sources | [Security](SECURITY.md) · [Bundled components and sources](docs/RIGHTS.md) |
 
 ## Developer quick start
 
@@ -68,7 +71,7 @@ To check repository safeguards, local documentation links, and the five existing
 node scripts/check-repository.mjs
 ```
 
-After installing dependencies, `npm run check:application` builds the application and tests local development and built-server startup with isolated synthetic data. GitHub runs installation and this check on Windows and Linux for pushes and pull requests. It does not deploy the application.
+After installing dependencies, `npm run check:application` builds and tests local startup, persistence and SQL recovery with isolated synthetic data. A separate Chromium suite checks desktop/mobile interactions, account export and six visual references. GitHub runs four jobs: repository checks, Windows application checks, Linux application checks, and Linux browser/visual checks. It does not deploy the application. See [development](docs/DEVELOPMENT.md), [browser checks](docs/BROWSER_TESTS.md), and [backup/recovery](docs/BACKUP_RECOVERY.md).
 
 ## Repository map
 
@@ -81,7 +84,7 @@ After installing dependencies, `npm run check:application` builds the applicatio
 | `drizzle/` | SQL migration history |
 | `build/` | Build and hosting integration |
 | `scripts/` | Generation, development, and verification commands |
-| `tests/` | Local code tests |
+| `tests/` | Repository safeguards, local integration helpers, browser tests and visual references |
 | `docs/` | Project guides and historical design records |
 | `.github/` | Automated checks and contribution templates |
 
@@ -94,9 +97,9 @@ Identify a generated file's source and generator before changing it. See [archit
 - Course integration includes accounts, persistence, restore, notes, statistics, and feedback—not just a visible course page.
 - Local networking tests do not cover every course, hosted authentication, or complete account isolation.
 
-## Rights and publication
+## Publication and included material
 
-The project license and redistribution rights for educational material and media remain under review. Existing third-party license notices are preserved; see [rights and sources](docs/RIGHTS.md). Do not commit learner data, backups, or credentials.
+Public GitHub access is the planned next distribution step; it has not been enabled. The repository includes original project work, external libraries and course-source files. Their existing notices are listed in [bundled components and sources](docs/RIGHTS.md). Keep real learner data, backups and credentials out of commits.
 
 Repository-facing documentation is written in English. The application's Arabic content and original course names retain their source language.
 

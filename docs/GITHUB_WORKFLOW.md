@@ -1,6 +1,6 @@
 # GitHub update workflow
 
-The private repository is [dahman0al0shahri/madar](https://github.com/dahman0al0shahri/madar), repository ID **1459615658**. The project marker is [`.madar-repository.json`](../.madar-repository.json). It is intentionally not the whole Engineering Learning OS workspace.
+The currently private repository is [dahman0al0shahri/madar](https://github.com/dahman0al0shahri/madar), repository ID **1459615658**. The project marker is [`.madar-repository.json`](../.madar-repository.json). It is intentionally not the whole Engineering Learning OS workspace.
 
 ## What happens after an update
 
@@ -21,6 +21,10 @@ node scripts/publish-update.mjs --message "Describe the completed update" --body
 The description file must contain the actual change, checks, impact, and limits. It can live outside the repository. Do not put secrets or private study records in it. If no update is ready, do not invoke publication merely because time has passed.
 
 This is end-of-update automation executed by Codex, **not** an always-running background file watcher. It does not publish arbitrary edits made by another editor or host. The owner does not need to repeat the GitHub request for future authorized MADAR updates; the agent instructions require this completion step.
+
+## Planned public access
+
+The owner requested public GitHub access after content/documentation preparation on 16 November 2026. The repository remains private during this review. The marker and repository guard intentionally still require private visibility. Before executing the transition, reconcile [publication findings](RELEASE_READINESS.md), review the guard/marker/tests for the intended visibility, and recheck available server protection. Do not bypass identity checks or claim the transition happened because documentation was updated. GitHub visibility, Site audience, named releases and app deployments are separate.
 
 ## Local setup and separation
 
@@ -56,7 +60,7 @@ Git Credential Manager stores the user's Git login. The command obtains the exis
 
 The current account plan does **not** enforce protected branches for this private repository. This was confirmed in GitHub Settings on 16 November 2026. The publisher never merges, and the local pre-push guard prevents normal accidental pushes to `main`; these are not server-side access controls. A write-capable person can bypass a local hook or merge through the website.
 
-To enforce server-side protection later, the owner must choose a supported plan or another suitable repository policy. Do not make this repository public to gain the feature: resource rights and public release have not been cleared. With enforced protection available, require PRs, all four check jobs above, conversation resolution, no force push/deletion, and the appropriate human review. A PR author cannot provide their own approving review, so a one-person project must explicitly decide who the independent reviewer is before requiring one approval.
+To enforce server-side protection later, the owner must choose a supported plan or another suitable repository policy. The owner has now requested public access as a distribution goal. Complete its preparation separately rather than changing visibility solely as a workaround for plan limitations. With enforced protection available, require PRs, all four check jobs above, conversation resolution, no force push/deletion, and the appropriate human review. A PR author cannot provide their own approving review, so a one-person project must explicitly decide who the independent reviewer is before requiring one approval.
 
 ## When something stops
 
@@ -65,7 +69,7 @@ To enforce server-side protection later, the owner must choose a supported plan 
 - A source deletion: the command refuses automatic deletion; review its intent and reconcile the publication copy separately before re-running.
 - Push/API interruption: retain the local commit, receipt, and branch. Inspect `git status`, branch heads, and the remote PR before retrying. A prepared upload can resume only when the recorded branch and local/remote SHA agree; it looks for an existing PR before creating one. Network retries apply only to reads. The command does not reset, clean, delete, or force-push to recover. A local lock in the publication Git directory prevents concurrent publishers; after a terminated process, inspect the recorded PID/state before removing a stale lock.
 - A second open automated PR: reconcile the existing review branch first. Avoid parallel exports of different source trees.
-- Merge completed by the owner: the next update starts from fetched `origin/main`; source-vs-publication conflicts still require reconciliation.
+- Owner-authorized merge completed: the next update starts from fetched `origin/main`; source-vs-publication conflicts still require reconciliation.
 
 If GitHub and the original source history need to be unified later, plan that migration explicitly. This snapshot bridge favors a narrow upload boundary and preservation of the existing history over automatic history rewriting.
 

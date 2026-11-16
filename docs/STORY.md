@@ -16,4 +16,4 @@ Beyond this stage, I am tentatively considering developing MADAR into an educati
 
 ---
 
-[Back to MADAR](../README.md) · [Documentation](README.md)
+[MADAR history and milestones](HISTORY.md) · [Back to MADAR](../README.md) · [Documentation](README.md)

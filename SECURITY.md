@@ -6,9 +6,9 @@ These instructions describe how to handle sensitive information. They are not a 
 
 Do not publish credentials, real learner data, or account-exposing reproduction details in a public issue.
 
-After the GitHub repository is created, use **Security → Report a vulnerability** if the owner has enabled private reporting. Until a private channel is established, contact the owner through a private channel you already know rather than posting sensitive details in Issues.
+The repository exists and Issues are enabled. Use **Security → Report a vulnerability** only if that option is available. Private vulnerability reporting has not been verified as enabled; do not assume that an ordinary Issue is private. Otherwise, contact the owner through an existing private channel rather than posting sensitive details in Issues.
 
-This draft does not establish a security email address or response-time commitment. A private reporting channel must be confirmed before inviting public contributions.
+No dedicated security email or response-time commitment has been established. Confirm a usable private reporting route as part of the planned public-access preparation; do not publish a personal address as that route without the owner's decision.
 
 ## Keep out of the repository
 
@@ -24,6 +24,6 @@ Application code reads identity headers supplied by a hosting gateway. Local tes
 
 ## Automated checks
 
-The added workflow requests read access to repository contents, pins actions to full commit hashes, and has no deployment steps or deployment secrets. Local tests and link checks do not replace a review of security, content, and Git history.
+The four-job workflow requests read access to repository contents, pins actions to full commit hashes, and has no deployment steps or deployment secrets. It tests repository safeguards, Windows/Linux startup and recovery, and Linux browser/visual behavior with synthetic data. The hosted guest verifier is opt-in and does not run against production in CI. These checks do not establish comprehensive security, real hosted account isolation, or clearance of Git history and media for public access.
 
 Reference: [GitHub Actions secure use](https://docs.github.com/en/actions/reference/security/secure-use).

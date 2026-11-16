@@ -1,10 +1,12 @@
 # Maintaining MADAR and its repository
 
+For meaningful project milestones, update [MADAR history](HISTORY.md) with a dated source or an attributed owner statement. Keep founding, local development, GitHub merge and hosted deployment dates distinct; use the changelog for maintenance details.
+
 Keep the application source, documentation, and change record together. An application change is not fully recorded until its repository changes and verification status are accounted for.
 
 ## Current publication status
 
-The owner authorized the private `dahman0al0shahri/madar` repository and end-of-update publication. Read [GitHub workflow](GITHUB_WORKFLOW.md) for the isolated snapshot bridge, local binding, identity checks, draft pull requests, owner-directed merges, and current server-protection limits. Read the [repository report](REPOSITORY_REPORT.md) for verified setup status.
+The owner authorized `dahman0al0shahri/madar` and end-of-update publication. It is currently private; the latest request is to reconcile its contents before making it public. That transition is pending the [publication review](RELEASE_READINESS.md), not completed by a documentation edit. Read [GitHub workflow](GITHUB_WORKFLOW.md) for the isolated snapshot bridge, local binding, identity checks, draft pull requests, owner-directed merges, and current server-protection limits. Read the [repository report](REPOSITORY_REPORT.md) for verified setup status.
 
 The original source history and publication clone are separate. Preserve both and reconcile differences explicitly; do not overwrite folders or join histories automatically. The preparation worktree belongs to the original source repository and is not an independent product.
 
@@ -18,7 +20,7 @@ The original source history and publication clone are separate. Preserve both an
 | [ARCHITECTURE.md](ARCHITECTURE.md) | Source ownership, generation, storage, or hosting boundaries change |
 | [COURSE_INTEGRATION.md](COURSE_INTEGRATION.md) | Course acceptance requirements change |
 | [SECURITY.md](../SECURITY.md) | Authentication, data handling, or reporting procedures change |
-| [RIGHTS.md](RIGHTS.md) | New content, media, dependencies, or distribution permissions require documentation |
+| [Bundled sources](RIGHTS.md) | Included components, original source references or their existing notices change |
 | [RELEASE_READINESS.md](RELEASE_READINESS.md) | A preparation blocker is resolved or its verification status changes |
 | [Release-notes template](templates/RELEASE_NOTES.md) | Preparing notes for a named release; copy and fill it rather than replacing the template |
 
