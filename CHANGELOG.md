@@ -22,6 +22,10 @@ These entries describe work prepared for review. Upload and check evidence is re
 
 - Recovery for an upload interrupted before PR creation, with a recorded-head check and a publication lock.
 
+### Fixed
+
+- Publication no longer mistakes LF/CRLF checkout conversion for a remote content conflict. Conflict detection uses committed Git file modes and blob IDs, while exact-byte copy and concurrency checks remain in place. Nine temporary-repository regression tests cover repeated updates, real content conflicts, binary changes, modes, deletions, dirty checkouts, and invalid baselines.
+
 ### Changed
 
 - Final review: reject dangling symbolic links during publication path checks, and allow an up-to-date push to finish without creating another commit.

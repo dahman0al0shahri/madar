@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 process.chdir(root);
-for (const args of [['scripts/repository-guard.mjs'], ['--test', 'tests/repository-guard.test.mjs']]) {
+for (const args of [['scripts/repository-guard.mjs'], ['--test', 'tests/repository-guard.test.mjs', 'tests/publication-baseline.test.mjs']]) {
   const result = spawnSync(process.execPath, args, { cwd: root, stdio: 'inherit', timeout: 60000 });
   if (result.status !== 0) process.exit(1);
 }

@@ -40,6 +40,7 @@ The original history is retained locally: the preparation inventory found 154 co
 | Automated verification | `.github/workflows/repository-checks.yml`, `scripts/check-repository.mjs` |
 | Identity and upload protection | `.madar-repository.json`, `scripts/repository-guard.mjs`, `.githooks/pre-push`, `tests/repository-guard.test.mjs` |
 | Update publication | `scripts/publish-update.mjs`, `docs/GITHUB_WORKFLOW.md`, ignored local binding and synchronization receipt |
+| Checkout-independent conflict detection | `scripts/publication-baseline.mjs` compares committed blob IDs and file modes; `tests/publication-baseline.test.mjs` adds nine real-Git regression tests to `scripts/check-repository.mjs`. Existing receipt commit IDs remain usable; no Git configuration or project-wide line-ending rewrite is required. |
 | Agent obligations | Application `AGENTS.md`; parent Engineering Learning OS `AGENTS.md` updated locally and not uploaded wholesale |
 | This report | `docs/REPOSITORY_REPORT.md` |
 | Local exclusions | `.gitignore` updated for local binding and publication receipts |
