@@ -2,7 +2,7 @@
 
 Updated: **16 November 2026**. Initial preparation started at `d675b27`; clean-clone work starts from merged `main` commit `284235b`.
 
-The private repository setup, story, and publication line-ending fix are merged in PRs #1–#3. The clean-clone/application-check update is a separate review change, not a named release or comprehensive security audit. Its exact commit and CI evidence belong to its pull request. See [repository report](REPOSITORY_REPORT.md) and [GitHub workflow](GITHUB_WORKFLOW.md).
+The repository setup, story, publication line-ending fix, and clean-clone checks are merged in PRs #1–#4. Browser/visual checks are a separate review change, not a named release or comprehensive security audit. Its exact commit and CI evidence belong to its pull request. See [repository report](REPOSITORY_REPORT.md) and [GitHub workflow](GITHUB_WORKFLOW.md).
 
 ## Prepared in this pass
 
@@ -27,7 +27,8 @@ The private repository setup, story, and publication line-ending fix are merged 
 | Development and built-server HTTP checks | Home, applications, network lab, three-course catalog, and guest restrictions passed locally |
 | Local test identity and persistence | Sign-in/sign-out, save/read, stale revisions, owner/origin checks, and forged-header stripping passed locally |
 | Generated content | Build preserves tracked content after fixing CRLF-sensitive network generation; no application appearance change |
-| Full-project lint/type checking and browser interaction | Not part of this check; no blanket application-quality claim |
+| Browser interactions and visual comparisons | Separate Chromium suite; see [browser checks](BROWSER_TESTS.md) and exact PR evidence |
+| Full-project lint/type checking | Not part of these checks; no blanket application-quality claim |
 | Hosted sign-in and account isolation | Not tested in this pass |
 | GitHub Actions execution | Earlier setup checks passed; this change adds Node 22 Windows/Linux application jobs. Check the current PR's exact SHA and runs before merging |
 | Preliminary secret-pattern scan | No matches for four patterns across 1,192 historical text objects |
@@ -41,7 +42,7 @@ The initial preparation inventory contained 1,393 tracked files, approximately 3
 
 ## Next steps
 
-1. Review the clean-clone PR and its Windows/Linux CI results; merge only on the owner's instruction.
+1. Review the browser-check PR, every reference screenshot, and all four CI jobs; merge only on the owner's instruction.
 2. Test hosted sign-in, two real test accounts plus a guest, backup/restore, and R2-backed media in a separately authorized test environment. Local HTTP checks do not establish these results.
 3. Complete privacy and educational/media rights review before public distribution, then choose a project-wide license.
 4. If server-enforced review protection is desired, resolve the existing private-plan limitation. Local guards are not server-side protection.

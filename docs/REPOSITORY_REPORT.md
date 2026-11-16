@@ -121,3 +121,11 @@ An independent clone of publication `main` at `284235b` was created under the pa
 The final local application check passed all seven groups: build, unchanged tracked content, initial migrations, development guest pages/catalog, local test identity and request/persistence guards, restart/repeated migrations preserving data, and built-server guest pages/catalog. The repository safeguard and five existing application test files also passed. The review PR must record the Windows/Linux CI result for its exact uploaded commit before review is considered complete.
 
 This does not establish browser interaction/visual coverage, full-project lint/type-check coverage, hosted two-account isolation, backup restoration, hosted media delivery, public licensing, or deployment readiness. Existing trusted-gateway authentication requirements remain. No production service, real learner record, project-wide license, repository visibility, release, or deployment was changed. Isolated local evidence and tooling are outside the publication snapshot.
+
+## Browser and visual review update
+
+PR #4 was merged into main as `d2196e0`; all three checks passed after that merge. The next review update adds Playwright 1.65.1 as an exact development dependency, three new lockfile entries, a browser runner/configuration, desktop/mobile interaction tests, and six Linux screenshot references. No runtime dependencies, application source, generated UI, content, or SQL migrations are intentionally changed.
+
+The fourth CI job uses Ubuntu 24.04, Node 22, pinned Chromium, read-only repository permissions, and no cloud credentials. It retains only synthetic browser evidence for seven days. It never rewrites references or merges. The local Windows browser attempt encountered a Smart App Control block for Chromium's Vulkan library; protection was not changed. Linux CI is the authoritative browser result, recorded against the PR head. See [browser checks](BROWSER_TESTS.md) for baseline maintenance, isolation, and limits.
+
+The existing safeguard test files run sequentially, and their subprocess now has a three-minute timeout (identity checks remain one minute). A local run exceeded the old one-minute wrapper under installation load; the independent Git fixture tests passed after that load. No test is bypassed.

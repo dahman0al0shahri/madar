@@ -10,6 +10,9 @@ These entries describe work prepared for review. Upload and check evidence is re
 
 ### Added
 
+- Isolated Chromium interaction tests and desktop/mobile visual comparisons for the unchanged Advanced Computer Applications interface, with reviewed Linux reference images and a separate read-only CI job.
+- Browser testing guidance covering synthetic storage, evidence retention, baseline review, and Windows security-policy limitations.
+
 - A portable local database initialization command and an isolated application check covering build, development/built startup, guest/local sign-in, persistence, and request guards. GitHub runs clean dependency installation and application checks on Windows and Linux.
 
 - The owner-approved English story of MADAR, linked from the repository overview and documentation index.
@@ -25,6 +28,8 @@ These entries describe work prepared for review. Upload and check evidence is re
 - Recovery for an upload interrupted before PR creation, with a recorded-head check and a publication lock.
 
 ### Fixed
+
+- Run existing Git-fixture safeguard test files sequentially and allow up to three minutes on slower local disks, without removing tests or changing pass criteria.
 
 - Network review integration and embedded hint-history generation now handle Windows CRLF inputs consistently with LF. A build-content check detects regenerated files that differ from the reviewed source snapshot.
 
