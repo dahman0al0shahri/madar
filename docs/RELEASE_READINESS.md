@@ -30,7 +30,7 @@ The repository setup, story, publication line-ending fix, and clean-clone checks
 | Browser interactions and visual comparisons | Separate Chromium suite; see [browser checks](BROWSER_TESTS.md) and exact PR evidence |
 | Full-project lint/type checking | Not part of these checks; no blanket application-quality claim |
 | Hosted sign-in and account isolation | Not tested in this pass |
-| GitHub Actions execution | Earlier setup checks passed; this change adds Node 22 Windows/Linux application jobs. Check the current PR's exact SHA and runs before merging |
+| GitHub Actions execution | PR #4 and its post-merge run passed all three jobs. This change adds a fourth browser/visual job. Check the current PR's exact SHA and all four jobs before merging |
 | Preliminary secret-pattern scan | No matches for four patterns across 1,192 historical text objects |
 | Comprehensive secret, history, and content audit | Incomplete; no public-release clearance |
 | Redistribution rights for all content | Not established |

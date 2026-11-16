@@ -25,7 +25,7 @@ The interaction cases run on Windows too when its security policy permits the te
 
 ## Reference images
 
-Images live in `tests/browser/screenshots/desktop/` and `tests/browser/screenshots/mobile/`. They capture the unchanged applications interface. Default runs use `updateSnapshots: none`, zero differing pixels, no retries, and fail on missing references or differences. CI does not update or commit references automatically.
+Images live in `tests/browser/screenshots/desktop/` and `tests/browser/screenshots/mobile/`. They capture the unchanged applications interface. Default runs use `updateSnapshots: none`, zero differing pixels and zero color-difference threshold, no retries, and fail on missing references or differences. CI does not update or commit references automatically.
 
 To prepare a deliberate reference update in the same Linux environment:
 
@@ -33,11 +33,11 @@ To prepare a deliberate reference update in the same Linux environment:
 npm run browser:record
 ```
 
-Review every changed image and its source changes before committing it. The existing ban on changing Advanced Computer Applications appearance still applies: recording a reference is not permission to accept a design change. Do not widen tolerance, mask application content, or replace an expected image merely to make a failure pass. Initial reference capture and its subsequent comparison results are recorded in the PR.
+Review every changed image and its source changes before committing it. The existing ban on changing Advanced Computer Applications appearance still applies: recording a reference is not permission to accept a design change. Do not widen tolerance, mask application content, or replace an expected image merely to make a failure pass. Initial references were individually reviewed from full-page candidates in [capture run 43880105497](https://github.com/dahman0al0shahri/madar/actions/runs/43880105497). Their dimensions, SHA-256 hashes, source base, and environment are retained in [provenance.json](../tests/browser/screenshots/provenance.json). The missing-reference failures in that bootstrap run were expected; subsequent comparison results belong to the PR head.
 
 ## Evidence and failure diagnosis
 
-The run's `artifacts/` folder contains a Playwright HTML/JSON report, failure screenshots/traces, and the runner result on success. The CI job uploads only this synthetic evidence as `browser-evidence`, retained for seven days. It does not upload the database or server/migration logs. Treat traces as potentially sensitive if adapting the test; never run these cases against real learner accounts.
+The run's `artifacts/` folder contains a Playwright HTML/JSON report, full-page review candidates, failure screenshots/traces, and the runner result on success. The CI job uploads only this synthetic evidence as `browser-evidence`, retained for seven days. It does not upload the database or server/migration logs. Treat traces as potentially sensitive if adapting the test; never run these cases against real learner accounts.
 
 Inspect expected/actual/difference images, the failed locator, and the trace before editing a test. Different fonts, browser versions, or runner images can cause rendering drift; reproduce in the documented environment first. Ubuntu 24.04 runner updates can still affect rendering and need review, not automatic acceptance.
 
