@@ -31,6 +31,7 @@ Local authentication uses the synthetic `local_seedy` identity through **Sign in
 | Command | Purpose and limitations |
 | --- | --- |
 | `node scripts/check-repository.mjs` | Check identity, publication and local-state safeguards, documentation links, and five existing application test files; no dependency installation required |
+| `node scripts/check-hosted-guest.mjs --run-live` | Explicitly authorized anonymous GET-only checks of the fixed live MADAR Site; never an authenticated-account test or automatic CI step. See [hosted verification](HOSTED_VERIFICATION.md) |
 | `npm run db:local` | Apply pending SQL migrations to this checkout's portable local database |
 | `npm run check:application` | Build and test isolated local development and built-server HTTP behavior; requires a Git checkout and installed dependencies |
 | `npm run check:browser` | Run isolated Chromium interactions and Linux visual comparisons; see [browser checks](BROWSER_TESTS.md) |

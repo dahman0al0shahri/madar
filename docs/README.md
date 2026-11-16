@@ -8,6 +8,7 @@ Choose the guide that matches your task. You do not need to read every document 
 | [The Story Behind MADAR](STORY.md) | The owner's learning journey, current experiment, and tentative future direction |
 | [Development](DEVELOPMENT.md) | Requirements, commands, checks, and setup limitations |
 | [Backup and recovery](BACKUP_RECOVERY.md) | Account export, isolated database recovery checks, and hosted recovery limits |
+| [Hosted verification](HOSTED_VERIFICATION.md) | Anonymous live checks, offline CI coverage, and prerequisites for real account tests |
 | [Architecture](ARCHITECTURE.md) | Source locations, generation, data flow, and hosting boundaries |
 | [Contributing](../CONTRIBUTING.md) | Prepare a focused change for review |
 | [Course integration](COURSE_INTEGRATION.md) | Acceptance requirements for courses and practice workflows |
