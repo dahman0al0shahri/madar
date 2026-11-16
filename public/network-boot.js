@@ -1,0 +1,24 @@
+(async()=>{'use strict';const area=document.getElementById('network-load');const report=phase=>{document.documentElement.dataset.networkBoot=phase;if(parent!==window)parent.postMessage({type:'madar-network-boot',phase},location.origin);};report('loading');let phase='save';try{
+ const store=await MadarStore.open('network');window.MADAR_ACCOUNT={...store.account,available:true};
+ if(store.conflict){area.innerHTML='<p>توجد مسودة محلية ونسخة أحدث في الحساب. لن نستبدل أيًّا منهما.</p><button id="net-export">تنزيل المسودة</button><button id="net-reload">تحميل نسخة الحساب</button>';document.getElementById('net-export').onclick=()=>store.download();document.getElementById('net-reload').onclick=()=>store.discardAndReload();report('conflict');return;}
+ window.MadarLabPersistence={widgetState:store.value,setWidgetState:async x=>{await store.save(x);window.MadarLabPersistence.widgetState=x;}};
+ const template=document.getElementById('network-template'),fragment=template.content.cloneNode(true),scripts=[...fragment.querySelectorAll('script')].map(old=>{const marker=document.createComment('runtime');old.replaceWith(marker);return {old,marker};});document.getElementById('network-content').append(fragment);
+ for(const {old,marker} of scripts){const s=document.createElement('script');for(const a of old.attributes)s.setAttribute(a.name,a.value);s.textContent=old.textContent;if(s.src){await new Promise((resolve,reject)=>{s.onload=resolve;s.onerror=reject;marker.replaceWith(s);});}else marker.replaceWith(s);}
+ area.innerHTML='<details class="network-save-tools"><summary>'+ (store.account.user?'الحفظ والنسخة الاحتياطية · حسابك':'الحفظ والنسخة الاحتياطية · هذا المتصفح')+'</summary><p>'+ (store.account.user?'الحفظ مرتبط بحسابك.':'حفظ الضيف على هذا المتصفح فقط. نزّل نسخة للاحتفاظ بها خارج المتصفح.')+'</p><div><button id="net-backup">تنزيل نسخة المختبرات</button> <button id="net-server-reload">إعادة تحميل الحفظ</button></div></details>';
+ document.getElementById('net-backup').onclick=async()=>{try{await document.getElementById('madar-labs')?.flushSave?.();}finally{store.download();}};document.getElementById('net-server-reload').onclick=()=>store.discardAndReload();
+ const lab=document.getElementById('madar-labs');
+ const sourceUrl=window.frameElement?.dataset.networkUrl||location.href;
+ const params=new URL(sourceUrl,location.origin).searchParams,lessonId=params.get('lesson'),selfTest=params.get('selftest');let currentLesson=null;
+ if(lessonId||selfTest){
+  phase='lesson';
+  const response=await fetch('/api/madar',{cache:'no-store'});if(!response.ok)throw Error('تعذر تحميل الدرس');const boot=await response.json(),lesson=boot.lessons.find(l=>l.id===lessonId&&l.course==='network');if(!boot.canPractice||(!selfTest&&!lesson))throw Error('الدرس غير متاح');
+  if(lab.dataset.ready!=='true')await new Promise((resolve,reject)=>{const timer=setTimeout(()=>{observer.disconnect();reject(Error('تعذر استعادة المختبر'));},15000),observer=new MutationObserver(()=>{if(lab.dataset.ready==='true'){clearTimeout(timer);observer.disconnect();resolve();}else if(lab.dataset.restore==='failed'){clearTimeout(timer);observer.disconnect();reject(Error('تعذر استعادة المختبر'));}});observer.observe(lab,{attributes:true});});
+  currentLesson=lesson;if(selfTest)await lab.openSelfTest({mode:selfTest,scope:params.get('scope')||'all'});else await lab.openLesson(lesson);
+ }
+ await window.MadarNetworkPage?.ready(lab,currentLesson,selfTest);
+ report('ready');
+ const lessonFor=step=>['parent','subinterfaces','router-check'].includes(step)?'network-inter':['trunk','save'].includes(step)?'network-trunk':'network-vlan';
+ lab.addEventListener('labs:help-exposure',e=>window.MADAR_ACTIVITY?.emit('detail_open',{lesson:e.detail.lesson||currentLesson?.id,value:Number(e.detail.level)||0}));
+ lab.addEventListener('labs:configuration-check',e=>window.MADAR_ACTIVITY?.emit('training_check',{lesson:e.detail.lesson||lessonFor(e.detail.step),value:e.detail.ok?'correct':'incorrect'}));
+ const send=()=>parent!==window&&parent.postMessage({type:'madar-network-state',height:Math.ceil(document.body.getBoundingClientRect().height),dirty:store.dirty||!!document.getElementById('madar-labs')?.getLabsState?.().dirty},location.origin);const sizing=new ResizeObserver(send);sizing.observe(document.body);const timer=setInterval(send,1000);addEventListener('pagehide',()=>{sizing.disconnect();clearInterval(timer);},{once:true});window.lucide?.createIcons();
+ }catch{document.getElementById('network-content').hidden=true;area.innerHTML='<p role="alert">'+(phase==='lesson'?'تعذر تحميل الدرس أو استعادة مختبره. مختبراتك السابقة محفوظة؛ أعد المحاولة.':'تعذر فتح الحفظ. لم نستبدل مختبراتك ببيانات جديدة.')+'</p><button id="net-load-retry">إعادة المحاولة</button>';document.getElementById('net-load-retry').onclick=()=>location.reload();report('error');}})();

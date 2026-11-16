@@ -1,0 +1,42 @@
+# Repository maintenance instructions
+
+Apply these rules alongside the governing workspace instructions. This file does not authorize account access, publication, deployment, or unrelated changes.
+
+## Owner-approved GitHub workflow (16 November 2026)
+
+- **Owner decides; Codex executes.** Retain the access needed to carry out the owner's instructions. The guard prevents accidental or automatic actions; it does not require the owner to perform GitHub operations manually. After the owner reviews a specific PR and explicitly instructs a merge, Codex should verify its current SHA/checks, execute that merge through the appropriate API/tool, and report the result. A general setup or upload instruction is not that merge instruction. Do not disable access or weaken security preemptively.
+
+- The owner authorized this private MADAR repository, automated upload/checks after completed MADAR updates, and pull requests with review before merging into `main`. This is not permission to merge automatically, make the repository public, create releases, deploy, buy a plan, or change another repository.
+- Repository: `dahman0al0shahri/madar`; immutable GitHub repository ID: `1459615658`; owner ID: `281097261`. Read `.madar-repository.json` and `docs/GITHUB_WORKFLOW.md` first. Verify the working directory, Git root/common directory, branch, existing changes, remote fetch/push URL, and live numeric repository ID before publishing. Stop on any mismatch; never guess a destination from the name alone.
+- This repository contains only MADAR application source and its approved resources. Engineering Learning OS is the parent workspace, not the upload root. Keep study state, attempts, source inboxes, personal records, other projects, secrets, databases, local caches, and backups outside the upload. Do not add blanket `git add .` or force pushes.
+- At the end of each authorized, completed MADAR update, update affected English documentation and the changelog, review the exact diff, run the appropriate checks, commit only the intended source files on a local review branch, then run `node scripts/publish-update.mjs --message "<English summary>" --body-file <reviewed-description-file>` from the locally bound source checkout. This step is part of completion; do not wait for the owner to ask again. If blocked, preserve the work and report the precise blocker and pending upload. It is not a watcher for arbitrary saved files.
+- Keep draft review work in `updates/*`. Never push directly to `main`, bypass the pre-push guard, force-push, delete review branches, automatically approve/merge, or weaken protection to get a check through. Owner review and a separate merge instruction are required. A successful local test or push does not mean the PR was reviewed or merged.
+- Check GitHub checks against the exact uploaded commit. Report failure, skipped checks, missing runs, or unverified checks honestly. Updating GitHub is separate from release and application deployment.
+- **Mandatory owner disclosure:** at every handoff, explicitly say what you added, changed, removed, configured, or uploaded yourself. Name affected files/settings with links, explain the purpose, identify the local and remote branch/commit/PR, give test results and limits, and state merge/release/deployment status and remaining work. Do not silently add tools, automation, policies, settings, or repository files. Small changes may be grouped, but none may be hidden. Do not claim changes made by someone else as your own.
+- Keep `docs/REPOSITORY_REPORT.md` accurate for repository infrastructure changes, including inventory, structure, ownership, credentials handling, protections and their limitations, commands, verification evidence, and recovery. The detailed report complements a concise Arabic owner summary; it does not replace it.
+- Current verified limitation: GitHub's plan does not enforce branch protection on this private repository. Local hooks and the publishing command reduce mistakes but can be bypassed by a person with write access. Never describe `main` as server-protected until GitHub enforcement has been separately verified.
+- Source history and the publication clone are deliberately separate. Preserve the original local history. Do not join unrelated histories, overwrite a changed publication file, delete local work, or assume a hosting-tool update was synchronized. Reconcile changed/deleted files explicitly and re-run checks.
+
+## Shared workspace rules
+
+- When working in the owner's Engineering Learning OS workspace, read the central `docs/ASSISTANT_LESSONS_AR.md` there; record actual assistant mistakes there, not in a competing copy. If unavailable, state that limitation. Do not publish its private contents by default.
+- User communication is natural, direct Arabic; repository documentation and maintenance descriptions are English. Avoid slogans and unverified claims. Preserve the wording/language of course sources.
+- Do not spawn sub-agents unless the owner explicitly asks. Do not infer learner performance from generated artifacts or automated tests. `Domain` is explained as المجال; use `Switch` and `Router` in technical teaching.
+
+## Every meaningful MADAR update
+
+- Read [docs/MAINTENANCE.md](docs/MAINTENANCE.md) before preparing an application or repository update.
+- Keep source changes, relevant generated output, affected documentation, and [CHANGELOG.md](CHANGELOG.md) consistent within the same reviewed change.
+- Write repository documentation, contribution descriptions, and changelog entries in English. Preserve the original language of course content and quoted sources.
+- Describe verified resulting behavior. Do not invent version numbers, release dates, completed uploads, deployments, or learner outcomes.
+- Run `node scripts/check-repository.mjs` and checks appropriate to the affected behavior. State any checks not run and their reason.
+- Use [docs/templates/RELEASE_NOTES.md](docs/templates/RELEASE_NOTES.md) when a named release is requested.
+- At handoff, distinguish local changes, the GitHub branch and commit, a named release, and deployment. State pending synchronization explicitly.
+- Minor edits that do not warrant a changelog entry may explain that decision; do not manufacture product changes to fill the changelog.
+
+## Preserve existing work
+
+- Do not change the appearance of Advanced Computer Applications without an explicit new request from the owner, including indirect effects through shared files.
+- Keep real learner records, credentials, local databases, and backups out of source changes and test fixtures.
+- Find and edit the source of a generated file, then review regenerated output.
+- Do not rewrite published history, delete original material, or overwrite another worktree to synchronize branches.

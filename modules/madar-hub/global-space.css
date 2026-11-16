@@ -1,0 +1,21 @@
+/* Only the shared MADAR hub gets this sky; existing course themes are untouched. */
+#madar-hub[data-course=global]{background:#070a10}
+#madar-hub[data-course=global] .mh-atmosphere{position:fixed;inset:0;height:100vh;height:100svh;overflow:hidden;background:#070a10;contain:strict}
+#madar-hub[data-course=global] .mh-atmosphere:after{background:radial-gradient(ellipse at 50% 40%,transparent 20%,#02040955 100%);opacity:1}
+#madar-hub .mh-space-field,#madar-hub .mh-space-glints{position:absolute;inset:0;width:100%;height:100%;display:none;pointer-events:none}
+#madar-hub[data-course=global] .mh-space-field,#madar-hub[data-course=global] .mh-space-glints{display:block}
+#madar-hub .mh-space-field{animation:mh-space-drift 90s ease-in-out infinite alternate;transform:scale(1.045);transform-origin:50% 50%}
+#madar-hub .mh-space-glints{animation:mh-space-near 70s ease-in-out infinite alternate}
+#madar-hub .mh-space-star{position:absolute;width:var(--star-size);height:var(--star-size);border-radius:50%;color:rgb(var(--star-color));background:#fff4dc;box-shadow:0 0 5px 1px currentColor,0 0 13px 2px rgba(var(--star-color),.22);animation:mh-space-twinkle var(--star-time) ease-in-out var(--star-delay) infinite alternate}
+#madar-hub .mh-space-star:nth-child(5n):after{content:"";position:absolute;inset:-5px 1px;background:linear-gradient(transparent,currentColor,transparent);opacity:.5}
+#madar-hub .mh-atmosphere[data-motion=paused] .mh-space-field,#madar-hub .mh-atmosphere[data-motion=paused] .mh-space-glints,#madar-hub .mh-atmosphere[data-motion=paused] .mh-space-star{animation-play-state:paused}
+#madar-hub .mh-space-motion{position:fixed;left:max(14px,env(safe-area-inset-left));bottom:max(14px,env(safe-area-inset-bottom));z-index:12;width:44px;height:44px;padding:10px;border:1px solid #d4af7045;border-radius:50%;background:#0a0f19e8;color:#ebc78f;box-shadow:0 4px 18px #0005}
+#madar-hub .mh-space-motion svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#madar-hub .mh-space-motion .mh-space-play,#madar-hub .mh-space-motion[aria-pressed=true] .mh-space-pause{display:none}
+#madar-hub .mh-space-motion[aria-pressed=true] .mh-space-play{display:block}
+#madar-hub .mh-space-motion:disabled{opacity:.65}
+@keyframes mh-space-drift{from{transform:scale(1.045) translate(-.7%,.4%)}to{transform:scale(1.065) translate(.7%,-.4%)}}
+@keyframes mh-space-near{from{transform:translate(-3px,2px)}to{transform:translate(5px,-3px)}}
+@keyframes mh-space-twinkle{0%,15%{opacity:.4;transform:scale(.82)}80%,100%{opacity:.95;transform:scale(1.12)}}
+@media(max-width:600px){#madar-hub .mh-space-star{box-shadow:0 0 4px 1px currentColor,0 0 9px rgba(var(--star-color),.2)}#madar-hub .mh-space-motion{bottom:max(12px,env(safe-area-inset-bottom));left:max(10px,env(safe-area-inset-left))}}
+@media(prefers-reduced-motion:reduce){#madar-hub .mh-space-field,#madar-hub .mh-space-glints,#madar-hub .mh-space-star{animation:none!important}}

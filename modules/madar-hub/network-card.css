@@ -1,0 +1,27 @@
+/* Copper/charcoal network illustration, scoped to the course entrance card. */
+#madar-hub .mh-course-card.network{border-color:#c9905d66;background:linear-gradient(155deg,#262521,#15191f)}
+#madar-hub .mh-course-card.network .mh-course-art{background:radial-gradient(ellipse at 52% 48%,#a26e3036,transparent 59%),radial-gradient(ellipse at 5% 90%,#b7703621,transparent 57%),linear-gradient(125deg,#1c2024,#12171c);border-bottom-color:#d49a5d30}
+#madar-hub .mh-course-card.network .mh-course-art:before{content:'';position:absolute;inset:0;background-image:radial-gradient(#e8c69529 .7px,transparent 1px);background-size:22px 22px;mask-image:radial-gradient(ellipse at center,#000,transparent 76%);pointer-events:none}
+#madar-hub .mh-course-card.network .mh-course-art:after{content:'';position:absolute;width:235px;height:118px;border-radius:50%;border:1px solid #d8a05c1c;box-shadow:0 0 0 21px #dbb57a05,0 0 0 43px #dbb57a03;transform:rotate(-18deg);pointer-events:none;z-index:0}
+#madar-hub .mh-course-card.network .mh-network-map{position:relative;z-index:1}
+#madar-hub .mh-course-card.network .mh-network-wire{stroke:#b38454;stroke-width:1;opacity:.37;fill:none}
+#madar-hub .mh-course-card.network .mh-network-flow{fill:none;stroke-linecap:round;stroke:#ffd99a;opacity:.95;stroke-dasharray:3 97;stroke-dashoffset:100;animation:mh-network-delivery var(--flow-duration) linear infinite;animation-delay:var(--flow-delay);animation-play-state:paused}
+#madar-hub .mh-course-card.network .mh-network-trail{stroke:#efa94f;stroke-width:5;opacity:.12;stroke-dasharray:10 90}
+#madar-hub .mh-course-card.network .mh-network-signal{stroke-width:1.7;filter:drop-shadow(0 0 2px #ffc56a99)}
+#madar-hub .mh-course-card.network .mh-network-node-halo{fill:#dba96c0a;stroke:#e4b57940;stroke-width:1;animation:mh-network-node-ring 4s ease-in-out infinite;animation-delay:var(--node-delay);animation-play-state:paused;transform-box:fill-box;transform-origin:center}
+#madar-hub .mh-course-card.network .mh-network-node{fill:#f4c887;stroke:#6b4a2c;stroke-width:2;animation:mh-network-node-light 4s ease-in-out infinite;animation-delay:var(--node-delay);animation-play-state:paused}
+#madar-hub .mh-course-card.network .mh-network-center{z-index:2;pointer-events:none}
+#madar-hub .mh-course-card.network .mh-network-center>span{width:88px;height:72px;border-radius:16px;position:relative;background:linear-gradient(145deg,#4a4033,#252923 48%,#20252a);border:1px solid #c89a62aa;box-shadow:inset 0 1px 1px #fff2,inset 0 -3px 8px #0004,0 12px 26px #0007,0 0 24px #de9e431c;transform:perspective(700px) rotateX(8deg) rotateY(-9deg)}
+#madar-hub .mh-course-card.network .mh-network-center>span:before,#madar-hub .mh-course-card.network .mh-network-center>span:after{content:'';position:absolute;width:3px;height:3px;border-radius:50%;background:#9f8a69;box-shadow:inset 0 1px #fff4;top:7px;left:8px}
+#madar-hub .mh-course-card.network .mh-network-center>span:after{left:auto;right:8px}
+#madar-hub .mh-course-card.network .mh-network-center svg{width:34px;height:34px;color:#f3ce98;translate:0 -4px;stroke-width:1.5}
+#madar-hub .mh-network-leds{position:absolute;bottom:11px;left:0;right:0;display:flex;justify-content:center;gap:5px}
+#madar-hub .mh-network-leds b{width:3px;height:3px;border-radius:50%;background:#64ff8b;animation:mh-network-led .2s steps(1,end) infinite;animation-play-state:paused;box-shadow:0 0 4px #64ff8b,0 0 9px #64ff8bb3}
+#madar-hub .mh-network-leds b:nth-child(-n+2){animation:none}
+#madar-hub .mh-course-card.network.mh-network-active .mh-network-flow,#madar-hub .mh-course-card.network.mh-network-active .mh-network-node,#madar-hub .mh-course-card.network.mh-network-active .mh-network-node-halo,#madar-hub .mh-course-card.network.mh-network-active .mh-network-leds b{animation-play-state:running}
+#madar-hub .mh-course-card.network .mh-course-tags span{color:#efc28b;border-color:#d5a66d38;background:#dcaa6210}
+@keyframes mh-network-delivery{to{stroke-dashoffset:0}}
+@keyframes mh-network-node-ring{0%,100%{scale:.85;opacity:.3}45%{scale:1.25;opacity:.85}}
+@keyframes mh-network-node-light{0%,100%{fill:#b78b58}45%{fill:#ffe1a8}}
+@keyframes mh-network-led{0%,100%{background:#64ff8b;box-shadow:0 0 4px #64ff8b,0 0 9px #64ff8bb3}50%{background:#17241b;box-shadow:none}}
+@media(prefers-reduced-motion:reduce){#madar-hub .mh-course-card.network .mh-network-flow,#madar-hub .mh-course-card.network .mh-network-node,#madar-hub .mh-course-card.network .mh-network-node-halo,#madar-hub .mh-network-leds b{animation:none!important}#madar-hub .mh-course-card.network .mh-network-flow{stroke-dashoffset:45}}

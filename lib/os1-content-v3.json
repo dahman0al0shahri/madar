@@ -1,0 +1,2922 @@
+{
+  "id": "os1",
+  "name": "نظم التشغيل 1",
+  "subject": "OS1",
+  "bankVersion": "os1-scenes-20261026-v3",
+  "questions": [],
+  "lessons": [
+    {
+      "id": "os1-lesson-1",
+      "subject": "OS1",
+      "unit": 1,
+      "title": "تثبيت السيرفر وتجهيزه",
+      "section": "lessons",
+      "video": null,
+      "summary": "ثبّت Windows Server، واضبط الجهاز والشبكة، ثم انضم إلى Domain (المجال).",
+      "steps": [
+        "تجهيز أجهزة المختبر",
+        "تجهيز ملف التثبيت وتشغيل الجهاز",
+        "اختيار اللغة وبدء التثبيت",
+        "اختيار نسخة Windows والقرص",
+        "تعيين كلمة المرور وتسجيل الدخول",
+        "تغيير اسم الجهاز وإعادة التشغيل",
+        "ضبط التاريخ والوقت",
+        "ضبط إعدادات الشبكة",
+        "الانضمام إلى Domain والتحقق"
+      ],
+      "source": "Lecture Mod1 Exc1 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-1-scene-01",
+          "title": "تجهيز أجهزة المختبر",
+          "video": "/assets/os1/os1-lesson-1/01.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/01.jpg",
+          "seconds": 41.0,
+          "steps": [
+            "افتح Hyper-V Manager، برنامج إدارة الأجهزة الافتراضية.",
+            "شغّل 20410C-LON-DC1؛ الجهاز المسؤول عن مجال المختبر.",
+            "اختر 20410C-LON-SVR3؛ عليه بنثبّت Windows."
+          ],
+          "warnings": [
+            "التثبيت على SVR3، مو DC1! اختيار جهاز غلط يعني تطبيق الخطوات على غير المطلوب."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-02",
+          "title": "تجهيز ملف التثبيت وتشغيل الجهاز",
+          "video": "/assets/os1/os1-lesson-1/02.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/02.jpg",
+          "seconds": 55.4,
+          "steps": [
+            "على SVR3 افتح Settings، الإعدادات، ثم DVD Drive، محرك قرص التثبيت.",
+            "اختر Image file ثم Browse، وحدد Windows2012R2RTM.iso، ملف التثبيت.",
+            "اضغط Open ثم OK. افتح نافذة الجهاز وشغّله بـ Start."
+          ],
+          "warnings": [
+            "أول تشغيل: اضغط مفتاحًا إذا طلب التشغيل من القرص لبدء التثبيت. بعد التثبيت وإعادة التشغيل: لا تضغط! وإلا ترجع لبداية التثبيت."
+          ],
+          "notes": [
+            "طريقة الوصول للإعدادات والملف قد تختلف في المعمل. اختيار الملف وحده ما يثبّت Windows."
+          ]
+        },
+        {
+          "id": "os1-lesson-1-scene-03",
+          "title": "اختيار اللغة وبدء التثبيت",
+          "video": "/assets/os1/os1-lesson-1/03.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/03.jpg",
+          "seconds": 11.04,
+          "steps": [
+            "اللغة: English (United States).",
+            "تنسيق الوقت والعملة: English (United States).",
+            "لوحة المفاتيح: US.",
+            "اضغط Next ثم Install now."
+          ],
+          "warnings": [],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-04",
+          "title": "اختيار نسخة Windows والقرص",
+          "video": "/assets/os1/os1-lesson-1/04.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/04.jpg",
+          "seconds": 49.2,
+          "steps": [
+            "اختر Windows Server 2012 R2 Datacenter Evaluation (Server with a GUI) ثم Next. وGUI تعني واجهة بنوافذ وأزرار.",
+            "فعّل I accept the license terms للموافقة على الشروط، ثم Next.",
+            "اختر Custom: Install Windows only (advanced)، تثبيت جديد.",
+            "اختر Drive 0 Unallocated Space، مساحة القرص غير المخصصة، ثم Next."
+          ],
+          "warnings": [
+            "اختر Server with a GUI، مو Server Core؛ وإلا تثبّت نسخة بدون الواجهة الرسومية المطلوبة هنا."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-05",
+          "title": "تعيين كلمة المرور وتسجيل الدخول",
+          "video": "/assets/os1/os1-lesson-1/05.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/05.jpg",
+          "seconds": 47.38,
+          "steps": [
+            "انتظر اكتمال التثبيت وإعادة التشغيل.",
+            "اكتب Pa$$w0rd في Password وReenter password، أي كلمة المرور وتأكيدها، لحساب Administrator، المسؤول، ثم Finish.",
+            "أرسل Ctrl+Alt+Delete من نافذة الجهاز الافتراضي، ثم ادخل بنفس كلمة المرور.",
+            "تذكّر — P كبيرة، a صغيرة، علامتا $، ثم w، ثم صفر 0، ثم r وd. هذه كلمة المختبر."
+          ],
+          "warnings": [
+            "بعد إعادة التشغيل، إذا طلب ضغط مفتاح للتشغيل من القرص، لا تضغط! بترجع لبداية التثبيت بدل تشغيل Windows."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-06",
+          "title": "تغيير اسم الجهاز وإعادة التشغيل",
+          "video": "/assets/os1/os1-lesson-1/06.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/06.jpg",
+          "seconds": 43.52,
+          "steps": [
+            "من Server Manager، لوحة إدارة النظام، افتح Local Server.",
+            "اضغط Computer name ثم Change.",
+            "اكتب LON-SVR3 في Computer name، ثم OK ووافق على رسالة إعادة التشغيل.",
+            "اضغط Close ثم Restart Now. بعد التشغيل ادخل بنفس كلمة المرور، وتأكد من الاسم في Local Server."
+          ],
+          "warnings": [
+            "لا تتخطّى إعادة التشغيل؛ تطبيق تغيير الاسم ما يكتمل إلا بعدها."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-07",
+          "title": "ضبط التاريخ والوقت",
+          "video": "/assets/os1/os1-lesson-1/07.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/07.jpg",
+          "seconds": 33.97,
+          "steps": [
+            "اضغط الساعة داخل جهاز LON-SVR3، ثم Change date and time settings.",
+            "افتح Change time zone، تغيير المنطقة الزمنية، واختر (UTC+03:00) Kuwait, Riyadh ثم OK.",
+            "افتح Change date and time، تغيير التاريخ والوقت، واضبطهما حسب وقت المعمل الحالي، ثم OK وأغلق الإعدادات بـ OK."
+          ],
+          "warnings": [
+            "لا تعدّل ساعة جهازك الأساسي! بتغيّر الجهاز الغلط وتبقى ساعة جهاز المختبر مثل ما هي."
+          ],
+          "notes": [
+            "توقيت الرياض حسب كلام الدكتور؛ الشاشة في الفيديو تعرض توقيتًا مختلفًا، فلا تنسخه."
+          ]
+        },
+        {
+          "id": "os1-lesson-1-scene-08",
+          "title": "ضبط إعدادات الشبكة",
+          "video": "/assets/os1/os1-lesson-1/08.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/08.jpg",
+          "seconds": 93.08,
+          "steps": [
+            "من Local Server اضغط الرابط بجانب Ethernet، اتصال الشبكة.",
+            "اضغط باليمين على Ethernet ثم Properties. اختر Internet Protocol Version 4 (TCP/IPv4)، إعداد عناوين الشبكة، ثم Properties.",
+            "اختر Use the following IP address للإدخال اليدوي، واكتب:",
+            "IP address — عنوان الجهاز: 172.16.0.101",
+            "Subnet Mask — قناع الشبكة: 255.255.0.0",
+            "Default Gateway — بوابة الوصول للشبكات الأخرى: 172.16.0.1",
+            "تأكد من اختيار Use the following DNS server addresses، ثم اكتب في Preferred DNS server، خادم التعرف على الأسماء: 172.16.0.10.",
+            "اضغط OK، وأغلق الخصائص بـ Close. افتح الإعدادات مرة ثانية للتأكد من حفظ القيم. هذه قيم هذا المختبر."
+          ],
+          "warnings": [
+            "لا تضع عنوان Gateway في خانة DNS! عنوان DNS الخطأ قد يمنع الجهاز من العثور على مجال المختبر."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-09",
+          "title": "الانضمام إلى Domain والتحقق",
+          "video": "/assets/os1/os1-lesson-1/09.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/09.jpg",
+          "seconds": 76.44,
+          "steps": [
+            "من Local Server اضغط WORKGROUP ثم Change. تحت Member of اختر Domain (المجال)، مجال المختبر.",
+            "اكتب adatum.com ثم OK. عند طلب الحساب اكتب Administrator وكلمة المرور Pa$$w0rd ثم OK.",
+            "بعد رسالة الترحيب وافق على الرسائل، ثم Close وRestart Now.",
+            "بعد التشغيل سجّل الدخول باسم Adatum\\Administrator وبنفس كلمة المرور؛ هذا حساب المجال المطلوب في الكتاب.",
+            "في Local Server تأكد أن Domain يعرض Adatum.com والاسم LON-SVR3."
+          ],
+          "warnings": [
+            "تأكد أن DC1 شغّال وإعدادات الشبكة صحيحة؛ إذا ما قدرت تتصل به، يفشل الانضمام."
+          ],
+          "notes": [
+            "لقطة الدخول في الفيديو الأصلي تستخدم حسابًا محليًا مختلفًا، فحذفناها من المشهد المختصر واعتمدنا حساب الكتاب."
+          ]
+        }
+      ],
+      "seconds": 451.03
+    },
+    {
+      "id": "os1-lesson-2",
+      "subject": "OS1",
+      "unit": 2,
+      "title": "إعداد Server Core",
+      "section": "lessons",
+      "video": null,
+      "summary": "جهّز السيرفر من قائمة sconfig.cmd؛ الاسم والشبكة والاتصال بالمجال.",
+      "steps": [
+        "الدخول إلى LON-CORE وفتح قائمة الإعدادات",
+        "تغيير اسم الجهاز والتحقق منه",
+        "ضبط التاريخ والوقت",
+        "ضبط عنوان الشبكة الثابت",
+        "ضبط DNS",
+        "التحقق من الاتصال بـDC1",
+        "الانضمام إلى Domain (المجال)"
+      ],
+      "source": "Lecture Mod-1 Exc2 · Server Core",
+      "scenes": [
+        {
+          "id": "os1-lesson-2-scene-01",
+          "title": "الدخول إلى LON-CORE وفتح قائمة الإعدادات",
+          "video": "/assets/os1/os1-lesson-2/01.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/01.jpg",
+          "seconds": 49.6,
+          "steps": [
+            "افتح 20410C-LON-CORE من Hyper-V Manager.",
+            "من نافذة الجهاز اضغط زر Ctrl+Alt+Delete.",
+            "سجّل الدخول بحساب Administrator وكلمة المرور Pa$$w0rd.",
+            "اكتب sconfig.cmd واضغط Enter؛ تفتح قائمة إعدادات السيرفر."
+          ],
+          "warnings": [
+            "انتبه! لا تضغط Ctrl+Alt+Delete من لوحة مفاتيح جهازك؛ بيستجيب جهازك الحقيقي بدل الجهاز الافتراضي. استخدم الزر داخل نافذة LON-CORE."
+          ],
+          "notes": [
+            "Server Core مثبت مسبقًا في هذا التمرين؛ ما نعيد تثبيته."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-02",
+          "title": "تغيير اسم الجهاز والتحقق منه",
+          "video": "/assets/os1/os1-lesson-2/02.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/02.jpg",
+          "seconds": 41.68,
+          "steps": [
+            "من القائمة اختر 2 — Computer Name، ثم Enter.",
+            "اكتب LON-CORE ثم Enter.",
+            "اختر Yes لإعادة التشغيل، ثم سجّل الدخول مرة ثانية بحساب Administrator وكلمة المرور Pa$$w0rd.",
+            "اكتب hostname ثم Enter؛ لازم يظهر LON-CORE."
+          ],
+          "warnings": [
+            "انتبه! تغيير الاسم هو الخيار2، مو1؛ الخيار1 خاص بـDomain/Workgroup (المجال/مجموعة العمل)."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-2-scene-03",
+          "title": "ضبط التاريخ والوقت",
+          "video": "/assets/os1/os1-lesson-2/03.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/03.jpg",
+          "seconds": 28.68,
+          "steps": [
+            "اكتب sconfig.cmd ثم Enter لفتح قائمة إعدادات السيرفر.",
+            "اختر 9 — Date and Time (التاريخ والوقت).",
+            "من Change date and time اضبط التاريخ والوقت، ثم OK.",
+            "من Change time zone اضبط المنطقة الزمنية المطلوبة، ثم OK، وبعدها OK لإغلاق النافذة."
+          ],
+          "warnings": [
+            "انتبه! لا تنسخ تاريخ الفيديو أو منطقته الزمنية. اضبطهما حسب المطلوب في السؤال؛ وفي هذا الدرس المطلوب مطابقتهما لوقت المعمل وموقعه."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-2-scene-04",
+          "title": "ضبط عنوان الشبكة الثابت",
+          "video": "/assets/os1/os1-lesson-2/04.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/04.jpg",
+          "seconds": 93.16,
+          "steps": [
+            "اختر 8 — Network Settings، ثم رقم Index لكرت الشبكة؛ 10 في الفيديو.",
+            "اختر 1 — Set Network Adapter Address، ثم S — Static (عنوان ثابت).",
+            "أدخل IP Address: 172.16.0.111، ثم Subnet Mask: 255.255.0.0، ثم Default Gateway: 172.16.0.1؛ واضغط Enter بعد كل قيمة.",
+            "راجع القيم بعد الرجوع للقائمة؛ DHCP Enabled يصبح False، أي أن الحصول التلقائي على العنوان متوقف."
+          ],
+          "warnings": [
+            "لا تضغط Enter عند Subnet Mask بدون كتابة 255.255.0.0؛ بتقبل القيمة الافتراضية 255.255.255.0 المختلفة عن المطلوب. الدكتور صحح هذه النقطة في الصوت."
+          ],
+          "notes": [
+            "استخدم قيم السؤال في الاختبار، بما فيها Subnet Mask؛ لا تستنتج القناع من بداية عنوان IP. ورقم Index لكرت الشبكة قد يختلف بين الأجهزة."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-05",
+          "title": "ضبط DNS",
+          "video": "/assets/os1/os1-lesson-2/05.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/05.jpg",
+          "seconds": 48.9,
+          "steps": [
+            "من قائمة كرت الشبكة اختر 2 — Set DNS Servers.",
+            "عند Preferred DNS Server اكتب 172.16.0.10 ثم Enter، واضغط OK لرسالة التأكيد.",
+            "عند Alternate DNS Server اتركه فارغًا واضغط Enter؛ ما عندنا بديل في هذا المختبر.",
+            "تأكد أن Preferred DNS Server في قائمة الإعدادات أصبح 172.16.0.10."
+          ],
+          "warnings": [
+            "لا تكتب عنوان جهازك 172.16.0.111 مكان DNS؛ المطلوب هنا عنوان DC1 وهو 172.16.0.10، وإلا قد يفشل الوصول إلى أسماء أجهزة المجال والانضمام إليه."
+          ],
+          "notes": [
+            "DNS يربط أسماء الأجهزة بعناوين IP. Preferred هو المفضل وAlternate هو البديل."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-06",
+          "title": "التحقق من الاتصال بـDC1",
+          "video": "/assets/os1/os1-lesson-2/06.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/06.jpg",
+          "seconds": 23.9,
+          "steps": [
+            "اختر 4 للرجوع للقائمة الرئيسية.",
+            "اختر 15 للخروج إلى Command Line (سطر الأوامر).",
+            "اكتب ping lon-dc1.adatum.com ثم Enter.",
+            "تأكد من ظهور Reply from 172.16.0.10؛ في الفيديو Received=4 وLost=0، أي وصلت أربعة ردود بدون فقد."
+          ],
+          "warnings": [
+            "اكتب اسم الجهاز كاملًا مثل الأمر؛ اختبار عنوان IP وحده ما يثبت أن DNS يحل الاسم. إذا لم تظهر ردود، راجع رسالة الخطأ وإعدادات الشبكة وDNS وتشغيل DC1."
+          ],
+          "notes": [
+            "Ping يرسل طلبات وصول وينتظر الرد. نجاحه هنا لا يثبت انضمام الجهاز للمجال."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-07",
+          "title": "الانضمام إلى Domain (المجال)",
+          "video": "/assets/os1/os1-lesson-2/07.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/07.jpg",
+          "seconds": 106.42,
+          "steps": [
+            "تأكد أن DC1 يعمل. افتح sconfig.cmd ثم اختر 1، وبعده D.",
+            "اكتب adatum.com ثم Enter.",
+            "عند طلب الحساب اكتب Adatum\\Administrator ثم Enter، ثم كلمة مرور المختبر Pa$$w0rd وEnter.",
+            "اختر No لتغيير الاسم؛ لأننا غيرناه سابقًا، ثم Yes لإعادة التشغيل.",
+            "بعد إعادة التشغيل اختر Other user وسجّل الدخول باسم administrator@adatum.com وكلمة المرور Pa$$w0rd.",
+            "للتحقق من اسم الجهاز اكتب hostname؛ النتيجة LON-CORE. هذا الأمر وحده لا يثبت عضوية المجال."
+          ],
+          "warnings": [
+            "كلمة المرور لا تظهر أثناء كتابتها في نافذة الانضمام؛ لا تكررها ظنًا أنها لم تدخل.",
+            "بعد إعادة التشغيل استخدم حساب المجال، لا LON-CORE\\Administrator المحلي؛ الدخول المحلي وحده ليس تحققًا من دخول المجال."
+          ],
+          "notes": []
+        }
+      ],
+      "seconds": 392.34
+    },
+    {
+      "id": "os1-lesson-3",
+      "subject": "OS1",
+      "unit": 3,
+      "title": "تثبيت AD DS وإضافة DC",
+      "section": "lessons",
+      "video": null,
+      "summary": "أضف Domain Controller (DC)، سيرفر إدارة حسابات وأجهزة المجال، وتعرّف إعداداته.",
+      "steps": [
+        "تحديد السيرفر وفتح معالج الإضافة",
+        "تثبيت Active Directory Domain Services (AD DS)",
+        "بدء تهيئة DC: اختيار المجال وحساب الإدارة",
+        "خيارات DC وكلمة مرور الاستعادة",
+        "مراجعة الخيارات وفحص المتطلبات قبل التثبيت",
+        "بدء التثبيت ثم الدخول على LON-SVR1",
+        "تفعيل Global Catalog على LON-SVR1"
+      ],
+      "source": "Lecture Mod2- Exc1-Part1 · AD DS",
+      "scenes": [
+        {
+          "id": "os1-lesson-3-scene-01",
+          "title": "تحديد السيرفر وفتح معالج الإضافة",
+          "video": "/assets/os1/os1-lesson-3/01.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/01.jpg",
+          "seconds": 43.24,
+          "steps": [
+            "افتح LON-SVR1، وخل DC1 شغالًا.",
+            "من Server Manager (مدير السيرفر) اختر Add Roles and Features، ثم Next.",
+            "اختر Role-based or feature-based installation (تثبيت أدوار أو مكونات)، ثم Next.",
+            "اختر Select a server from the server pool وتأكد أن المحدد LON-SVR1.Adatum.com، ثم Next."
+          ],
+          "warnings": [
+            "انتبه للسيرفر المحدد؛ المطلوب LON-SVR1، وليس LON-CORE أو LON-SVR3. اختيار غيره يوجّه التثبيت لجهاز غلط."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-3-scene-02",
+          "title": "تثبيت Active Directory Domain Services (AD DS)",
+          "video": "/assets/os1/os1-lesson-3/02.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/02.jpg",
+          "seconds": 42.0,
+          "steps": [
+            "حدد Active Directory Domain Services، ثم اضغط Add Features لإضافة المكونات المطلوبة.",
+            "اضغط Next في Server Roles، ثم Next في Features بدون إضافة خيارات أخرى، ثم Next في صفحة AD DS.",
+            "في Confirmation فعّل Restart the destination server automatically if required ووافق على التنبيه، ثم Install؛ يسمح بإعادة التشغيل عند الحاجة فقط.",
+            "انتظر Installation succeeded، ثم Close؛ تهيئة السيرفر ليصبح DC تأتي لاحقًا."
+          ],
+          "warnings": [
+            "لا تختار Active Directory Certificate Services؛ هذه خدمة شهادات مختلفة عن المطلوب.",
+            "تثبيت AD DS وحده ما يكمل تهيئة السيرفر ليصبح DC؛ باقي Promote."
+          ],
+          "notes": [
+            "AD DS خدمة إدارة حسابات وأجهزة المجال؛ Add Features يضيف المكونات المطلوبة لها."
+          ]
+        },
+        {
+          "id": "os1-lesson-3-scene-03",
+          "title": "بدء تهيئة DC: اختيار المجال وحساب الإدارة",
+          "video": "/assets/os1/os1-lesson-3/03.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/03.jpg",
+          "seconds": 53.49,
+          "steps": [
+            "من علامة التنبيهات في Server Manager افتح Promote this server to a domain controller؛ تهيئة السيرفر ليصبح DC.",
+            "اختر Add a domain controller to an existing domain؛ إضافة DC إلى مجال موجود.",
+            "تأكد من Domain: adatum.com.",
+            "اضغط Change وأدخل Administrator وكلمة المختبر Pa$$w0rd مع ظهور المجال ADATUM، ثم OK ثم Next. يظهر الحساب ADATUM\\Administrator."
+          ],
+          "warnings": [
+            "لا تحفظ الخيار الأول لكل سؤال؛ هو لإضافة DC إلى مجال موجود. اختر حسب المطلوب.",
+            "Next ينقلك لخيارات DC؛ التهيئة ما اكتملت بعد."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-3-scene-04",
+          "title": "خيارات DC وكلمة مرور الاستعادة",
+          "video": "/assets/os1/os1-lesson-3/04.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/04.jpg",
+          "seconds": 17.19,
+          "steps": [
+            "خل DNS Server محددًا، وRODC غير محدد؛ RODC يعني DC للقراءة فقط.",
+            "خل Global Catalog (GC) مفعّلًا؛ لا تشيل علامة الصح إلا إذا السؤال طلب ذلك.",
+            "خل Site name على Default-First-Site-Name؛ Site ينظّم أجهزة الدليل بحسب اتصال الشبكة.",
+            "اكتب كلمة DSRM المطلوبة في Password وأعدها في Confirm password، ثم Next. DSRM وضع استعادة خدمة الدليل."
+          ],
+          "warnings": [
+            "لا تشيل علامة DNS بالغلط؛ بتغيّر الخدمة المطلوبة.",
+            "كلمة المرور وتأكيدها لازم يتطابقان، وإلا ما تقدر تكمل. استخدم كلمة السؤال؛ القيمة مخفية في المصدر."
+          ],
+          "notes": [
+            "الدكتور شال علامة GC عشان يشرح طريقة تفعيلها يدويًا؛ وهذي خطوة أساسية في الدرس، ولو شلتها بالاختبار بالغلط تعرف وين تروح وكيف تفعّلها."
+          ]
+        },
+        {
+          "id": "os1-lesson-3-scene-05",
+          "title": "مراجعة الخيارات وفحص المتطلبات قبل التثبيت",
+          "video": "/assets/os1/os1-lesson-3/05.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/05.jpg",
+          "seconds": 16.4,
+          "steps": [
+            "في DNS Options خل الخيارات مثل ما هي في هذا المختبر، ثم Next.",
+            "في Additional Options خل Replicate from على Any domain controller، ثم Next؛ يأخذ نسخة من بيانات الدليل من DC متاح.",
+            "في Paths خل المسارات الافتراضية، ثم Next. راجع Review Options ثم Next.",
+            "انتظر Prerequisites Check — فحص المتطلبات — حتى تظهر All prerequisite checks passed successfully؛ نجاح الفحص فقط، والتثبيت ما اكتمل بعد."
+          ],
+          "warnings": [
+            "إذا فشل الفحص، وقف وصحّح السبب قبل التثبيت."
+          ],
+          "notes": [
+            "Review Options في المصدر يعرض GC: No لأن الدكتور ألغاه للتدريب. عند إبقائه مفعّلًا وفق التوضيح المعتمد يظهر GC: Yes؛ لا تقلّد No لمطابقة الفيديو."
+          ]
+        },
+        {
+          "id": "os1-lesson-3-scene-06",
+          "title": "بدء التثبيت ثم الدخول على LON-SVR1",
+          "video": "/assets/os1/os1-lesson-3/06.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/06.jpg",
+          "seconds": 17.2,
+          "steps": [
+            "اضغط Install بعد نجاح فحص المتطلبات.",
+            "انتظر انتهاء التهيئة وراجع نتيجتها؛ إعادة التشغيل وحدها ما تثبت نجاحها.",
+            "بعد الرجوع لشاشة الدخول، افتح LON-SVR1 وسجّل بحساب ADATUM\\Administrator وكلمة مرور المختبر.",
+            "افتح Server Manager — مدير السيرفر — لمتابعة التطبيق."
+          ],
+          "warnings": [
+            "إذا ظهر Failed — فشل — لا تعتبر التهيئة مكتملة! ظهر هذا في تسجيل الدكتور، وما عرض حلّه. دخوله بعدها على الجهاز ما يثبت نجاح التهيئة."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-3-scene-07",
+          "title": "تفعيل Global Catalog على LON-SVR1",
+          "video": "/assets/os1/os1-lesson-3/07.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/07.jpg",
+          "seconds": 17.4,
+          "steps": [
+            "من Server Manager افتح Tools ثم Active Directory Sites and Services.",
+            "افتح Sites ثم Default-First-Site-Name ثم Servers ثم LON-SVR1.",
+            "اضغط باليمين على NTDS Settings ثم Properties — الخصائص.",
+            "من General حط صح على Global Catalog، ثم Apply وبعدها OK. إذا كانت العلامة موجودة، خلها مثل ما هي."
+          ],
+          "warnings": [
+            "انتبه تختار LON-DC1 بدل LON-SVR1؛ بتغيّر إعداد الجهاز الغلط!"
+          ],
+          "notes": [
+            "خلّها مفعّلة واختصر: إذا السؤال ما طلب إلغاء Global Catalog، خلّ الصح عليه من البداية. لكن تعلّم ترجعها خطوة أساسية في الدرس؛ ولو شلتها بالاختبار بالغلط تعرف وين تروح وكيف تفعّلها.",
+            "Global Catalog (GC): الفهرس العام، يساعد في البحث عن عناصر مثل المستخدمين والأجهزة داخل Active Directory."
+          ]
+        }
+      ],
+      "seconds": 206.92
+    },
+    {
+      "id": "os1-lesson-4",
+      "subject": "OS1",
+      "unit": 4,
+      "title": "إنشاء المجالات والغابات",
+      "section": "lessons",
+      "video": null,
+      "summary": "Module 2 — Exercise 1 — Part 2: تعرّف Tree Domain وChild Domain، وإنشاء Forest جديدة، واختيار المسار حسب المطلوب.",
+      "steps": [
+        "اختيار نوع الإضافة",
+        "Tree Domain: تحديد النوع وحساب الإدارة",
+        "Tree Domain: الأسماء وحساب الإدارة",
+        "عرض المجال الجديد بعد التهيئة",
+        "Child Domain: النوع وحساب الإدارة",
+        "Child Domain: المجال الأب والاسم الجديد",
+        "إنشاء Forest جديدة",
+        "خيارات الغابة وكلمة مرور الاستعادة",
+        "مراجعة الخيارات وتطبيقها على الرسم"
+      ],
+      "source": "Lecture Mod2- Exc1-part2 · Domains & Forests",
+      "scenes": [
+        {
+          "title": "اختيار نوع الإضافة",
+          "steps": [
+            "بعد تثبيت Active Directory Domain Services (AD DS)، خدمة حسابات وأجهزة المجال، افتح Promote this server to a domain controller لبدء التهيئة.",
+            "Add a domain controller to an existing domain: إضافة DC، خادم إدارة المجال، إلى مجال موجود؛ هذا خيار الجزء الأول.",
+            "Add a new domain to an existing forest: إنشاء Domain (مجال) جديد داخل Forest (غابة) موجودة؛ الغابة تجمع مجالًا أو أكثر في بنية مشتركة.",
+            "في هذا الجزء نتعرف إلى نوعي المجال الجديد: Tree Domain وChild Domain، ثم خيار الغابة الجديدة."
+          ],
+          "warnings": [
+            "اختر حسب المطلوب؛ إضافة DC لا تعني إنشاء مجال جديد."
+          ],
+          "notes": [
+            "رسم المحاضر يعرض adatum.com وTrt.com داخل غابة واحدة. الأسماء أمثلة للشرح."
+          ],
+          "id": "os1-lesson-4-scene-01",
+          "video": "/assets/os1/os1-lesson-4/01.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/01.jpg",
+          "seconds": 55.44
+        },
+        {
+          "title": "Tree Domain: تحديد النوع وحساب الإدارة",
+          "steps": [
+            "في Deployment Configuration، صفحة تحديد نوع التهيئة، اختر Add a new domain to an existing forest.",
+            "من Select domain type اختر Tree Domain؛ مجال جديد باسم كامل مختلف عن أسماء المجالات الحالية، لكنه داخل الغابة نفسها.",
+            "لاحظ تغيّر الخانات إلى Forest name وNew domain name.",
+            "من Change حدد حساب الإدارة المخوّل بالإنشاء وكلمة مروره؛ أسماء حسابات العرض ليست مطلوبة لكل مختبر."
+          ],
+          "warnings": [
+            "Tree Domain لا ينشئ Forest جديدة؛ اختيار الغابة الجديدة له خيار مستقل."
+          ],
+          "notes": [
+            "Child Domain يأخذ اسم المجال الأب ضمن اسمه؛ مثل ab.adatum.com. أما Tree Domain فقد يكون مثل Trt.com داخل الغابة نفسها."
+          ],
+          "id": "os1-lesson-4-scene-02",
+          "video": "/assets/os1/os1-lesson-4/02.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/02.jpg",
+          "seconds": 56.52
+        },
+        {
+          "title": "Tree Domain: الأسماء وحساب الإدارة",
+          "steps": [
+            "في Forest name اكتب اسم المجال الجذري للغابة الحالية؛ في المثال mylab.local.",
+            "في New domain name اكتب الاسم الكامل للمجال الجديد؛ في المثال msftwebcast.local.",
+            "استخدم Change لتحديد حساب مخوّل بإنشاء مجال داخل الغابة، ثم أدخل كلمة مروره؛ لا تنسخ بيانات حساب المثال.",
+            "راجع اسم الغابة واسم المجال الجديد قبل Next؛ باقي خيارات DC تأتي بعد تحديد هذه البيانات."
+          ],
+          "warnings": [
+            "لا تضف .mylab.local تلقائيًا إلى اسم Tree Domain؛ المثال ينشئ msftwebcast.local."
+          ],
+          "notes": [
+            "الحساب يحتاج صلاحيات إنشاء مجال في الغابة، مثل عضوية Enterprise Admins. العرض يختصر بعض مراحل التهيئة؛ ظهور الصفحة التالية وحده لا يثبت اكتمالها."
+          ],
+          "id": "os1-lesson-4-scene-03",
+          "video": "/assets/os1/os1-lesson-4/03.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/03.jpg",
+          "seconds": 43.92
+        },
+        {
+          "title": "عرض المجال الجديد بعد التهيئة",
+          "steps": [
+            "بعد نجاح التهيئة، يمكن فتح Active Directory Users and Computers، أداة إدارة مستخدمي وأجهزة المجال، لمراجعة اسم المجال ووجود DC ضمنه.",
+            "افتح Active Directory Domains and Trusts، أداة عرض المجالات وعلاقات الثقة، لمراجعة ظهور المجال الجديد مع المجال القائم."
+          ],
+          "warnings": [
+            "التسجيل يقفز بين مراحل الإعداد والنتيجة؛ لا تعتبر الأجزاء المحذوفة خطوات نُفذت أمامك."
+          ],
+          "notes": [
+            "هذا مشهد عرض للنتيجة في مثال المحاضر، وليس اختبارًا شاملًا لعمل خدمات الدليل أو جهازك."
+          ],
+          "id": "os1-lesson-4-scene-04",
+          "video": "/assets/os1/os1-lesson-4/04.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/04.jpg",
+          "seconds": 21.52
+        },
+        {
+          "title": "Child Domain: النوع وحساب الإدارة",
+          "steps": [
+            "اختر Add a new domain to an existing forest، ثم Child Domain من Select domain type.",
+            "Child Domain هو مجال فرعي تحت مجال أب؛ مثل delhi.mylab.local تحت mylab.local.",
+            "من Change أدخل حسابًا مخوّلًا بالإنشاء في الغابة وكلمة مروره، ثم OK."
+          ],
+          "warnings": [
+            "الحساب المحلي على الجهاز وحده لا يكفي بالضرورة لإنشاء مجال داخل الغابة."
+          ],
+          "notes": [
+            "الفيديو يستخدم مثال Windows Server 2019 للتوضيح؛ استخدم أسماء الأجهزة والحسابات المطلوبة في مختبرك."
+          ],
+          "id": "os1-lesson-4-scene-05",
+          "video": "/assets/os1/os1-lesson-4/05.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/05.jpg",
+          "seconds": 47.0
+        },
+        {
+          "title": "Child Domain: المجال الأب والاسم الجديد",
+          "steps": [
+            "في Parent domain name حدد المجال الأب؛ يمكنك استخدام Select لعرض المجالات المتاحة.",
+            "في New domain name اكتب الجزء الجديد فقط؛ مثل delhi عندما يكون الأب mylab.local.",
+            "الاسم الكامل الناتج هو delhi.mylab.local. اضغط Next للانتقال إلى Domain Controller Options.",
+            "اضبط خيارات DC وكلمة مرور Directory Services Restore Mode (DSRM)، وضع استعادة خدمة الدليل، حسب متطلبات المختبر."
+          ],
+          "warnings": [
+            "اختيار مجال أب مختلف يغيّر الاسم الكامل للمجال الجديد؛ راجع Parent domain name قبل المتابعة."
+          ],
+          "notes": [
+            "المشهد ينتهي عند خيارات DC؛ لا يعرض اكتمال تثبيت Child Domain."
+          ],
+          "id": "os1-lesson-4-scene-06",
+          "video": "/assets/os1/os1-lesson-4/06.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/06.jpg",
+          "seconds": 42.12
+        },
+        {
+          "title": "إنشاء Forest جديدة",
+          "steps": [
+            "من معالج تهيئة AD DS اختر Add a new forest؛ إنشاء غابة جديدة منفصلة عن الغابة الموجودة.",
+            "في Root domain name اكتب الاسم الكامل لأول مجال في الغابة الجديدة، حسب المطلوب.",
+            "اضغط Next للانتقال إلى خيارات الغابة والمجال الجديد."
+          ],
+          "warnings": [
+            "لا تستخدم Add a new forest إذا كان المطلوب مجالًا إضافيًا داخل غابة موجودة."
+          ],
+          "notes": [
+            "أسماء الغابة والمجال في الرسم أمثلة توضيحية؛ لا يلزم نسخها إلى كل تمرين."
+          ],
+          "id": "os1-lesson-4-scene-07",
+          "video": "/assets/os1/os1-lesson-4/07.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/07.jpg",
+          "seconds": 41.32
+        },
+        {
+          "title": "خيارات الغابة وكلمة مرور الاستعادة",
+          "steps": [
+            "راجع Forest functional level وDomain functional level؛ مستوى وظائف الغابة والمجال يحدد الميزات وتوافق أنظمة DC.",
+            "اختر المستويات المطلوبة والمتوافقة مع المختبر؛ لا تختَر إصدارًا قديمًا لمجرد ظهوره في المثال.",
+            "راجع DNS Server، خدمة تحويل الأسماء إلى عناوين، وGlobal Catalog (GC)، الفهرس العام للدليل.",
+            "اكتب كلمة مرور DSRM في Password وأعدها كما هي في Confirm password، ثم Next."
+          ],
+          "warnings": [
+            "يظهر في المصدر خطأ عدم تطابق كلمة مرور DSRM مع تأكيدها؛ صحّح الخانتين قبل المتابعة. هذا المشهد لا يثبت نجاح التهيئة."
+          ],
+          "notes": [
+            "يعرض المثال أنظمة أقدم لتوضيح اختيار Functional level؛ قيم المثال ليست تعليمات ثابتة لكل جهاز."
+          ],
+          "id": "os1-lesson-4-scene-08",
+          "video": "/assets/os1/os1-lesson-4/08.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/08.jpg",
+          "seconds": 59.8
+        },
+        {
+          "title": "مراجعة الخيارات وتطبيقها على الرسم",
+          "steps": [
+            "DC إضافي لنفس المجال: Add a domain controller to an existing domain.",
+            "مجال جديد داخل نفس الغابة: Add a new domain to an existing forest، ثم Tree Domain أو Child Domain.",
+            "غابة جديدة: Add a new forest، ثم تحديد Root domain name.",
+            "اقرأ المطلوب أولًا، ثم اختر المسار المناسب بدل حفظ ترتيب الأزرار وحده."
+          ],
+          "warnings": [],
+          "notes": [
+            "يمكن إنشاء Child Domain تحت مجال فرعي موجود؛ مثل ab.cte.adatum.com. حدّد الأب الصحيح من الرسم.",
+            "نهاية المحاضرة تعرض صفحات لتمرين IFM وModule 3 تمهيدًا لما بعده؛ لم تُدرج كدروس مكتملة ضمن هذا الجزء."
+          ],
+          "id": "os1-lesson-4-scene-09",
+          "video": "/assets/os1/os1-lesson-4/09.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/09.jpg",
+          "seconds": 67.6
+        }
+      ],
+      "seconds": 435.24
+    },
+    {
+      "id": "os1-lesson-5",
+      "subject": "OS1",
+      "unit": 5,
+      "title": "Module 3 · Exercise 1 · إنشاء وإدارة كائنات AD — الجزء الأول",
+      "section": "lessons",
+      "video": null,
+      "summary": "تنظيم المستخدمين والأجهزة والمجموعات داخل OU، والتمييز بين نقل الكائن وعضويته في مجموعة.",
+      "steps": [
+        "فتح ADUC وإنشاء OU",
+        "تنظيم الحاويات وحمايتها من الحذف",
+        "إنشاء مستخدم داخل الحاوية",
+        "خيارات كلمة المرور وحالة الحساب",
+        "إنشاء مجموعة وتحديد نوعها",
+        "إضافة الأعضاء والتحقق من العضوية",
+        "نقل المستخدم إلى OU أخرى",
+        "نقل حساب الجهاز ومراجعة مكانه"
+      ],
+      "source": "Lecture Mod3- Exc1-Part1.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-5-scene-01",
+          "title": "فتح ADUC وإنشاء OU",
+          "video": "/assets/os1/os1-lesson-5/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/01.jpg",
+          "seconds": 80.0,
+          "steps": [
+            "افتح Active Directory Users and Computers (ADUC)، أداة إدارة المستخدمين والأجهزة في Active Directory.",
+            "وسّع Domain (المجال)، ثم اختر New → Organizational Unit لإنشاء OU، وهي حاوية تنظيمية يمكن تطبيق إدارة وصلاحيات عليها.",
+            "سمِّ الحاوية وتحقق من ظهورها في الشجرة."
+          ],
+          "notes": [
+            "التسجيل يعرض مثالًا خارجيًا ضمن شرح المدرس؛ تختلف أسماء البيئة عن مختبر A. Datum."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-5-scene-02",
+          "title": "تنظيم الحاويات وحمايتها من الحذف",
+          "video": "/assets/os1/os1-lesson-5/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/02.jpg",
+          "seconds": 50.0,
+          "steps": [
+            "راجع خيار Protect container from accidental deletion عند إنشاء OU.",
+            "أبقِ الحماية مفعّلة ما لم تتطلب مهمة المختبر حذف الحاوية عمدًا.",
+            "تحقق من موضع الحاوية قبل إضافة الكائنات إليها."
+          ],
+          "notes": [
+            "الحماية تقلل الحذف العرضي، ولا تعني أن الحاوية غير قابلة للحذف مطلقًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-5-scene-03",
+          "title": "إنشاء مستخدم داخل الحاوية",
+          "video": "/assets/os1/os1-lesson-5/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/03.jpg",
+          "seconds": 130.0,
+          "steps": [
+            "حدد OU المطلوبة ثم New → User.",
+            "املأ الاسم وUser logon name، وهو اسم تسجيل الدخول، وراجع Domain (المجال) الملحق به.",
+            "تابع إلى إعداد كلمة المرور بعد التأكد من تهجئة اسم الحساب."
+          ],
+          "notes": [
+            "Initials تعني الأحرف الأولى للاسم؛ ليست خانة للألقاب مثل Mr أو Dr."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-5-scene-04",
+          "title": "خيارات كلمة المرور وحالة الحساب",
+          "video": "/assets/os1/os1-lesson-5/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/04.jpg",
+          "seconds": 85.0,
+          "steps": [
+            "أدخل كلمة مرور المختبر وراجع User must change password at next logon.",
+            "ميّز بين تغيير كلمة المرور عند الدخول، ومنع المستخدم من تغييرها، وعدم انتهاء صلاحيتها.",
+            "راجع Account is disabled قبل إنهاء إنشاء الحساب."
+          ],
+          "notes": [
+            "الحساب المعطل لا يستطيع تسجيل الدخول؛ تعطيله لا يخفيه من أدوات الإدارة."
+          ],
+          "warnings": [
+            "كلمات المرور وخيارات عدم الانتهاء في التسجيل أمثلة مختبر، وليست سياسة موصى بها للحسابات الحقيقية."
+          ]
+        },
+        {
+          "id": "os1-lesson-5-scene-05",
+          "title": "إنشاء مجموعة وتحديد نوعها",
+          "video": "/assets/os1/os1-lesson-5/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/05.jpg",
+          "seconds": 105.0,
+          "steps": [
+            "حدد OU ثم New → Group.",
+            "اكتب اسم المجموعة وراجع Group scope وGroup type قبل الإنشاء.",
+            "افتح خصائص المجموعة بعد ظهورها للتأكد من النوع والاسم."
+          ],
+          "notes": [
+            "Security group مجموعة يمكن استخدامها لإسناد الأذونات. لا يكفي اسم المجموعة لمنح أذونات تلقائيًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-5-scene-06",
+          "title": "إضافة الأعضاء والتحقق من العضوية",
+          "video": "/assets/os1/os1-lesson-5/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/06.jpg",
+          "seconds": 93.0,
+          "steps": [
+            "افتح خصائص المجموعة ثم Members → Add.",
+            "ابحث عن المستخدم الصحيح وتحقق من الاسم قبل الإضافة.",
+            "راجع قائمة Members بعد الحفظ للتأكد من وجود العضو."
+          ],
+          "notes": [
+            "Members تعرض أعضاء المجموعة؛ Member Of تعرض المجموعات التي ينتمي إليها الكائن المحدد."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-5-scene-07",
+          "title": "نقل المستخدم إلى OU أخرى",
+          "video": "/assets/os1/os1-lesson-5/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/07.jpg",
+          "seconds": 41.0,
+          "steps": [
+            "حدد المستخدم داخل الحاوية الحالية ثم اختر Move.",
+            "حدد OU الهدف في شجرة Domain (المجال).",
+            "تحقق من ظهور المستخدم في الحاوية الجديدة."
+          ],
+          "notes": [
+            "Move يغير موضع الكائن؛ Add to a group يغير العضوية. العمليتان مختلفتان."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-5-scene-08",
+          "title": "نقل حساب الجهاز ومراجعة مكانه",
+          "video": "/assets/os1/os1-lesson-5/08.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-5/08.jpg",
+          "seconds": 88.0,
+          "steps": [
+            "ابحث عن حساب الجهاز المطلوب في ADUC.",
+            "اختر Move ثم حاوية الأجهزة المستهدفة.",
+            "راجع وجود الحساب في الوجهة واسم الجهاز قبل متابعة التفويض."
+          ],
+          "notes": [
+            "نقل حساب الجهاز داخل AD لا ينقل ملفات الجهاز ولا ينقله إلى شبكة أخرى."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 672.0
+    },
+    {
+      "id": "os1-lesson-6",
+      "subject": "OS1",
+      "unit": 6,
+      "title": "Module 3 · Exercise 1 · تفويض التحكم — الجزء الثاني",
+      "section": "lessons",
+      "video": null,
+      "summary": "تحديد من يملك تنفيذ مهام معينة وعلى أي كائنات، ثم اختبار الصلاحيات بحساب المفوَّض.",
+      "steps": [
+        "أجزاء التفويض الثلاثة",
+        "تفويض مهام المستخدمين والمجموعات",
+        "تفويض مخصص لكائنات الأجهزة",
+        "مهام Help Desk وعضوية الحساب",
+        "اختبار حدود التفويض",
+        "فصل إعادة تعيين كلمة المرور عن الحذف"
+      ],
+      "source": "Lecture Mod3- Exc1-Part2.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-6-scene-01",
+          "title": "أجزاء التفويض الثلاثة",
+          "video": "/assets/os1/os1-lesson-6/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-6/01.jpg",
+          "seconds": 98.0,
+          "steps": [
+            "حدد OU التي ستسري عليها الصلاحيات.",
+            "اختر Delegate Control ثم المستخدم أو المجموعة المفوضة.",
+            "حدد المهام المسموحة، ثم راجع ملخص المعالج."
+          ],
+          "notes": [
+            "Delegation of Control تفويض إدارة محددة داخل جزء من Active Directory، وليس تحويل المستخدم إلى مسؤول عن المجال كله."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-6-scene-02",
+          "title": "تفويض مهام المستخدمين والمجموعات",
+          "video": "/assets/os1/os1-lesson-6/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-6/02.jpg",
+          "seconds": 120.0,
+          "steps": [
+            "أضف مجموعة الإدارة المحددة في المختبر إلى معالج التفويض.",
+            "اختر المهام الشائعة المطلوبة فقط، مثل إدارة المستخدمين أو عضوية المجموعات.",
+            "أنهِ المعالج واحتفظ باسم OU والمجموعة والمهام للتحقق."
+          ],
+          "notes": [
+            "منح إنشاء المستخدمين لا يثبت تلقائيًا صلاحية إنشاء OU أو إدارة كل نوع من الكائنات."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-6-scene-03",
+          "title": "تفويض مخصص لكائنات الأجهزة",
+          "video": "/assets/os1/os1-lesson-6/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-6/03.jpg",
+          "seconds": 71.0,
+          "steps": [
+            "اختر Create a custom task to delegate.",
+            "حدد Computer objects وفق مهمة المختبر.",
+            "راجع الأذونات المختارة ونوع الكائن قبل Finish."
+          ],
+          "notes": [
+            "Full Control هنا مقيد بنوع الكائن والحاوية المحددين في المعالج."
+          ],
+          "warnings": [
+            "لا تعمم Full Control على جميع كائنات Domain (المجال)."
+          ]
+        },
+        {
+          "id": "os1-lesson-6-scene-04",
+          "title": "مهام Help Desk وعضوية الحساب",
+          "video": "/assets/os1/os1-lesson-6/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-6/04.jpg",
+          "seconds": 106.0,
+          "steps": [
+            "راجع تفويض Help Desk الخاص بإعادة تعيين كلمة المرور والمهام المحددة.",
+            "افتح Member Of لحساب الاختبار وتحقق من المجموعة المقصودة.",
+            "افصل إعداد عضوية المجموعة عن إعداد أذونات OU."
+          ],
+          "notes": [
+            "التسجيل يضيف حسابًا إلى Server Operators لاحتياجات مختبره."
+          ],
+          "warnings": [
+            "Server Operators مجموعة ذات صلاحيات إدارية واسعة على Domain Controller؛ لا تستخدمها كحل عام لمجرد السماح بتسجيل الدخول."
+          ]
+        },
+        {
+          "id": "os1-lesson-6-scene-05",
+          "title": "اختبار حدود التفويض",
+          "video": "/assets/os1/os1-lesson-6/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-6/05.jpg",
+          "seconds": 65.0,
+          "steps": [
+            "ادخل بحساب المفوَّض واستخدم بياناته نفسها عند مطالبة UAC، نافذة تأكيد الصلاحيات.",
+            "نفذ المهمة المسموحة داخل OU المستهدفة.",
+            "قارن بمحاولة خارج الحاوية، ثم سجّل النتيجة الفعلية."
+          ],
+          "notes": [
+            "نجاح الإجراء بحساب Administrator لا يثبت نجاح التفويض للحساب الآخر."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-6-scene-06",
+          "title": "فصل إعادة تعيين كلمة المرور عن الحذف",
+          "video": "/assets/os1/os1-lesson-6/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-6/06.jpg",
+          "seconds": 118.0,
+          "steps": [
+            "اختبر حساب Help Desk على المستخدم المستهدف.",
+            "جرّب Reset Password وفق التفويض الممنوح.",
+            "لاحظ أن السماح بإعادة تعيين كلمة المرور لا يعني السماح بحذف المستخدم."
+          ],
+          "notes": [
+            "رسالة رفض الإجراء دليل على حدّ الصلاحية في هذه التجربة، وليست سببًا لمنح الحساب كل الصلاحيات."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 578.0
+    },
+    {
+      "id": "os1-lesson-7",
+      "subject": "OS1",
+      "unit": 7,
+      "title": "Module 3 · Exercise 2 · قالب المستخدم والمجلد المنزلي",
+      "section": "lessons",
+      "video": null,
+      "summary": "إنشاء حساب قالب معطل، وضبط خصائصه ومجموعاته ومسار المجلد المنزلي، ثم نسخ مستخدم والتحقق من دخوله.",
+      "steps": [
+        "تجهيز مجلد المشاركة",
+        "إنشاء حساب قالب معطل",
+        "خصائص القالب وعضوية المجموعات",
+        "المجلد المنزلي في Profile",
+        "نسخ القالب إلى مستخدم جديد",
+        "التحقق من المجلد المنزلي بعد الدخول"
+      ],
+      "source": "Lecture Mod3- Exc2.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-7-scene-01",
+          "title": "تجهيز مجلد المشاركة",
+          "video": "/assets/os1/os1-lesson-7/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-7/01.jpg",
+          "seconds": 30.0,
+          "steps": [
+            "أنشئ مجلد بيانات مستخدمي الفرع على الخادم.",
+            "افتح Advanced Sharing وراجع اسم المشاركة وفق المختبر.",
+            "تحقق من مسار المشاركة قبل استخدامه في خصائص المستخدم."
+          ],
+          "notes": [
+            "المشاركة وNTFS طبقتان للأذونات؛ وجود مسار صحيح وحده لا يضمن إمكانية الوصول."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-7-scene-02",
+          "title": "إنشاء حساب قالب معطل",
+          "video": "/assets/os1/os1-lesson-7/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-7/02.jpg",
+          "seconds": 87.0,
+          "steps": [
+            "أنشئ مستخدم القالب داخل OU المطلوبة.",
+            "اختر اسمًا يميزه عن حسابات الموظفين الفعلية.",
+            "فعّل Account is disabled ليظل القالب غير مستخدم لتسجيل الدخول."
+          ],
+          "notes": [
+            "القالب حساب ينسخ منه إعداد مشترك، وليس حسابًا يعمل به جميع المستخدمين."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-7-scene-03",
+          "title": "خصائص القالب وعضوية المجموعات",
+          "video": "/assets/os1/os1-lesson-7/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-7/03.jpg",
+          "seconds": 114.0,
+          "steps": [
+            "افتح خصائص القالب وأدخل البيانات المشتركة مثل المدينة.",
+            "راجع Member Of وأضف المجموعة المطلوبة.",
+            "احفظ ثم أعد فتح الخصائص للتحقق من القيم."
+          ],
+          "notes": [
+            "بعد النسخ راجع خصائص المستخدم الجديد؛ ليست كل خصائص الحساب قابلة للنسخ بالطريقة نفسها."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-7-scene-04",
+          "title": "المجلد المنزلي في Profile",
+          "video": "/assets/os1/os1-lesson-7/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-7/04.jpg",
+          "seconds": 28.0,
+          "steps": [
+            "افتح تبويب Profile، ثم Home folder.",
+            "اختر حرف القرص ومسار المشاركة بالشكل المعروض في المختبر.",
+            "استخدم %username% في نهاية المسار لتخصيص مجلد لكل مستخدم."
+          ],
+          "notes": [
+            "مثال المصدر: \\\\lon-dc1\\branch1-userdata\\%username%. راجع اسم المشاركة وحرف القرص في بيئتك."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-7-scene-05",
+          "title": "نسخ القالب إلى مستخدم جديد",
+          "video": "/assets/os1/os1-lesson-7/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-7/05.jpg",
+          "seconds": 82.0,
+          "steps": [
+            "اختر Copy على حساب القالب وأدخل اسم المستخدم الجديد.",
+            "راجع كلمة المرور وخيار Account is disabled للحساب الجديد.",
+            "تحقق من المدينة والعضوية والمسار بعد النسخ."
+          ],
+          "notes": [
+            "يظل القالب معطلًا؛ أما الحساب الجديد فيُفعَّل إذا كانت المهمة تتطلب تسجيل الدخول."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-7-scene-06",
+          "title": "التحقق من المجلد المنزلي بعد الدخول",
+          "video": "/assets/os1/os1-lesson-7/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-7/06.jpg",
+          "seconds": 9.0,
+          "steps": [
+            "ادخل بحساب المستخدم الجديد على العميل.",
+            "افتح File Explorer وحدد القرص المنزلي المعين.",
+            "تحقق من اسم المجلد وإمكانية الوصول بحساب المستخدم نفسه."
+          ],
+          "notes": [
+            "نهاية التسجيل تعرض القرص المنزلي. نجاح النسخ وحده لا يكفي لإثبات أن المشاركة قابلة للوصول."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 350.0
+    },
+    {
+      "id": "os1-lesson-8",
+      "subject": "OS1",
+      "unit": 8,
+      "title": "Module 3 · Exercise 3 · إعادة ضبط حساب الجهاز",
+      "section": "lessons",
+      "video": null,
+      "summary": "فهم علاقة الثقة وحساب الجهاز، ثم متابعة إعادة الانضمام إلى Domain (المجال) مع تمييز ما لم يثبت في نهاية التسجيل.",
+      "steps": [
+        "قراءة مهمة حساب الجهاز وعلاقة الثقة",
+        "تعليمات إعادة ضبط حساب الجهاز",
+        "متابعة معالج الانضمام من الجهاز",
+        "إنهاء المعالج وخطوة التحقق المتبقية"
+      ],
+      "source": "Lecture Mod3- Exc3.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-8-scene-01",
+          "title": "قراءة مهمة حساب الجهاز وعلاقة الثقة",
+          "video": "/assets/os1/os1-lesson-8/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-8/01.jpg",
+          "seconds": 76.0,
+          "steps": [
+            "حدد الجهاز وحسابه المقابل في ADUC.",
+            "اقرأ رسالة فشل علاقة الثقة قبل تغيير الحساب.",
+            "راجع المطلوب في تمرين Reset Computer Account."
+          ],
+          "notes": [
+            "حساب الجهاز في Active Directory مختلف عن حساب المستخدم."
+          ],
+          "warnings": [
+            "إعادة الضبط قد تقطع قناة الثقة الحالية؛ لا تطبقها على جهاز عمل دون تشخيص وخطة إعادة الاتصال."
+          ]
+        },
+        {
+          "id": "os1-lesson-8-scene-02",
+          "title": "تعليمات إعادة ضبط حساب الجهاز",
+          "video": "/assets/os1/os1-lesson-8/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-8/02.jpg",
+          "seconds": 63.0,
+          "steps": [
+            "حدد حساب الجهاز الصحيح في ADUC.",
+            "استخدم Reset Account وفق مهمة المختبر.",
+            "جهز بيانات مسؤول محلي للدخول إلى الجهاز عند تعذر دخول Domain (المجال)."
+          ],
+          "notes": [
+            "يعرض هذا المقطع تعليمات المهمة؛ لا يثبت تنفيذ Reset Account على الشاشة. لا يعادل هذا الإجراء إعادة تثبيت Windows."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-8-scene-03",
+          "title": "متابعة معالج الانضمام من الجهاز",
+          "video": "/assets/os1/os1-lesson-8/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-8/03.jpg",
+          "seconds": 84.0,
+          "steps": [
+            "على الجهاز العميل افتح إعدادات اسم الكمبيوتر وNetwork ID.",
+            "راجع اختيار شبكة المؤسسة وبيانات Domain (المجال).",
+            "أدخل حسابًا مخولًا بالانضمام عندما يطلبه المعالج."
+          ],
+          "notes": [
+            "واجهة المعالج في التسجيل من نسخة Windows القديمة المستخدمة في المختبر."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-8-scene-04",
+          "title": "إنهاء المعالج وخطوة التحقق المتبقية",
+          "video": "/assets/os1/os1-lesson-8/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-8/04.jpg",
+          "seconds": 43.0,
+          "steps": [
+            "راجع رسائل المعالج ثم أكمل إعداد الانضمام.",
+            "أعد التشغيل عند الطلب.",
+            "بعد التشغيل اختبر الدخول بحساب Domain (المجال) والوصول إلى مورد مطلوب."
+          ],
+          "notes": [
+            "التسجيل ينتهي حول مرحلة إعادة التشغيل؛ لا يعرض دليلًا كافيًا على دخول جديد ناجح بعد اكتمالها."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 266.0
+    },
+    {
+      "id": "os1-lesson-9",
+      "subject": "OS1",
+      "unit": 9,
+      "title": "Module 3 · مراجعة عملية لإدارة AD والتفويض",
+      "section": "lessons",
+      "video": null,
+      "summary": "تطبيق إضافي يراجع OU والنقل والمجموعات والتفويض واختبار حدود الصلاحيات؛ يحتفظ بدوره كمراجعة مستقلة.",
+      "steps": [
+        "حماية OU والحذف المقصود في المختبر",
+        "إنشاء الكائنات وتنظيمها",
+        "نقل الكائن إلى حاوية أخرى",
+        "صياغة تفويض محدد",
+        "اختبار الإنشاء والحذف بحساب المفوَّض",
+        "تفويض مخصص ثم مراجعة حدوده",
+        "مراجعة نتيجة الاختبار"
+      ],
+      "source": "Lecture Mod3- review .mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-9-scene-01",
+          "title": "حماية OU والحذف المقصود في المختبر",
+          "video": "/assets/os1/os1-lesson-9/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-9/01.jpg",
+          "seconds": 89.0,
+          "steps": [
+            "أنشئ OU تجريبية ثم راجع سلوك الحذف المحمي.",
+            "عند الحاجة افتح View → Advanced Features ثم خصائص Object.",
+            "راجع Protect object from accidental deletion قبل أي حذف مقصود."
+          ],
+          "notes": [
+            "إظهار الخيارات المتقدمة يتيح رؤية خصائص إضافية، ولا يمنح صلاحيات جديدة."
+          ],
+          "warnings": [
+            "إزالة الحماية هنا تجربة مختبر؛ تحقق من الاسم والمحتويات ولا تعطلها روتينيًا."
+          ]
+        },
+        {
+          "id": "os1-lesson-9-scene-02",
+          "title": "إنشاء الكائنات وتنظيمها",
+          "video": "/assets/os1/os1-lesson-9/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-9/02.jpg",
+          "seconds": 108.0,
+          "steps": [
+            "أنشئ OU والمستخدم والجهاز والمجموعة بأسماء المختبر.",
+            "تحقق من نوع كل كائن في القائمة.",
+            "راجع الفرق بين الحاوية والمجموعة قبل تغيير التنظيم."
+          ],
+          "notes": [
+            "تستخدم المراجعة أسماء CTE1 وCTE2 وأمثلة أخرى مختلفة عن تسجيل التمرين الأول."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-9-scene-03",
+          "title": "نقل الكائن إلى حاوية أخرى",
+          "video": "/assets/os1/os1-lesson-9/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-9/03.jpg",
+          "seconds": 59.0,
+          "steps": [
+            "حدد الكائن ثم Move.",
+            "اختر OU الهدف وراجعها قبل التأكيد.",
+            "تحقق من الحاوية الجديدة وعضوية المجموعات كلٌّ على حدة."
+          ],
+          "notes": [
+            "النقل لا يعني أن الكائن أصبح عضوًا في مجموعة تحمل اسم الحاوية."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-9-scene-04",
+          "title": "صياغة تفويض محدد",
+          "video": "/assets/os1/os1-lesson-9/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-9/04.jpg",
+          "seconds": 123.0,
+          "steps": [
+            "اكتب الحاوية المستهدفة والمستخدم المفوض والمهام المطلوبة.",
+            "ابدأ Delegate Control على الحاوية نفسها.",
+            "راجع أن المهام المختارة تحقق الطلب دون زيادة غير لازمة."
+          ],
+          "notes": [
+            "هذه الأجزاء الثلاثة تمنع الخلط بين مكان التطبيق ومن ينفذ وما يجوز له تنفيذه."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-9-scene-05",
+          "title": "اختبار الإنشاء والحذف بحساب المفوَّض",
+          "video": "/assets/os1/os1-lesson-9/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-9/05.jpg",
+          "seconds": 92.0,
+          "steps": [
+            "سجل الدخول بالحساب الذي فُوِّضت له المهام.",
+            "استخدمه أيضًا في مطالبة UAC.",
+            "قارن المهام التي تنجح بالمهام غير الممنوحة داخل الحاوية."
+          ],
+          "notes": [
+            "اختبار التفويض يعتمد على هوية المنفذ ونوع الكائن والحاوية، لا على ظهور القائمة فقط."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-9-scene-06",
+          "title": "تفويض مخصص ثم مراجعة حدوده",
+          "video": "/assets/os1/os1-lesson-9/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-9/06.jpg",
+          "seconds": 126.0,
+          "steps": [
+            "ابدأ التفويض المخصص على الحاوية المطلوبة.",
+            "حدد أنواع الكائنات والأذونات صراحة.",
+            "راجع الملخص ثم اختبر بحساب المفوَّض."
+          ],
+          "notes": [
+            "لا تُعمّم الصلاحية الممنوحة لحاوية على بقية Domain (المجال)."
+          ],
+          "warnings": [
+            "تجنب اعتماد إضافة Server Operators في المراجعة كإجراء عام؛ للمجموعة صلاحيات أوسع من هذه المهمة."
+          ]
+        },
+        {
+          "id": "os1-lesson-9-scene-07",
+          "title": "مراجعة نتيجة الاختبار",
+          "video": "/assets/os1/os1-lesson-9/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-9/07.jpg",
+          "seconds": 87.0,
+          "steps": [
+            "افتح الحاوية المستهدفة بحساب الاختبار.",
+            "نفذ مهمة مسموحة ثم قارن بإجراء خارج التفويض.",
+            "دوّن ما نجح وما رُفض قبل إنهاء المختبر."
+          ],
+          "notes": [
+            "حفظ الإعداد ليس دليلًا على صحته حتى تُختبر العملية بهوية المستخدم المقصود."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 684.0
+    },
+    {
+      "id": "os1-lesson-10",
+      "subject": "OS1",
+      "unit": 10,
+      "title": "Module 4 · إدارة Active Directory باستخدام PowerShell",
+      "section": "lessons",
+      "video": null,
+      "summary": "إنشاء OU ومستخدم ومجموعة بالأوامر، وضبط كلمة المرور وتفعيل الحساب، ثم التحقق من عضوية المجموعة.",
+      "steps": [
+        "التعرف على أوامر AD",
+        "إنشاء OU والتحقق من النتيجة",
+        "إنشاء المستخدم ومراجعة خصائصه",
+        "كلمة المرور وتفعيل الحساب",
+        "التحقق من تسجيل الدخول",
+        "إنشاء المجموعة وإضافة العضو",
+        "قراءة أعضاء المجموعة"
+      ],
+      "source": "Lecture Mod4 .mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-10-scene-01",
+          "title": "التعرف على أوامر AD",
+          "video": "/assets/os1/os1-lesson-10/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-10/01.jpg",
+          "seconds": 69.0,
+          "steps": [
+            "افتح PowerShell، واجهة تنفيذ أوامر Windows، بحساب يملك صلاحية المهمة.",
+            "ميّز New-ADUser للإنشاء وSet-ADUser للتعديل وGet-ADUser للقراءة.",
+            "راجع أوامر المجموعة والجهاز وOU بدل افتراض أن أمرًا واحدًا يديرها جميعًا."
+          ],
+          "notes": [
+            "يلزم توفر وحدة ActiveDirectory وأدوات الإدارة المناسبة في البيئة."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-10-scene-02",
+          "title": "إنشاء OU والتحقق من النتيجة",
+          "video": "/assets/os1/os1-lesson-10/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-10/02.jpg",
+          "seconds": 61.0,
+          "steps": [
+            "استخدم New-ADOrganizationalUnit وفق اسم ومسار المختبر.",
+            "راجع رسالة التنفيذ؛ ظهور خطأ أن الاسم مستخدم يستدعي فحص الموجود.",
+            "افتح ADUC أو استخدم أمر قراءة للتحقق من وجود OU."
+          ],
+          "notes": [
+            "تظهر في التسجيل أخطاء صلاحية ثم اسم موجود؛ ليست كل ضغطة Enter إنشاءً ناجحًا."
+          ],
+          "warnings": [
+            "لا تعاود إنشاء الكائن عشوائيًا عند الخطأ؛ تحقق من الهوية والمسار والوجود أولًا."
+          ]
+        },
+        {
+          "id": "os1-lesson-10-scene-03",
+          "title": "إنشاء المستخدم ومراجعة خصائصه",
+          "video": "/assets/os1/os1-lesson-10/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-10/03.jpg",
+          "seconds": 123.0,
+          "steps": [
+            "راجع New-ADUser والاسم وPath الذي يحدد OU داخل Domain (المجال).",
+            "انقل الأمر كاملًا دون كسر المعاملات أثناء النسخ.",
+            "افتح خصائص المستخدم للتأكد من الاسم وموضع الإنشاء."
+          ],
+          "notes": [
+            "الاسم المميز Distinguished Name يصف مسار الكائن مثل OU وDC؛ استخدم قيم بيئة المختبر."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-10-scene-04",
+          "title": "كلمة المرور وتفعيل الحساب",
+          "video": "/assets/os1/os1-lesson-10/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-10/04.jpg",
+          "seconds": 33.0,
+          "steps": [
+            "استخدم Set-ADAccountPassword وفق مطالبة الأمر وحالة الحساب.",
+            "فعّل الحساب باستخدام Enable-ADAccount عندما تكون المهمة حسابًا مستخدمًا للدخول.",
+            "تحقق من حالة الحساب قبل تجربة العميل."
+          ],
+          "notes": [
+            "هذا الجزء مثال فيديو يعرضه المدرس داخل تسجيله، ويكمل خطوة التفعيل."
+          ],
+          "warnings": [
+            "لا تضع كلمة مرور حقيقية كنص ظاهر في أمر أو ملف أو ملاحظة."
+          ]
+        },
+        {
+          "id": "os1-lesson-10-scene-05",
+          "title": "التحقق من تسجيل الدخول",
+          "video": "/assets/os1/os1-lesson-10/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-10/05.jpg",
+          "seconds": 39.0,
+          "steps": [
+            "انتقل إلى جهاز العميل في المختبر.",
+            "سجل الدخول بالمستخدم الذي أنشأته وفعّلته.",
+            "تحقق من فتح جلسة المستخدم الصحيح."
+          ],
+          "notes": [
+            "نجاح الدخول في المثال يختبر الحساب؛ لا يثبت أن كل أوامر جلسة أخرى نُفذت بالنتيجة نفسها."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-10-scene-06",
+          "title": "إنشاء المجموعة وإضافة العضو",
+          "video": "/assets/os1/os1-lesson-10/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-10/06.jpg",
+          "seconds": 68.0,
+          "steps": [
+            "استخدم New-ADGroup مع اسم المجموعة ومسارها وGroupScope وGroupCategory المطلوبة.",
+            "استخدم Add-ADGroupMember لإضافة المستخدم إلى المجموعة.",
+            "راجع رسائل التنفيذ قبل متابعة التحقق."
+          ],
+          "notes": [
+            "المثال يحدد Global وSecurity؛ اختيار النوع قرار منفصل عن إضافة العضو."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-10-scene-07",
+          "title": "قراءة أعضاء المجموعة",
+          "video": "/assets/os1/os1-lesson-10/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-10/07.jpg",
+          "seconds": 66.0,
+          "steps": [
+            "شغّل Get-ADGroupMember للمجموعة المقصودة.",
+            "طابق اسم المستخدم مع الناتج.",
+            "ميّز بين إنشاء المجموعة، إضافة العضو، ثم قراءة العضوية للتحقق."
+          ],
+          "notes": [
+            "الناتج يعرض خصائص العضو مثل الاسم ومعرف SID؛ لا تستبدل اختبار العضوية بافتراض نجاح أمر الإضافة."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 459.0
+    },
+    {
+      "id": "os1-lesson-11",
+      "subject": "OS1",
+      "unit": 11,
+      "title": "Module 6 · Exercise 1 · تثبيت DHCP وإدارة العناوين",
+      "section": "lessons",
+      "video": null,
+      "summary": "تثبيت خدمة توزيع العناوين، إعداد Scope والاستثناءات والخيارات، ثم فحص العميل والحجوزات.",
+      "steps": [
+        "تثبيت دور DHCP Server",
+        "إكمال الإعداد وتفويض الخادم",
+        "إنشاء Scope وتحديد المجال العددي",
+        "الاستثناءات ومدة الإيجار",
+        "خيارات العميل وتفعيل Scope",
+        "تحويل العميل إلى التوزيع التلقائي",
+        "قراءة بيانات الإيجار والمحول",
+        "إنشاء حجز لعميل محدد",
+        "تجديد العميل والتحقق من الحجز",
+        "إلغاء الحجز وتشخيص التجديد",
+        "إثبات العودة إلى عنوان موزع"
+      ],
+      "source": "Lecture Mod6- Exc1.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-11-scene-01",
+          "title": "تثبيت دور DHCP Server",
+          "video": "/assets/os1/os1-lesson-11/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/01.jpg",
+          "seconds": 74.0,
+          "steps": [
+            "على الخادم افتح Server Manager → Add Roles and Features.",
+            "اختر الخادم الصحيح ثم DHCP Server وأدوات إدارته.",
+            "ابدأ التثبيت وانتظر رسالة اكتماله قبل الإعداد."
+          ],
+          "notes": [
+            "DHCP: Dynamic Host Configuration Protocol، خدمة توزع إعدادات الشبكة تلقائيًا على العملاء. يحتاج الخادم عنوانًا ثابتًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-02",
+          "title": "إكمال الإعداد وتفويض الخادم",
+          "video": "/assets/os1/os1-lesson-11/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/02.jpg",
+          "seconds": 97.0,
+          "steps": [
+            "أكمل Post-install configuration من إشعار Server Manager.",
+            "افتح DHCP ثم راجع Authorize على الخادم داخل Domain (المجال).",
+            "حدّث العرض وتحقق من حالة الخادم قبل إنشاء Scope."
+          ],
+          "notes": [
+            "Authorize يسمح لخادم Windows DHCP بالعمل في بيئة Active Directory."
+          ],
+          "warnings": [
+            "عدم ظهور الحالة الخضراء له أسباب متعددة؛ لا يثبت وحده أن Domain Controller مطفأ."
+          ]
+        },
+        {
+          "id": "os1-lesson-11-scene-03",
+          "title": "إنشاء Scope وتحديد المجال العددي",
+          "video": "/assets/os1/os1-lesson-11/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/03.jpg",
+          "seconds": 66.0,
+          "steps": [
+            "من IPv4 اختر New Scope وسمّه وفق المختبر.",
+            "أدخل بداية ونهاية عناوين العملاء وقناع الشبكة.",
+            "راجع تطابق الشبكة مع شبكة العملاء قبل المتابعة."
+          ],
+          "notes": [
+            "Scope نطاق عناوين تديره خدمة DHCP. المثال يستخدم 172.16.0.100–172.16.0.200 مع قناع 255.255.0.0. طول البادئة /16 عدد بتات الشبكة، وليس عدد العناوين."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-04",
+          "title": "الاستثناءات ومدة الإيجار",
+          "video": "/assets/os1/os1-lesson-11/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/04.jpg",
+          "seconds": 155.0,
+          "steps": [
+            "أضف Exclusion، وهو عنوان أو مجموعة عناوين لا توزع تلقائيًا.",
+            "اضغط Add بعد كتابة كل استثناء؛ الكتابة ثم Next لا تكفي.",
+            "اضبط Lease Duration، مدة إيجار العنوان، وفق المطلوب."
+          ],
+          "notes": [
+            "المصدر يعرض استثناء 190–200 ثم يضيف 101 للتوضيح؛ لا تنقل الإضافة التجريبية إلى مطلب مختلف."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-05",
+          "title": "خيارات العميل وتفعيل Scope",
+          "video": "/assets/os1/os1-lesson-11/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/05.jpg",
+          "seconds": 95.0,
+          "steps": [
+            "راجع عنوان Router الافتراضي وDNS المرسل إلى العملاء.",
+            "أضف القيم إلى القوائم ثم أكمل المعالج وفعّل Scope.",
+            "افتح Address Pool وراجع التوزيع والاستثناءات."
+          ],
+          "notes": [
+            "Address Pool يعرض مجال العناوين؛ Address Leases يعرض الإيجارات الممنوحة فعليًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-06",
+          "title": "تحويل العميل إلى التوزيع التلقائي",
+          "video": "/assets/os1/os1-lesson-11/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/06.jpg",
+          "seconds": 111.0,
+          "steps": [
+            "على العميل افتح خصائص IPv4 للمحول الصحيح.",
+            "اختر الحصول على عنوان IP تلقائيًا حسب المختبر.",
+            "راجع تفاصيل الاتصال ثم طابق العنوان مع Address Leases على الخادم."
+          ],
+          "notes": [
+            "هذه الخطوة تخص العميل؛ لا تحول خادم DHCP نفسه من العنوان الثابت إلى التلقائي."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-07",
+          "title": "قراءة بيانات الإيجار والمحول",
+          "video": "/assets/os1/os1-lesson-11/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/07.jpg",
+          "seconds": 96.0,
+          "steps": [
+            "نفذ ipconfig /all في Command Prompt على العميل.",
+            "راجع DHCP Enabled وDHCP Server وعنوان IPv4 والقناع.",
+            "ميّز Lease Obtained عن Lease Expires، وخذ Physical Address للمحول المستخدم."
+          ],
+          "notes": [
+            "لا تستخدم عنوان Tunnel adapter بدل Ethernet adapter. عنوان MAC ليس ضمان هوية لا يمكن تغييره أو تكراره."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-08",
+          "title": "إنشاء حجز لعميل محدد",
+          "video": "/assets/os1/os1-lesson-11/08.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/08.jpg",
+          "seconds": 138.0,
+          "steps": [
+            "على الخادم افتح Reservations → New Reservation.",
+            "أدخل عنوان الحجز وMAC الخاص بمحول العميل الصحيح.",
+            "أضف الحجز ثم افحص حالته وبيانات العميل."
+          ],
+          "notes": [
+            "Reservation ربط عنوان بعميل محدد عبر DHCP؛ إنشاء الحجز وحده لا يثبت أن العميل حصل عليه."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-09",
+          "title": "تجديد العميل والتحقق من الحجز",
+          "video": "/assets/os1/os1-lesson-11/09.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/09.jpg",
+          "seconds": 105.0,
+          "steps": [
+            "على العميل نفذ ipconfig /renew.",
+            "افحص IPv4 الجديد باستخدام ipconfig /all.",
+            "حدّث Address Leases وتحقق من تطابق العميل والعنوان وحالة الحجز."
+          ],
+          "notes": [
+            "الحجز يبقى إعدادًا على الخادم، لكن اتصال العميل واستمرار DHCP يحتاجان تحققًا؛ لا تساوِ الحجز بعنوان ثابت يدويًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-11-scene-10",
+          "title": "إلغاء الحجز وتشخيص التجديد",
+          "video": "/assets/os1/os1-lesson-11/10.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/10.jpg",
+          "seconds": 72.0,
+          "steps": [
+            "راجع الحجز المطلوب قبل حذفه في المختبر.",
+            "جدد عنوان العميل ولا تفترض تغيره بمجرد حذف الحجز.",
+            "عند الحاجة استخدم ipconfig /release ثم ipconfig /renew واقرأ رسائل الخطأ."
+          ],
+          "notes": [
+            "التسجيل يعرض تعثرًا مؤقتًا؛ إعادة الأمر دون قراءة الحالة ليست تشخيصًا كافيًا."
+          ],
+          "warnings": [
+            "release يحرر إعداد DHCP وقد يقطع الاتصال عن الجلسة الحالية."
+          ]
+        },
+        {
+          "id": "os1-lesson-11-scene-11",
+          "title": "إثبات العودة إلى عنوان موزع",
+          "video": "/assets/os1/os1-lesson-11/11.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-11/11.jpg",
+          "seconds": 64.0,
+          "steps": [
+            "لاحظ عنوان 169.254 الظاهر أثناء التعثر.",
+            "أعد فحص الاتصال والخادم ثم جدد العنوان.",
+            "تحقق من عودة عنوان الشبكة الصحيح وظهور إيجاره على الخادم."
+          ],
+          "notes": [
+            "عنوان 169.254 في هذه التجربة ليس دليل نجاح DHCP؛ الدليل اللاحق هو عنوان الشبكة مع الإيجار الموافق."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 1073.0
+    },
+    {
+      "id": "os1-lesson-12",
+      "subject": "OS1",
+      "unit": 12,
+      "title": "Module 6 · Exercise 2 · DHCP Relay Agent",
+      "section": "lessons",
+      "video": null,
+      "summary": "ربط عملاء شبكة ثانية بخادم DHCP عبر RRAS، مع مراجعة الحجز وفحص عنوان العميل قبل وبعد الإعداد.",
+      "steps": [
+        "مراجعة Scope والاستثناءات",
+        "تحديد العميل وحجز عنوانه",
+        "إكمال الحجز وتجديد العنوان",
+        "لماذا نحتاج Relay بين الشبكات؟",
+        "إنشاء Scope للشبكة الثانية",
+        "تحديد واجهة Relay وعنوان الخادم",
+        "اختبار العميل ثم مراجعة المسار"
+      ],
+      "source": "Lecture Mod6- Exc2.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-12-scene-01",
+          "title": "مراجعة Scope والاستثناءات",
+          "video": "/assets/os1/os1-lesson-12/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-12/01.jpg",
+          "seconds": 97.0,
+          "steps": [
+            "افتح Scope المختبر وراجع البداية والنهاية.",
+            "أضف الاستثناءات المطلوبة ثم راجع خيارات العميل.",
+            "تأكد من أن Scope نشط وأن العناوين المتاحة تناسب المهمة."
+          ],
+          "notes": [
+            "هذا التسجيل يستخدم استثناء .100–.110؛ تختلف القيم التجريبية عن التسجيل السابق."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-12-scene-02",
+          "title": "تحديد العميل وحجز عنوانه",
+          "video": "/assets/os1/os1-lesson-12/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-12/02.jpg",
+          "seconds": 69.0,
+          "steps": [
+            "نفذ ipconfig /all على العميل.",
+            "حدد MAC الخاص بمحول Ethernet المستخدم.",
+            "افتح New Reservation على الخادم وجهز العنوان والهوية الصحيحة."
+          ],
+          "notes": [
+            "اسم الحجز وصف إداري؛ المطابقة تعتمد على بيانات العميل التي يدخلها المسؤول."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-12-scene-03",
+          "title": "إكمال الحجز وتجديد العنوان",
+          "video": "/assets/os1/os1-lesson-12/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-12/03.jpg",
+          "seconds": 111.0,
+          "steps": [
+            "أدخل عنوان الحجز وMAC ثم Add.",
+            "راجع أن Inactive يعني أن الحجز لم يظهر مستخدمًا بعد.",
+            "نفذ ipconfig /renew وافحص انتقال العميل إلى العنوان المحجوز."
+          ],
+          "notes": [
+            "يراجع المصدر الفرق بين الإيجار الديناميكي والحجز، ثم ينتقل إلى شبكة أخرى."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-12-scene-04",
+          "title": "لماذا نحتاج Relay بين الشبكات؟",
+          "video": "/assets/os1/os1-lesson-12/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-12/04.jpg",
+          "seconds": 81.0,
+          "steps": [
+            "حدد موضع DHCP Server وشبكة كل عميل في الرسم.",
+            "لاحظ أن Router لا يمرر بث DHCP بين الشبكات تلقائيًا.",
+            "استخدم DHCP Relay Agent، وسيط تمرير طلبات DHCP، للوصول إلى الخادم البعيد."
+          ],
+          "notes": [
+            "وجود العميل خارج Domain (المجال) لا يمنعه بذاته من أخذ عنوان DHCP؛ المهم مسار الشبكة والإعدادات."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-12-scene-05",
+          "title": "إنشاء Scope للشبكة الثانية",
+          "video": "/assets/os1/os1-lesson-12/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-12/05.jpg",
+          "seconds": 63.0,
+          "steps": [
+            "على خادم DHCP أنشئ Scope لشبكة 10.10.0.0 وفق قناع المختبر.",
+            "راجع عناوين البداية والنهاية والاستثناءات.",
+            "اضبط Router الخاص بتلك الشبكة 10.10.0.1 وخادم DNS الصحيح."
+          ],
+          "notes": [
+            "القيم تخص المختبر. إنشاء Scope جديد لا يكمل عمل Relay وحده."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-12-scene-06",
+          "title": "تحديد واجهة Relay وعنوان الخادم",
+          "video": "/assets/os1/os1-lesson-12/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-12/06.jpg",
+          "seconds": 76.0,
+          "steps": [
+            "على RTR افتح Routing and Remote Access (RRAS)، خدمة التوجيه والوصول البعيد.",
+            "أضف واجهة الشبكة المستقبلة لطلبات العملاء إلى DHCP Relay Agent.",
+            "في خصائص Relay أضف عنوان خادم DHCP: 172.16.0.11 في هذا المثال."
+          ],
+          "notes": [
+            "عنوان الخادم ليس عنوان العميل ولا عنوان Domain Controller لمجرد أنه موجود في الشبكة."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-12-scene-07",
+          "title": "اختبار العميل ثم مراجعة المسار",
+          "video": "/assets/os1/os1-lesson-12/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-12/07.jpg",
+          "seconds": 104.0,
+          "steps": [
+            "على Client 2 جدد العنوان باستخدام ipconfig /renew.",
+            "تحقق من حصوله على عنوان من شبكة 10.10.0.0 بدل 169.254.",
+            "راجع التسلسل: IPv4 → General → New Routing Protocol → DHCP Relay Agent، ثم الواجهة وعنوان الخادم."
+          ],
+          "notes": [
+            "هذا التسجيل يعرض حصول العميل على عنوان بعد الإعداد؛ لا تكتفِ بوجود Relay في الشجرة."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 601.0
+    },
+    {
+      "id": "os1-lesson-13",
+      "subject": "OS1",
+      "unit": 13,
+      "title": "Module 6 · Exercise 2 · تطبيق إضافي لـ DHCP Relay",
+      "section": "lessons",
+      "video": null,
+      "summary": "تسجيل إضافي مستقل يراجع الحجز وشبكتي المختبر، ثم يطبق Relay ويتحقق من الإيجار على الخادم.",
+      "steps": [
+        "مراجعة الحجز وبيانات المحول",
+        "التحقق من تفعيل الحجز",
+        "قراءة رسم الشبكتين",
+        "شروط وصول العميل البعيد",
+        "Scope الشبكة الثانية وخياراتها",
+        "إضافة البروتوكول والواجهة",
+        "تجديد العميل ومطابقة الإيجار"
+      ],
+      "source": "Lecture Mod6- Exc2-DHCP Relay Agent.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-13-scene-01",
+          "title": "مراجعة الحجز وبيانات المحول",
+          "video": "/assets/os1/os1-lesson-13/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-13/01.jpg",
+          "seconds": 64.0,
+          "steps": [
+            "من Address Leases حدد العميل وراجع بياناته.",
+            "افتح Reservations ثم New Reservation.",
+            "استخدم MAC للمحول الذي يتصل فعليًا بالشبكة."
+          ],
+          "notes": [
+            "هذا تسجيل آخر للتمرين نفسه؛ يحتفظ بأمثلة الشرح ولا يمثل موديولًا جديدًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-13-scene-02",
+          "title": "التحقق من تفعيل الحجز",
+          "video": "/assets/os1/os1-lesson-13/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-13/02.jpg",
+          "seconds": 124.0,
+          "steps": [
+            "راجع حالة الحجز قبل التجديد.",
+            "نفذ ipconfig /renew على العميل ثم حدّث قائمة الإيجارات.",
+            "بعد حذف حجز تجريبي أعد الفحص بدل توقع أن العنوان تغير فورًا."
+          ],
+          "notes": [
+            "الحجز وإيجار العميل عنصران مرتبطان لكنهما ليسا الشيء نفسه."
+          ],
+          "warnings": [
+            "ipconfig /release قد يقطع الاتصال؛ ينفذ هنا داخل مختبر يمكن الوصول إليه محليًا."
+          ]
+        },
+        {
+          "id": "os1-lesson-13-scene-03",
+          "title": "قراءة رسم الشبكتين",
+          "video": "/assets/os1/os1-lesson-13/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-13/03.jpg",
+          "seconds": 105.0,
+          "steps": [
+            "حدد شبكة 172.16.0.0 وشبكة 10.10.0.0 في الرسم.",
+            "حدد DHCP Server والعميل البعيد وRTR الذي يصل الشبكتين.",
+            "اربط كل عنوان بالواجهة والجهاز الصحيحين."
+          ],
+          "notes": [
+            "Router يصل الشبكات، بينما Relay يمرر رسائل DHCP المطلوبة إلى الخادم المحدد."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-13-scene-04",
+          "title": "شروط وصول العميل البعيد",
+          "video": "/assets/os1/os1-lesson-13/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-13/04.jpg",
+          "seconds": 111.0,
+          "steps": [
+            "حوّل العميل إلى التوزيع التلقائي.",
+            "جهز Scope مناسبًا لشبكة العميل على خادم DHCP.",
+            "فعّل Relay على المسار بين العميل والخادم."
+          ],
+          "notes": [
+            "الشرح يبسط Broadcast وUnicast: الوسيط يستقبل طلبات العملاء ويمررها إلى الخادم، ثم يعيد الاستجابة وفق إعداد البروتوكول."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-13-scene-05",
+          "title": "Scope الشبكة الثانية وخياراتها",
+          "video": "/assets/os1/os1-lesson-13/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-13/05.jpg",
+          "seconds": 126.0,
+          "steps": [
+            "أنشئ Scope جديدًا في IPv4 على DHCP Server.",
+            "راجع عناوين شبكة 10.10.0.0 والاستثناءات حسب هذا التسجيل.",
+            "أدخل Router وDNS الصحيحين ثم أكمل التفعيل."
+          ],
+          "notes": [
+            "تتباين قيم الاستثناء بين نص الكتاب وتطبيق المدرس؛ اتبع قيم المهمة التي تطبقها ولا تخلط التجربتين."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-13-scene-06",
+          "title": "إضافة البروتوكول والواجهة",
+          "video": "/assets/os1/os1-lesson-13/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-13/06.jpg",
+          "seconds": 80.0,
+          "steps": [
+            "افتح RRAS على RTR ثم IPv4 → General.",
+            "اختر New Routing Protocol ثم DHCP Relay Agent.",
+            "أضف واجهة العملاء عبر New Interface، ثم أدخل خادم DHCP في الخصائص."
+          ],
+          "notes": [
+            "اختيار الواجهة جزء مستقل عن إدخال عنوان الخادم؛ راجع الاثنين."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-13-scene-07",
+          "title": "تجديد العميل ومطابقة الإيجار",
+          "video": "/assets/os1/os1-lesson-13/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-13/07.jpg",
+          "seconds": 48.0,
+          "steps": [
+            "نفذ ipconfig /renew على Client 2.",
+            "راجع عنوان العميل من شبكة 10.10.0.0.",
+            "انتقل إلى DHCP Server وحدّث Address Leases وطابق الاسم والعنوان."
+          ],
+          "notes": [
+            "التحقق يجمع نتيجة العميل مع سجل الخادم؛ لا تعلن نجاح Relay من المعالج وحده."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 658.0
+    },
+    {
+      "id": "os1-lesson-14",
+      "subject": "OS1",
+      "unit": 14,
+      "title": "Module 7 · Exercise 1 · DNS والمناطق والسجلات",
+      "section": "lessons",
+      "video": null,
+      "summary": "إدارة DNS zones وسجلات الأسماء، والتمييز بين منطقة محفوظة في ملف وأخرى مدمجة في Active Directory عند النسخ المتماثل.",
+      "steps": [
+        "متطلبات الخادم الثاني في المختبر",
+        "Forward Lookup وReverse Lookup",
+        "إنشاء Primary zone",
+        "إضافة Host record ومراجعة الاسم الكامل",
+        "قراءة Root Hints وForwarders",
+        "تثبيت DNS على الخادم الإضافي",
+        "مراجعة اتجاه النسخ المتماثل",
+        "سجل جديد والتحقق على الخادم الآخر"
+      ],
+      "source": "Lecture Mod7- Exc1-DNS.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-14-scene-01",
+          "title": "متطلبات الخادم الثاني في المختبر",
+          "video": "/assets/os1/os1-lesson-14/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/01.jpg",
+          "seconds": 96.0,
+          "steps": [
+            "راجع الخادم المختار قبل تثبيت AD DS، خدمة دليل Active Directory.",
+            "اتبع مهمة المختبر لإضافة Domain Controller إلى المجال الموجود.",
+            "لاحظ أن مثال المصدر يؤجل تثبيت DNS إلى مرحلة لاحقة."
+          ],
+          "notes": [
+            "هذه تهيئة خاصة بالتمرين لإظهار أثر تثبيت DNS والنسخ؛ ليست توصية بإلغاء DNS في كل عملية ترقية."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-14-scene-02",
+          "title": "Forward Lookup وReverse Lookup",
+          "video": "/assets/os1/os1-lesson-14/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/02.jpg",
+          "seconds": 121.0,
+          "steps": [
+            "افتح DNS Manager من Tools.",
+            "ميّز Forward Lookup: البحث بالاسم عن عنوان، عن Reverse Lookup: البحث بالعنوان عن اسم.",
+            "حدد المنطقة المناسبة قبل إضافة السجل."
+          ],
+          "notes": [
+            "DNS: Domain Name System، نظام يربط الأسماء ببيانات مثل العناوين. يتعثر الشرح الشفهي في اتجاه التحويل؛ الاتجاهان موضحان هنا بدقة."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-14-scene-03",
+          "title": "إنشاء Primary zone",
+          "video": "/assets/os1/os1-lesson-14/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/03.jpg",
+          "seconds": 61.0,
+          "steps": [
+            "من Forward Lookup Zones اختر New Zone.",
+            "اختر Primary zone وراجع Store the zone in Active Directory.",
+            "أنشئ contoso.com حسب التمرين مع الانتباه إلى مكان تخزين المنطقة."
+          ],
+          "notes": [
+            "المصدر يلغي حفظ هذه المنطقة في AD؛ لذلك لا تنتقل عبر نسخ AD مثل المنطقة المدمجة فيه. Secondary نسخة للقراءة؛ لا تخلطها بمنطقة Primary."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-14-scene-04",
+          "title": "إضافة Host record ومراجعة الاسم الكامل",
+          "video": "/assets/os1/os1-lesson-14/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/04.jpg",
+          "seconds": 91.0,
+          "steps": [
+            "افتح المنطقة ثم New Host (A or AAAA).",
+            "أدخل اسم المضيف وعنوانه وراجع FQDN، الاسم الكامل الذي يجمع اسم المضيف واسم المنطقة.",
+            "أضف السجل وتحقق من ظهوره بالقيمة الصحيحة."
+          ],
+          "notes": [
+            "A يربط الاسم بعنوان IPv4، وAAAA بعنوان IPv6. مثال المصدر يضيف www إلى contoso.com."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-14-scene-05",
+          "title": "قراءة Root Hints وForwarders",
+          "video": "/assets/os1/os1-lesson-14/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/05.jpg",
+          "seconds": 66.0,
+          "steps": [
+            "افتح خصائص خادم DNS.",
+            "راجع Root Hints، مراجع خوادم الجذر، وForwarders، الخوادم التي تمرر إليها استعلامات محددة حسب الإعداد.",
+            "قارن بالقيم المعروضة في المختبر ولا تفترض أن القائمة الفارغة خطأ تلقائيًا."
+          ],
+          "notes": [
+            "الكتاب يعرض أيضًا Get-DnsServerRootHint وGet-DnsServerForwarder للقراءة؛ المقصود فحص الإعداد لا تغييره عشوائيًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-14-scene-06",
+          "title": "تثبيت DNS على الخادم الإضافي",
+          "video": "/assets/os1/os1-lesson-14/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/06.jpg",
+          "seconds": 110.0,
+          "steps": [
+            "على الخادم الإضافي افتح Add Roles and Features.",
+            "حدد DNS Server وأكمل التثبيت.",
+            "راجع أي المناطق يفترض وصولها عبر AD وأيها محفوظة في ملف مستقل."
+          ],
+          "notes": [
+            "وجود DNS على خادمين لا يعني نسخ كل المناطق بينهما تلقائيًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-14-scene-07",
+          "title": "مراجعة اتجاه النسخ المتماثل",
+          "video": "/assets/os1/os1-lesson-14/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/07.jpg",
+          "seconds": 101.0,
+          "steps": [
+            "افتح Active Directory Sites and Services وحدد الخادم والاتصال الصحيحين.",
+            "اقرأ From وTo في خيار النسخ قبل التنفيذ.",
+            "راجع DNS على الخادم الهدف بعد اكتمال النسخ."
+          ],
+          "notes": [
+            "Replication نسخ تغييرات الدليل بين الخوادم؛ اتجاه العملية ومكان تخزين المنطقة يحددان ما تتوقع ظهوره."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-14-scene-08",
+          "title": "سجل جديد والتحقق على الخادم الآخر",
+          "video": "/assets/os1/os1-lesson-14/08.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-14/08.jpg",
+          "seconds": 113.0,
+          "steps": [
+            "أضف Host record في المنطقة المدمجة في AD وفق المثال.",
+            "حدّث عرض DNS على الخادم الآخر بعد النسخ.",
+            "طابق اسم السجل والعنوان، وميّز ذلك عن منطقة contoso.com المحفوظة في ملف."
+          ],
+          "notes": [
+            "ظهور السجل على الخادم الآخر يختبر النسخ في المثال. لا يعرض هذا المقطع اختبار استعلام من عميل مستقل."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 759.0
+    },
+    {
+      "id": "os1-lesson-15",
+      "subject": "OS1",
+      "unit": 15,
+      "title": "Module 9 · Exercises 1–2 · إدارة التخزين المحلي",
+      "section": "lessons",
+      "video": null,
+      "summary": "تهيئة أقراص المختبر وإنشاء وحدات التخزين وتغيير أحجامها، ثم مقارنة Spanned وStriped وMirrored وRAID-5.",
+      "steps": [
+        "قراءة القرص وتهيئته في Disk Management",
+        "إنشاء Simple volume",
+        "الوحدة الثانية ونظام الملفات",
+        "تقليص وحدة التخزين وتوسيعها",
+        "إعداد الأقراص متعددة الوحدات",
+        "إنشاء Spanned volume وتصحيح السعة",
+        "إنشاء Striped volume",
+        "إنشاء Mirrored volume واختبار ملف",
+        "فصل المرآة وإعادة إنشائها",
+        "إنشاء RAID-5 ومتابعة المزامنة"
+      ],
+      "source": "Lecture Mod9- Exc1 Exc2.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-15-scene-01",
+          "title": "قراءة القرص وتهيئته في Disk Management",
+          "video": "/assets/os1/os1-lesson-15/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/01.jpg",
+          "seconds": 102.0,
+          "steps": [
+            "افتح Disk Management، أداة إدارة الأقراص، على خادم المختبر.",
+            "طابق رقم القرص وسعته وحالته قبل أي إجراء.",
+            "ميّز المساحة Unallocated غير المخصصة عن وحدة تخزين لها حرف ونظام ملفات."
+          ],
+          "notes": [
+            "الأرقام والأحرف تخص أجهزة المختبر؛ لا تختَر قرصًا حقيقيًا بالاعتماد على تشابه رقمه فقط."
+          ],
+          "warnings": [
+            "التهيئة والحذف والتنسيق قد تفقد البيانات؛ التطبيق هنا على أقراص المختبر المخصصة."
+          ]
+        },
+        {
+          "id": "os1-lesson-15-scene-02",
+          "title": "إنشاء Simple volume",
+          "video": "/assets/os1/os1-lesson-15/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/02.jpg",
+          "seconds": 106.0,
+          "steps": [
+            "راجع Initialize Disk واختيار GPT حسب التمرين.",
+            "على المساحة غير المخصصة افتح New Simple Volume.",
+            "حدد الحجم وحرف القرص ونظام الملفات ثم راجع الملخص."
+          ],
+          "notes": [
+            "GPT أسلوب تقسيم القرص؛ NTFS وReFS نظاما ملفات. هذه اختيارات على مستويات مختلفة."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-15-scene-03",
+          "title": "الوحدة الثانية ونظام الملفات",
+          "video": "/assets/os1/os1-lesson-15/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/03.jpg",
+          "seconds": 85.0,
+          "steps": [
+            "أنشئ الوحدة الثانية بالحجم وحرف القرص المطلوبين.",
+            "راجع نظام الملفات المختار في المعالج.",
+            "طابق الحجم والحرف والحالة في القائمة بعد الإنشاء."
+          ],
+          "notes": [
+            "المختبر يقارن NTFS وReFS. لا تفترض توفر كل عمليات تغيير الحجم لكليهما في كل إصدار."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-15-scene-04",
+          "title": "تقليص وحدة التخزين وتوسيعها",
+          "video": "/assets/os1/os1-lesson-15/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/04.jpg",
+          "seconds": 145.0,
+          "steps": [
+            "افتح قائمة الوحدة المستهدفة واختر Shrink Volume إن كان متاحًا.",
+            "راجع مقدار المساحة الممكن تقليصها وأدخل المقدار المطلوب.",
+            "تحقق من الحجم والمساحة الناتجة؛ ثم راجع Extend Volume لتوسيع الوحدة الثانية والمقدار المضاف إليها."
+          ],
+          "notes": [
+            "Shrink يقلص الوحدة؛ لا يعادل حذفها. مقدار التقليص قد يقيده موضع البيانات ونظام الملفات."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-15-scene-05",
+          "title": "إعداد الأقراص متعددة الوحدات",
+          "video": "/assets/os1/os1-lesson-15/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/05.jpg",
+          "seconds": 100.0,
+          "steps": [
+            "راجع الأقراص الإضافية وحالتها في Disk Management.",
+            "حدّد مساحات التجربة قبل إنشاء وحدة تمتد عبر أقراص.",
+            "اقرأ رسالة التحويل إلى Dynamic عند ظهورها."
+          ],
+          "notes": [
+            "Dynamic نوع إدارة للأقراص يتيح وحدات متعددة الأقراص في هذا المختبر القديم."
+          ],
+          "warnings": [
+            "لا تحوّل أقراص النظام أو البيانات الشخصية لمجرد تجربة الخيارات؛ الرجوع قد يتطلب نقل البيانات وحذف وحدات."
+          ]
+        },
+        {
+          "id": "os1-lesson-15-scene-06",
+          "title": "إنشاء Spanned volume وتصحيح السعة",
+          "video": "/assets/os1/os1-lesson-15/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/06.jpg",
+          "seconds": 84.0,
+          "steps": [
+            "اختر New Spanned Volume من مساحة غير مخصصة.",
+            "أضف الأقراص وحدد المساحة المشاركة من كل قرص.",
+            "أكمل الحرف والتنسيق ثم راجع أن الأجزاء تظهر كوحدة واحدة."
+          ],
+          "notes": [
+            "Spanned يجمع السعة عبر أقراص؛ لا يوفر تحمل تعطل قرص ولا يعادل RAID-0."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-15-scene-07",
+          "title": "إنشاء Striped volume",
+          "video": "/assets/os1/os1-lesson-15/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/07.jpg",
+          "seconds": 138.0,
+          "steps": [
+            "اختر New Striped Volume وحدد الأقراص المشاركة.",
+            "راجع المساحة المأخوذة من كل قرص وأكمل التنسيق.",
+            "قارن شكل الأجزاء وحجم الوحدة مع Spanned."
+          ],
+          "notes": [
+            "Striped يوزع البيانات على أقراص على هيئة شرائط ويقابل RAID-0؛ لا يوفر حماية من تعطل أحد الأقراص."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-15-scene-08",
+          "title": "إنشاء Mirrored volume واختبار ملف",
+          "video": "/assets/os1/os1-lesson-15/08.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/08.jpg",
+          "seconds": 130.0,
+          "steps": [
+            "اختر New Mirrored Volume وحدد قرصين في المختبر.",
+            "أكمل التنسيق وانتظر الحالة المناسبة.",
+            "افتح الوحدة وأنشئ ملف اختبار للتأكد من إمكانية الكتابة."
+          ],
+          "notes": [
+            "Mirrored يحتفظ بنسختين ويقابل RAID-1. إنشاء ملف لا يثبت أن تجربة تعطل قرص واستعادته اختُبرت."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-15-scene-09",
+          "title": "فصل المرآة وإعادة إنشائها",
+          "video": "/assets/os1/os1-lesson-15/09.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/09.jpg",
+          "seconds": 79.0,
+          "steps": [
+            "ميّز Break Mirror، فصل المرآة إلى وحدتين مستقلتين، عن Remove Mirror، إزالة أحد طرفي المرآة.",
+            "راجع النتيجة في Disk Management بعد تجربة الفصل.",
+            "افحص Add Mirror ومكان النسخة الجديدة قبل إعادة التكوين."
+          ],
+          "notes": [
+            "بعد Break Mirror تتوقف المزامنة بين الوحدتين؛ لا تفترض استمرار تطابق الملفات."
+          ],
+          "warnings": [
+            "حذف طرف أو إعادة تكوين التخزين يؤثر في البيانات؛ ينفذ هنا على أقراص تجربة مخصصة."
+          ]
+        },
+        {
+          "id": "os1-lesson-15-scene-10",
+          "title": "إنشاء RAID-5 ومتابعة المزامنة",
+          "video": "/assets/os1/os1-lesson-15/10.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-15/10.jpg",
+          "seconds": 155.0,
+          "steps": [
+            "اختر New RAID-5 Volume وحدد ثلاثة أقراص أو أكثر حسب المختبر.",
+            "راجع المساحات والحرف ونظام الملفات قبل الإنهاء.",
+            "انتظر انتهاء Resynching وافحص حالة الوحدة."
+          ],
+          "notes": [
+            "RAID-5 يستخدم بيانات تكافؤ موزعة لتحمل تعطل قرص واحد عند سلامة بقية المجموعة."
+          ],
+          "warnings": [
+            "RAID ليس نسخة احتياطية؛ لا يحمي من حذف الملفات أو كل أنواع التلف."
+          ]
+        }
+      ],
+      "seconds": 1124.0
+    },
+    {
+      "id": "os1-lesson-16",
+      "subject": "OS1",
+      "unit": 16,
+      "title": "Module 9 · مراجعة مكمّلة للتخزين المحلي وRAID",
+      "section": "lessons",
+      "video": null,
+      "summary": "تسجيل مستقل متداخل مع الدرس السابق، محفوظ كمراجعة إضافية بعد مقارنة محتواه؛ كلمة «يحذف» في اسم الأصل لا تثبت استبعاده.",
+      "steps": [
+        "إنشاء الوحدات على أقراص المختبر",
+        "إنشاء Spanned volume عبر أقراص",
+        "مراجعة Striped volume",
+        "مراجعة Mirrored volume",
+        "إعداد RAID-5",
+        "مراجعة الفروق بين أنواع RAID"
+      ],
+      "source": "Lecture Mod9يحذف- Exc1 Exc2-local storage.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-16-scene-01",
+          "title": "إنشاء الوحدات على أقراص المختبر",
+          "video": "/assets/os1/os1-lesson-16/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-16/01.jpg",
+          "seconds": 100.0,
+          "steps": [
+            "افتح Disk Management وتحقق من أرقام الأقراص.",
+            "راجع Initialize Disk عند الحاجة ثم New Simple Volume.",
+            "أكمل الحجم والحرف ونظام الملفات وافحص القائمة."
+          ],
+          "notes": [
+            "هذه مراجعة بتسجيل مختلف؛ لم يُحذف المصدر ولم يُعتبر بديلًا تلقائيًا للدرس الأساسي."
+          ],
+          "warnings": [
+            "لا تهيئ أي قرص يحتوي بيانات مطلوبة."
+          ]
+        },
+        {
+          "id": "os1-lesson-16-scene-02",
+          "title": "إنشاء Spanned volume عبر أقراص",
+          "video": "/assets/os1/os1-lesson-16/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-16/02.jpg",
+          "seconds": 89.0,
+          "steps": [
+            "حدد New Spanned Volume من المساحة غير المخصصة.",
+            "راجع الأقراص والمساحة التي يضيفها المعالج.",
+            "اقرأ أثر التحويل إلى Dynamic وراجع شكل الوحدة بعد العملية."
+          ],
+          "notes": [
+            "Spanned يجمع أجزاء من عدة أقراص في وحدة واحدة؛ لا يوفر تحمل تعطل قرص."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-16-scene-03",
+          "title": "مراجعة Striped volume",
+          "video": "/assets/os1/os1-lesson-16/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-16/03.jpg",
+          "seconds": 100.0,
+          "steps": [
+            "حدد New Striped Volume من المساحة المتاحة.",
+            "اختر الأقراص المطلوبة والمساحة ثم أكمل المعالج.",
+            "راجع نوع الوحدة وأجزاءها في العرض السفلي."
+          ],
+          "notes": [
+            "Striped وSpanned كلاهما قد يستخدم عدة أقراص؛ طريقة توزيع البيانات مختلفة، وكلاهما دون حماية من تعطل قرص."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-16-scene-04",
+          "title": "مراجعة Mirrored volume",
+          "video": "/assets/os1/os1-lesson-16/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-16/04.jpg",
+          "seconds": 70.0,
+          "steps": [
+            "اختر New Mirrored Volume في المختبر.",
+            "راجع القرصين والمساحة المتناظرة ثم التنسيق.",
+            "افحص حالة الوحدة بدل الاكتفاء برسالة إنهاء المعالج."
+          ],
+          "notes": [
+            "سعة المرآة القابلة للاستخدام ليست مجموع سعتي القرصين."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-16-scene-05",
+          "title": "إعداد RAID-5",
+          "video": "/assets/os1/os1-lesson-16/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-16/05.jpg",
+          "seconds": 87.0,
+          "steps": [
+            "راجع المساحات المتاحة على ثلاثة أقراص على الأقل.",
+            "ابدأ New RAID-5 Volume وأضف الأقراص المطلوبة.",
+            "راجع التكوين وحالة المزامنة بعد الإنشاء."
+          ],
+          "notes": [
+            "التسجيل يتخلله توقف وتواصل صفي؛ المقطع منتقى للخطوات المتعلقة بالتخزين."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-16-scene-06",
+          "title": "مراجعة الفروق بين أنواع RAID",
+          "video": "/assets/os1/os1-lesson-16/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-16/06.jpg",
+          "seconds": 153.0,
+          "steps": [
+            "قارن RAID-0 الذي يوزع البيانات دون تكافؤ مع RAID-1 الذي ينسخها.",
+            "راجع دور التكافؤ في RAID-5 وفقدان سعة تعادل قرصًا واحدًا عند استخدام أقراص متساوية.",
+            "اربط المقارنة بالوحدات التي ظهرت في Disk Management."
+          ],
+          "notes": [
+            "المراجعة تعرض أيضًا مستويات أخرى على الشرائح؛ لا يعني ظهورها أنها طُبقت عمليًا في التسجيل."
+          ],
+          "warnings": [
+            "استمرار العمل عند عطل قرص يحتاج اختبارًا مناسبًا ونسخة احتياطية مستقلة؛ لا يُستنتج من رسم RAID وحده."
+          ]
+        }
+      ],
+      "seconds": 599.0
+    },
+    {
+      "id": "os1-lesson-17",
+      "subject": "OS1",
+      "unit": 17,
+      "title": "Module 10 · Exercise 1 · المجلدات المشتركة والأذونات",
+      "section": "lessons",
+      "video": null,
+      "summary": "تجهيز مجلدات الأقسام، ضبط أذونات NTFS والمشاركة، واختبار الوصول وإظهار المجلدات حسب صلاحية المستخدم.",
+      "steps": [
+        "خطة المجلدات والأذونات",
+        "إضافة مجموعة إلى أذونات المجلد",
+        "الوراثة والأذونات الصريحة",
+        "إنشاء مشاركة Data",
+        "اختبار الوصول بحساب المستخدم",
+        "إعداد Access-based Enumeration",
+        "التحقق من ظهور المجلدات وخيار Offline Files"
+      ],
+      "source": "Lecture Mod10- Exc1.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-17-scene-01",
+          "title": "خطة المجلدات والأذونات",
+          "video": "/assets/os1/os1-lesson-17/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-17/01.jpg",
+          "seconds": 110.0,
+          "steps": [
+            "راجع جدول المجلدات والمجموعات في مهمة المختبر.",
+            "حدد مجلد Data والمجلدات الفرعية المطلوبة.",
+            "ميّز صلاحيات كل مجموعة قبل إنشاء المشاركة."
+          ],
+          "notes": [
+            "NTFS نظام ملفات يطبق أذونات على المجلدات والملفات؛ Share permissions أذونات الوصول إلى المشاركة عبر الشبكة."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-17-scene-02",
+          "title": "إضافة مجموعة إلى أذونات المجلد",
+          "video": "/assets/os1/os1-lesson-17/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-17/02.jpg",
+          "seconds": 100.0,
+          "steps": [
+            "افتح Properties → Security → Advanced للمجلد المستهدف.",
+            "اختر Add ثم حدد المجموعة الصحيحة.",
+            "راجع مستوى الإذن وموضع تطبيقه قبل الحفظ."
+          ],
+          "notes": [
+            "استخدم أسماء مجموعات المختبر كما هي؛ تشابه اسم مجلد مع مجموعة لا يمنحها الوصول تلقائيًا."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-17-scene-03",
+          "title": "الوراثة والأذونات الصريحة",
+          "video": "/assets/os1/os1-lesson-17/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-17/03.jpg",
+          "seconds": 70.0,
+          "steps": [
+            "افتح إعدادات الأمان المتقدمة للمجلد المطلوب.",
+            "راجع Disable inheritance والفرق بين تحويل الأذونات الموروثة إلى صريحة وإزالتها.",
+            "افحص القائمة النهائية بعد التغيير."
+          ],
+          "notes": [
+            "Inheritance انتقال الأذونات من المجلد الأب؛ تعطيلها يحتاج مراجعة لما سيبقى على المجلد."
+          ],
+          "warnings": [
+            "لا تحذف أذونات الإدارة أو SYSTEM دون مطلب واضح؛ قد تفقد القدرة على إدارة المجلد."
+          ]
+        },
+        {
+          "id": "os1-lesson-17-scene-04",
+          "title": "إنشاء مشاركة Data",
+          "video": "/assets/os1/os1-lesson-17/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-17/04.jpg",
+          "seconds": 117.0,
+          "steps": [
+            "افتح Sharing → Advanced Sharing للمجلد الأب.",
+            "حدد اسم المشاركة ثم Permissions.",
+            "أضف المجموعة المطلوبة وراجع مستوى الوصول حسب الكتاب."
+          ],
+          "notes": [
+            "المصدر يستخدم Authenticated Users وChange في المشاركة؛ يبقى وصول كل مجلد محكومًا أيضًا بأذونات NTFS."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-17-scene-05",
+          "title": "اختبار الوصول بحساب المستخدم",
+          "video": "/assets/os1/os1-lesson-17/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-17/05.jpg",
+          "seconds": 87.0,
+          "steps": [
+            "ادخل على العميل بحساب الاختبار المحدد.",
+            "افتح مسار مشاركة الخادم ثم جرّب مجلد القسم المسموح.",
+            "قارن بنتيجة الوصول إلى مجلد قسم آخر."
+          ],
+          "notes": [
+            "اختبر بالحساب المقصود؛ نجاح فتح المجلد بحساب Administrator لا يثبت صحة أذونات المستخدم."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-17-scene-06",
+          "title": "إعداد Access-based Enumeration",
+          "video": "/assets/os1/os1-lesson-17/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-17/06.jpg",
+          "seconds": 45.0,
+          "steps": [
+            "افتح Server Manager → File and Storage Services → Shares.",
+            "افتح خصائص مشاركة Data ثم Settings.",
+            "فعّل Access-based enumeration وفق التمرين وراجع النتيجة على العميل."
+          ],
+          "notes": [
+            "Access-based enumeration إظهار الملفات والمجلدات التي تسمح أذونات المستخدم برؤيتها؛ لا يحل محل أذونات الحماية."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-17-scene-07",
+          "title": "التحقق من ظهور المجلدات وخيار Offline Files",
+          "video": "/assets/os1/os1-lesson-17/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-17/07.jpg",
+          "seconds": 150.0,
+          "steps": [
+            "ارجع إلى العميل وحدّث عرض المشاركة.",
+            "تحقق من ظهور المجلد المناسب لحساب الاختبار.",
+            "راجع مهمة تعطيل التخزين المؤقت Offline Files في الكتاب وخصائص المشاركة."
+          ],
+          "notes": [
+            "Offline Files نسخ محلية تسمح بالعمل دون اتصال. نهاية المصدر تتضمن قراءة تعليمات؛ لا نعد كل خطوة مذكورة تنفيذًا مرئيًا متحققًا."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 679.0
+    },
+    {
+      "id": "os1-lesson-18",
+      "subject": "OS1",
+      "unit": 18,
+      "title": "Module 10 · Exercise 4 · خدمة الطباعة ومشاركة الطابعة",
+      "section": "lessons",
+      "video": null,
+      "summary": "تثبيت أدوات الطباعة وإضافة طابعة عبر TCP/IP ومشاركتها، ثم إعداد عدة منافذ واكتشاف الطابعة من العميل.",
+      "steps": [
+        "تثبيت Print and Document Services",
+        "إضافة طابعة شبكة",
+        "المنفذ وبرنامج التشغيل",
+        "مشاركة الطابعة وإعلانها",
+        "إضافة منفذ ثانٍ",
+        "تفعيل Printer Pooling",
+        "اكتشاف الطابعة على العميل"
+      ],
+      "source": "Lecture Mod10- Exc4.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-18-scene-01",
+          "title": "تثبيت Print and Document Services",
+          "video": "/assets/os1/os1-lesson-18/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-18/01.jpg",
+          "seconds": 35.0,
+          "steps": [
+            "افتح Add Roles and Features على خادم المختبر.",
+            "اختر Print and Document Services والخدمة المطلوبة.",
+            "أكمل التثبيت ثم تحقق من توفر Print Management."
+          ],
+          "notes": [
+            "هذا مختبر إدارة طباعة على Windows Server؛ لا يثبت التثبيت وجود طابعة فعلية."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-18-scene-02",
+          "title": "إضافة طابعة شبكة",
+          "video": "/assets/os1/os1-lesson-18/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-18/02.jpg",
+          "seconds": 110.0,
+          "steps": [
+            "افتح Print Management ووسّع خادم الطباعة.",
+            "ابدأ Add Printer واختر إضافة طابعة TCP/IP.",
+            "أدخل عنوان الطابعة وفق المهمة وراجع خيار الاكتشاف التلقائي."
+          ],
+          "notes": [
+            "عنوان المثال 172.16.0.200؛ لا تستخدمه في شبكة أخرى دون معرفة خطة عناوينها."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-18-scene-03",
+          "title": "المنفذ وبرنامج التشغيل",
+          "video": "/assets/os1/os1-lesson-18/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-18/03.jpg",
+          "seconds": 125.0,
+          "steps": [
+            "راجع نوع Standard TCP/IP Port والمعلومات الإضافية المطلوبة.",
+            "اختر برنامج التشغيل الذي يطلبه المختبر.",
+            "اكتب اسم الطابعة واسم المشاركة ثم راجع الملخص."
+          ],
+          "notes": [
+            "Driver برنامج تشغيل الطابعة. Microsoft XPS Class Driver هنا مثال مختبر؛ الطابعة الفعلية تحتاج برنامجًا متوافقًا معها."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-18-scene-04",
+          "title": "مشاركة الطابعة وإعلانها",
+          "video": "/assets/os1/os1-lesson-18/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-18/04.jpg",
+          "seconds": 90.0,
+          "steps": [
+            "افتح خصائص الطابعة التي أضيفت.",
+            "راجع اسم المشاركة وخيار List in the directory وفق المهمة.",
+            "ميّز خيار Branch Office Direct Printing عن تجميع الطابعات."
+          ],
+          "notes": [
+            "نشر الطابعة في الدليل يساعد على اكتشافها؛ لا يثبت خروج صفحة مطبوعة."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-18-scene-05",
+          "title": "إضافة منفذ ثانٍ",
+          "video": "/assets/os1/os1-lesson-18/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-18/05.jpg",
+          "seconds": 80.0,
+          "steps": [
+            "من خصائص الطابعة افتح Ports ثم Add Port.",
+            "أضف Standard TCP/IP Port للطابعة الثانية حسب المختبر.",
+            "راجع العنوانين قبل تفعيل التجميع."
+          ],
+          "notes": [
+            "المثال يستخدم 172.16.0.201 منفذًا إضافيًا؛ لكل جهاز طباعة عنوانه."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-18-scene-06",
+          "title": "تفعيل Printer Pooling",
+          "video": "/assets/os1/os1-lesson-18/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-18/06.jpg",
+          "seconds": 85.0,
+          "steps": [
+            "في Ports فعّل Enable printer pooling.",
+            "حدد المنافذ المقصودة ثم احفظ.",
+            "راجع أن المنفذين مرتبطان بالطابعة المنطقية نفسها."
+          ],
+          "notes": [
+            "Printer Pooling مجموعة أجهزة طباعة تقدم للمستخدم كطابعة منطقية واحدة؛ ليست أمرًا لطباعة نسخة متزامنة على كل الأجهزة."
+          ],
+          "warnings": [
+            "يلزم توافق الأجهزة مع برنامج التشغيل؛ لم يختبر التسجيل طباعة ورقية فعلية."
+          ]
+        },
+        {
+          "id": "os1-lesson-18-scene-07",
+          "title": "اكتشاف الطابعة على العميل",
+          "video": "/assets/os1/os1-lesson-18/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-18/07.jpg",
+          "seconds": 55.0,
+          "steps": [
+            "افتح إضافة الطابعات أو الأجهزة على العميل.",
+            "ابحث عن Branch Office Printer حسب اسم المشاركة.",
+            "راجع ظهورها واخترها وفق خطوات المختبر."
+          ],
+          "notes": [
+            "ظهور الطابعة في البحث دليل اكتشاف فقط؛ اختبار ورقة فعلية يتطلب جهاز طباعة متاحًا."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 580.0
+    },
+    {
+      "id": "os1-lesson-19",
+      "subject": "OS1",
+      "unit": 19,
+      "title": "Module 10 · Exercise 4 · تطبيق إضافي لـ Print Pool",
+      "section": "lessons",
+      "video": null,
+      "summary": "تسجيل آخر يركز على إنشاء الطابعة وإضافة منفذ ثانٍ وتفعيل التجميع، ثم العثور على المشاركة من العميل.",
+      "steps": [
+        "فتح إدارة الطباعة",
+        "عنوان الطابعة ونوع المنفذ",
+        "اختيار Driver وتسمية المشاركة",
+        "إضافة المنفذ الإضافي",
+        "تجميع المنافذ في طابعة واحدة",
+        "الوصول إلى الطابعة من العميل"
+      ],
+      "source": "Lecture Mod10- Exc4-Print pool.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-19-scene-01",
+          "title": "فتح إدارة الطباعة",
+          "video": "/assets/os1/os1-lesson-19/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-19/01.jpg",
+          "seconds": 60.0,
+          "steps": [
+            "افتح Print Management على الخادم.",
+            "حدد Print Servers ثم الخادم الصحيح.",
+            "ابدأ إضافة الطابعة من قائمة Printers."
+          ],
+          "notes": [
+            "احتُفظ بهذا التسجيل بوصفه تطبيقًا إضافيًا لموضوع الطباعة، لا نسخة مطابقة من التسجيل السابق."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-19-scene-02",
+          "title": "عنوان الطابعة ونوع المنفذ",
+          "video": "/assets/os1/os1-lesson-19/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-19/02.jpg",
+          "seconds": 125.0,
+          "steps": [
+            "اختر طابعة TCP/IP وأدخل عنوان المختبر.",
+            "راجع خيار الاكتشاف ثم معلومات المنفذ الإضافية عند ظهورها.",
+            "أكمل المعالج وفق نوع الجهاز المطلوب."
+          ],
+          "notes": [
+            "فشل الاكتشاف التلقائي في مختبر بلا طابعة فعلية لا يثبت أن العنوان صالح خارج المختبر."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-19-scene-03",
+          "title": "اختيار Driver وتسمية المشاركة",
+          "video": "/assets/os1/os1-lesson-19/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-19/03.jpg",
+          "seconds": 105.0,
+          "steps": [
+            "راجع الشركة وبرنامج التشغيل في المعالج.",
+            "أدخل اسم الطابعة والمشاركة المطلوبين.",
+            "تحقق من ظهور الطابعة في قائمة الخادم."
+          ],
+          "notes": [
+            "اختيار برنامج تشغيل افتراضي في المختبر لا يغني عن برنامج الطابعة الحقيقية."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-19-scene-04",
+          "title": "إضافة المنفذ الإضافي",
+          "video": "/assets/os1/os1-lesson-19/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-19/04.jpg",
+          "seconds": 125.0,
+          "steps": [
+            "افتح Printer Properties → Ports.",
+            "أضف Standard TCP/IP Port بالعنوان الثاني.",
+            "راجع اكتمال إضافة المنفذ وقيمته في القائمة."
+          ],
+          "notes": [
+            "اسم المنفذ وعنوانه يحتاجان مطابقة؛ لا يكفي ظهور صف جديد."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-19-scene-05",
+          "title": "تجميع المنافذ في طابعة واحدة",
+          "video": "/assets/os1/os1-lesson-19/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-19/05.jpg",
+          "seconds": 75.0,
+          "steps": [
+            "فعّل Enable printer pooling.",
+            "حدد منفذي الطابعات المشاركين.",
+            "احفظ ثم أعد فتح Ports للتحقق من القيم."
+          ],
+          "notes": [
+            "التجميع يتيح استخدام أجهزة متعددة تحت طابعة منطقية واحدة؛ لا يعني تقسيم صفحات كل مهمة بينها بالتساوي."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-19-scene-06",
+          "title": "الوصول إلى الطابعة من العميل",
+          "video": "/assets/os1/os1-lesson-19/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-19/06.jpg",
+          "seconds": 49.0,
+          "steps": [
+            "على العميل افتح إضافة جهاز أو طابعة.",
+            "ابحث عن اسم المشاركة الذي أنشأته.",
+            "طابق الاسم والخادم قبل الإضافة."
+          ],
+          "notes": [
+            "يسبق ذلك تعثر دخول في التسجيل؛ المقطع المنتقى يركز على اكتشاف الطابعة، وليس إثبات إصلاح كل حساب أو نجاح طباعة ورقية."
+          ],
+          "warnings": []
+        }
+      ],
+      "seconds": 539.0
+    },
+    {
+      "id": "os1-lesson-20",
+      "subject": "OS1",
+      "unit": 20,
+      "title": "Module 11 · Exercise 2 · إنشاء GPO والوراثة",
+      "section": "lessons",
+      "video": null,
+      "summary": "إنشاء Starter GPO، ثم كائن سياسة مرتبط بالمجال، ومراجعة Block Inheritance وEnforced مع اختبار إعداد واجهة المستخدم.",
+      "steps": [
+        "إنشاء Starter GPO",
+        "البحث عن الإعداد وتفعيله",
+        "قراءة تقرير إعداد القالب",
+        "إنشاء GPO من القالب وربطه",
+        "أولوية الروابط وEnforced",
+        "التحقق على جهاز العميل",
+        "مثال إضافي لسياسات التخزين القابل للإزالة",
+        "استثناء قسم ومراجعة حدود الدليل"
+      ],
+      "source": "Lecture Mod11- Exc2.mp4 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-20-scene-01",
+          "title": "إنشاء Starter GPO",
+          "video": "/assets/os1/os1-lesson-20/01.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/01.jpg",
+          "seconds": 145.0,
+          "steps": [
+            "افتح Group Policy Management (GPMC)، أداة إدارة سياسات المجموعة.",
+            "حدد Starter GPOs ثم أنشئ قالبًا باسم المهمة.",
+            "افتح القالب لتحرير إعدادات Administrative Templates."
+          ],
+          "notes": [
+            "GPO: Group Policy Object، كائن يجمع إعدادات للمستخدمين أو الأجهزة. Starter GPO قالب لإنشاء GPO لاحق؛ لا يطبق مباشرة بمجرد إنشائه."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-20-scene-02",
+          "title": "البحث عن الإعداد وتفعيله",
+          "video": "/assets/os1/os1-lesson-20/02.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/02.jpg",
+          "seconds": 108.0,
+          "steps": [
+            "داخل User Configuration → Administrative Templates افتح Filter Options.",
+            "ابحث عن إعداد صفحة General في Internet Explorer وفق المختبر.",
+            "راجع اسم السياسة ومعنى Enabled ثم احفظ."
+          ],
+          "notes": [
+            "الإعداد هو Disable the General page؛ Enabled يعني تفعيل المنع، وليس تمكين الصفحة. Internet Explorer هنا جزء من المختبر القديم."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-20-scene-03",
+          "title": "قراءة تقرير إعداد القالب",
+          "video": "/assets/os1/os1-lesson-20/03.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/03.jpg",
+          "seconds": 54.0,
+          "steps": [
+            "راجع Settings في GPMC بعد حفظ القالب.",
+            "طابق اسم السياسة وحالتها.",
+            "انتقل إلى إنشاء GPO مرتبط بالحاوية المطلوبة."
+          ],
+          "notes": [
+            "تقرير الإعداد يثبت ما حُفظ في الكائن؛ لا يثبت وصوله إلى جلسة المستخدم."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-20-scene-04",
+          "title": "إنشاء GPO من القالب وربطه",
+          "video": "/assets/os1/os1-lesson-20/04.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/04.jpg",
+          "seconds": 110.0,
+          "steps": [
+            "على Domain (المجال) اختر إنشاء GPO وربطه هنا وفق التمرين.",
+            "حدد Starter GPO الذي أعددته.",
+            "راجع اسم الكائن وموضع الرابط وحالة الإعداد."
+          ],
+          "notes": [
+            "إنشاء كائن GPO وربطه بمكان التطبيق خطوتان يجب التحقق منهما؛ وجوده في Group Policy Objects وحده لا يكفي."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-20-scene-05",
+          "title": "أولوية الروابط وEnforced",
+          "video": "/assets/os1/os1-lesson-20/05.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/05.jpg",
+          "seconds": 120.0,
+          "steps": [
+            "راجع روابط GPO على Domain (المجال) وOU المطلوبة.",
+            "افتح قائمة الرابط وراجع خيار Enforced، فرض إعدادات الرابط على المستويات الأدنى.",
+            "ميّز رابط السياسة عن كائن السياسة نفسه قبل تعديل الأولوية."
+          ],
+          "notes": [
+            "في المعالجة العادية تتقدم سياسة OU الأقرب عند تعارض الإعداد؛ سياسة Domain (المجال) ليست الأقوى تلقائيًا. Enforced يمنع تجاوز إعدادات الرابط الأعلى. Block Inheritance يحجب الروابط الموروثة العادية، ولا يحجب Enforced."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-20-scene-06",
+          "title": "التحقق على جهاز العميل",
+          "video": "/assets/os1/os1-lesson-20/06.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/06.jpg",
+          "seconds": 80.0,
+          "steps": [
+            "ادخل على العميل بالحساب الذي يقع ضمن تطبيق السياسة.",
+            "افتح Internet Properties في بيئة المختبر.",
+            "تحقق من غياب صفحة General كما يظهر في التسجيل، ثم طابق النتيجة مع إعداد GPO."
+          ],
+          "notes": [
+            "هذا دليل على إعداد الواجهة المعروض؛ لا يثبت أن جميع سياسات المستخدم والجهاز طُبقت."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-20-scene-07",
+          "title": "مثال إضافي لسياسات التخزين القابل للإزالة",
+          "video": "/assets/os1/os1-lesson-20/07.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/07.jpg",
+          "seconds": 140.0,
+          "steps": [
+            "ابحث عن إعدادات Removable Storage Access ضمن Administrative Templates.",
+            "راجع Removable Disks: Deny execute access وأذونات القراءة والكتابة كلًا على حدة.",
+            "اقرأ حالة كل إعداد في التقرير قبل إنشاء السياسة المبنية عليه."
+          ],
+          "notes": [
+            "تفعيل Deny يعني منع العملية المحددة؛ لا تخلط Enabled مع السماح بالوصول."
+          ],
+          "warnings": []
+        },
+        {
+          "id": "os1-lesson-20-scene-08",
+          "title": "استثناء قسم ومراجعة حدود الدليل",
+          "video": "/assets/os1/os1-lesson-20/08.mp4?v=batch-v3-final",
+          "poster": "/assets/os1/os1-lesson-20/08.jpg",
+          "seconds": 135.0,
+          "steps": [
+            "راجع GPO المرتبط بـOU الخاصة بالقسم في المثال.",
+            "قارن إعداد المنع في السياسة العامة بإعداد القسم وحالة الوراثة.",
+            "تحقق من الروابط وEnforced قبل توقع أي استثناء."
+          ],
+          "notes": [
+            "التسجيل يوضح إعدادات المنع والاستثناء، لكنه لا يعرض تجربة USB فعلية مكتملة. Enforced على رابط OU ليس شرطًا لكل استثناء، ولا يجعلها تتجاوز رابطًا أعلى مفروضًا؛ راجع الأولوية والتطبيق الفعلي."
+          ],
+          "warnings": [
+            "Block Inheritance يؤثر في سياسات موروثة متعددة؛ لا تستخدمه كاستثناء ضيق دون مراجعة ما سيُحجب."
+          ]
+        }
+      ],
+      "seconds": 892.0
+    }
+  ]
+}

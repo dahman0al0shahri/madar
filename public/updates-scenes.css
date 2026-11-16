@@ -1,0 +1,580 @@
+
+
+#madar-access-preview{padding:12px 0;font-family:'Tajawal',Tahoma,sans-serif;color:#f7eee8;direction:rtl}
+#madar-access-preview *{box-sizing:border-box}
+#madar-access-preview .madar-shell{background:#100e15;border-radius:20px;padding:20px 16px 12px;overflow:hidden}
+#madar-access-preview .section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 8px 18px;font-size:18px;font-weight:700}
+#madar-access-preview .preview-label{font-size:11px;color:#bcaeb5;font-weight:400}
+#madar-access-preview .carousel-frame{position:relative;padding-left:18px}
+#madar-access-preview .announcement{isolation:isolate;position:relative;overflow:hidden;border:1px solid #98445a;border-radius:18px;padding:28px 22px;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:22px;background:radial-gradient(ellipse at 95% 3%,#612335 0,transparent 54%),radial-gradient(ellipse at 9% 100%,#3a1c31 0,transparent 58%),#160f17;box-shadow:inset 0 1px #d58b9740;min-width:0}
+#madar-access-preview .next-peek{position:absolute;left:-16px;top:18px;bottom:18px;width:24px;border:1px solid #723c51;border-radius:14px;background:linear-gradient(180deg,#3f1c2d,#19141c)}
+#madar-access-preview .stars{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;background-image:radial-gradient(circle at 8% 16%,#f8d9d5 0 1px,transparent 1.7px),radial-gradient(circle at 31% 7%,#b78a98 0 .8px,transparent 1.5px),radial-gradient(circle at 94% 78%,#e7b5c0 0 1px,transparent 1.8px),radial-gradient(circle at 55% 87%,#e3bbaa 0 .7px,transparent 1.4px),radial-gradient(circle at 71% 21%,#e7b5c0 0 .7px,transparent 1.4px),radial-gradient(circle at 18% 69%,#b894a4 0 .6px,transparent 1.3px);transform:translateY(var(--drift,0px))}
+#madar-access-preview .copy{align-self:center;min-width:0}
+#madar-access-preview .new-tag{display:inline-flex;gap:7px;align-items:center;color:#f2cb94;font-size:12px;letter-spacing:.3px;margin-bottom:20px}
+#madar-access-preview .new-tag>span{width:6px;height:6px;border-radius:50%;background:#edc995;box-shadow:0 0 12px #edc99560}
+#madar-access-preview .identity{color:#e998ae;display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:12px}
+#madar-access-preview .identity svg{width:23px;height:23px}
+#madar-access-preview h2{font-family:inherit;font-size:30px;font-weight:800;line-height:1.45;margin:0 0 14px;color:#fff1e6;letter-spacing:-.5px}
+#madar-access-preview p{font-size:15px;line-height:1.95;margin:0 0 22px;color:#d8c9d0}
+#madar-access-preview .discover{display:inline-flex;align-items:center;gap:20px;justify-content:space-between;text-decoration:none;border:1px solid #f4bc8f;background:linear-gradient(110deg,#e5bd85,#f4d6a6);color:#271b1b;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:700;min-height:44px;transition:box-shadow .25s}
+#madar-access-preview .discover:hover{box-shadow:0 0 24px #dfb16f35}
+#madar-access-preview .scene{position:relative;min-width:0;align-self:center;transform:translateY(var(--entry,0px));opacity:var(--entry-opacity,1)}
+#madar-access-preview .scene-caption{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:12px;color:#dcc7ce;margin-bottom:12px;flex-wrap:wrap}
+#madar-access-preview .demo-tag{font-size:11px;color:#b4a2ad}
+#madar-access-preview .lab{background:#191d22;border-radius:12px;border:1px solid #9b4f6680;box-shadow:0 18px 40px #06050a80;overflow:hidden}
+#madar-access-preview .lab-title{display:flex;gap:7px;align-items:center;background:#713047;padding:10px;font-size:12px;color:#fff0f4}
+#madar-access-preview .access-mark{font:bold 17px Georgia,serif;border:1px solid #e7a3b8;border-radius:4px;padding:1px 5px}
+#madar-access-preview .lab-mode{margin-right:auto;font-size:11px;color:#f0d2dd}
+#madar-access-preview .guide{display:flex;gap:8px;background:#29232e;margin:12px 10px;padding:10px;border-right:2px solid #d9819d;min-height:78px;box-shadow:0 0 18px #d9819d10;transition:box-shadow .4s}
+#madar-access-preview .guide-dot{flex:none;display:grid;place-items:center;background:#79374f;border-radius:50%;width:22px;height:22px;font-size:12px}
+#madar-access-preview .guide strong{display:block;font-size:12px;font-weight:500;margin-bottom:5px}
+#madar-access-preview .guide div>span{font-size:11px;color:#cabcc6;line-height:1.6;display:block}
+#madar-access-preview .mini-grid{margin:0 10px;border:1px solid #49404b;border-radius:5px;overflow:hidden;font-size:12px}
+#madar-access-preview .grid-head,#madar-access-preview .grid-row{display:grid;grid-template-columns:1fr 1fr;padding:8px 10px;gap:6px;border-bottom:1px solid #3e3842}
+#madar-access-preview .grid-head{color:#c6b6c0;font-size:11px;background:#222129}
+#madar-access-preview .grid-row:last-child{border:0}
+#madar-access-preview .salary{transition:background .5s,box-shadow .5s}
+#madar-access-preview .selected-mark{opacity:0;color:#f3d398;transition:opacity .4s}
+#madar-access-preview .properties{margin:12px 10px 0;font-size:11px}
+#madar-access-preview .property-heading{color:#d8c6d0;margin-bottom:8px}
+#madar-access-preview .property-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;min-height:33px;padding:5px 6px;border-bottom:1px solid #343039}
+#madar-access-preview .property-row>span:first-child{color:#bfb3bd}
+#madar-access-preview .rule{font:13px monospace;text-align:left;display:block;background:#101419;padding:5px;border-radius:4px;min-height:25px;color:#f6db9c;border:1px solid #4d3e4a;transition:border-color .3s,box-shadow .3s}
+#madar-access-preview .validation-text{color:#eee3df;font-size:11px;line-height:1.5}
+#madar-access-preview .outcome{display:flex;align-items:center;gap:7px;font-size:11px;min-height:41px;padding:10px;background:#202029;color:#cdbec8;margin-top:10px;transition:background .5s,color .5s}
+#madar-access-preview .outcome-symbol{font-size:16px}
+#madar-access-preview .scene-steps{display:flex;justify-content:space-between;gap:5px;color:#a799a7;font-size:11px;margin-top:14px}
+#madar-access-preview .scene-steps span{border-bottom:2px solid #49303d;padding:0 0 7px;transition:color .4s,border-color .4s}
+#madar-access-preview .scene-steps .active{color:#f0d0a3;border-color:#e5be84}
+#madar-access-preview[data-phase="1"] .salary,#madar-access-preview[data-phase="2"] .salary,#madar-access-preview[data-phase="3"] .salary{background:#4e2f40;box-shadow:inset -3px 0 #e8a0b7}
+#madar-access-preview[data-phase="1"] .selected-mark,#madar-access-preview[data-phase="2"] .selected-mark,#madar-access-preview[data-phase="3"] .selected-mark{opacity:1}
+#madar-access-preview .demo-actions{display:flex;gap:9px;align-items:center;margin:12px 10px 0;font-size:12px}
+#madar-access-preview .demo-actions>span{display:inline-block;padding:9px 11px;border:1px solid #805766;border-radius:6px;background:#372631;color:#f4e4e8;transition:transform .15s,background .2s}
+#madar-access-preview .demo-actions .demo-verify{background:#773248;border-color:#ad5c73}
+#madar-access-preview .demo-actions .pressed{transform:scale(.95);background:#a5526b}
+#madar-access-preview .scene .attention{position:relative;outline:2px solid #e6c18b;outline-offset:3px;box-shadow:0 0 16px #e6c18b2b;border-radius:5px}
+#madar-access-preview .demo-pointer{position:absolute;left:0;top:0;width:28px;height:30px;z-index:5;pointer-events:none;color:#fff1d7;filter:drop-shadow(0 2px 3px #000b);transform-origin:3px 3px}
+#madar-access-preview .demo-pointer svg{display:block;width:26px;height:26px;fill:#362533;stroke:#fff0d4;stroke-width:1.6}
+#madar-access-preview .click-ring{position:absolute;width:34px;height:34px;left:-15px;top:-15px;border:2px solid #ecc68d;border-radius:50%;opacity:0;pointer-events:none}
+#madar-access-preview[data-phase="2"] .outcome,#madar-access-preview[data-phase="3"] .outcome{background:#18372f;color:#bfe8d1}
+#madar-access-preview .preview-controls{display:grid;grid-template-columns:1fr auto;gap:10px;margin:14px 7px 0;align-items:center}
+#madar-access-preview .playback{display:flex;gap:7px;flex-wrap:wrap}
+#madar-access-preview button{font:500 12px 'Tajawal',Tahoma,sans-serif;background:#24202c;color:#ecdee5;border:1px solid #574353;border-radius:8px;padding:9px 12px;min-height:40px}
+#madar-access-preview .timing{display:flex;align-items:center;gap:12px;font-size:11px;color:#c4b5c1}
+#madar-access-preview .timer{font:11px monospace;color:#ead2ab;min-width:67px}
+#madar-access-preview .seek-label{grid-column:1/-1;display:block}
+#madar-access-preview .seek{display:block;width:100%;margin:0;accent-color:#dcaf7f;height:20px;direction:ltr}
+#madar-access-preview .sr-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:570px){#madar-access-preview .madar-shell{padding:16px 10px 10px}#madar-access-preview .announcement{grid-template-columns:1fr;padding:22px 18px;gap:24px}#madar-access-preview h2{font-size:27px;line-height:1.3}#madar-access-preview h2 br{display:none}#madar-access-preview .new-tag{margin-bottom:12px}#madar-access-preview .identity{display:none}#madar-access-preview p{font-size:14px;line-height:1.8;margin-bottom:14px}#madar-access-preview .scene{width:100%}#madar-access-preview .lab-mode{display:none}#madar-access-preview .preview-controls{grid-template-columns:1fr}#madar-access-preview .timing{justify-content:space-between}#madar-access-preview button{min-height:44px}#madar-access-preview .seek{height:32px}#madar-access-preview .section-head{font-size:17px}}
+@media(prefers-reduced-motion:reduce){#madar-access-preview *{transition:none!important}#madar-access-preview .scene{transform:none!important}#madar-access-preview .stars{transform:none!important}}
+
+#madar-access-preview .identity{display:flex;gap:12px;min-height:52px}
+#madar-access-preview .approved-access-icon{--ink:#ef798d;--soft:#bd475f;--flare:#ffccd5;position:relative;display:block;width:44px;height:44px;flex-shrink:0}
+#madar-access-preview .approved-access-icon .mo-symbol{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:2;transform-origin:50% 55%;animation:mo-bold-lift 2400ms cubic-bezier(.2,.75,.25,1) both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-access-preview .approved-access-icon .mo-back{stroke:var(--soft)}
+#madar-access-preview .approved-access-icon .mo-letter{stroke-width:2.8}
+#madar-access-preview .approved-access-icon .mo-tier{transform-box:fill-box;transform-origin:center;animation:mo-bold-tier 2400ms cubic-bezier(.2,.8,.3,1) both paused;animation-delay:calc(var(--i)*60ms - var(--icon-time,0ms))}
+#madar-access-preview .approved-access-icon:before{content:"";position:absolute;inset:-30%;border-radius:50%;background:radial-gradient(ellipse,#ef798d40,transparent 66%);opacity:0;pointer-events:none;animation:mo-aura 2400ms ease both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-access-preview .approved-access-icon .mo-edge{fill:none;stroke:var(--flare);stroke-width:3.5;stroke-dasharray:17 83;stroke-dashoffset:100;opacity:0;pointer-events:none;filter:drop-shadow(0 0 2px var(--ink));animation:mo-edge-flow 2400ms cubic-bezier(.35,0,.3,1) both paused;animation-delay:calc(var(--edge-delay,0ms) - var(--icon-time,0ms))}
+@keyframes mo-bold-lift{0%,100%{transform:translateY(0) rotate(0) scale(1);filter:none}10%{transform:translateY(5px) rotate(-5deg) scale(.9)}32%{transform:translateY(-19px) rotate(9deg) scale(1.27);filter:drop-shadow(0 0 4px var(--ink)) drop-shadow(0 0 13px var(--ink))}53%{transform:translateY(-13px) rotate(-7deg) scale(1.2);filter:drop-shadow(0 0 7px var(--ink))}73%{transform:translateY(4px) rotate(3deg) scale(.96)}86%{transform:translateY(-3px) rotate(-1deg) scale(1.04)}}
+@keyframes mo-bold-tier{0%,12%,100%{transform:none;stroke:var(--soft)}33%,49%{transform:translateY(calc(var(--rise)*-3.2px)) rotate(calc((var(--i) - 1)*9deg));stroke:var(--flare)}72%{transform:translateY(3px) scaleY(.94)}86%{transform:translateY(-2px)}}
+@keyframes mo-aura{0%,100%{opacity:0;transform:scale(.5)}28%,55%{opacity:.85;transform:scale(1.2)}80%{opacity:.12;transform:scale(1)}}
+@keyframes mo-edge-flow{0%,12%{opacity:0;stroke-dashoffset:105}26%{opacity:1}65%{opacity:.9}90%,100%{opacity:0;stroke-dashoffset:-95}}
+@media(prefers-reduced-motion:reduce){#madar-access-preview .approved-access-icon *{animation:none!important}#madar-access-preview .approved-access-icon:before{animation:none!important}}
+
+#madar-access-preview .scene-toggle{position:absolute;inset:0;z-index:6;width:100%;height:100%;background:transparent;border:0;border-radius:12px;padding:0;min-height:0}
+
+
+
+#madar-lessons-preview{padding:12px 0;font-family:'Tajawal',Tahoma,sans-serif;color:#f7eee8;direction:rtl}
+#madar-lessons-preview *{box-sizing:border-box}
+#madar-lessons-preview .madar-shell{background:#100e15;border-radius:20px;padding:20px 16px 12px;overflow:hidden}
+#madar-lessons-preview .section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 8px 18px;font-size:18px;font-weight:700}
+#madar-lessons-preview .preview-label{font-size:11px;color:#bcaeb5;font-weight:400}
+#madar-lessons-preview .carousel-frame{position:relative;padding-left:18px}
+#madar-lessons-preview .announcement{isolation:isolate;position:relative;overflow:hidden;border:1px solid #98445a;border-radius:18px;padding:28px 22px;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:22px;background:radial-gradient(ellipse at 95% 3%,#612335 0,transparent 54%),radial-gradient(ellipse at 9% 100%,#3a1c31 0,transparent 58%),#160f17;box-shadow:inset 0 1px #d58b9740;min-width:0}
+#madar-lessons-preview .next-peek{position:absolute;left:-16px;top:18px;bottom:18px;width:24px;border:1px solid #723c51;border-radius:14px;background:linear-gradient(180deg,#3f1c2d,#19141c)}
+#madar-lessons-preview .stars{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;background-image:radial-gradient(circle at 8% 16%,#f8d9d5 0 1px,transparent 1.7px),radial-gradient(circle at 31% 7%,#b78a98 0 .8px,transparent 1.5px),radial-gradient(circle at 94% 78%,#e7b5c0 0 1px,transparent 1.8px),radial-gradient(circle at 55% 87%,#e3bbaa 0 .7px,transparent 1.4px),radial-gradient(circle at 71% 21%,#e7b5c0 0 .7px,transparent 1.4px),radial-gradient(circle at 18% 69%,#b894a4 0 .6px,transparent 1.3px);transform:translateY(var(--drift,0px))}
+#madar-lessons-preview .copy{align-self:center;min-width:0}
+#madar-lessons-preview .new-tag{display:inline-flex;gap:7px;align-items:center;color:#f2cb94;font-size:12px;letter-spacing:.3px;margin-bottom:20px}
+#madar-lessons-preview .new-tag>span{width:6px;height:6px;border-radius:50%;background:#edc995;box-shadow:0 0 12px #edc99560}
+#madar-lessons-preview .identity{color:#e998ae;display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:12px}
+#madar-lessons-preview .identity svg{width:23px;height:23px}
+#madar-lessons-preview h2{font-family:inherit;font-size:30px;font-weight:800;line-height:1.45;margin:0 0 14px;color:#fff1e6;letter-spacing:-.5px}
+#madar-lessons-preview p{font-size:15px;line-height:1.95;margin:0 0 22px;color:#d8c9d0}
+#madar-lessons-preview .discover{display:inline-flex;align-items:center;gap:20px;justify-content:space-between;text-decoration:none;border:1px solid #f4bc8f;background:linear-gradient(110deg,#e5bd85,#f4d6a6);color:#271b1b;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:700;min-height:44px;transition:box-shadow .25s}
+#madar-lessons-preview .discover:hover{box-shadow:0 0 24px #dfb16f35}
+#madar-lessons-preview .scene{position:relative;min-width:0;align-self:center;transform:translateY(var(--entry,0px));opacity:var(--entry-opacity,1)}
+#madar-lessons-preview .scene-caption{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:12px;color:#dcc7ce;margin-bottom:12px;flex-wrap:wrap}
+#madar-lessons-preview .demo-tag{font-size:11px;color:#b4a2ad}
+#madar-lessons-preview .lab{background:#191d22;border-radius:12px;border:1px solid #9b4f6680;box-shadow:0 18px 40px #06050a80;overflow:hidden}
+#madar-lessons-preview .lab-title{display:flex;gap:7px;align-items:center;background:#713047;padding:10px;font-size:12px;color:#fff0f4}
+#madar-lessons-preview .access-mark{font:bold 17px Georgia,serif;border:1px solid #e7a3b8;border-radius:4px;padding:1px 5px}
+#madar-lessons-preview .lab-mode{margin-right:auto;font-size:11px;color:#f0d2dd}
+#madar-lessons-preview .guide{display:flex;gap:8px;background:#29232e;margin:12px 10px;padding:10px;border-right:2px solid #d9819d;min-height:78px;box-shadow:0 0 18px #d9819d10;transition:box-shadow .4s}
+#madar-lessons-preview .guide-dot{flex:none;display:grid;place-items:center;background:#79374f;border-radius:50%;width:22px;height:22px;font-size:12px}
+#madar-lessons-preview .guide strong{display:block;font-size:12px;font-weight:500;margin-bottom:5px}
+#madar-lessons-preview .guide div>span{font-size:11px;color:#cabcc6;line-height:1.6;display:block}
+#madar-lessons-preview .mini-grid{margin:0 10px;border:1px solid #49404b;border-radius:5px;overflow:hidden;font-size:12px}
+#madar-lessons-preview .grid-head,#madar-lessons-preview .grid-row{display:grid;grid-template-columns:1fr 1fr;padding:8px 10px;gap:6px;border-bottom:1px solid #3e3842}
+#madar-lessons-preview .grid-head{color:#c6b6c0;font-size:11px;background:#222129}
+#madar-lessons-preview .grid-row:last-child{border:0}
+#madar-lessons-preview .salary{transition:background .5s,box-shadow .5s}
+#madar-lessons-preview .selected-mark{opacity:0;color:#f3d398;transition:opacity .4s}
+#madar-lessons-preview .properties{margin:12px 10px 0;font-size:11px}
+#madar-lessons-preview .property-heading{color:#d8c6d0;margin-bottom:8px}
+#madar-lessons-preview .property-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;min-height:33px;padding:5px 6px;border-bottom:1px solid #343039}
+#madar-lessons-preview .property-row>span:first-child{color:#bfb3bd}
+#madar-lessons-preview .rule{font:13px monospace;text-align:left;display:block;background:#101419;padding:5px;border-radius:4px;min-height:25px;color:#f6db9c;border:1px solid #4d3e4a;transition:border-color .3s,box-shadow .3s}
+#madar-lessons-preview .validation-text{color:#eee3df;font-size:11px;line-height:1.5}
+#madar-lessons-preview .outcome{display:flex;align-items:center;gap:7px;font-size:11px;min-height:41px;padding:10px;background:#202029;color:#cdbec8;margin-top:10px;transition:background .5s,color .5s}
+#madar-lessons-preview .outcome-symbol{font-size:16px}
+#madar-lessons-preview .scene-steps{display:flex;justify-content:space-between;gap:5px;color:#a799a7;font-size:11px;margin-top:14px}
+#madar-lessons-preview .scene-steps span{border-bottom:2px solid #49303d;padding:0 0 7px;transition:color .4s,border-color .4s}
+#madar-lessons-preview .scene-steps .active{color:#f0d0a3;border-color:#e5be84}
+#madar-lessons-preview[data-phase="1"] .salary,#madar-lessons-preview[data-phase="2"] .salary,#madar-lessons-preview[data-phase="3"] .salary{background:#4e2f40;box-shadow:inset -3px 0 #e8a0b7}
+#madar-lessons-preview[data-phase="1"] .selected-mark,#madar-lessons-preview[data-phase="2"] .selected-mark,#madar-lessons-preview[data-phase="3"] .selected-mark{opacity:1}
+#madar-lessons-preview .demo-actions{display:flex;gap:9px;align-items:center;margin:12px 10px 0;font-size:12px}
+#madar-lessons-preview .demo-actions>span{display:inline-block;padding:9px 11px;border:1px solid #805766;border-radius:6px;background:#372631;color:#f4e4e8;transition:transform .15s,background .2s}
+#madar-lessons-preview .demo-actions .demo-verify{background:#773248;border-color:#ad5c73}
+#madar-lessons-preview .demo-actions .pressed{transform:scale(.95);background:#a5526b}
+#madar-lessons-preview .scene .attention{position:relative;outline:2px solid #e6c18b;outline-offset:3px;box-shadow:0 0 16px #e6c18b2b;border-radius:5px}
+#madar-lessons-preview .demo-pointer{position:absolute;left:0;top:0;width:28px;height:30px;z-index:5;pointer-events:none;color:#fff1d7;filter:drop-shadow(0 2px 3px #000b);transform-origin:3px 3px}
+#madar-lessons-preview .demo-pointer svg{display:block;width:26px;height:26px;fill:#362533;stroke:#fff0d4;stroke-width:1.6}
+#madar-lessons-preview .click-ring{position:absolute;width:34px;height:34px;left:-15px;top:-15px;border:2px solid #ecc68d;border-radius:50%;opacity:0;pointer-events:none}
+#madar-lessons-preview[data-phase="2"] .outcome,#madar-lessons-preview[data-phase="3"] .outcome{background:#18372f;color:#bfe8d1}
+#madar-lessons-preview .preview-controls{display:grid;grid-template-columns:1fr auto;gap:10px;margin:14px 7px 0;align-items:center}
+#madar-lessons-preview .playback{display:flex;gap:7px;flex-wrap:wrap}
+#madar-lessons-preview button{font:500 12px 'Tajawal',Tahoma,sans-serif;background:#24202c;color:#ecdee5;border:1px solid #574353;border-radius:8px;padding:9px 12px;min-height:40px}
+#madar-lessons-preview .timing{display:flex;align-items:center;gap:12px;font-size:11px;color:#c4b5c1}
+#madar-lessons-preview .timer{font:11px monospace;color:#ead2ab;min-width:67px}
+#madar-lessons-preview .seek-label{grid-column:1/-1;display:block}
+#madar-lessons-preview .seek{display:block;width:100%;margin:0;accent-color:#dcaf7f;height:20px;direction:ltr}
+#madar-lessons-preview .sr-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:570px){#madar-lessons-preview .madar-shell{padding:16px 10px 10px}#madar-lessons-preview .announcement{grid-template-columns:1fr;padding:22px 18px;gap:24px}#madar-lessons-preview h2{font-size:27px;line-height:1.3}#madar-lessons-preview h2 br{display:none}#madar-lessons-preview .new-tag{margin-bottom:12px}#madar-lessons-preview .identity{display:none}#madar-lessons-preview p{font-size:14px;line-height:1.8;margin-bottom:14px}#madar-lessons-preview .scene{width:100%}#madar-lessons-preview .lab-mode{display:none}#madar-lessons-preview .preview-controls{grid-template-columns:1fr}#madar-lessons-preview .timing{justify-content:space-between}#madar-lessons-preview button{min-height:44px}#madar-lessons-preview .seek{height:32px}#madar-lessons-preview .section-head{font-size:17px}}
+@media(prefers-reduced-motion:reduce){#madar-lessons-preview *{transition:none!important}#madar-lessons-preview .scene{transform:none!important}#madar-lessons-preview .stars{transform:none!important}}
+
+#madar-lessons-preview .identity{display:flex;gap:12px;min-height:52px}
+#madar-lessons-preview .approved-access-icon{--ink:#ef798d;--soft:#bd475f;--flare:#ffccd5;position:relative;display:block;width:44px;height:44px;flex-shrink:0}
+#madar-lessons-preview .approved-access-icon .mo-symbol{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:2;transform-origin:50% 55%;animation:mo-bold-lift 2400ms cubic-bezier(.2,.75,.25,1) both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-lessons-preview .approved-access-icon .mo-back{stroke:var(--soft)}
+#madar-lessons-preview .approved-access-icon .mo-letter{stroke-width:2.8}
+#madar-lessons-preview .approved-access-icon .mo-tier{transform-box:fill-box;transform-origin:center;animation:mo-bold-tier 2400ms cubic-bezier(.2,.8,.3,1) both paused;animation-delay:calc(var(--i)*60ms - var(--icon-time,0ms))}
+#madar-lessons-preview .approved-access-icon:before{content:"";position:absolute;inset:-30%;border-radius:50%;background:radial-gradient(ellipse,#ef798d40,transparent 66%);opacity:0;pointer-events:none;animation:mo-aura 2400ms ease both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-lessons-preview .approved-access-icon .mo-edge{fill:none;stroke:var(--flare);stroke-width:3.5;stroke-dasharray:17 83;stroke-dashoffset:100;opacity:0;pointer-events:none;filter:drop-shadow(0 0 2px var(--ink));animation:mo-edge-flow 2400ms cubic-bezier(.35,0,.3,1) both paused;animation-delay:calc(var(--edge-delay,0ms) - var(--icon-time,0ms))}
+@keyframes mo-bold-lift{0%,100%{transform:translateY(0) rotate(0) scale(1);filter:none}10%{transform:translateY(5px) rotate(-5deg) scale(.9)}32%{transform:translateY(-19px) rotate(9deg) scale(1.27);filter:drop-shadow(0 0 4px var(--ink)) drop-shadow(0 0 13px var(--ink))}53%{transform:translateY(-13px) rotate(-7deg) scale(1.2);filter:drop-shadow(0 0 7px var(--ink))}73%{transform:translateY(4px) rotate(3deg) scale(.96)}86%{transform:translateY(-3px) rotate(-1deg) scale(1.04)}}
+@keyframes mo-bold-tier{0%,12%,100%{transform:none;stroke:var(--soft)}33%,49%{transform:translateY(calc(var(--rise)*-3.2px)) rotate(calc((var(--i) - 1)*9deg));stroke:var(--flare)}72%{transform:translateY(3px) scaleY(.94)}86%{transform:translateY(-2px)}}
+@keyframes mo-aura{0%,100%{opacity:0;transform:scale(.5)}28%,55%{opacity:.85;transform:scale(1.2)}80%{opacity:.12;transform:scale(1)}}
+@keyframes mo-edge-flow{0%,12%{opacity:0;stroke-dashoffset:105}26%{opacity:1}65%{opacity:.9}90%,100%{opacity:0;stroke-dashoffset:-95}}
+@media(prefers-reduced-motion:reduce){#madar-lessons-preview .approved-access-icon *{animation:none!important}#madar-lessons-preview .approved-access-icon:before{animation:none!important}}
+
+#madar-lessons-preview .scene-toggle{position:absolute;inset:0;z-index:6;width:100%;height:100%;background:transparent;border:0;border-radius:12px;padding:0;min-height:0}
+
+
+#madar-lessons-preview .announcement{background:radial-gradient(ellipse at 10% 10%,#533043 0,transparent 60%),radial-gradient(ellipse at 90% 90%,#421a29 0,transparent 65%),#160f17}
+#madar-lessons-preview .lesson-stage{position:relative;height:400px;border:1px solid #91516a80;background:#191b22;border-radius:12px;overflow:hidden;box-shadow:0 18px 40px #06050a80}
+#madar-lessons-preview .shot{position:absolute;inset:0;background:#191b22;padding:16px;opacity:0;transform:translateX(22px);pointer-events:none}
+#madar-lessons-preview .shot-top{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#f1d9e2;font-size:13px;padding-bottom:14px;border-bottom:1px solid #55404d;margin-bottom:14px;min-height:32px}
+#madar-lessons-preview .shot-top svg{width:18px;height:18px;color:#e697b0;flex-shrink:0}
+#madar-lessons-preview .unit-line{font-size:12px;display:flex;justify-content:space-between;gap:8px;padding:13px 0;color:#e3c38f}
+#madar-lessons-preview .unit-line>span{color:#baaebd;font-size:11px}
+#madar-lessons-preview .unit-selected{border-top:1px solid #49404b;border-bottom:1px solid #49404b}
+#madar-lessons-preview .lesson-row{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:12px 9px;font-size:12px;color:#d5cad3;border-radius:5px;margin-bottom:4px}
+#madar-lessons-preview .lesson-row>span{font-size:11px;color:#b999a7}
+#madar-lessons-preview .chosen{background:#3a2836;border-right:2px solid #dca8bb;transform:translateX(var(--lesson-shift,0px));box-shadow:0 0 15px #d192a317}
+#madar-lessons-preview .shot-note{position:absolute;bottom:16px;left:16px;right:16px;color:#c2abb8;text-align:center;font-size:11px}
+#madar-lessons-preview .source-video{display:flex;justify-content:center;align-items:center;gap:12px;min-height:61px;background:linear-gradient(130deg,#452333,#231e2c);border-radius:6px;color:#f1d9e2;font-size:12px;margin-bottom:16px}
+#madar-lessons-preview .source-video svg{width:29px;height:29px}
+#madar-lessons-preview .summary-label{color:#e7c596;font-size:12px;margin-bottom:8px}
+#madar-lessons-preview .summary-item{padding:10px 9px;border-radius:6px;font-size:12px;line-height:1.6}
+#madar-lessons-preview .summary-item strong{font-weight:500;display:block;color:#f3e8ef}
+#madar-lessons-preview .summary-item>span{color:#c4b5c0;font-size:11px}
+#madar-lessons-preview .highlighted-summary{background:#302331;box-shadow:inset -2px 0 #da9eb3}
+#madar-lessons-preview .course-chip{color:#e998ae;font-size:11px}
+#madar-lessons-preview .question-context{font-size:11px;color:#c4a5b5;margin-bottom:12px}
+#madar-lessons-preview .question-text{font-size:14px;line-height:1.8;color:#f2e4eb;margin-bottom:16px}
+#madar-lessons-preview .answer-option{display:flex;align-items:center;gap:9px;margin:8px 0;border:1px solid #534451;border-radius:6px;padding:9px 10px;font-size:12px;background:#202129;color:#e6dbe3}
+#madar-lessons-preview .radio-outline{border:1px solid #a994a2;border-radius:50%;width:12px;height:12px;flex-shrink:0}
+@media(max-width:570px){#madar-lessons-preview .shot{padding:13px}#madar-lessons-preview .lesson-stage{height:430px}#madar-lessons-preview .question-text{font-size:13px}#madar-lessons-preview .unit-line{flex-wrap:wrap}}
+
+
+
+#madar-excel-preview{padding:12px 0;font-family:'Tajawal',Tahoma,sans-serif;color:#f7eee8;direction:rtl}
+#madar-excel-preview *{box-sizing:border-box}
+#madar-excel-preview .madar-shell{background:#100e15;border-radius:20px;padding:20px 16px 12px;overflow:hidden}
+#madar-excel-preview .section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 8px 18px;font-size:18px;font-weight:700}
+#madar-excel-preview .preview-label{font-size:11px;color:#bcaeb5;font-weight:400}
+#madar-excel-preview .carousel-frame{position:relative;padding-left:18px}
+#madar-excel-preview .announcement{isolation:isolate;position:relative;overflow:hidden;border:1px solid #98445a;border-radius:18px;padding:28px 22px;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:22px;background:radial-gradient(ellipse at 95% 3%,#612335 0,transparent 54%),radial-gradient(ellipse at 9% 100%,#3a1c31 0,transparent 58%),#160f17;box-shadow:inset 0 1px #d58b9740;min-width:0}
+#madar-excel-preview .next-peek{position:absolute;left:-16px;top:18px;bottom:18px;width:24px;border:1px solid #723c51;border-radius:14px;background:linear-gradient(180deg,#3f1c2d,#19141c)}
+#madar-excel-preview .stars{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;background-image:radial-gradient(circle at 8% 16%,#f8d9d5 0 1px,transparent 1.7px),radial-gradient(circle at 31% 7%,#b78a98 0 .8px,transparent 1.5px),radial-gradient(circle at 94% 78%,#e7b5c0 0 1px,transparent 1.8px),radial-gradient(circle at 55% 87%,#e3bbaa 0 .7px,transparent 1.4px),radial-gradient(circle at 71% 21%,#e7b5c0 0 .7px,transparent 1.4px),radial-gradient(circle at 18% 69%,#b894a4 0 .6px,transparent 1.3px);transform:translateY(var(--drift,0px))}
+#madar-excel-preview .copy{align-self:center;min-width:0}
+#madar-excel-preview .new-tag{display:inline-flex;gap:7px;align-items:center;color:#f2cb94;font-size:12px;letter-spacing:.3px;margin-bottom:20px}
+#madar-excel-preview .new-tag>span{width:6px;height:6px;border-radius:50%;background:#edc995;box-shadow:0 0 12px #edc99560}
+#madar-excel-preview .identity{color:#e998ae;display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:12px}
+#madar-excel-preview .identity svg{width:23px;height:23px}
+#madar-excel-preview h2{font-family:inherit;font-size:30px;font-weight:800;line-height:1.45;margin:0 0 14px;color:#fff1e6;letter-spacing:-.5px}
+#madar-excel-preview p{font-size:15px;line-height:1.95;margin:0 0 22px;color:#d8c9d0}
+#madar-excel-preview .discover{display:inline-flex;align-items:center;gap:20px;justify-content:space-between;text-decoration:none;border:1px solid #f4bc8f;background:linear-gradient(110deg,#e5bd85,#f4d6a6);color:#271b1b;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:700;min-height:44px;transition:box-shadow .25s}
+#madar-excel-preview .discover:hover{box-shadow:0 0 24px #dfb16f35}
+#madar-excel-preview .scene{position:relative;min-width:0;align-self:center;transform:translateY(var(--entry,0px));opacity:var(--entry-opacity,1)}
+#madar-excel-preview .scene-caption{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:12px;color:#dcc7ce;margin-bottom:12px;flex-wrap:wrap}
+#madar-excel-preview .demo-tag{font-size:11px;color:#b4a2ad}
+#madar-excel-preview .lab{background:#191d22;border-radius:12px;border:1px solid #9b4f6680;box-shadow:0 18px 40px #06050a80;overflow:hidden}
+#madar-excel-preview .lab-title{display:flex;gap:7px;align-items:center;background:#713047;padding:10px;font-size:12px;color:#fff0f4}
+#madar-excel-preview .access-mark{font:bold 17px Georgia,serif;border:1px solid #e7a3b8;border-radius:4px;padding:1px 5px}
+#madar-excel-preview .lab-mode{margin-right:auto;font-size:11px;color:#f0d2dd}
+#madar-excel-preview .guide{display:flex;gap:8px;background:#29232e;margin:12px 10px;padding:10px;border-right:2px solid #d9819d;min-height:78px;box-shadow:0 0 18px #d9819d10;transition:box-shadow .4s}
+#madar-excel-preview .guide-dot{flex:none;display:grid;place-items:center;background:#79374f;border-radius:50%;width:22px;height:22px;font-size:12px}
+#madar-excel-preview .guide strong{display:block;font-size:12px;font-weight:500;margin-bottom:5px}
+#madar-excel-preview .guide div>span{font-size:11px;color:#cabcc6;line-height:1.6;display:block}
+#madar-excel-preview .mini-grid{margin:0 10px;border:1px solid #49404b;border-radius:5px;overflow:hidden;font-size:12px}
+#madar-excel-preview .grid-head,#madar-excel-preview .grid-row{display:grid;grid-template-columns:1fr 1fr;padding:8px 10px;gap:6px;border-bottom:1px solid #3e3842}
+#madar-excel-preview .grid-head{color:#c6b6c0;font-size:11px;background:#222129}
+#madar-excel-preview .grid-row:last-child{border:0}
+#madar-excel-preview .salary{transition:background .5s,box-shadow .5s}
+#madar-excel-preview .selected-mark{opacity:0;color:#f3d398;transition:opacity .4s}
+#madar-excel-preview .properties{margin:12px 10px 0;font-size:11px}
+#madar-excel-preview .property-heading{color:#d8c6d0;margin-bottom:8px}
+#madar-excel-preview .property-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;min-height:33px;padding:5px 6px;border-bottom:1px solid #343039}
+#madar-excel-preview .property-row>span:first-child{color:#bfb3bd}
+#madar-excel-preview .rule{font:13px monospace;text-align:left;display:block;background:#101419;padding:5px;border-radius:4px;min-height:25px;color:#f6db9c;border:1px solid #4d3e4a;transition:border-color .3s,box-shadow .3s}
+#madar-excel-preview .validation-text{color:#eee3df;font-size:11px;line-height:1.5}
+#madar-excel-preview .outcome{display:flex;align-items:center;gap:7px;font-size:11px;min-height:41px;padding:10px;background:#202029;color:#cdbec8;margin-top:10px;transition:background .5s,color .5s}
+#madar-excel-preview .outcome-symbol{font-size:16px}
+#madar-excel-preview .scene-steps{display:flex;justify-content:space-between;gap:5px;color:#a799a7;font-size:11px;margin-top:14px}
+#madar-excel-preview .scene-steps span{border-bottom:2px solid #49303d;padding:0 0 7px;transition:color .4s,border-color .4s}
+#madar-excel-preview .scene-steps .active{color:#f0d0a3;border-color:#e5be84}
+#madar-excel-preview[data-phase="1"] .salary,#madar-excel-preview[data-phase="2"] .salary,#madar-excel-preview[data-phase="3"] .salary{background:#4e2f40;box-shadow:inset -3px 0 #e8a0b7}
+#madar-excel-preview[data-phase="1"] .selected-mark,#madar-excel-preview[data-phase="2"] .selected-mark,#madar-excel-preview[data-phase="3"] .selected-mark{opacity:1}
+#madar-excel-preview .demo-actions{display:flex;gap:9px;align-items:center;margin:12px 10px 0;font-size:12px}
+#madar-excel-preview .demo-actions>span{display:inline-block;padding:9px 11px;border:1px solid #805766;border-radius:6px;background:#372631;color:#f4e4e8;transition:transform .15s,background .2s}
+#madar-excel-preview .demo-actions .demo-verify{background:#773248;border-color:#ad5c73}
+#madar-excel-preview .demo-actions .pressed{transform:scale(.95);background:#a5526b}
+#madar-excel-preview .scene .attention{position:relative;outline:2px solid #e6c18b;outline-offset:3px;box-shadow:0 0 16px #e6c18b2b;border-radius:5px}
+#madar-excel-preview .demo-pointer{position:absolute;left:0;top:0;width:28px;height:30px;z-index:5;pointer-events:none;color:#fff1d7;filter:drop-shadow(0 2px 3px #000b);transform-origin:3px 3px}
+#madar-excel-preview .demo-pointer svg{display:block;width:26px;height:26px;fill:#362533;stroke:#fff0d4;stroke-width:1.6}
+#madar-excel-preview .click-ring{position:absolute;width:34px;height:34px;left:-15px;top:-15px;border:2px solid #ecc68d;border-radius:50%;opacity:0;pointer-events:none}
+#madar-excel-preview[data-phase="2"] .outcome,#madar-excel-preview[data-phase="3"] .outcome{background:#18372f;color:#bfe8d1}
+#madar-excel-preview .preview-controls{display:grid;grid-template-columns:1fr auto;gap:10px;margin:14px 7px 0;align-items:center}
+#madar-excel-preview .playback{display:flex;gap:7px;flex-wrap:wrap}
+#madar-excel-preview button{font:500 12px 'Tajawal',Tahoma,sans-serif;background:#24202c;color:#ecdee5;border:1px solid #574353;border-radius:8px;padding:9px 12px;min-height:40px}
+#madar-excel-preview .timing{display:flex;align-items:center;gap:12px;font-size:11px;color:#c4b5c1}
+#madar-excel-preview .timer{font:11px monospace;color:#ead2ab;min-width:67px}
+#madar-excel-preview .seek-label{grid-column:1/-1;display:block}
+#madar-excel-preview .seek{display:block;width:100%;margin:0;accent-color:#dcaf7f;height:20px;direction:ltr}
+#madar-excel-preview .sr-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:570px){#madar-excel-preview .madar-shell{padding:16px 10px 10px}#madar-excel-preview .announcement{grid-template-columns:1fr;padding:22px 18px;gap:24px}#madar-excel-preview h2{font-size:27px;line-height:1.3}#madar-excel-preview h2 br{display:none}#madar-excel-preview .new-tag{margin-bottom:12px}#madar-excel-preview .identity{display:none}#madar-excel-preview p{font-size:14px;line-height:1.8;margin-bottom:14px}#madar-excel-preview .scene{width:100%}#madar-excel-preview .lab-mode{display:none}#madar-excel-preview .preview-controls{grid-template-columns:1fr}#madar-excel-preview .timing{justify-content:space-between}#madar-excel-preview button{min-height:44px}#madar-excel-preview .seek{height:32px}#madar-excel-preview .section-head{font-size:17px}}
+@media(prefers-reduced-motion:reduce){#madar-excel-preview *{transition:none!important}#madar-excel-preview .scene{transform:none!important}#madar-excel-preview .stars{transform:none!important}}
+
+#madar-excel-preview .identity{display:flex;gap:12px;min-height:52px}
+#madar-excel-preview .approved-excel-icon{--ink:#54d49a;--soft:#299765;--flare:#b0ffcf;position:relative;display:block;width:44px;height:44px;flex-shrink:0}
+#madar-excel-preview .approved-excel-icon .mo-symbol{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:2;transform-origin:50% 55%;animation:mo-bold-lift 2400ms cubic-bezier(.2,.75,.25,1) both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-excel-preview .approved-excel-icon .mo-back{stroke:var(--soft)}
+#madar-excel-preview .approved-excel-icon .mo-letter{stroke-width:2.8}
+#madar-excel-preview .approved-excel-icon .mo-tier{transform-box:fill-box;transform-origin:center;animation:mo-bold-tier 2400ms cubic-bezier(.2,.8,.3,1) both paused;animation-delay:calc(var(--i)*60ms - var(--icon-time,0ms))}
+#madar-excel-preview .approved-excel-icon:before{content:"";position:absolute;inset:-30%;border-radius:50%;background:radial-gradient(ellipse,#54d49a40,transparent 66%);opacity:0;pointer-events:none;animation:mo-aura 2400ms ease both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-excel-preview .approved-excel-icon .mo-edge{fill:none;stroke:var(--flare);stroke-width:3.5;stroke-dasharray:17 83;stroke-dashoffset:100;opacity:0;pointer-events:none;filter:drop-shadow(0 0 2px var(--ink));animation:mo-edge-flow 2400ms cubic-bezier(.35,0,.3,1) both paused;animation-delay:calc(var(--edge-delay,0ms) - var(--icon-time,0ms))}
+@keyframes mo-bold-lift{0%,100%{transform:translateY(0) rotate(0) scale(1);filter:none}10%{transform:translateY(5px) rotate(-5deg) scale(.9)}32%{transform:translateY(-19px) rotate(9deg) scale(1.27);filter:drop-shadow(0 0 4px var(--ink)) drop-shadow(0 0 13px var(--ink))}53%{transform:translateY(-13px) rotate(-7deg) scale(1.2);filter:drop-shadow(0 0 7px var(--ink))}73%{transform:translateY(4px) rotate(3deg) scale(.96)}86%{transform:translateY(-3px) rotate(-1deg) scale(1.04)}}
+@keyframes mo-bold-tier{0%,12%,100%{transform:none;stroke:var(--soft)}33%,49%{transform:translateY(calc(var(--rise)*-3.2px)) rotate(calc((var(--i) - 1)*9deg));stroke:var(--flare)}72%{transform:translateY(3px) scaleY(.94)}86%{transform:translateY(-2px)}}
+@keyframes mo-aura{0%,100%{opacity:0;transform:scale(.5)}28%,55%{opacity:.85;transform:scale(1.2)}80%{opacity:.12;transform:scale(1)}}
+@keyframes mo-edge-flow{0%,12%{opacity:0;stroke-dashoffset:105}26%{opacity:1}65%{opacity:.9}90%,100%{opacity:0;stroke-dashoffset:-95}}
+@media(prefers-reduced-motion:reduce){#madar-excel-preview .approved-excel-icon *{animation:none!important}#madar-excel-preview .approved-excel-icon:before{animation:none!important}}
+
+#madar-excel-preview .scene-toggle{position:absolute;inset:0;z-index:6;width:100%;height:100%;background:transparent;border:0;border-radius:12px;padding:0;min-height:0}
+
+#madar-excel-preview .approved-excel-icon .mo-cell{transform-box:fill-box;transform-origin:center;animation:mo-bold-cell 2400ms cubic-bezier(.2,.8,.3,1) both paused;animation-delay:calc(var(--i)*55ms - var(--icon-time,0ms))}
+@keyframes mo-bold-cell{0%,12%,100%{transform:none;stroke:var(--soft)}34%,48%{transform:translate(calc((var(--i) - 2)*5px),calc((2 - var(--i))*7px)) rotate(calc((var(--i) - 2)*8deg)) scale(.87);stroke:var(--flare)}69%{transform:scale(1.07);stroke:var(--ink)}82%{transform:scale(.98)}}
+
+#madar-excel-preview .madar-shell{background:#0d1313}
+#madar-excel-preview .carousel-frame{padding-left:49px;overflow:hidden;border-radius:18px}
+#madar-excel-preview .announcement{border-color:#398264;background:radial-gradient(ellipse at 94% 5%,#204c3c 0,transparent 57%),radial-gradient(ellipse at 8% 95%,#16342d 0,transparent 62%),#0c1613;padding:25px 19px;gap:18px;transition:transform .75s cubic-bezier(.2,.75,.25,1),opacity .6s}
+#madar-excel-preview .identity{color:#82d7ae}
+#madar-excel-preview .lab{border-color:#4d8a7170}
+#madar-excel-preview .lab-title{background:#17583f}
+#madar-excel-preview .excel-letter{font:700 16px Georgia,serif;border:1px solid #8dc8ac;border-radius:4px;padding:1px 5px}
+#madar-excel-preview .guide{background:#202d2b;border-right-color:#74b99a;min-height:85px}
+#madar-excel-preview .guide-dot{background:#2e7054}
+#madar-excel-preview .guide div>span{color:#c0cec7}
+#madar-excel-preview .ribbon{display:flex;gap:16px;justify-content:center;font-size:11px;color:#c6d3cd;padding:10px 4px;border-block:1px solid #3c4c43}
+#madar-excel-preview .selected-tab{color:#b4f5d3;border-bottom:2px solid #67c594;padding-bottom:4px}
+#madar-excel-preview .formula-line{display:grid;grid-template-columns:30px 18px minmax(0,1fr);gap:6px;align-items:center;padding:10px 7px;font-size:11px;background:#222b2a;min-height:69px}
+#madar-excel-preview .cell-name{border:1px solid #567466;padding:6px 3px;background:#17201d;text-align:center;border-radius:3px;color:#d8eee1}
+#madar-excel-preview .fx{font-style:italic;color:#a9bfb3}
+#madar-excel-preview .formula{background:#111a17;padding:7px 5px;font:11px/1.65 Consolas,monospace;direction:ltr;white-space:pre-wrap;overflow-wrap:anywhere;min-height:44px;border:1px solid #3f584b;border-radius:3px;color:#e7f4ed}
+#madar-excel-preview .worksheet{font-size:12px;margin:0 7px;border:1px solid #4b6158}
+#madar-excel-preview .sheet-row{display:grid;grid-template-columns:22px .8fr .85fr 1.3fr;min-height:33px}
+#madar-excel-preview .sheet-row>span{display:grid;place-items:center;min-width:0;padding:5px 2px;border-right:1px solid #43594f;border-bottom:1px solid #43594f;color:#d7e4dd;font-size:11px}
+#madar-excel-preview .sheet-row>span:last-child{border-right:0}
+#madar-excel-preview .sheet-row:last-child>span{border-bottom:0}
+#madar-excel-preview .sheet-head,#madar-excel-preview .row-number{background:#283b32}
+#madar-excel-preview .target-cell{position:relative;background:#203e2e;box-shadow:inset 0 0 0 1px #85d3ad}
+#madar-excel-preview .target-cell:after{content:'';position:absolute;right:-2px;bottom:-2px;width:5px;height:5px;background:#8bd5af}
+#madar-excel-preview .sheet-bottom{display:flex;justify-content:space-between;padding:8px 10px;font-size:10px;color:#bdcfc3;background:#1d2924}
+#madar-excel-preview .demo-actions .demo-save{background:#28553e;border-color:#4e9070;color:#e6f8ed}
+#madar-excel-preview .demo-actions .pressed{transform:scale(.95);background:#438e64}
+#madar-excel-preview .demo-actions .save-hint{background:transparent;border:0;color:#a8c3b4;font-size:11px;padding:0}
+#madar-excel-preview .outcome{background:#202d29;color:#c0d6c9}
+#madar-excel-preview .scene-steps{color:#a8bdb0}
+#madar-excel-preview .scene-steps span{border-bottom-color:#314d3e}
+#madar-excel-preview button:not(.scene-toggle):not(.next-peek){background:#202e28;border-color:#466453;color:#e0ede5}
+#madar-excel-preview .next-peek{position:absolute;left:0;top:18px;bottom:18px;width:44px;height:auto;min-height:44px;padding:0;border:1px solid #4b9474;border-radius:12px;background:radial-gradient(ellipse at 10% 50%,#34614d,transparent 70%),#14251f;color:#d6ecd9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
+#madar-excel-preview .next-peek svg{position:relative;width:34px;height:34px;stroke-width:2.5;z-index:1;transition:transform .2s}
+#madar-excel-preview .next-peek:hover{border-color:#e5c897;box-shadow:inset 0 0 14px #89c29b22}
+#madar-excel-preview .peek-word{font-size:11px;color:#b2ceba;position:relative;z-index:1}
+#madar-excel-preview .peek-orbit{position:absolute;inset:25% -35px;border:1px solid #bfdaa027;border-radius:50%;transform:rotate(-25deg)}
+#madar-excel-preview .next-peek:after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;background:linear-gradient(160deg,transparent 20%,#d9ecc62b 47%,transparent 73%);transform:translateY(-110%)}
+#madar-excel-preview .next-peek.arrow-go{animation:excel-peek-card .85s cubic-bezier(.25,.75,.25,1) both;transform-origin:center;box-shadow:inset 0 0 24px #91d2a344;border-color:#dfcf9d}
+#madar-excel-preview .next-peek.arrow-go:after{animation:excel-peek-sheen .85s ease-in-out both}
+@keyframes excel-peek-card{0%{transform:translateY(0) scale(1);filter:brightness(1)}25%{transform:translateY(-4px) scale(.97);filter:brightness(1.2)}57%{transform:translateY(2px) scale(.985);filter:brightness(1.3)}100%{transform:translateY(0) scale(1);filter:brightness(1)}}
+@keyframes excel-peek-sheen{0%{transform:translateY(-110%);opacity:0}25%{opacity:.8}75%{opacity:.6}100%{transform:translateY(110%);opacity:0}}
+#madar-excel-preview .next-slide{position:absolute;inset:0 0 0 49px;border:1px solid #638c80;border-radius:18px;padding:30px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px;background:radial-gradient(ellipse at 0 0,#14362a,transparent 65%),radial-gradient(ellipse at 100% 100%,#3d1c2c,transparent 60%),#101522;transform:translateX(-110%);visibility:hidden;opacity:0;transition:transform .75s cubic-bezier(.2,.75,.25,1),opacity .6s,visibility .75s;pointer-events:none}
+#madar-excel-preview .next-slide h2{font-size:28px}
+#madar-excel-preview .next-slide p{max-width:450px}
+#madar-excel-preview .next-programs{display:flex;gap:8px;flex-wrap:wrap;font-size:13px}
+#madar-excel-preview .next-programs span{padding:10px 16px;border:1px solid #508066;border-radius:8px;background:#15211e}
+#madar-excel-preview .next-programs span:first-child{border-color:#5a86ae;background:#172031}
+#madar-excel-preview .next-programs span:last-child{border-color:#ab5d76;background:#291b25}
+#madar-excel-preview .next-note{font-size:11px;color:#b9c3bf;margin:10px 0}
+#madar-excel-preview[data-next="true"] .excel-slide{transform:translateX(110%);opacity:0;pointer-events:none}
+#madar-excel-preview[data-next="true"] .next-slide{transform:translateX(0);opacity:1;visibility:visible;pointer-events:auto}
+@media(max-width:570px){#madar-excel-preview .announcement{padding:20px 12px;gap:22px}#madar-excel-preview h2{font-size:25px}#madar-excel-preview .ribbon{gap:9px}#madar-excel-preview .formula-line{grid-template-columns:27px minmax(0,1fr);gap:4px}#madar-excel-preview .fx{display:none}#madar-excel-preview .guide{margin:10px 7px;padding:8px;gap:6px}#madar-excel-preview .guide-dot{width:18px;height:18px}#madar-excel-preview .scene-caption{font-size:11px}#madar-excel-preview .next-slide{padding:20px}#madar-excel-preview .next-slide h2{font-size:25px}#madar-excel-preview .discover{padding:12px;gap:10px;font-size:14px}#madar-excel-preview .demo-actions{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){#madar-excel-preview .next-peek.arrow-go,#madar-excel-preview .next-peek.arrow-go:after{animation:none!important}}
+
+
+
+#madar-connected-preview{padding:12px 0;font-family:'Tajawal',Tahoma,sans-serif;color:#f7eee8;direction:rtl}
+#madar-connected-preview *{box-sizing:border-box}
+#madar-connected-preview .madar-shell{background:#100e15;border-radius:20px;padding:20px 16px 12px;overflow:hidden}
+#madar-connected-preview .section-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 8px 18px;font-size:18px;font-weight:700}
+#madar-connected-preview .preview-label{font-size:11px;color:#bcaeb5;font-weight:400}
+#madar-connected-preview .section-head .updates-title{font-size:28px;line-height:1.5;font-weight:800;color:#f4d69b;text-shadow:0 0 20px #e5bb6426;position:relative;padding-bottom:7px}
+#madar-connected-preview .updates-title:after{content:'';position:absolute;right:0;bottom:0;width:54px;height:2px;background:#d8b577;border-radius:2px}
+@media(max-width:570px){#madar-connected-preview .section-head{flex-wrap:wrap;gap:8px}#madar-connected-preview .section-head .updates-title{font-size:24px}#madar-connected-preview .section-head .preview-label{flex-basis:100%}}
+#madar-connected-preview .carousel-frame{position:relative;padding-left:18px}
+#madar-connected-preview .announcement{isolation:isolate;position:relative;overflow:hidden;border:1px solid #98445a;border-radius:18px;padding:28px 22px;display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:22px;background:radial-gradient(ellipse at 95% 3%,#612335 0,transparent 54%),radial-gradient(ellipse at 9% 100%,#3a1c31 0,transparent 58%),#160f17;box-shadow:inset 0 1px #d58b9740;min-width:0}
+#madar-connected-preview .next-peek{position:absolute;left:-16px;top:18px;bottom:18px;width:24px;border:1px solid #723c51;border-radius:14px;background:linear-gradient(180deg,#3f1c2d,#19141c)}
+#madar-connected-preview .stars{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.55;background-image:radial-gradient(circle at 8% 16%,#f8d9d5 0 1px,transparent 1.7px),radial-gradient(circle at 31% 7%,#b78a98 0 .8px,transparent 1.5px),radial-gradient(circle at 94% 78%,#e7b5c0 0 1px,transparent 1.8px),radial-gradient(circle at 55% 87%,#e3bbaa 0 .7px,transparent 1.4px),radial-gradient(circle at 71% 21%,#e7b5c0 0 .7px,transparent 1.4px),radial-gradient(circle at 18% 69%,#b894a4 0 .6px,transparent 1.3px);transform:translateY(var(--drift,0px))}
+#madar-connected-preview .copy{align-self:center;min-width:0}
+#madar-connected-preview .new-tag{display:inline-flex;gap:7px;align-items:center;color:#f2cb94;font-size:12px;letter-spacing:.3px;margin-bottom:20px}
+#madar-connected-preview .new-tag>span{width:6px;height:6px;border-radius:50%;background:#edc995;box-shadow:0 0 12px #edc99560}
+#madar-connected-preview .identity{color:#e998ae;display:flex;align-items:center;gap:8px;font-size:12px;margin-bottom:12px}
+#madar-connected-preview .identity svg{width:23px;height:23px}
+#madar-connected-preview h2{font-family:inherit;font-size:30px;font-weight:800;line-height:1.45;margin:0 0 14px;color:#fff1e6;letter-spacing:-.5px}
+#madar-connected-preview p{font-size:15px;line-height:1.95;margin:0 0 22px;color:#d8c9d0}
+#madar-connected-preview .discover{display:inline-flex;align-items:center;gap:20px;justify-content:space-between;text-decoration:none;border:1px solid #f4bc8f;background:linear-gradient(110deg,#e5bd85,#f4d6a6);color:#271b1b;border-radius:10px;padding:12px 18px;font-size:15px;font-weight:700;min-height:44px;transition:box-shadow .25s}
+#madar-connected-preview .discover:hover{box-shadow:0 0 24px #dfb16f35}
+#madar-connected-preview .scene{position:relative;min-width:0;align-self:center;transform:translateY(var(--entry,0px));opacity:var(--entry-opacity,1)}
+#madar-connected-preview .scene-caption{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:12px;color:#dcc7ce;margin-bottom:12px;flex-wrap:wrap}
+#madar-connected-preview .demo-tag{font-size:11px;color:#b4a2ad}
+#madar-connected-preview .lab{background:#191d22;border-radius:12px;border:1px solid #9b4f6680;box-shadow:0 18px 40px #06050a80;overflow:hidden}
+#madar-connected-preview .lab-title{display:flex;gap:7px;align-items:center;background:#713047;padding:10px;font-size:12px;color:#fff0f4}
+#madar-connected-preview .access-mark{font:bold 17px Georgia,serif;border:1px solid #e7a3b8;border-radius:4px;padding:1px 5px}
+#madar-connected-preview .lab-mode{margin-right:auto;font-size:11px;color:#f0d2dd}
+#madar-connected-preview .guide{display:flex;gap:8px;background:#29232e;margin:12px 10px;padding:10px;border-right:2px solid #d9819d;min-height:78px;box-shadow:0 0 18px #d9819d10;transition:box-shadow .4s}
+#madar-connected-preview .guide-dot{flex:none;display:grid;place-items:center;background:#79374f;border-radius:50%;width:22px;height:22px;font-size:12px}
+#madar-connected-preview .guide strong{display:block;font-size:12px;font-weight:500;margin-bottom:5px}
+#madar-connected-preview .guide div>span{font-size:11px;color:#cabcc6;line-height:1.6;display:block}
+#madar-connected-preview .mini-grid{margin:0 10px;border:1px solid #49404b;border-radius:5px;overflow:hidden;font-size:12px}
+#madar-connected-preview .grid-head,#madar-connected-preview .grid-row{display:grid;grid-template-columns:1fr 1fr;padding:8px 10px;gap:6px;border-bottom:1px solid #3e3842}
+#madar-connected-preview .grid-head{color:#c6b6c0;font-size:11px;background:#222129}
+#madar-connected-preview .grid-row:last-child{border:0}
+#madar-connected-preview .salary{transition:background .5s,box-shadow .5s}
+#madar-connected-preview .selected-mark{opacity:0;color:#f3d398;transition:opacity .4s}
+#madar-connected-preview .properties{margin:12px 10px 0;font-size:11px}
+#madar-connected-preview .property-heading{color:#d8c6d0;margin-bottom:8px}
+#madar-connected-preview .property-row{display:grid;grid-template-columns:1.1fr 1fr;gap:8px;align-items:center;min-height:33px;padding:5px 6px;border-bottom:1px solid #343039}
+#madar-connected-preview .property-row>span:first-child{color:#bfb3bd}
+#madar-connected-preview .rule{font:13px monospace;text-align:left;display:block;background:#101419;padding:5px;border-radius:4px;min-height:25px;color:#f6db9c;border:1px solid #4d3e4a;transition:border-color .3s,box-shadow .3s}
+#madar-connected-preview .validation-text{color:#eee3df;font-size:11px;line-height:1.5}
+#madar-connected-preview .outcome{display:flex;align-items:center;gap:7px;font-size:11px;min-height:41px;padding:10px;background:#202029;color:#cdbec8;margin-top:10px;transition:background .5s,color .5s}
+#madar-connected-preview .outcome-symbol{font-size:16px}
+#madar-connected-preview .scene-steps{display:flex;justify-content:space-between;gap:5px;color:#a799a7;font-size:11px;margin-top:14px}
+#madar-connected-preview .scene-steps span{border-bottom:2px solid #49303d;padding:0 0 7px;transition:color .4s,border-color .4s}
+#madar-connected-preview .scene-steps .active{color:#f0d0a3;border-color:#e5be84}
+#madar-connected-preview[data-phase="1"] .salary,#madar-connected-preview[data-phase="2"] .salary,#madar-connected-preview[data-phase="3"] .salary{background:#4e2f40;box-shadow:inset -3px 0 #e8a0b7}
+#madar-connected-preview[data-phase="1"] .selected-mark,#madar-connected-preview[data-phase="2"] .selected-mark,#madar-connected-preview[data-phase="3"] .selected-mark{opacity:1}
+#madar-connected-preview .demo-actions{display:flex;gap:9px;align-items:center;margin:12px 10px 0;font-size:12px}
+#madar-connected-preview .demo-actions>span{display:inline-block;padding:9px 11px;border:1px solid #805766;border-radius:6px;background:#372631;color:#f4e4e8;transition:transform .15s,background .2s}
+#madar-connected-preview .demo-actions .demo-verify{background:#773248;border-color:#ad5c73}
+#madar-connected-preview .demo-actions .pressed{transform:scale(.95);background:#a5526b}
+#madar-connected-preview .scene .attention{position:relative;outline:2px solid #e6c18b;outline-offset:3px;box-shadow:0 0 16px #e6c18b2b;border-radius:5px}
+#madar-connected-preview .demo-pointer{position:absolute;left:0;top:0;width:28px;height:30px;z-index:5;pointer-events:none;color:#fff1d7;filter:drop-shadow(0 2px 3px #000b);transform-origin:3px 3px}
+#madar-connected-preview .demo-pointer svg{display:block;width:26px;height:26px;fill:#362533;stroke:#fff0d4;stroke-width:1.6}
+#madar-connected-preview .click-ring{position:absolute;width:34px;height:34px;left:-15px;top:-15px;border:2px solid #ecc68d;border-radius:50%;opacity:0;pointer-events:none}
+#madar-connected-preview[data-phase="2"] .outcome,#madar-connected-preview[data-phase="3"] .outcome{background:#18372f;color:#bfe8d1}
+#madar-connected-preview .preview-controls{display:grid;grid-template-columns:1fr auto;gap:10px;margin:14px 7px 0;align-items:center}
+#madar-connected-preview .playback{display:flex;gap:7px;flex-wrap:wrap}
+#madar-connected-preview button{font:500 12px 'Tajawal',Tahoma,sans-serif;background:#24202c;color:#ecdee5;border:1px solid #574353;border-radius:8px;padding:9px 12px;min-height:40px}
+#madar-connected-preview .timing{display:flex;align-items:center;gap:12px;font-size:11px;color:#c4b5c1}
+#madar-connected-preview .timer{font:11px monospace;color:#ead2ab;min-width:67px}
+#madar-connected-preview .seek-label{grid-column:1/-1;display:block}
+#madar-connected-preview .seek{display:block;width:100%;margin:0;accent-color:#dcaf7f;height:20px;direction:ltr}
+#madar-connected-preview .sr-label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+@media(max-width:570px){#madar-connected-preview .madar-shell{padding:16px 10px 10px}#madar-connected-preview .announcement{grid-template-columns:1fr;padding:22px 18px;gap:24px}#madar-connected-preview h2{font-size:27px;line-height:1.3}#madar-connected-preview h2 br{display:none}#madar-connected-preview .new-tag{margin-bottom:12px}#madar-connected-preview .identity{display:none}#madar-connected-preview p{font-size:14px;line-height:1.8;margin-bottom:14px}#madar-connected-preview .scene{width:100%}#madar-connected-preview .lab-mode{display:none}#madar-connected-preview .preview-controls{grid-template-columns:1fr}#madar-connected-preview .timing{justify-content:space-between}#madar-connected-preview button{min-height:44px}#madar-connected-preview .seek{height:32px}#madar-connected-preview .section-head{font-size:17px}}
+@media(prefers-reduced-motion:reduce){#madar-connected-preview *{transition:none!important}#madar-connected-preview .scene{transform:none!important}#madar-connected-preview .stars{transform:none!important}}
+
+#madar-connected-preview .identity{display:flex;gap:12px;min-height:52px}
+#madar-connected-preview .approved-excel-icon{--ink:#54d49a;--soft:#299765;--flare:#b0ffcf;position:relative;display:block;width:44px;height:44px;flex-shrink:0}
+#madar-connected-preview .approved-excel-icon .mo-symbol{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--ink);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;position:relative;z-index:2;transform-origin:50% 55%;animation:mo-bold-lift 2400ms cubic-bezier(.2,.75,.25,1) both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-connected-preview .approved-excel-icon .mo-back{stroke:var(--soft)}
+#madar-connected-preview .approved-excel-icon .mo-letter{stroke-width:2.8}
+#madar-connected-preview .approved-excel-icon .mo-tier{transform-box:fill-box;transform-origin:center;animation:mo-bold-tier 2400ms cubic-bezier(.2,.8,.3,1) both paused;animation-delay:calc(var(--i)*60ms - var(--icon-time,0ms))}
+#madar-connected-preview .approved-excel-icon:before{content:"";position:absolute;inset:-30%;border-radius:50%;background:radial-gradient(ellipse,#54d49a40,transparent 66%);opacity:0;pointer-events:none;animation:mo-aura 2400ms ease both paused;animation-delay:calc(0ms - var(--icon-time,0ms))}
+#madar-connected-preview .approved-excel-icon .mo-edge{fill:none;stroke:var(--flare);stroke-width:3.5;stroke-dasharray:17 83;stroke-dashoffset:100;opacity:0;pointer-events:none;filter:drop-shadow(0 0 2px var(--ink));animation:mo-edge-flow 2400ms cubic-bezier(.35,0,.3,1) both paused;animation-delay:calc(var(--edge-delay,0ms) - var(--icon-time,0ms))}
+@keyframes mo-bold-lift{0%,100%{transform:translateY(0) rotate(0) scale(1);filter:none}10%{transform:translateY(5px) rotate(-5deg) scale(.9)}32%{transform:translateY(-19px) rotate(9deg) scale(1.27);filter:drop-shadow(0 0 4px var(--ink)) drop-shadow(0 0 13px var(--ink))}53%{transform:translateY(-13px) rotate(-7deg) scale(1.2);filter:drop-shadow(0 0 7px var(--ink))}73%{transform:translateY(4px) rotate(3deg) scale(.96)}86%{transform:translateY(-3px) rotate(-1deg) scale(1.04)}}
+@keyframes mo-bold-tier{0%,12%,100%{transform:none;stroke:var(--soft)}33%,49%{transform:translateY(calc(var(--rise)*-3.2px)) rotate(calc((var(--i) - 1)*9deg));stroke:var(--flare)}72%{transform:translateY(3px) scaleY(.94)}86%{transform:translateY(-2px)}}
+@keyframes mo-aura{0%,100%{opacity:0;transform:scale(.5)}28%,55%{opacity:.85;transform:scale(1.2)}80%{opacity:.12;transform:scale(1)}}
+@keyframes mo-edge-flow{0%,12%{opacity:0;stroke-dashoffset:105}26%{opacity:1}65%{opacity:.9}90%,100%{opacity:0;stroke-dashoffset:-95}}
+@media(prefers-reduced-motion:reduce){#madar-connected-preview .approved-excel-icon *{animation:none!important}#madar-connected-preview .approved-excel-icon:before{animation:none!important}}
+
+#madar-connected-preview .scene-toggle{position:absolute;inset:0;z-index:6;width:100%;height:100%;background:transparent;border:0;border-radius:12px;padding:0;min-height:0}
+
+#madar-connected-preview .approved-excel-icon .mo-cell{transform-box:fill-box;transform-origin:center;animation:mo-bold-cell 2400ms cubic-bezier(.2,.8,.3,1) both paused;animation-delay:calc(var(--i)*55ms - var(--icon-time,0ms))}
+@keyframes mo-bold-cell{0%,12%,100%{transform:none;stroke:var(--soft)}34%,48%{transform:translate(calc((var(--i) - 2)*5px),calc((2 - var(--i))*7px)) rotate(calc((var(--i) - 2)*8deg)) scale(.87);stroke:var(--flare)}69%{transform:scale(1.07);stroke:var(--ink)}82%{transform:scale(.98)}}
+
+#madar-connected-preview .madar-shell{background:#0d1313}
+#madar-connected-preview .carousel-frame{padding-left:49px;overflow:hidden;border-radius:18px}
+#madar-connected-preview .announcement{border-color:#398264;background:radial-gradient(ellipse at 94% 5%,#204c3c 0,transparent 57%),radial-gradient(ellipse at 8% 95%,#16342d 0,transparent 62%),#0c1613;padding:25px 19px;gap:18px;transition:transform .75s cubic-bezier(.2,.75,.25,1),opacity .6s}
+#madar-connected-preview .identity{color:#82d7ae}
+#madar-connected-preview .lab{border-color:#4d8a7170}
+#madar-connected-preview .lab-title{background:#17583f}
+#madar-connected-preview .excel-letter{font:700 16px Georgia,serif;border:1px solid #8dc8ac;border-radius:4px;padding:1px 5px}
+#madar-connected-preview .guide{background:#202d2b;border-right-color:#74b99a;min-height:85px}
+#madar-connected-preview .guide-dot{background:#2e7054}
+#madar-connected-preview .guide div>span{color:#c0cec7}
+#madar-connected-preview .ribbon{display:flex;gap:16px;justify-content:center;font-size:11px;color:#c6d3cd;padding:10px 4px;border-block:1px solid #3c4c43}
+#madar-connected-preview .selected-tab{color:#b4f5d3;border-bottom:2px solid #67c594;padding-bottom:4px}
+#madar-connected-preview .formula-line{display:grid;grid-template-columns:30px 18px minmax(0,1fr);gap:6px;align-items:center;padding:10px 7px;font-size:11px;background:#222b2a;min-height:69px}
+#madar-connected-preview .cell-name{border:1px solid #567466;padding:6px 3px;background:#17201d;text-align:center;border-radius:3px;color:#d8eee1}
+#madar-connected-preview .fx{font-style:italic;color:#a9bfb3}
+#madar-connected-preview .formula{background:#111a17;padding:7px 5px;font:11px/1.65 Consolas,monospace;direction:ltr;white-space:pre-wrap;overflow-wrap:anywhere;min-height:44px;border:1px solid #3f584b;border-radius:3px;color:#e7f4ed}
+#madar-connected-preview .worksheet{font-size:12px;margin:0 7px;border:1px solid #4b6158}
+#madar-connected-preview .sheet-row{display:grid;grid-template-columns:22px .8fr .85fr 1.3fr;min-height:33px}
+#madar-connected-preview .sheet-row>span{display:grid;place-items:center;min-width:0;padding:5px 2px;border-right:1px solid #43594f;border-bottom:1px solid #43594f;color:#d7e4dd;font-size:11px}
+#madar-connected-preview .sheet-row>span:last-child{border-right:0}
+#madar-connected-preview .sheet-row:last-child>span{border-bottom:0}
+#madar-connected-preview .sheet-head,#madar-connected-preview .row-number{background:#283b32}
+#madar-connected-preview .target-cell{position:relative;background:#203e2e;box-shadow:inset 0 0 0 1px #85d3ad}
+#madar-connected-preview .target-cell:after{content:'';position:absolute;right:-2px;bottom:-2px;width:5px;height:5px;background:#8bd5af}
+#madar-connected-preview .sheet-bottom{display:flex;justify-content:space-between;padding:8px 10px;font-size:10px;color:#bdcfc3;background:#1d2924}
+#madar-connected-preview .demo-actions .demo-save{background:#28553e;border-color:#4e9070;color:#e6f8ed}
+#madar-connected-preview .demo-actions .pressed{transform:scale(.95);background:#438e64}
+#madar-connected-preview .demo-actions .save-hint{background:transparent;border:0;color:#a8c3b4;font-size:11px;padding:0}
+#madar-connected-preview .outcome{background:#202d29;color:#c0d6c9}
+#madar-connected-preview .scene-steps{color:#a8bdb0}
+#madar-connected-preview .scene-steps span{border-bottom-color:#314d3e}
+#madar-connected-preview button:not(.scene-toggle):not(.next-peek){background:#202e28;border-color:#466453;color:#e0ede5}
+#madar-connected-preview .next-peek{position:absolute;left:0;top:18px;bottom:18px;width:44px;height:auto;min-height:44px;padding:0;border:1px solid #4b9474;border-radius:12px;background:radial-gradient(ellipse at 10% 50%,#34614d,transparent 70%),#14251f;color:#d6ecd9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;overflow:hidden;transition:border-color .25s,box-shadow .25s}
+#madar-connected-preview .next-peek svg{position:relative;width:34px!important;height:34px!important;stroke-width:2.5;z-index:1;transition:transform .2s}
+#madar-connected-preview .next-peek:hover{border-color:#e5c897;box-shadow:inset 0 0 14px #89c29b22}
+#madar-connected-preview .peek-word{font-size:11px;color:#b2ceba;position:relative;z-index:1}
+#madar-connected-preview .peek-orbit{position:absolute;inset:25% -35px;border:1px solid #bfdaa027;border-radius:50%;transform:rotate(-25deg)}
+#madar-connected-preview .next-peek:after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0;background:linear-gradient(160deg,transparent 20%,#d9ecc62b 47%,transparent 73%);transform:translateY(-110%)}
+#madar-connected-preview .next-peek.arrow-go{animation:excel-peek-card .85s cubic-bezier(.25,.75,.25,1) both;transform-origin:center;box-shadow:inset 0 0 24px #91d2a344;border-color:#dfcf9d}
+#madar-connected-preview .next-peek.arrow-go:after{animation:excel-peek-sheen .85s ease-in-out both}
+@keyframes excel-peek-card{0%{transform:translateY(0) scale(1);filter:brightness(1)}25%{transform:translateY(-4px) scale(.97);filter:brightness(1.2)}57%{transform:translateY(2px) scale(.985);filter:brightness(1.3)}100%{transform:translateY(0) scale(1);filter:brightness(1)}}
+@keyframes excel-peek-sheen{0%{transform:translateY(-110%);opacity:0}25%{opacity:.8}75%{opacity:.6}100%{transform:translateY(110%);opacity:0}}
+#madar-connected-preview .next-slide{position:absolute;inset:0 0 0 49px;border:1px solid #638c80;border-radius:18px;padding:30px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:12px;background:radial-gradient(ellipse at 0 0,#14362a,transparent 65%),radial-gradient(ellipse at 100% 100%,#3d1c2c,transparent 60%),#101522;transform:translateX(-110%);visibility:hidden;opacity:0;transition:transform .75s cubic-bezier(.2,.75,.25,1),opacity .6s,visibility .75s;pointer-events:none}
+#madar-connected-preview .next-slide h2{font-size:28px}
+#madar-connected-preview .next-slide p{max-width:450px}
+#madar-connected-preview .next-programs{display:flex;gap:8px;flex-wrap:wrap;font-size:13px}
+#madar-connected-preview .next-programs span{padding:10px 16px;border:1px solid #508066;border-radius:8px;background:#15211e}
+#madar-connected-preview .next-programs span:first-child{border-color:#5a86ae;background:#172031}
+#madar-connected-preview .next-programs span:last-child{border-color:#ab5d76;background:#291b25}
+#madar-connected-preview .next-note{font-size:11px;color:#b9c3bf;margin:10px 0}
+#madar-connected-preview[data-next="true"] .connected-slide{transform:translateX(110%);opacity:0;pointer-events:none}
+#madar-connected-preview[data-next="true"] .next-slide{transform:translateX(0);opacity:1;visibility:visible;pointer-events:auto}
+@media(max-width:570px){#madar-connected-preview .announcement{padding:20px 12px;gap:22px}#madar-connected-preview h2{font-size:25px}#madar-connected-preview .ribbon{gap:9px}#madar-connected-preview .formula-line{grid-template-columns:27px minmax(0,1fr);gap:4px}#madar-connected-preview .fx{display:none}#madar-connected-preview .guide{margin:10px 7px;padding:8px;gap:6px}#madar-connected-preview .guide-dot{width:18px;height:18px}#madar-connected-preview .scene-caption{font-size:11px}#madar-connected-preview .next-slide{padding:20px}#madar-connected-preview .next-slide h2{font-size:25px}#madar-connected-preview .discover{padding:12px;gap:10px;font-size:14px}#madar-connected-preview .demo-actions{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){#madar-connected-preview .next-peek.arrow-go,#madar-connected-preview .next-peek.arrow-go:after{animation:none!important}}
+
+
+#madar-connected-preview .madar-shell{background:#10131a}
+#madar-connected-preview .announcement{border-color:#72647e;background:radial-gradient(ellipse at 100% 6%,#162e51 0,transparent 57%),radial-gradient(ellipse at 50% 65%,#173b2e 0,transparent 62%),radial-gradient(ellipse at 0 100%,#4b2035 0,transparent 58%),#10131c}
+#madar-connected-preview .program-signatures{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px;font-size:11px}
+#madar-connected-preview .program-signatures>span{padding:6px 9px;border-bottom:1px solid currentColor}
+#madar-connected-preview .word-sign{color:#9acaff}
+#madar-connected-preview .excel-sign{color:#92e1b8}
+#madar-connected-preview .access-sign{color:#efa2b6}
+#madar-connected-preview .study-links{display:flex;flex-direction:column;align-items:flex-start;gap:15px}
+#madar-connected-preview .other-links{display:flex;gap:22px;font-size:14px}
+#madar-connected-preview .other-links a{color:#e3d3bd;text-decoration:none;border-bottom:1px solid #8c785b;padding:7px 0;min-height:35px}
+#madar-connected-preview .connected-panels{padding:0 3px}
+#madar-connected-preview .study-panel{position:relative;background:#191e27;border:1px solid #465365;border-radius:10px;padding:13px;opacity:.55;transition:opacity .55s,box-shadow .55s,border-color .55s,transform .55s}
+#madar-connected-preview .study-panel header{display:flex;align-items:center;gap:8px;color:#ede5e9;font-size:14px;margin-bottom:12px}
+#madar-connected-preview .study-panel header>svg{width:17px;height:17px;color:#c8b9a0}
+#madar-connected-preview .study-panel strong{font-weight:500}
+#madar-connected-preview .panel-number{margin-right:auto;color:#b6a1b9;font-size:11px}
+#madar-connected-preview .program-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;font-size:11px}
+#madar-connected-preview .program-tabs>span{display:block;border:1px solid #4e6d86;background:#192839;border-radius:5px;padding:8px 2px;text-align:center}
+#madar-connected-preview .program-tabs>span:nth-child(2){background:#193027;border-color:#456e57}
+#madar-connected-preview .program-tabs>span:nth-child(3){background:#34202e;border-color:#825168}
+#madar-connected-preview .panel-caption{color:#bdc3cf;font-size:11px;margin-top:12px}
+#madar-connected-preview .flow-connector{height:22px;position:relative;margin-right:25px;border-right:1px solid #6e607666;overflow:hidden}
+#madar-connected-preview .flow-connector>span{position:absolute;right:-2px;top:0;width:4px;height:9px;background:#ecd1a2;box-shadow:0 0 7px #e2c99670;opacity:0}
+#madar-connected-preview .filter-tabs{display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:11px;color:#a8b2c1;padding-bottom:10px}
+#madar-connected-preview .filter-all{color:#f3ddbc;background:#4a403a;border-radius:4px;padding:4px 8px}
+#madar-connected-preview .mistake-samples{display:flex;gap:5px;align-items:center;flex-wrap:wrap;font-size:11px;color:#bdc8ce;margin-bottom:9px}
+#madar-connected-preview .mistake-samples>span:not(.sample-label){padding:3px 5px;border-radius:4px;background:#253039}
+#madar-connected-preview .sample-label{font-size:11px}
+#madar-connected-preview .all-mistakes{display:flex;justify-content:space-between;font-size:11px;color:#efd7ac;padding:9px;background:#302c2b;border-radius:5px}
+#madar-connected-preview .saved-example{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 0;font-size:11px;border-top:1px solid #3d414e}
+#madar-connected-preview .saved-example>span:first-child{color:#ded7e3}
+#madar-connected-preview .saved-example>span:last-child{white-space:nowrap;border-radius:4px;padding:3px 5px;background:#273038}
+#madar-connected-preview .study-panel.active-panel{opacity:1;transform:translateX(-3px);border-color:#c7aa82;box-shadow:0 0 20px #d6bb8813}
+#madar-connected-preview[data-phase="3"] .study-panel{opacity:1;transform:none;border-color:#727b85;box-shadow:none}
+#madar-connected-preview .scene .attention{outline-width:1px;outline-offset:2px;box-shadow:0 0 12px #e6c18b22}
+#madar-connected-preview .next-peek{border-color:#786c8f;background:radial-gradient(ellipse at 15% 10%,#203956,transparent 58%),radial-gradient(ellipse at 50% 60%,#214634,transparent 58%),radial-gradient(ellipse at 10% 100%,#522e41,transparent 65%),#141a21;color:#e3daca}
+#madar-connected-preview .next-peek:hover{border-color:#d5c29f}
+#madar-connected-preview .next-slide{border-color:#9c5c73;background:radial-gradient(ellipse at 80% 0,#582538,transparent 70%),#19111c}
+@media(max-width:570px){#madar-connected-preview .study-panel{padding:10px}#madar-connected-preview .filter-tabs{font-size:11px}#madar-connected-preview .program-tabs{gap:4px}#madar-connected-preview .program-signatures{gap:5px}#madar-connected-preview .other-links{gap:25px}#madar-connected-preview .other-links a{min-height:44px}#madar-connected-preview .sample-label{display:none}}
+
+
+#madar-connected-preview .demo-nav{display:flex;justify-content:space-between;gap:4px;font-size:11px;margin-bottom:12px;border-bottom:1px solid #4b5260;padding-bottom:12px}
+#madar-connected-preview .demo-nav>span{padding:8px 4px;border-radius:5px;color:#a7b3c3;position:relative}
+#madar-connected-preview .demo-nav .selected{background:#393436;color:#f2d5a0}
+#madar-connected-preview .demo-nav b{display:none;background:#b7617a;color:#fff3e8;border-radius:8px;padding:0 4px;font-weight:500}
+#madar-connected-preview[data-answered="true"] .error-count,#madar-connected-preview[data-saved="true"] .saved-count{display:inline}
+#madar-connected-preview .action-stage{position:relative;height:402px;padding:0}
+#madar-connected-preview .action-stage>.study-panel{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateX(-12px);transition:opacity .35s,transform .45s,visibility .35s;padding:15px;border-color:#586270}
+#madar-connected-preview .action-stage>.study-panel.active-panel{opacity:1;visibility:visible;transform:none;box-shadow:none}
+#madar-connected-preview .action-stage p{font-size:13px;line-height:1.7;margin:12px 0;color:#e4e1e4}
+#madar-connected-preview .question-body{opacity:0;transform:translateY(8px);transition:.4s}
+#madar-connected-preview .quiz-welcome{font-size:13px;color:#b7c4d1;padding-top:24px}
+#madar-connected-preview[data-chosen="true"] .quiz-welcome{display:none}
+#madar-connected-preview[data-chosen="true"] .question-body{opacity:1;transform:none}
+#madar-connected-preview[data-chosen="true"] .choose-access{background:#633446;border-color:#e293ac;box-shadow:0 0 14px #c2738b22}
+#madar-connected-preview .question-label,#madar-connected-preview .mini-label{display:block;font-size:11px;color:#beaaba;margin-top:18px}
+#madar-connected-preview .answer{border:1px solid #4b5260;padding:11px 9px;border-radius:7px;font-size:12px;margin:8px 0;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;transition:.35s}
+#madar-connected-preview .answer-feedback{font-size:12px;line-height:1.8;margin-top:12px;color:#b4dac8;opacity:0;transform:translateY(7px);transition:.4s}
+#madar-connected-preview[data-answered="true"] .wrong-answer{border-color:#be7084;background:#472632;color:#eeb6c4}
+#madar-connected-preview[data-answered="true"] .right-answer{border-color:#67a68a;background:#223c31;color:#b5e5cc}
+#madar-connected-preview[data-answered="true"] .answer-feedback{opacity:1;transform:none}
+#madar-connected-preview .other-error,#madar-connected-preview .error-row,#madar-connected-preview .other-saved{padding:14px 7px;border-bottom:1px solid #3e4854;display:flex;justify-content:space-between;gap:8px;font-size:12px}
+#madar-connected-preview .error-row{background:#282730;border-radius:6px;transition:.4s}
+#madar-connected-preview[data-filtered="true"] .other-error,#madar-connected-preview[data-savedfilter="true"] .other-saved{display:none}
+#madar-connected-preview[data-filtered="true"] .mistakes-panel .filter-all,#madar-connected-preview[data-savedfilter="true"] .saved-panel .filter-all{background:transparent;color:#a8b2c1}
+#madar-connected-preview[data-filtered="true"] .mistakes-panel .filter-access,#madar-connected-preview[data-savedfilter="true"] .saved-panel .filter-access{background:#633446;color:#f4c6d5;padding:4px 6px;border-radius:4px}
+#madar-connected-preview .error-detail{opacity:0;transform:translateY(6px);transition:.4s}
+#madar-connected-preview[data-expanded="true"] .error-detail{opacity:1;transform:none}
+#madar-connected-preview[data-expanded="true"] .error-row{border-color:#bb8a99;background:#3b2933}
+#madar-connected-preview .save-lesson{display:flex;align-items:center;gap:6px;padding:12px 8px;background:#373331;border:1px solid #9b8464;border-radius:7px;color:#f0d4a9;font-size:12px;margin-top:16px;transition:.35s}
+#madar-connected-preview .saved-toast{opacity:0;color:#b4e0c9;font-size:11px;margin-top:10px;transition:.3s}
+#madar-connected-preview[data-saved="true"] .save-lesson{background:#233e32;border-color:#72ad90;color:#b4e0c9}
+#madar-connected-preview[data-saved="true"] .saved-toast{opacity:1}
+#madar-connected-preview .lesson-preview{display:none}
+#madar-connected-preview[data-opened="true"] .saved-list,#madar-connected-preview[data-opened="true"] .saved-panel .filter-tabs{display:none}
+#madar-connected-preview[data-opened="true"] .lesson-preview{display:block;animation:connected-reveal .45s ease both}
+#madar-connected-preview .lesson-preview h3{font-size:18px;line-height:1.6;margin:12px 0;color:#f0dfcf}
+#madar-connected-preview .lesson-tab{font-size:12px;color:#e3c698;border-bottom:1px solid #b79b6f;padding-bottom:10px}
+#madar-connected-preview .journey-end{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;opacity:0;visibility:hidden;transition:.4s;background:#191e27;border:1px solid #586270;border-radius:10px;padding:15px}
+#madar-connected-preview .journey-end>svg{width:45px!important;height:45px!important;color:#ddc399;margin-bottom:15px}
+#madar-connected-preview .journey-end h3{font-size:20px;color:#eee2d1;line-height:1.7}
+#madar-connected-preview .journey-end>div{display:flex;align-items:center;gap:4px;flex-wrap:wrap;justify-content:center;font-size:12px;color:#d4b9bf}
+#madar-connected-preview[data-phase="3"] .journey-end{opacity:1;visibility:visible}
+#madar-connected-preview[data-phase="3"] .action-stage>.study-panel{opacity:0;visibility:hidden}
+@keyframes connected-reveal{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:570px){#madar-connected-preview .action-stage{height:430px}#madar-connected-preview .action-stage>.study-panel{padding:10px}#madar-connected-preview .error-detail p{font-size:12px}#madar-connected-preview .demo-nav{gap:0}#madar-connected-preview .demo-nav>span{padding:8px 2px}}
+@media(prefers-reduced-motion:reduce){#madar-connected-preview .lesson-preview{animation:none!important}}
+
+

@@ -1,0 +1,25 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const dir='modules/network-tabs-preview/';
+const controls=new Map(),el=id=>{if(!controls.has(id))controls.set(id,{id,focus(){},scrollIntoView(){}});return controls.get(id);};
+const state={active:'lesson',labs:[{id:'lesson',kind:'original',course:'lesson',name:'lesson',revision:4,data:{devices:{S1:{type:'S'}},network:{S1:{vlan:10}},assistance:{events:[]}},aliases:{},training:{scope:'vlan',sequence:['create','management','parking'],step:'management',checks:{create:{ok:true}},evidence:[],completed:false}}]};
+let busy=false,closed=0,created=0,changed=0;
+const sourceBefore=JSON.stringify(state.labs[0]);
+const context={state,$:el,engine:{querySelector:el},B:{busy:()=>busy},lab:id=>state.labs.find(a=>a.id===id),active:()=>state.labs.find(a=>a.id===state.active),modal:(title,html)=>{context.dialogTitle=title;context.html=html;},close:()=>closed++,changed:()=>changed++,updateContext(){},toast:msg=>context.toast=msg,matchMedia:()=>({matches:true}),L:{order:['create','management','parking']},practiceScopes:{vlan:{steps:['create','management','parking']}},cloneLab:(id,helper)=>{created++;assert.equal(id,'lesson');assert.equal(helper,true);}};
+vm.createContext(context);vm.runInContext(fs.readFileSync(dir+'help-placement.js','utf8'),context);
+el('#ml-helper').onclick();assert.match(context.html,/ml-help-here/);assert.equal(changed,0);
+el('#ml-help-separate').onclick();assert.match(context.html,/ml-help-warning/);assert.match(context.html,/ما تنتقل للتمرين تلقائيًا/);assert.match(context.html,/تقدر تكمل خطوات الدرس/);assert.equal(created,0);
+el('#ml-help-cancel').onclick();assert.equal(closed,1);assert.equal(JSON.stringify(state.labs[0]),sourceBefore);
+el('#ml-helper').onclick();el('#ml-help-here').onclick();assert.equal(state.labs[0].inlineHelp,true);assert.equal(created,0);assert.equal(state.labs[0].data.assistance.events.length,0);
+el('#ml-helper').onclick();el('#ml-help-separate').onclick();el('#ml-help-confirm').onclick();assert.equal(created,1);
+busy=true;el('#ml-helper').onclick();assert.match(context.toast,/الكابل/);el('#ml-help-confirm').onclick();assert.equal(created,1);busy=false;
+const old={id:'old-helper',helper:true,sourceOriginal:'lesson',data:{network:{untouched:true}},training:{scope:'vlan',step:'management',sequence:['management'],checks:{management:{ok:true}},completed:true}};state.labs.push(old);context.migrateHelperNavigation(old);assert.equal(old.training.sequence.length,3);assert.equal(old.training.step,'management');assert.equal(old.training.checks.management.ok,true);assert.equal(old.data.network.untouched,true);old.training.completed=true;context.migrateHelperNavigation(old);assert.equal(old.training.completed,true);
+const child={id:'child',helper:true,sourceOriginal:'old-helper'};state.labs.push(child);assert.equal(context.assistanceOwners(child).map(a=>a.id).join(','),'child,old-helper,lesson');
+old.sourceOriginal='child';assert.equal(context.assistanceOwners(child).length,2);old.sourceOriginal='lesson';
+// Execute the actual clone implementation: configs, progress and sequences must be independent.
+Object.assign(context,{capture(){},normalizeCopies(){},uid:()=> 'new-helper',clone:structuredClone,courseNames:{lesson:'Lesson'},makeLab:(id,name,kind,data)=>({id,name,kind,data:structuredClone(data)}),activate:id=>state.active=id,window:{MadarAssistance:{Assistance:class{export(){return {events:[],attempt:'fresh'};}}}}});
+const app=fs.readFileSync(dir+'app.js','utf8');vm.runInContext(app.slice(app.indexOf('function cloneLab('),app.indexOf('function openPlus(')),context);
+const original=state.labs[0],before=JSON.stringify(original),helper=context.cloneLab('lesson',true);
+assert.equal(helper.training.sequence.length,3);assert.equal(helper.training.step,'management');assert.equal(Object.keys(helper.training.checks).length,0);assert.equal(helper.data.assistance.events.length,0);assert.equal(helper.inlineHelp,undefined);
+helper.training.step='parking';helper.training.checks.parking={ok:true};helper.data.network.S1.vlan=20;helper.training.sequence.push('later');assert.equal(JSON.stringify(original),before);
+const restored=JSON.parse(JSON.stringify(helper));assert.equal(restored.training.step,'parking');assert.equal(restored.training.checks.parking.ok,true);assert.equal(restored.data.network.S1.vlan,20);
+console.log('PASS: choice, red confirmation, cancel, busy guard, no exposure on choice, helper migration, nested assistance ownership, independent configs/progress and serialization.');

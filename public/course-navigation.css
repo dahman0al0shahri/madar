@@ -1,0 +1,12 @@
+#madar-course-navigation{display:flex;align-items:center;gap:18px;flex-wrap:wrap;padding:12px 24px;background:#111219;color:#f2eee4;border-bottom:1px solid #343640;font:14px/1.7 Tahoma,Arial,sans-serif;position:relative;z-index:30}#madar-course-navigation a{color:#e9c691}#madar-course-navigation details{position:relative;margin-inline-start:auto}#madar-course-navigation summary{cursor:pointer}#madar-course-navigation details[open]{padding:12px;background:#1c1e27;border:1px solid #4b4641;border-radius:10px}#madar-course-navigation details a{display:block;padding:6px}html[data-theme=light] #madar-course-navigation{background:#f5f0e7;color:#29251f}html[data-theme=light] #madar-course-navigation a{color:#765227}
+#madar-course-navigation [hidden]{display:none!important}
+#madar-course-navigation{padding:12px max(20px,calc((100vw - 1440px)/2));background:linear-gradient(110deg,#171b24,#101319);border-bottom-color:#d4b5842e;font-family:Plex,Tahoma,sans-serif;gap:20px}
+#madar-course-navigation>a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;padding:8px 14px;border:1px solid #d4b58438;border-radius:11px;background:#e9c69108}
+#madar-course-navigation summary{padding:9px 12px;min-height:44px;border:1px solid #ffffff20;border-radius:11px}
+#madar-course-navigation details[open]{padding:0;background:transparent;border:0}
+#madar-course-navigation details[open] a{background:#1c222c;padding:12px 16px;border-inline:1px solid #ffffff20;text-decoration:none}
+#madar-course-navigation details[open] a:last-child{border-bottom:1px solid #ffffff20;border-radius:0 0 10px 10px}
+#madar-course-navigation :is(a,summary):focus-visible{outline:2px solid #edc995;outline-offset:3px}
+html[data-theme=light] #madar-course-navigation{background:linear-gradient(110deg,#faf6ee,#eee8dc);border-bottom-color:#a0804b55}
+html[data-theme=light] #madar-course-navigation details[open] a{background:#faf6ee;border-color:#a0804b55}
+@media(max-width:480px){#madar-course-navigation{gap:8px;font-size:12px;padding:10px 12px}#madar-course-navigation>a{padding:7px 10px}}

@@ -1,0 +1,687 @@
+{
+  "id": "os1",
+  "name": "نظم التشغيل 1",
+  "subject": "OS1",
+  "bankVersion": "os1-scenes-20261026-v2",
+  "questions": [],
+  "lessons": [
+    {
+      "id": "os1-lesson-1",
+      "subject": "OS1",
+      "unit": 1,
+      "title": "تثبيت السيرفر وتجهيزه",
+      "section": "lessons",
+      "video": null,
+      "summary": "ثبّت Windows Server، واضبط الجهاز والشبكة، ثم انضم إلى Domain (المجال).",
+      "steps": [
+        "تجهيز أجهزة المختبر",
+        "تجهيز ملف التثبيت وتشغيل الجهاز",
+        "اختيار اللغة وبدء التثبيت",
+        "اختيار نسخة Windows والقرص",
+        "تعيين كلمة المرور وتسجيل الدخول",
+        "تغيير اسم الجهاز وإعادة التشغيل",
+        "ضبط التاريخ والوقت",
+        "ضبط إعدادات الشبكة",
+        "الانضمام إلى Domain والتحقق"
+      ],
+      "source": "Lecture Mod1 Exc1 · Windows Server 2012 R2",
+      "scenes": [
+        {
+          "id": "os1-lesson-1-scene-01",
+          "title": "تجهيز أجهزة المختبر",
+          "video": "/assets/os1/os1-lesson-1/01.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/01.jpg",
+          "seconds": 41.0,
+          "steps": [
+            "افتح Hyper-V Manager، برنامج إدارة الأجهزة الافتراضية.",
+            "شغّل 20410C-LON-DC1؛ الجهاز المسؤول عن مجال المختبر.",
+            "اختر 20410C-LON-SVR3؛ عليه بنثبّت Windows."
+          ],
+          "warnings": [
+            "التثبيت على SVR3، مو DC1! اختيار جهاز غلط يعني تطبيق الخطوات على غير المطلوب."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-02",
+          "title": "تجهيز ملف التثبيت وتشغيل الجهاز",
+          "video": "/assets/os1/os1-lesson-1/02.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/02.jpg",
+          "seconds": 55.4,
+          "steps": [
+            "على SVR3 افتح Settings، الإعدادات، ثم DVD Drive، محرك قرص التثبيت.",
+            "اختر Image file ثم Browse، وحدد Windows2012R2RTM.iso، ملف التثبيت.",
+            "اضغط Open ثم OK. افتح نافذة الجهاز وشغّله بـ Start."
+          ],
+          "warnings": [
+            "أول تشغيل: اضغط مفتاحًا إذا طلب التشغيل من القرص لبدء التثبيت. بعد التثبيت وإعادة التشغيل: لا تضغط! وإلا ترجع لبداية التثبيت."
+          ],
+          "notes": [
+            "طريقة الوصول للإعدادات والملف قد تختلف في المعمل. اختيار الملف وحده ما يثبّت Windows."
+          ]
+        },
+        {
+          "id": "os1-lesson-1-scene-03",
+          "title": "اختيار اللغة وبدء التثبيت",
+          "video": "/assets/os1/os1-lesson-1/03.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/03.jpg",
+          "seconds": 11.04,
+          "steps": [
+            "اللغة: English (United States).",
+            "تنسيق الوقت والعملة: English (United States).",
+            "لوحة المفاتيح: US.",
+            "اضغط Next ثم Install now."
+          ],
+          "warnings": [],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-04",
+          "title": "اختيار نسخة Windows والقرص",
+          "video": "/assets/os1/os1-lesson-1/04.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/04.jpg",
+          "seconds": 49.2,
+          "steps": [
+            "اختر Windows Server 2012 R2 Datacenter Evaluation (Server with a GUI) ثم Next. وGUI تعني واجهة بنوافذ وأزرار.",
+            "فعّل I accept the license terms للموافقة على الشروط، ثم Next.",
+            "اختر Custom: Install Windows only (advanced)، تثبيت جديد.",
+            "اختر Drive 0 Unallocated Space، مساحة القرص غير المخصصة، ثم Next."
+          ],
+          "warnings": [
+            "اختر Server with a GUI، مو Server Core؛ وإلا تثبّت نسخة بدون الواجهة الرسومية المطلوبة هنا."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-05",
+          "title": "تعيين كلمة المرور وتسجيل الدخول",
+          "video": "/assets/os1/os1-lesson-1/05.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/05.jpg",
+          "seconds": 47.38,
+          "steps": [
+            "انتظر اكتمال التثبيت وإعادة التشغيل.",
+            "اكتب Pa$$w0rd في Password وReenter password، أي كلمة المرور وتأكيدها، لحساب Administrator، المسؤول، ثم Finish.",
+            "أرسل Ctrl+Alt+Delete من نافذة الجهاز الافتراضي، ثم ادخل بنفس كلمة المرور.",
+            "تذكّر — P كبيرة، a صغيرة، علامتا $، ثم w، ثم صفر 0، ثم r وd. هذه كلمة المختبر."
+          ],
+          "warnings": [
+            "بعد إعادة التشغيل، إذا طلب ضغط مفتاح للتشغيل من القرص، لا تضغط! بترجع لبداية التثبيت بدل تشغيل Windows."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-06",
+          "title": "تغيير اسم الجهاز وإعادة التشغيل",
+          "video": "/assets/os1/os1-lesson-1/06.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/06.jpg",
+          "seconds": 43.52,
+          "steps": [
+            "من Server Manager، لوحة إدارة النظام، افتح Local Server.",
+            "اضغط Computer name ثم Change.",
+            "اكتب LON-SVR3 في Computer name، ثم OK ووافق على رسالة إعادة التشغيل.",
+            "اضغط Close ثم Restart Now. بعد التشغيل ادخل بنفس كلمة المرور، وتأكد من الاسم في Local Server."
+          ],
+          "warnings": [
+            "لا تتخطّى إعادة التشغيل؛ تطبيق تغيير الاسم ما يكتمل إلا بعدها."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-07",
+          "title": "ضبط التاريخ والوقت",
+          "video": "/assets/os1/os1-lesson-1/07.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/07.jpg",
+          "seconds": 33.97,
+          "steps": [
+            "اضغط الساعة داخل جهاز LON-SVR3، ثم Change date and time settings.",
+            "افتح Change time zone، تغيير المنطقة الزمنية، واختر (UTC+03:00) Kuwait, Riyadh ثم OK.",
+            "افتح Change date and time، تغيير التاريخ والوقت، واضبطهما حسب وقت المعمل الحالي، ثم OK وأغلق الإعدادات بـ OK."
+          ],
+          "warnings": [
+            "لا تعدّل ساعة جهازك الأساسي! بتغيّر الجهاز الغلط وتبقى ساعة جهاز المختبر مثل ما هي."
+          ],
+          "notes": [
+            "توقيت الرياض حسب كلام الدكتور؛ الشاشة في الفيديو تعرض توقيتًا مختلفًا، فلا تنسخه."
+          ]
+        },
+        {
+          "id": "os1-lesson-1-scene-08",
+          "title": "ضبط إعدادات الشبكة",
+          "video": "/assets/os1/os1-lesson-1/08.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/08.jpg",
+          "seconds": 93.08,
+          "steps": [
+            "من Local Server اضغط الرابط بجانب Ethernet، اتصال الشبكة.",
+            "اضغط باليمين على Ethernet ثم Properties. اختر Internet Protocol Version 4 (TCP/IPv4)، إعداد عناوين الشبكة، ثم Properties.",
+            "اختر Use the following IP address للإدخال اليدوي، واكتب:",
+            "IP address — عنوان الجهاز: 172.16.0.101",
+            "Subnet Mask — قناع الشبكة: 255.255.0.0",
+            "Default Gateway — بوابة الوصول للشبكات الأخرى: 172.16.0.1",
+            "تأكد من اختيار Use the following DNS server addresses، ثم اكتب في Preferred DNS server، خادم التعرف على الأسماء: 172.16.0.10.",
+            "اضغط OK، وأغلق الخصائص بـ Close. افتح الإعدادات مرة ثانية للتأكد من حفظ القيم. هذه قيم هذا المختبر."
+          ],
+          "warnings": [
+            "لا تضع عنوان Gateway في خانة DNS! عنوان DNS الخطأ قد يمنع الجهاز من العثور على مجال المختبر."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-1-scene-09",
+          "title": "الانضمام إلى Domain والتحقق",
+          "video": "/assets/os1/os1-lesson-1/09.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-1/09.jpg",
+          "seconds": 76.44,
+          "steps": [
+            "من Local Server اضغط WORKGROUP ثم Change. تحت Member of اختر Domain (المجال)، مجال المختبر.",
+            "اكتب adatum.com ثم OK. عند طلب الحساب اكتب Administrator وكلمة المرور Pa$$w0rd ثم OK.",
+            "بعد رسالة الترحيب وافق على الرسائل، ثم Close وRestart Now.",
+            "بعد التشغيل سجّل الدخول باسم Adatum\\Administrator وبنفس كلمة المرور؛ هذا حساب المجال المطلوب في الكتاب.",
+            "في Local Server تأكد أن Domain يعرض Adatum.com والاسم LON-SVR3."
+          ],
+          "warnings": [
+            "تأكد أن DC1 شغّال وإعدادات الشبكة صحيحة؛ إذا ما قدرت تتصل به، يفشل الانضمام."
+          ],
+          "notes": [
+            "لقطة الدخول في الفيديو الأصلي تستخدم حسابًا محليًا مختلفًا، فحذفناها من المشهد المختصر واعتمدنا حساب الكتاب."
+          ]
+        }
+      ],
+      "seconds": 451.03
+    },
+    {
+      "id": "os1-lesson-2",
+      "subject": "OS1",
+      "unit": 2,
+      "title": "إعداد Server Core",
+      "section": "lessons",
+      "video": null,
+      "summary": "جهّز السيرفر من قائمة sconfig.cmd؛ الاسم والشبكة والاتصال بالمجال.",
+      "steps": [
+        "الدخول إلى LON-CORE وفتح قائمة الإعدادات",
+        "تغيير اسم الجهاز والتحقق منه",
+        "ضبط التاريخ والوقت",
+        "ضبط عنوان الشبكة الثابت",
+        "ضبط DNS",
+        "التحقق من الاتصال بـDC1",
+        "الانضمام إلى Domain (المجال)"
+      ],
+      "source": "Lecture Mod-1 Exc2 · Server Core",
+      "scenes": [
+        {
+          "id": "os1-lesson-2-scene-01",
+          "title": "الدخول إلى LON-CORE وفتح قائمة الإعدادات",
+          "video": "/assets/os1/os1-lesson-2/01.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/01.jpg",
+          "seconds": 49.6,
+          "steps": [
+            "افتح 20410C-LON-CORE من Hyper-V Manager.",
+            "من نافذة الجهاز اضغط زر Ctrl+Alt+Delete.",
+            "سجّل الدخول بحساب Administrator وكلمة المرور Pa$$w0rd.",
+            "اكتب sconfig.cmd واضغط Enter؛ تفتح قائمة إعدادات السيرفر."
+          ],
+          "warnings": [
+            "انتبه! لا تضغط Ctrl+Alt+Delete من لوحة مفاتيح جهازك؛ بيستجيب جهازك الحقيقي بدل الجهاز الافتراضي. استخدم الزر داخل نافذة LON-CORE."
+          ],
+          "notes": [
+            "Server Core مثبت مسبقًا في هذا التمرين؛ ما نعيد تثبيته."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-02",
+          "title": "تغيير اسم الجهاز والتحقق منه",
+          "video": "/assets/os1/os1-lesson-2/02.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/02.jpg",
+          "seconds": 41.68,
+          "steps": [
+            "من القائمة اختر 2 — Computer Name، ثم Enter.",
+            "اكتب LON-CORE ثم Enter.",
+            "اختر Yes لإعادة التشغيل، ثم سجّل الدخول مرة ثانية بحساب Administrator وكلمة المرور Pa$$w0rd.",
+            "اكتب hostname ثم Enter؛ لازم يظهر LON-CORE."
+          ],
+          "warnings": [
+            "انتبه! تغيير الاسم هو الخيار2، مو1؛ الخيار1 خاص بـDomain/Workgroup (المجال/مجموعة العمل)."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-2-scene-03",
+          "title": "ضبط التاريخ والوقت",
+          "video": "/assets/os1/os1-lesson-2/03.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/03.jpg",
+          "seconds": 28.68,
+          "steps": [
+            "اكتب sconfig.cmd ثم Enter لفتح قائمة إعدادات السيرفر.",
+            "اختر 9 — Date and Time (التاريخ والوقت).",
+            "من Change date and time اضبط التاريخ والوقت، ثم OK.",
+            "من Change time zone اضبط المنطقة الزمنية المطلوبة، ثم OK، وبعدها OK لإغلاق النافذة."
+          ],
+          "warnings": [
+            "انتبه! لا تنسخ تاريخ الفيديو أو منطقته الزمنية. اضبطهما حسب المطلوب في السؤال؛ وفي هذا الدرس المطلوب مطابقتهما لوقت المعمل وموقعه."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-2-scene-04",
+          "title": "ضبط عنوان الشبكة الثابت",
+          "video": "/assets/os1/os1-lesson-2/04.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/04.jpg",
+          "seconds": 93.16,
+          "steps": [
+            "اختر 8 — Network Settings، ثم رقم Index لكرت الشبكة؛ 10 في الفيديو.",
+            "اختر 1 — Set Network Adapter Address، ثم S — Static (عنوان ثابت).",
+            "أدخل IP Address: 172.16.0.111، ثم Subnet Mask: 255.255.0.0، ثم Default Gateway: 172.16.0.1؛ واضغط Enter بعد كل قيمة.",
+            "راجع القيم بعد الرجوع للقائمة؛ DHCP Enabled يصبح False، أي أن الحصول التلقائي على العنوان متوقف."
+          ],
+          "warnings": [
+            "لا تضغط Enter عند Subnet Mask بدون كتابة 255.255.0.0؛ بتقبل القيمة الافتراضية 255.255.255.0 المختلفة عن المطلوب. الدكتور صحح هذه النقطة في الصوت."
+          ],
+          "notes": [
+            "استخدم قيم السؤال في الاختبار، بما فيها Subnet Mask؛ لا تستنتج القناع من بداية عنوان IP. ورقم Index لكرت الشبكة قد يختلف بين الأجهزة."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-05",
+          "title": "ضبط DNS",
+          "video": "/assets/os1/os1-lesson-2/05.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/05.jpg",
+          "seconds": 48.9,
+          "steps": [
+            "من قائمة كرت الشبكة اختر 2 — Set DNS Servers.",
+            "عند Preferred DNS Server اكتب 172.16.0.10 ثم Enter، واضغط OK لرسالة التأكيد.",
+            "عند Alternate DNS Server اتركه فارغًا واضغط Enter؛ ما عندنا بديل في هذا المختبر.",
+            "تأكد أن Preferred DNS Server في قائمة الإعدادات أصبح 172.16.0.10."
+          ],
+          "warnings": [
+            "لا تكتب عنوان جهازك 172.16.0.111 مكان DNS؛ المطلوب هنا عنوان DC1 وهو 172.16.0.10، وإلا قد يفشل الوصول إلى أسماء أجهزة المجال والانضمام إليه."
+          ],
+          "notes": [
+            "DNS يربط أسماء الأجهزة بعناوين IP. Preferred هو المفضل وAlternate هو البديل."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-06",
+          "title": "التحقق من الاتصال بـDC1",
+          "video": "/assets/os1/os1-lesson-2/06.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/06.jpg",
+          "seconds": 23.9,
+          "steps": [
+            "اختر 4 للرجوع للقائمة الرئيسية.",
+            "اختر 15 للخروج إلى Command Line (سطر الأوامر).",
+            "اكتب ping lon-dc1.adatum.com ثم Enter.",
+            "تأكد من ظهور Reply from 172.16.0.10؛ في الفيديو Received=4 وLost=0، أي وصلت أربعة ردود بدون فقد."
+          ],
+          "warnings": [
+            "اكتب اسم الجهاز كاملًا مثل الأمر؛ اختبار عنوان IP وحده ما يثبت أن DNS يحل الاسم. إذا لم تظهر ردود، راجع رسالة الخطأ وإعدادات الشبكة وDNS وتشغيل DC1."
+          ],
+          "notes": [
+            "Ping يرسل طلبات وصول وينتظر الرد. نجاحه هنا لا يثبت انضمام الجهاز للمجال."
+          ]
+        },
+        {
+          "id": "os1-lesson-2-scene-07",
+          "title": "الانضمام إلى Domain (المجال)",
+          "video": "/assets/os1/os1-lesson-2/07.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-2/07.jpg",
+          "seconds": 106.42,
+          "steps": [
+            "تأكد أن DC1 يعمل. افتح sconfig.cmd ثم اختر 1، وبعده D.",
+            "اكتب adatum.com ثم Enter.",
+            "عند طلب الحساب اكتب Adatum\\Administrator ثم Enter، ثم كلمة مرور المختبر Pa$$w0rd وEnter.",
+            "اختر No لتغيير الاسم؛ لأننا غيرناه سابقًا، ثم Yes لإعادة التشغيل.",
+            "بعد إعادة التشغيل اختر Other user وسجّل الدخول باسم administrator@adatum.com وكلمة المرور Pa$$w0rd.",
+            "للتحقق من اسم الجهاز اكتب hostname؛ النتيجة LON-CORE. هذا الأمر وحده لا يثبت عضوية المجال."
+          ],
+          "warnings": [
+            "كلمة المرور لا تظهر أثناء كتابتها في نافذة الانضمام؛ لا تكررها ظنًا أنها لم تدخل.",
+            "بعد إعادة التشغيل استخدم حساب المجال، لا LON-CORE\\Administrator المحلي؛ الدخول المحلي وحده ليس تحققًا من دخول المجال."
+          ],
+          "notes": []
+        }
+      ],
+      "seconds": 392.34
+    },
+    {
+      "id": "os1-lesson-3",
+      "subject": "OS1",
+      "unit": 3,
+      "title": "تثبيت AD DS وإضافة DC",
+      "section": "lessons",
+      "video": null,
+      "summary": "أضف Domain Controller (DC)، سيرفر إدارة حسابات وأجهزة المجال، وتعرّف إعداداته.",
+      "steps": [
+        "تحديد السيرفر وفتح معالج الإضافة",
+        "تثبيت Active Directory Domain Services (AD DS)",
+        "بدء تهيئة DC: اختيار المجال وحساب الإدارة",
+        "خيارات DC وكلمة مرور الاستعادة",
+        "مراجعة الخيارات وفحص المتطلبات قبل التثبيت",
+        "بدء التثبيت ثم الدخول على LON-SVR1",
+        "تفعيل Global Catalog على LON-SVR1"
+      ],
+      "source": "Lecture Mod2- Exc1-Part1 · AD DS",
+      "scenes": [
+        {
+          "id": "os1-lesson-3-scene-01",
+          "title": "تحديد السيرفر وفتح معالج الإضافة",
+          "video": "/assets/os1/os1-lesson-3/01.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/01.jpg",
+          "seconds": 43.24,
+          "steps": [
+            "افتح LON-SVR1، وخل DC1 شغالًا.",
+            "من Server Manager (مدير السيرفر) اختر Add Roles and Features، ثم Next.",
+            "اختر Role-based or feature-based installation (تثبيت أدوار أو مكونات)، ثم Next.",
+            "اختر Select a server from the server pool وتأكد أن المحدد LON-SVR1.Adatum.com، ثم Next."
+          ],
+          "warnings": [
+            "انتبه للسيرفر المحدد؛ المطلوب LON-SVR1، وليس LON-CORE أو LON-SVR3. اختيار غيره يوجّه التثبيت لجهاز غلط."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-3-scene-02",
+          "title": "تثبيت Active Directory Domain Services (AD DS)",
+          "video": "/assets/os1/os1-lesson-3/02.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/02.jpg",
+          "seconds": 42.0,
+          "steps": [
+            "حدد Active Directory Domain Services، ثم اضغط Add Features لإضافة المكونات المطلوبة.",
+            "اضغط Next في Server Roles، ثم Next في Features بدون إضافة خيارات أخرى، ثم Next في صفحة AD DS.",
+            "في Confirmation فعّل Restart the destination server automatically if required ووافق على التنبيه، ثم Install؛ يسمح بإعادة التشغيل عند الحاجة فقط.",
+            "انتظر Installation succeeded، ثم Close؛ تهيئة السيرفر ليصبح DC تأتي لاحقًا."
+          ],
+          "warnings": [
+            "لا تختار Active Directory Certificate Services؛ هذه خدمة شهادات مختلفة عن المطلوب.",
+            "تثبيت AD DS وحده ما يكمل تهيئة السيرفر ليصبح DC؛ باقي Promote."
+          ],
+          "notes": [
+            "AD DS خدمة إدارة حسابات وأجهزة المجال؛ Add Features يضيف المكونات المطلوبة لها."
+          ]
+        },
+        {
+          "id": "os1-lesson-3-scene-03",
+          "title": "بدء تهيئة DC: اختيار المجال وحساب الإدارة",
+          "video": "/assets/os1/os1-lesson-3/03.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/03.jpg",
+          "seconds": 53.49,
+          "steps": [
+            "من علامة التنبيهات في Server Manager افتح Promote this server to a domain controller؛ تهيئة السيرفر ليصبح DC.",
+            "اختر Add a domain controller to an existing domain؛ إضافة DC إلى مجال موجود.",
+            "تأكد من Domain: adatum.com.",
+            "اضغط Change وأدخل Administrator وكلمة المختبر Pa$$w0rd مع ظهور المجال ADATUM، ثم OK ثم Next. يظهر الحساب ADATUM\\Administrator."
+          ],
+          "warnings": [
+            "لا تحفظ الخيار الأول لكل سؤال؛ هو لإضافة DC إلى مجال موجود. اختر حسب المطلوب.",
+            "Next ينقلك لخيارات DC؛ التهيئة ما اكتملت بعد."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-3-scene-04",
+          "title": "خيارات DC وكلمة مرور الاستعادة",
+          "video": "/assets/os1/os1-lesson-3/04.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/04.jpg",
+          "seconds": 17.19,
+          "steps": [
+            "خل DNS Server محددًا، وRODC غير محدد؛ RODC يعني DC للقراءة فقط.",
+            "خل Global Catalog (GC) مفعّلًا؛ لا تشيل علامة الصح إلا إذا السؤال طلب ذلك.",
+            "خل Site name على Default-First-Site-Name؛ Site ينظّم أجهزة الدليل بحسب اتصال الشبكة.",
+            "اكتب كلمة DSRM المطلوبة في Password وأعدها في Confirm password، ثم Next. DSRM وضع استعادة خدمة الدليل."
+          ],
+          "warnings": [
+            "لا تشيل علامة DNS بالغلط؛ بتغيّر الخدمة المطلوبة.",
+            "كلمة المرور وتأكيدها لازم يتطابقان، وإلا ما تقدر تكمل. استخدم كلمة السؤال؛ القيمة مخفية في المصدر."
+          ],
+          "notes": [
+            "الدكتور شال علامة GC عشان يشرح طريقة تفعيلها يدويًا؛ وهذي خطوة أساسية في الدرس، ولو شلتها بالاختبار بالغلط تعرف وين تروح وكيف تفعّلها."
+          ]
+        },
+        {
+          "id": "os1-lesson-3-scene-05",
+          "title": "مراجعة الخيارات وفحص المتطلبات قبل التثبيت",
+          "video": "/assets/os1/os1-lesson-3/05.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/05.jpg",
+          "seconds": 16.4,
+          "steps": [
+            "في DNS Options خل الخيارات مثل ما هي في هذا المختبر، ثم Next.",
+            "في Additional Options خل Replicate from على Any domain controller، ثم Next؛ يأخذ نسخة من بيانات الدليل من DC متاح.",
+            "في Paths خل المسارات الافتراضية، ثم Next. راجع Review Options ثم Next.",
+            "انتظر Prerequisites Check — فحص المتطلبات — حتى تظهر All prerequisite checks passed successfully؛ نجاح الفحص فقط، والتثبيت ما اكتمل بعد."
+          ],
+          "warnings": [
+            "إذا فشل الفحص، وقف وصحّح السبب قبل التثبيت."
+          ],
+          "notes": [
+            "Review Options في المصدر يعرض GC: No لأن الدكتور ألغاه للتدريب. عند إبقائه مفعّلًا وفق التوضيح المعتمد يظهر GC: Yes؛ لا تقلّد No لمطابقة الفيديو."
+          ]
+        },
+        {
+          "id": "os1-lesson-3-scene-06",
+          "title": "بدء التثبيت ثم الدخول على LON-SVR1",
+          "video": "/assets/os1/os1-lesson-3/06.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/06.jpg",
+          "seconds": 17.2,
+          "steps": [
+            "اضغط Install بعد نجاح فحص المتطلبات.",
+            "انتظر انتهاء التهيئة وراجع نتيجتها؛ إعادة التشغيل وحدها ما تثبت نجاحها.",
+            "بعد الرجوع لشاشة الدخول، افتح LON-SVR1 وسجّل بحساب ADATUM\\Administrator وكلمة مرور المختبر.",
+            "افتح Server Manager — مدير السيرفر — لمتابعة التطبيق."
+          ],
+          "warnings": [
+            "إذا ظهر Failed — فشل — لا تعتبر التهيئة مكتملة! ظهر هذا في تسجيل الدكتور، وما عرض حلّه. دخوله بعدها على الجهاز ما يثبت نجاح التهيئة."
+          ],
+          "notes": []
+        },
+        {
+          "id": "os1-lesson-3-scene-07",
+          "title": "تفعيل Global Catalog على LON-SVR1",
+          "video": "/assets/os1/os1-lesson-3/07.mp4?v=compat2",
+          "poster": "/assets/os1/os1-lesson-3/07.jpg",
+          "seconds": 17.4,
+          "steps": [
+            "من Server Manager افتح Tools ثم Active Directory Sites and Services.",
+            "افتح Sites ثم Default-First-Site-Name ثم Servers ثم LON-SVR1.",
+            "اضغط باليمين على NTDS Settings ثم Properties — الخصائص.",
+            "من General حط صح على Global Catalog، ثم Apply وبعدها OK. إذا كانت العلامة موجودة، خلها مثل ما هي."
+          ],
+          "warnings": [
+            "انتبه تختار LON-DC1 بدل LON-SVR1؛ بتغيّر إعداد الجهاز الغلط!"
+          ],
+          "notes": [
+            "خلّها مفعّلة واختصر: إذا السؤال ما طلب إلغاء Global Catalog، خلّ الصح عليه من البداية. لكن تعلّم ترجعها خطوة أساسية في الدرس؛ ولو شلتها بالاختبار بالغلط تعرف وين تروح وكيف تفعّلها.",
+            "Global Catalog (GC): الفهرس العام، يساعد في البحث عن عناصر مثل المستخدمين والأجهزة داخل Active Directory."
+          ]
+        }
+      ],
+      "seconds": 206.92
+    },
+    {
+      "id": "os1-lesson-4",
+      "subject": "OS1",
+      "unit": 4,
+      "title": "إنشاء المجالات والغابات",
+      "section": "lessons",
+      "video": null,
+      "summary": "Module 2 — Exercise 1 — Part 2: تعرّف Tree Domain وChild Domain، وإنشاء Forest جديدة، واختيار المسار حسب المطلوب.",
+      "steps": [
+        "اختيار نوع الإضافة",
+        "Tree Domain: تحديد النوع وحساب الإدارة",
+        "Tree Domain: الأسماء وحساب الإدارة",
+        "عرض المجال الجديد بعد التهيئة",
+        "Child Domain: النوع وحساب الإدارة",
+        "Child Domain: المجال الأب والاسم الجديد",
+        "إنشاء Forest جديدة",
+        "خيارات الغابة وكلمة مرور الاستعادة",
+        "مراجعة الخيارات وتطبيقها على الرسم"
+      ],
+      "source": "Lecture Mod2- Exc1-part2 · Domains & Forests",
+      "scenes": [
+        {
+          "title": "اختيار نوع الإضافة",
+          "steps": [
+            "بعد تثبيت Active Directory Domain Services (AD DS)، خدمة حسابات وأجهزة المجال، افتح Promote this server to a domain controller لبدء التهيئة.",
+            "Add a domain controller to an existing domain: إضافة DC، خادم إدارة المجال، إلى مجال موجود؛ هذا خيار الجزء الأول.",
+            "Add a new domain to an existing forest: إنشاء Domain (مجال) جديد داخل Forest (غابة) موجودة؛ الغابة تجمع مجالًا أو أكثر في بنية مشتركة.",
+            "في هذا الجزء نتعرف إلى نوعي المجال الجديد: Tree Domain وChild Domain، ثم خيار الغابة الجديدة."
+          ],
+          "warnings": [
+            "اختر حسب المطلوب؛ إضافة DC لا تعني إنشاء مجال جديد."
+          ],
+          "notes": [
+            "رسم المحاضر يعرض adatum.com وTrt.com داخل غابة واحدة. الأسماء أمثلة للشرح."
+          ],
+          "id": "os1-lesson-4-scene-01",
+          "video": "/assets/os1/os1-lesson-4/01.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/01.jpg",
+          "seconds": 55.44
+        },
+        {
+          "title": "Tree Domain: تحديد النوع وحساب الإدارة",
+          "steps": [
+            "في Deployment Configuration، صفحة تحديد نوع التهيئة، اختر Add a new domain to an existing forest.",
+            "من Select domain type اختر Tree Domain؛ مجال جديد باسم كامل مختلف عن أسماء المجالات الحالية، لكنه داخل الغابة نفسها.",
+            "لاحظ تغيّر الخانات إلى Forest name وNew domain name.",
+            "من Change حدد حساب الإدارة المخوّل بالإنشاء وكلمة مروره؛ أسماء حسابات العرض ليست مطلوبة لكل مختبر."
+          ],
+          "warnings": [
+            "Tree Domain لا ينشئ Forest جديدة؛ اختيار الغابة الجديدة له خيار مستقل."
+          ],
+          "notes": [
+            "Child Domain يأخذ اسم المجال الأب ضمن اسمه؛ مثل ab.adatum.com. أما Tree Domain فقد يكون مثل Trt.com داخل الغابة نفسها."
+          ],
+          "id": "os1-lesson-4-scene-02",
+          "video": "/assets/os1/os1-lesson-4/02.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/02.jpg",
+          "seconds": 56.52
+        },
+        {
+          "title": "Tree Domain: الأسماء وحساب الإدارة",
+          "steps": [
+            "في Forest name اكتب اسم المجال الجذري للغابة الحالية؛ في المثال mylab.local.",
+            "في New domain name اكتب الاسم الكامل للمجال الجديد؛ في المثال msftwebcast.local.",
+            "استخدم Change لتحديد حساب مخوّل بإنشاء مجال داخل الغابة، ثم أدخل كلمة مروره؛ لا تنسخ بيانات حساب المثال.",
+            "راجع اسم الغابة واسم المجال الجديد قبل Next؛ باقي خيارات DC تأتي بعد تحديد هذه البيانات."
+          ],
+          "warnings": [
+            "لا تضف .mylab.local تلقائيًا إلى اسم Tree Domain؛ المثال ينشئ msftwebcast.local."
+          ],
+          "notes": [
+            "الحساب يحتاج صلاحيات إنشاء مجال في الغابة، مثل عضوية Enterprise Admins. العرض يختصر بعض مراحل التهيئة؛ ظهور الصفحة التالية وحده لا يثبت اكتمالها."
+          ],
+          "id": "os1-lesson-4-scene-03",
+          "video": "/assets/os1/os1-lesson-4/03.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/03.jpg",
+          "seconds": 43.92
+        },
+        {
+          "title": "عرض المجال الجديد بعد التهيئة",
+          "steps": [
+            "بعد نجاح التهيئة، يمكن فتح Active Directory Users and Computers، أداة إدارة مستخدمي وأجهزة المجال، لمراجعة اسم المجال ووجود DC ضمنه.",
+            "افتح Active Directory Domains and Trusts، أداة عرض المجالات وعلاقات الثقة، لمراجعة ظهور المجال الجديد مع المجال القائم."
+          ],
+          "warnings": [
+            "التسجيل يقفز بين مراحل الإعداد والنتيجة؛ لا تعتبر الأجزاء المحذوفة خطوات نُفذت أمامك."
+          ],
+          "notes": [
+            "هذا مشهد عرض للنتيجة في مثال المحاضر، وليس اختبارًا شاملًا لعمل خدمات الدليل أو جهازك."
+          ],
+          "id": "os1-lesson-4-scene-04",
+          "video": "/assets/os1/os1-lesson-4/04.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/04.jpg",
+          "seconds": 21.52
+        },
+        {
+          "title": "Child Domain: النوع وحساب الإدارة",
+          "steps": [
+            "اختر Add a new domain to an existing forest، ثم Child Domain من Select domain type.",
+            "Child Domain هو مجال فرعي تحت مجال أب؛ مثل delhi.mylab.local تحت mylab.local.",
+            "من Change أدخل حسابًا مخوّلًا بالإنشاء في الغابة وكلمة مروره، ثم OK."
+          ],
+          "warnings": [
+            "الحساب المحلي على الجهاز وحده لا يكفي بالضرورة لإنشاء مجال داخل الغابة."
+          ],
+          "notes": [
+            "الفيديو يستخدم مثال Windows Server 2019 للتوضيح؛ استخدم أسماء الأجهزة والحسابات المطلوبة في مختبرك."
+          ],
+          "id": "os1-lesson-4-scene-05",
+          "video": "/assets/os1/os1-lesson-4/05.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/05.jpg",
+          "seconds": 47.0
+        },
+        {
+          "title": "Child Domain: المجال الأب والاسم الجديد",
+          "steps": [
+            "في Parent domain name حدد المجال الأب؛ يمكنك استخدام Select لعرض المجالات المتاحة.",
+            "في New domain name اكتب الجزء الجديد فقط؛ مثل delhi عندما يكون الأب mylab.local.",
+            "الاسم الكامل الناتج هو delhi.mylab.local. اضغط Next للانتقال إلى Domain Controller Options.",
+            "اضبط خيارات DC وكلمة مرور Directory Services Restore Mode (DSRM)، وضع استعادة خدمة الدليل، حسب متطلبات المختبر."
+          ],
+          "warnings": [
+            "اختيار مجال أب مختلف يغيّر الاسم الكامل للمجال الجديد؛ راجع Parent domain name قبل المتابعة."
+          ],
+          "notes": [
+            "المشهد ينتهي عند خيارات DC؛ لا يعرض اكتمال تثبيت Child Domain."
+          ],
+          "id": "os1-lesson-4-scene-06",
+          "video": "/assets/os1/os1-lesson-4/06.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/06.jpg",
+          "seconds": 42.12
+        },
+        {
+          "title": "إنشاء Forest جديدة",
+          "steps": [
+            "من معالج تهيئة AD DS اختر Add a new forest؛ إنشاء غابة جديدة منفصلة عن الغابة الموجودة.",
+            "في Root domain name اكتب الاسم الكامل لأول مجال في الغابة الجديدة، حسب المطلوب.",
+            "اضغط Next للانتقال إلى خيارات الغابة والمجال الجديد."
+          ],
+          "warnings": [
+            "لا تستخدم Add a new forest إذا كان المطلوب مجالًا إضافيًا داخل غابة موجودة."
+          ],
+          "notes": [
+            "أسماء الغابة والمجال في الرسم أمثلة توضيحية؛ لا يلزم نسخها إلى كل تمرين."
+          ],
+          "id": "os1-lesson-4-scene-07",
+          "video": "/assets/os1/os1-lesson-4/07.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/07.jpg",
+          "seconds": 41.32
+        },
+        {
+          "title": "خيارات الغابة وكلمة مرور الاستعادة",
+          "steps": [
+            "راجع Forest functional level وDomain functional level؛ مستوى وظائف الغابة والمجال يحدد الميزات وتوافق أنظمة DC.",
+            "اختر المستويات المطلوبة والمتوافقة مع المختبر؛ لا تختَر إصدارًا قديمًا لمجرد ظهوره في المثال.",
+            "راجع DNS Server، خدمة تحويل الأسماء إلى عناوين، وGlobal Catalog (GC)، الفهرس العام للدليل.",
+            "اكتب كلمة مرور DSRM في Password وأعدها كما هي في Confirm password، ثم Next."
+          ],
+          "warnings": [
+            "يظهر في المصدر خطأ عدم تطابق كلمة مرور DSRM مع تأكيدها؛ صحّح الخانتين قبل المتابعة. هذا المشهد لا يثبت نجاح التهيئة."
+          ],
+          "notes": [
+            "يعرض المثال أنظمة أقدم لتوضيح اختيار Functional level؛ قيم المثال ليست تعليمات ثابتة لكل جهاز."
+          ],
+          "id": "os1-lesson-4-scene-08",
+          "video": "/assets/os1/os1-lesson-4/08.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/08.jpg",
+          "seconds": 59.8
+        },
+        {
+          "title": "مراجعة الخيارات وتطبيقها على الرسم",
+          "steps": [
+            "DC إضافي لنفس المجال: Add a domain controller to an existing domain.",
+            "مجال جديد داخل نفس الغابة: Add a new domain to an existing forest، ثم Tree Domain أو Child Domain.",
+            "غابة جديدة: Add a new forest، ثم تحديد Root domain name.",
+            "اقرأ المطلوب أولًا، ثم اختر المسار المناسب بدل حفظ ترتيب الأزرار وحده."
+          ],
+          "warnings": [],
+          "notes": [
+            "يمكن إنشاء Child Domain تحت مجال فرعي موجود؛ مثل ab.cte.adatum.com. حدّد الأب الصحيح من الرسم.",
+            "نهاية المحاضرة تعرض صفحات لتمرين IFM وModule 3 تمهيدًا لما بعده؛ لم تُدرج كدروس مكتملة ضمن هذا الجزء."
+          ],
+          "id": "os1-lesson-4-scene-09",
+          "video": "/assets/os1/os1-lesson-4/09.mp4?v=part2-v1",
+          "poster": "/assets/os1/os1-lesson-4/09.jpg",
+          "seconds": 67.6
+        }
+      ],
+      "seconds": 435.24
+    }
+  ]
+}

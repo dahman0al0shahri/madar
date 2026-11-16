@@ -1,0 +1,6 @@
+(()=>{'use strict';let userId=null,inflight=false,generation=0;
+const clear=()=>document.querySelectorAll('[data-account-extra]').forEach(e=>e.remove());
+function update(a){clear();userId=a?.user?.id||null;if(!userId)return;const nav=document.querySelector('.top nav');if(!nav)return;for(const item of (a.extraNavigation||[]).slice(0,8)){if(typeof item.href!=='string'||!item.href.startsWith('/')||item.href.startsWith('//'))continue;const el=document.createElement('a');el.href=item.href;el.textContent=String(item.label||'');el.title=String(item.title||item.label||'');el.dataset.accountExtra='';el.className='account-extra-link';const anchor=[...nav.querySelectorAll('[data-nav]')].find(e=>e.dataset.nav===item.after);if(anchor)anchor.after(el);else nav.append(el);}}
+async function refresh(){if(inflight||document.hidden)return;inflight=true;const run=++generation;try{const r=await fetch('/api/account',{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error();const a=await r.json();if(run===generation)update(a);}catch{if(run===generation)clear();}finally{inflight=false;}}
+window.MadarNavigation={update};setInterval(()=>{if(userId)refresh()},15000);addEventListener('focus',refresh);addEventListener('pageshow',e=>{if(e.persisted){clear();refresh()}});document.addEventListener('visibilitychange',()=>{clear();if(!document.hidden)refresh()});
+})();

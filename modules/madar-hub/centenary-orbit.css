@@ -1,0 +1,46 @@
+/* Hub-only correction. The protected Office celebration is left unchanged. */
+#madar-hub .m100-scope .m100-universe{isolation:isolate}
+#madar-hub .m100-scope .m100-orbit{
+  box-sizing:border-box;border:0;box-shadow:none;
+  --m100-orbit-stroke:1px;color:#c5a7718c;
+}
+#madar-hub .m100-scope .m100-orbit-front{color:#d5b781a8}
+/* The ellipse centreline and the moon offset-path share the same 100% box.
+   SVG strokes are centred on that path instead of inset by a CSS border. */
+#madar-hub .m100-scope .m100-orbit svg{
+  position:absolute;inset:0;width:100%;height:100%;overflow:visible;
+}
+#madar-hub .m100-scope .m100-orbit ellipse{
+  fill:none;stroke:currentColor;stroke-width:var(--m100-orbit-stroke);
+}
+/* Miniatures scale the 1px hero orbit below one screen pixel, breaking its
+   antialiased outline. Compensate only the miniature stroke, not its path. */
+#madar-hub .m100-emblem .m100-orbit{
+  box-sizing:border-box;
+  --m100-orbit-stroke:4px;
+  color:#d5b781b8;
+  box-shadow:none;
+}
+#madar-hub .m100-brand-mark .m100-orbit{--m100-orbit-stroke:6px}
+#madar-hub .m100-scope .m100-moon-track{
+  animation:m100-moon-depth calc(34s * var(--m100-speed)) steps(1,end) infinite;
+}
+/* The moon starts at offset-distance:30%; 50% and100% are the outer ends.
+   Switch the entire stacking context, not just the child inside z-index:4. */
+@keyframes m100-moon-depth{0%{z-index:4}20%{z-index:1}70%,100%{z-index:4}}
+#madar-hub .m100-scope .m100-moon{
+  offset-anchor:center;
+  overflow:hidden;
+  border-color:#eafaff80;
+  box-shadow:0 4px 10px #0005,0 0 12px #9ad8e315;
+}
+#madar-hub .m100-scope .m100-moon canvas{display:block;width:100%;height:100%;border-radius:50%}
+#madar-hub .m100-scope .m100-moon:after{
+  content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(ellipse at 30% 18%,#ffffffc9,transparent 11%),radial-gradient(ellipse at 70% 90%,#d8f8ff55,transparent 25%);
+  box-shadow:inset -5px -8px 12px #060c1b70,inset 2px 2px 5px #ffffff70;
+}
+#madar-hub .m100-scope .m100-universe[data-palette-style="black-gold"] .m100-moon:after{
+  background:radial-gradient(ellipse at 30% 18%,#fff9,transparent 6%);
+  box-shadow:inset -5px -8px 12px #06070980,inset 2px 2px 5px #e4bb6740;
+}

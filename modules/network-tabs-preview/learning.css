@@ -1,0 +1,27 @@
+#madar-labs .ml-learning-tools{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+#madar-labs[data-restore="failed"]>:not(#ml-recovery){display:none!important}
+#madar-labs #ml-recovery{padding:24px;border:1px solid #d7a668;border-radius:16px;background:#201e19;color:#f7eddd;line-height:1.9}
+#madar-labs #ml-recovery[hidden]{display:none}
+#madar-labs .ml-practice-entry{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:#182428;border:1px solid #48706e;border-radius:14px;padding:18px;margin:0 0 18px}
+#madar-labs .ml-practice-entry>div{flex:1 1 240px}#madar-labs .ml-practice-entry p{margin:5px 0;color:#c2d7d6}
+#madar-labs .ml-practice-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+#madar-labs .ml-practice-form label,#madar-labs #ml-guidance label{display:grid;gap:6px}
+#madar-labs .ml-practice-form select,#madar-labs #ml-guidance select{width:100%;min-width:0;font-size:16px}
+#madar-labs #ml-practice-variables{border:1px solid #527777;border-radius:10px;margin:16px 0;padding:12px;display:flex;flex-wrap:wrap;gap:12px}
+#madar-labs #ml-practice-variables[hidden]{display:none}#madar-labs #ml-practice-variables label{display:flex;align-items:center;gap:7px;min-height:44px}
+#madar-labs #ml-practice-variables input{width:20px;height:20px}#madar-labs #ml-practice-error{color:#ffacac}
+#madar-labs #ml-guidance{border-bottom:1px solid #3b6269;margin-bottom:14px;padding-bottom:10px}#madar-labs #ml-guidance-note{color:#b9d9d4}
+#madar-labs #ml-learning-panel{padding:18px;background:#142126;border:1px solid #3b6269;border-radius:14px;margin-bottom:16px;line-height:1.9}
+#madar-labs #ml-requirements p{overflow-wrap:anywhere;color:#cee0df}
+#madar-labs #ml-step-position{color:#6fdfd4;margin:0 0 8px}
+#madar-labs #ml-diagnosis{margin-top:12px;border-inline-start:4px solid #65dfed;padding:14px;background:#102b32}
+#madar-labs #ml-diagnostic-output{white-space:pre-wrap;overflow-wrap:anywhere;background:#091419;color:#c7dcdf;padding:12px;border-radius:8px;font:13px/1.9 Consolas,monospace;max-height:340px;overflow:auto}
+#madar-labs .ml-error-line{display:block;color:#fff4ce;background:#4a3820;outline:1px solid #ffe098;border-inline-start:5px solid #fff2ac;box-shadow:0 0 12px #ffd48145;animation:ml-locate-arrive 1.44s ease-out}
+#madar-labs .ml-error-location{outline:3px solid #81f8ef!important;box-shadow:0 0 18px #79f7eeb0!important;background:#16444a!important}
+#madar-labs #ml-help-history details{padding:12px;margin-bottom:10px;border-inline-start:3px solid #73ded6;background:#17282d;border-radius:8px}
+#madar-labs #ml-help-history pre{font:14px/1.9 Tahoma,sans-serif;white-space:pre-wrap;overflow-wrap:anywhere;color:#e5efec}
+#ml-review-panel{background:#10191c;color:#e8ece8;border-radius:14px;padding:16px;font:14px/1.8 Tahoma,sans-serif;direction:rtl}
+#ml-review-panel summary{cursor:pointer}
+@keyframes ml-locate-arrive{0%{box-shadow:0 0 3px #ffe098}35%{box-shadow:0 0 24px #ffe098aa}100%{box-shadow:0 0 12px #ffd48145}}
+@media(prefers-reduced-motion:reduce){#madar-labs .ml-error-line{animation:none}}
+@media(max-width:520px){#madar-labs #ml-review-panel{padding:8px}#ml-review-panel>.viz-dotted-background{padding:0!important}#ml-review-panel #madar-review-assistance{padding:10px}#ml-review-panel .mr-summary{padding-inline:16px}#ml-review-panel .mr-electric-stage{width:calc(100% + 32px)}}

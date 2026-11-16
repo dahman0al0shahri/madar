@@ -1,0 +1,403 @@
+{
+  "schema": 1,
+  "bankVersion": "night-review-20261011-v1",
+  "title": "مراجعه قبل يوم الاختبار (مهم)!",
+  "notice": "مراجعة مركزة للمفاهيم والصيغ والخطوات. نتيجتك هنا تساعدك تعرف ما يحتاج مراجعة، ولا تضمن نتيجة الاختبار.",
+  "questions": [
+    {
+      "id": "night-q-71dd92524527",
+      "origin": "source",
+      "sourceNumber": 1,
+      "subject": "Excel",
+      "title": "ثاني أعلى راتب",
+      "prompt": "ما الصيغة التي تعيد ثاني أعلى راتب في النطاق H8:H17؟",
+      "options": [
+        "=LARGE(H8:H17;2)",
+        "=MAX(H8:H17;2)",
+        "=SMALL(H8:H17;2)",
+        "=LARGE(H8:H17)"
+      ],
+      "answer": 0,
+      "explanation": "LARGE ترتب القيم من الأكبر، والعدد 2 يطلب المرتبة الثانية. SMALL تطلب ثاني أصغر قيمة؛ MAX تعيد الأكبر، وLARGE تحتاج رقم المرتبة.",
+      "takeaway": "LARGE + 2 = ثاني أكبر قيمة.",
+      "reference": "https://support.microsoft.com/en-us/excel/functions/large-function",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-86169e50740c",
+      "origin": "source",
+      "sourceNumber": 2,
+      "subject": "Excel",
+      "title": "تاريخ اليوم",
+      "prompt": "ما الصيغة المناسبة لعرض تاريخ اليوم في Excel؟",
+      "options": [
+        "=TODAY(DATE)",
+        "=DATE()",
+        "=TODAY()",
+        "=DATE(TODAY)"
+      ],
+      "answer": 2,
+      "explanation": "TODAY تعني اليوم، وتأخذ قوسين فارغين. DATE تحتاج سنة وشهرًا ويومًا لبناء تاريخ محدد.",
+      "takeaway": "تاريخ اليوم: TODAY().",
+      "reference": "https://support.microsoft.com/en-us/excel/functions/today-function",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-ff62b69afde1",
+      "origin": "source",
+      "sourceNumber": 3,
+      "subject": "Excel",
+      "title": "عد الرواتب",
+      "prompt": "الرواتب مخزنة كأرقام في H8:H47، ولكل موظف راتب واحد. أي صيغة تعد الموظفين ذوي الرواتب المسجلة؟",
+      "options": [
+        "=COUNT(\"H8:H47\")",
+        "=COUNTIF(H8:H47)",
+        "=COUNT(H8:H47)",
+        "=COUNTIFS(H8:H47)"
+      ],
+      "answer": 2,
+      "explanation": "COUNT تعد الخلايا الرقمية. النطاق H8:H47 يكتب دون تنصيص؛ وضعه بين علامتي تنصيص يجعله نصًا لا مرجع خلايا. دوال العد الشرطي تحتاج شرطًا.",
+      "takeaway": "مرجع النطاق في COUNT بلا تنصيص.",
+      "reference": "https://support.microsoft.com/en-us/excel/functions/count-function",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-c1dc10710266",
+      "origin": "source",
+      "sourceNumber": 4,
+      "subject": "Access",
+      "title": "الحقل المطلوب",
+      "prompt": "إذا كانت خاصية Required (مطلوب) = نعم، والحقل ما زال بلا قيمة (Null)، فما الذي يمنعه Access؟",
+      "options": [
+        "الانتقال إلى أي حقل آخر داخل السجل نفسه",
+        "لا تؤثر الخاصية على حفظ السجل",
+        "حفظ السجل عند الانتقال إلى سجل آخر قبل إدخال قيمة"
+      ],
+      "answer": 2,
+      "explanation": "Required تمنع حفظ قيمة مفقودة Null في الحقل. الانتقال بين حقول السجل نفسه يختلف عن حفظ السجل. النص الفارغ له خاصية مستقلة هي Allow Zero Length.",
+      "takeaway": "Required: قيمة مطلوبة عند حفظ السجل.",
+      "reference": "https://learn.microsoft.com/en-us/office/vba/access/concepts/miscellaneous/required-property-access",
+      "paused": false,
+      "sourceNote": "نُقحت الصياغة لتحديد السياق ومنع الالتباس."
+    },
+    {
+      "id": "night-q-348afdf7db04",
+      "origin": "source",
+      "sourceNumber": 5,
+      "subject": "Access",
+      "title": "منع التكرار",
+      "prompt": "إذا كانت خاصية Indexed للحقل هي Yes (No Duplicates)، فما الصحيح؟",
+      "options": [
+        "يسمح بتكرار القيمة مرتين فقط",
+        "لا يسمح بتكرار قيمة الحقل في سجل آخر",
+        "يسمح بتكرار القيمة في أي عدد من السجلات"
+      ],
+      "answer": 1,
+      "explanation": "هذا فهرس فريد: إذا كان رقم الموظف 105 موجودًا في سجل، لا يقبل الرقم نفسه في سجل آخر. منع التكرار يختلف عن اشتراط وجود قيمة.",
+      "takeaway": "No Duplicates = لا تكرار للقيمة.",
+      "reference": "https://support.microsoft.com/en-us/access/prevent-duplicate-values-in-a-table-field-using-an-index",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-951ef166f680",
+      "origin": "source",
+      "sourceNumber": 6,
+      "subject": "Access",
+      "title": "حجم الحقل النصي",
+      "prompt": "حقل من نوع Short Text، وخاصية Field Size فيه تساوي 50. ما الحد المسموح؟",
+      "options": [
+        "حروف فقط دون أرقام",
+        "50 محرفًا كحد أقصى",
+        "50 كلمة كحد أقصى",
+        "أي عدد من الكلمات"
+      ],
+      "answer": 1,
+      "explanation": "حجم الحقل النصي يحدد عدد المحارف الأقصى، بما فيها الحروف والأرقام والمسافات والرموز. يسمح بأقل من 50، ولا يفرض إدخال 50 بالضبط.",
+      "takeaway": "Field Size للنص = حد المحارف.",
+      "reference": "https://support.microsoft.com/en-us/access/set-the-field-size",
+      "paused": false,
+      "sourceNote": "نُقحت الصياغة لتحديد السياق ومنع الالتباس."
+    },
+    {
+      "id": "night-q-a61d190b36c9",
+      "origin": "source",
+      "sourceNumber": 7,
+      "subject": "Word",
+      "title": "استرداد مستند غير محفوظ",
+      "prompt": "ما ترتيب الوصول إلى استرداد المستندات غير المحفوظة في Word على Windows؟",
+      "options": [
+        "ملف ← حفظ باسم ← أدوات ← استرداد المستندات غير المحفوظة",
+        "ملف ← خيارات ← إدارة المستند ← استرداد المستندات غير المحفوظة",
+        "ملف ← معلومات ← إدارة المستند ← استرداد المستندات غير المحفوظة",
+        "ملف ← خيارات ← حفظ ← استرداد المستندات غير المحفوظة"
+      ],
+      "answer": 2,
+      "explanation": "من معلومات الملف نصل إلى إدارة المستند، ثم الاسترداد. بعد فتح النسخة المتاحة نستخدم حفظ باسم. وجود نسخة استرداد يعتمد على إعدادات الاسترداد والنسخ المتاحة.",
+      "takeaway": "ملف، معلومات، إدارة المستند، استرداد.",
+      "reference": "https://support.microsoft.com/en-us/word/recover-an-earlier-version-of-a-word-file",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-fe222cf04afa",
+      "origin": "source",
+      "sourceNumber": 8,
+      "subject": "Word",
+      "title": "كلمة مرور للمستند",
+      "prompt": "ما المسار الصحيح لتشفير مستند Word بكلمة مرور على Windows؟",
+      "options": [
+        "ملف ← معلومات ← التشفير بكلمة مرور ← حماية المستند",
+        "ملف ← خيارات ← التشفير بكلمة مرور ← حماية المستند",
+        "ملف ← خيارات ← حماية المستند ← التشفير بكلمة مرور",
+        "ملف ← معلومات ← حماية المستند ← التشفير بكلمة مرور"
+      ],
+      "answer": 3,
+      "explanation": "نصل إلى حماية المستند من معلومات، ثم نختار التشفير بكلمة مرور. ندخل كلمة المرور ونؤكدها ثم نحفظ الملف لتطبيق الحماية.",
+      "takeaway": "ملف، معلومات، حماية، تشفير.",
+      "reference": "https://support.microsoft.com/en-us/office/protect-a-word-document-with-a-password-05084cc3-300d-4c1a-8416-38d3e37d6826",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-9eebf5b0cb05",
+      "origin": "source",
+      "sourceNumber": 9,
+      "subject": "Access",
+      "title": "القيمة الافتراضية",
+      "prompt": "في طريقة عرض تصميم جدول Access، أين تضبط Default Value لحقل محدد؟",
+      "options": [
+        "ورقة خصائص الجدول كله Property Sheet",
+        "لوحة خصائص الحقل Field Properties",
+        "لا يمكن ضبط قيمة افتراضية للحقل"
+      ],
+      "answer": 1,
+      "explanation": "نحدد الحقل ثم نكتب القيمة في Default Value ضمن خصائص الحقل. تظهر عند إنشاء سجل جديد. ورقة خصائص عنصر تحكم في نموذج سياق آخر يمكنه أيضًا ضبط قيمة افتراضية؛ السؤال هنا عن حقل جدول.",
+      "takeaway": "حقل جدول: Field Properties ثم Default Value.",
+      "reference": "https://support.microsoft.com/en-gb/access/defaultvalue-property",
+      "paused": false,
+      "sourceNote": "نُقحت الصياغة لتحديد السياق ومنع الالتباس."
+    },
+    {
+      "id": "night-q-be7273c4a018",
+      "origin": "source",
+      "sourceNumber": 10,
+      "subject": "Access",
+      "title": "قاعدة قبول البيانات",
+      "prompt": "في تصميم جدول Access، أين تكتب شرطًا يقيّد قيم حقل واحد، مثل >=1000؟",
+      "options": [
+        "خصائص الحقل ← Validation Rule",
+        "خصائص الحقل ← Validation Text",
+        "ورقة خصائص الجدول ← Validation Text",
+        "ورقة خصائص الجدول ← Validation Rule"
+      ],
+      "answer": 0,
+      "explanation": "Validation Rule في خصائص الحقل هي الشرط. Validation Text رسالة تظهر عند مخالفته. قاعدة الجدول في ورقة الخصائص تخص السجل كله وقد تقارن حقولًا متعددة.",
+      "takeaway": "Rule = الشرط، Text = رسالة المخالفة.",
+      "reference": "https://support.microsoft.com/en-us/access/restrict-data-input-by-using-validation-rules",
+      "paused": false,
+      "sourceNote": "نُقحت الصياغة لتحديد السياق ومنع الالتباس."
+    },
+    {
+      "id": "night-q-fa2f21b826da",
+      "origin": "source",
+      "sourceNumber": 11,
+      "subject": "Word",
+      "title": "دمج المراجعات",
+      "prompt": "تتيح ميزة Combine في Word جمع مراجعات نسخ المستند في مستند واحد وعرض التغييرات وأسماء المراجعين المرتبطة بها.",
+      "options": [
+        "صح",
+        "خطأ"
+      ],
+      "answer": 0,
+      "explanation": "دمج المراجعات يجمع التغييرات من النسخ. يعرض أسماء المراجعين المسجلة أو التسميات التي نحددها للتغييرات غير المعلّمة، ولا يكشف هوية أو تاريخ تعديل غير متاح.",
+      "takeaway": "Combine تجمع مراجعات النسخ.",
+      "reference": "https://support.microsoft.com/en-us/word/combine-document-revisions",
+      "paused": false,
+      "sourceNote": "نُقحت الصياغة لتحديد السياق ومنع الالتباس."
+    },
+    {
+      "id": "night-q-45e362a11540",
+      "origin": "source",
+      "sourceNumber": 12,
+      "subject": "Word",
+      "title": "مقارنة مستندين",
+      "prompt": "ما الترتيب الصحيح للوصول إلى مقارنة نسختين من مستند Word؟",
+      "options": [
+        "مراجعة ← مقارنة ← اختيار المستند الأصلي والمعدّل",
+        "مقارنة ← مراجعة ← اختيار المستند الأصلي والمعدّل",
+        "مراجعة ← اختيار المستندين ← مقارنة",
+        "اختيار المستندين ← مراجعة ← مقارنة"
+      ],
+      "answer": 0,
+      "explanation": "نفتح تبويب مراجعة Review، ومن قائمة مقارنة Compare نختار المقارنة، ثم نحدد الأصل والنسخة المعدلة. النتيجة تظهر الفروق بين النسختين.",
+      "takeaway": "المقارنة تبدأ من مراجعة.",
+      "reference": "https://support.microsoft.com/en-gb/word/compare-document-differences-using-the-legal-blackline-option",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-ddd76a80eaa3",
+      "origin": "source",
+      "sourceNumber": 13,
+      "subject": "Word",
+      "title": "توزيع نص على أعمدة",
+      "prompt": "لتوزيع جزء محدد من نص المستند على أعمدة، ما الترتيب الصحيح؟",
+      "options": [
+        "أعمدة ← تحديد النص ← تخطيط",
+        "تحديد النص ← تخطيط ← أعمدة",
+        "تخطيط ← أعمدة ← تحديد النص",
+        "تحديد النص ← أعمدة ← تخطيط"
+      ],
+      "answer": 1,
+      "explanation": "نحدد الفقرات المطلوبة أولًا، ثم Layout (تخطيط)، ثم Columns (أعمدة)، ونختار العدد. تحديد النص يحدد الجزء الذي سيطبق عليه التنسيق.",
+      "takeaway": "حدد النص، ثم تخطيط، ثم أعمدة.",
+      "reference": "https://support.microsoft.com/en-us/word/training/create-multiple-columns-in-word",
+      "paused": false,
+      "sourceNote": "نُقحت الصياغة وحددت أنها تخص جزءًا من النص."
+    },
+    {
+      "id": "night-q-679ace872c2d",
+      "origin": "source",
+      "sourceNumber": 14,
+      "subject": "Word",
+      "title": "إدراج تعليق",
+      "prompt": "ما ترتيب إدراج تعليق على موضع في مستند Word من تبويب مراجعة؟",
+      "options": [
+        "مراجعة ← تعليق جديد ← وضع المؤشر في المكان المطلوب",
+        "وضع المؤشر في المكان المطلوب ← مراجعة ← تعليق جديد",
+        "إدراج ← تعليق جديد ← وضع المؤشر في المكان المطلوب",
+        "مراجعة ← تعليق جديد ← كتابة النص قبل تحديد موضعه"
+      ],
+      "answer": 1,
+      "explanation": "نحدد النص أو نضع المؤشر في الموضع المطلوب، ثم Review (مراجعة)، ثم New Comment (تعليق جديد). نكتب التعليق وننشره عند استخدام التعليقات الحديثة.",
+      "takeaway": "الموضع أولًا، مراجعة، تعليق جديد.",
+      "reference": "https://support.microsoft.com/en-us/word/using-modern-comments-in-word",
+      "paused": false,
+      "sourceNote": "صياغة محررة من السؤال المصور؛ أُعيد بناء الجزء المقطوع من البدائل."
+    },
+    {
+      "id": "night-q-cf663df89df6",
+      "origin": "source",
+      "sourceNumber": 15,
+      "subject": "Excel",
+      "title": "كتابة الساعة 4:30 عصرًا",
+      "prompt": "أي صيغة تمثل الساعة 4:30 عصرًا؟",
+      "options": [
+        "=TIME(30;0;4)",
+        "=TIME(16;30;0)",
+        "=TIME(16;0;30)",
+        "=TIME(4;30;0)"
+      ],
+      "answer": 1,
+      "explanation": "ترتيب TIME هو الساعة ثم الدقيقة ثم الثانية. 4 عصرًا تساوي 16 بنظام 24 ساعة، لذلك نكتب 16؛30؛0. الصيغة 4؛30؛0 تمثل 4:30 صباحًا.",
+      "takeaway": "TIME(الساعة؛الدقيقة؛الثانية).",
+      "reference": "https://support.microsoft.com/en-gb/excel/functions/time-function",
+      "paused": false,
+      "sourceNote": "من الأسئلة المصورة، بعد تدقيق الإجابة."
+    },
+    {
+      "id": "night-q-28c91bd0d84f",
+      "origin": "extension",
+      "sourceNumber": null,
+      "subject": "Excel",
+      "title": "عد بشرط",
+      "prompt": "تريد عدد الرواتب الأكبر من 5000 في H8:H47. أي صيغة تحقق المطلوب؟",
+      "options": [
+        "=COUNT(H8:H47)",
+        "=COUNTIF(H8:H47;\">5000\")",
+        "=SUM(H8:H47)",
+        "=MAX(H8:H47)"
+      ],
+      "answer": 1,
+      "explanation": "COUNTIF تعني العد إذا تحقق شرط. COUNT تعد جميع الخلايا الرقمية، وSUM تجمع القيم، وMAX تعيد أكبرها. هنا الشرط >5000 هو الذي يحدد أي رواتب تدخل في العد.",
+      "takeaway": "COUNTIF = نطاق + شرط.",
+      "reference": "https://support.microsoft.com/en-us/excel/get-started/use-the-countif-function-in-microsoft-excel",
+      "paused": false,
+      "sourceNote": "سؤال إضافي مقترح؛ غير مؤكد الورود في الاختبار."
+    },
+    {
+      "id": "night-q-2349b6821bc0",
+      "origin": "extension",
+      "sourceNumber": null,
+      "subject": "Excel",
+      "title": "التاريخ والوقت معًا",
+      "prompt": "تحتاج خلية تعرض تاريخ اليوم والوقت الحالي، ويتحدث الناتج عند إعادة حساب المصنف. ما الصيغة؟",
+      "options": [
+        "=TODAY()",
+        "=TIME(12;0;0)",
+        "=NOW()",
+        "=DATE(2026;10;12)"
+      ],
+      "answer": 2,
+      "explanation": "NOW تعيد التاريخ والوقت الحاليين. TODAY تعيد تاريخ اليوم دون الوقت، وTIME وDATE في الخيارات تبنيان وقتًا أو تاريخًا محددًا. NOW لا تعمل كساعة تتحدث كل ثانية تلقائيًا.",
+      "takeaway": "NOW = التاريخ والوقت، TODAY = التاريخ.",
+      "reference": "https://support.microsoft.com/en-us/excel/functions/now-function",
+      "paused": false,
+      "sourceNote": "سؤال إضافي مقترح؛ غير مؤكد الورود في الاختبار."
+    },
+    {
+      "id": "night-q-af6fb4928733",
+      "origin": "extension",
+      "sourceNumber": null,
+      "subject": "Access",
+      "title": "رسالة توضح الخطأ",
+      "prompt": "كتبت >=1000 في Validation Rule لحقل الراتب. أين تكتب «الراتب يجب أن يكون 1000 أو أكثر» لتظهر عند المخالفة؟",
+      "options": [
+        "Default Value",
+        "Field Size",
+        "Validation Text",
+        "Indexed"
+      ],
+      "answer": 2,
+      "explanation": "Validation Text هي نص الرسالة المصاحبة لرفض القيمة. وضع الرسالة في Default Value يجعلها قيمة مبدئية وليس تنبيهًا، وحجم الحقل والفهرسة لا يحددان رسالة الخطأ.",
+      "takeaway": "الشرط في Rule ورسالة التنبيه في Text.",
+      "reference": "https://support.microsoft.com/en-us/access/restrict-data-input-by-using-validation-rules",
+      "paused": false,
+      "sourceNote": "سؤال إضافي مقترح؛ غير مؤكد الورود في الاختبار."
+    },
+    {
+      "id": "night-q-248af2f1f3e2",
+      "origin": "extension",
+      "sourceNumber": null,
+      "subject": "Word",
+      "title": "رفض تعديل متعقّب",
+      "prompt": "حذف مراجع جملة أثناء تشغيل تعقب التغييرات. تريد الإبقاء على الجملة الأصلية وإلغاء هذا الحذف. ماذا تختار للتغيير المحدد؟",
+      "options": [
+        "قبول Accept",
+        "رفض Reject",
+        "إخفاء العلامات No Markup",
+        "إيقاف تعقب التغييرات"
+      ],
+      "answer": 1,
+      "explanation": "Reject (رفض) يلغي الحذف المتعقب ويعيد الجملة. Accept يثبت الحذف. إخفاء العلامات يغيّر العرض فقط، وإيقاف التعقب لا يحسم التعديلات الموجودة.",
+      "takeaway": "رفض الحذف المتعقب يعيد النص.",
+      "reference": "https://support.microsoft.com/en-us/word/training/track-changes-in-word",
+      "paused": false,
+      "sourceNote": "سؤال إضافي مقترح؛ غير مؤكد الورود في الاختبار."
+    },
+    {
+      "id": "night-q-0fdcf00d45a6",
+      "origin": "extension",
+      "sourceNumber": null,
+      "subject": "Word",
+      "title": "بداية العمود التالي",
+      "prompt": "مستندك موزع على عمودين. تريد نقل ما بعد المؤشر إلى بداية العمود التالي دون ضغط Enter عدة مرات. ما الأمر المناسب؟",
+      "options": [
+        "تخطيط ← أعمدة ← عمود واحد",
+        "تخطيط ← فواصل ← عمود",
+        "إدراج ← صفحة فارغة",
+        "مراجعة ← مقارنة"
+      ],
+      "answer": 1,
+      "explanation": "فاصل العمود Column Break ينهي العمود الحالي عند المؤشر ويبدأ النص التالي في العمود التالي. تغيير عدد الأعمدة يعيد توزيع التخطيط، والصفحة الفارغة تنشئ صفحة.",
+      "takeaway": "Column Break = انتقال منظم للعمود التالي.",
+      "reference": "https://support.microsoft.com/en-us/word/insert-a-column-break",
+      "paused": false,
+      "sourceNote": "سؤال إضافي مقترح؛ غير مؤكد الورود في الاختبار."
+    }
+  ]
+}

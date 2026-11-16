@@ -1,0 +1,26 @@
+name: Bug or content correction
+description: Report a reproducible problem or a learning-content correction.
+body:
+  - type: markdown
+    attributes:
+      value: "Do not attach real account or learner-progress data. See SECURITY.md for sensitive reports."
+  - type: input
+    id: area
+    attributes:
+      label: Course or page
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and observed behavior
+      description: Explain what you did, what you expected, and what happened.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment or content reference
+      description: Include browser, OS, and version if known. For a content correction, provide a source and page or section.
+    validations:
+      required: true

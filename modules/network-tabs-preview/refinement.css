@@ -1,0 +1,258 @@
+/* Workbench hierarchy: task, tools, physical network, then evidence. */
+@font-face{font-family:MadarArabic;src:url('/assets/arabic.ttf') format('truetype');font-display:swap}
+#madar-labs{padding:24px;background:linear-gradient(145deg,#141a1d,#0e1417 45%);border:1px solid #60707840;border-radius:20px;box-shadow:0 25px 65px #0003;font-family:MadarArabic,"Segoe UI",Tahoma,Arial,sans-serif}
+#madar-labs .ml-top{padding-block:2px 18px;border-bottom:1px solid #ffffff12}
+#madar-labs h2{font-size:28px;font-weight:650;line-height:1.5}
+#madar-labs button{min-height:44px;border-radius:10px;box-shadow:inset 0 1px #ffffff06;transition:background .18s,border-color .18s,box-shadow .18s}
+#madar-labs button:hover:not(:disabled){box-shadow:inset 0 1px #ffffff13,0 4px 12px #0002}
+#madar-labs .ml-course{margin:14px 0;font-size:13px}
+#madar-labs .ml-practice-entry{margin-top:18px;padding:18px 20px;background:linear-gradient(110deg,#162321,#1b272a);border-color:#67877d58}
+#madar-labs .ml-tabs{background:#0b1115;padding:10px;border-radius:13px 13px 0 0;border:1px solid #3d4a50;margin-bottom:0}
+#madar-labs #ml-save{padding:9px 12px;background:#10191b;border-inline:1px solid #3d4a50;border-bottom:1px solid #3d4a50;border-radius:0 0 10px 10px;font-size:12px;min-height:38px}
+#madar-labs #ml-context{padding-block:16px;margin-block:0}
+#madar-labs #ml-name{font-size:18px}
+#madar-labs .ml-task{border:1px solid color-mix(in srgb,var(--ml-tone) 30%,transparent);border-inline-start:3px solid var(--ml-tone);background:linear-gradient(110deg,#1b2427,#242922);padding:20px;border-radius:13px;box-shadow:0 9px 25px #0002}
+#madar-labs[data-kind=scratch] .ml-task{background:linear-gradient(110deg,#152327,#1b2b2c)}
+#madar-labs #ml-task-title{font-size:18px;line-height:1.8}
+#madar-labs #ml-task-detail{font-size:13px;line-height:1.9;color:#c1ccce}
+#madar-labs #ml-verify{background:var(--ml-tone);color:#13201e;border-color:transparent;font-weight:650}
+#madar-labs .ml-learning-tools{padding:12px 0;margin:8px 0 0;border-bottom:1px solid #ffffff12}
+#madar-labs .ml-learning-tools button{font-size:13px;background:#172125}
+#madar-labs .ml-copybar{padding:12px 0;gap:8px;margin:0}
+#madar-labs .ml-copybar button{font-size:13px;background:#151e22}
+#madar-labs #ml-clipboard{font-size:12px;color:#b2c3c7}
+#madar-labs #ml-dialog{border:1px solid #648c87;border-radius:18px;background:#151e22;box-shadow:0 30px 100px #000a}
+#madar-labs #ml-dialog::backdrop{background:#05090bc7;backdrop-filter:blur(5px)}
+#madar-labs #ml-dialog{position:fixed;inset:auto;margin:0;overflow:auto;overscroll-behavior:contain;max-width:calc(100% - 24px)}
+#madar-labs #ml-dialog[open]{animation:ml-dialog-enter .22s cubic-bezier(.16,1,.3,1) both}
+#madar-labs #ml-dialog[data-menu=true]{padding:20px;border-color:#7ba69d88;background:linear-gradient(145deg,#233136,#131e22);box-shadow:0 22px 65px #0008,inset 0 1px #d7fff21c}
+#madar-labs #ml-dialog[data-menu=true] .ml-dialog-head{padding-bottom:14px;border-bottom:1px solid #ffffff14;margin-bottom:16px}
+#madar-labs #ml-dialog[data-menu=true] .ml-menu-option{min-height:60px;background:#16282ba6;border-color:#73b4a838;justify-content:flex-start;padding:14px 16px;gap:13px;text-align:right}
+#madar-labs #ml-dialog[data-menu=true] .ml-menu-option:hover{background:#24433f;border-color:#8fddca}
+#madar-labs #ml-dialog[data-menu=true] .ml-menu-option svg{color:#99e5d5;width:22px;height:22px}
+@keyframes ml-dialog-enter{from{opacity:0;translate:0 8px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){#madar-labs #ml-dialog[open]{animation:none}}
+#madar-labs #madar-free{border:1px solid #46575d;border-radius:14px;background:#10191d}
+#madar-labs #madar-free .nf-tools{background:#182227;padding:12px 16px;border-bottom:1px solid #46575d}
+#madar-labs #madar-free #nf-stage{height:550px;border-bottom:1px solid #53646c}
+#madar-labs #madar-free .nf-instruction{width:fit-content;max-width:calc(100% - 24px);margin-inline:auto;padding:6px 13px;background:#0c141be6;border:1px solid #8ca3b42e;border-radius:30px;color:#d3dde1;line-height:1.8}
+#madar-labs #madar-free .nf-cli{border-color:#536369;background:linear-gradient(130deg,#18242a,#101b20);border-radius:12px}
+#madar-labs #madar-free #nf-cli-log{background:#080f14;border:1px solid #35464d;border-radius:8px;padding:16px;line-height:1.8;font-family:Consolas,"Courier New",monospace;color:#d7e9ec}
+#madar-labs #madar-free #nf-command{background:#080f14;border-color:#547178;font-size:15px;min-height:44px}
+#madar-labs #madar-free .nf-closeup{border-color:#617178;box-shadow:0 8px 24px #0004}
+#madar-labs #madar-free .nf-notice{background:#25261e;border-color:#ac91574d;color:#ead6b3}
+#madar-labs #madar-free summary{min-height:44px;display:flex;align-items:center;gap:8px}
+#madar-labs #madar-free summary:before{content:"›";font-size:20px;transform:rotate(180deg);color:#b7cacc}
+#madar-labs #madar-free details[open]>summary:before{transform:rotate(90deg)}
+#madar-labs textarea:focus-visible,#madar-labs summary:focus-visible{outline:2px solid var(--ml-tone);outline-offset:3px}
+@media(max-width:700px){#madar-labs{padding:14px;border-radius:14px}#madar-labs h2{font-size:23px}#madar-labs .ml-task{padding:16px}#madar-labs #madar-free #nf-stage{height:430px}#madar-labs .ml-top{gap:12px}#madar-labs .ml-practice-entry{padding:16px}#madar-labs .ml-learning-tools{gap:7px}#madar-labs .ml-learning-tools button{flex:1 1 130px}#madar-labs .ml-copybar button{flex:1 1 110px}#madar-labs #ml-task-title{font-size:17px}#madar-labs #madar-free .nf-tools{padding:10px}#madar-labs .ml-tabs{padding:7px}#madar-labs .ml-course label{flex-wrap:wrap}}
+@media(max-width:380px){#madar-labs{padding:10px}#madar-labs h2{font-size:21px}#madar-labs .ml-top{padding-inline-end:0;flex-wrap:wrap}#madar-labs #madar-free #nf-stage{height:400px}}
+@media(prefers-reduced-motion:reduce){#madar-labs button{transition:none}}
+#madar-labs #ml-lesson-guide{border:1px solid #b8956255;border-radius:14px;background:linear-gradient(120deg,#202822,#172125);padding:22px;margin:8px 0 18px;display:grid;grid-template-columns:1fr 1.1fr;gap:16px 28px}
+#madar-labs #ml-lesson-guide h3{font-size:22px;font-weight:650;margin:5px 0}
+#madar-labs #ml-lesson-guide p{font-size:14px;line-height:1.9;margin:8px 0}
+#madar-labs #ml-lesson-guide small{color:#b7c5c4}
+#madar-labs .ml-lesson-instructions{align-self:start;border:1px solid #8db4ae38;border-radius:10px;padding:12px;background:#0f1b20}
+#madar-labs .ml-lesson-instructions summary{cursor:pointer;min-height:44px;display:flex;align-items:center;color:#e6c697}
+#madar-labs .ml-lesson-instructions summary:before{content:'＋';margin-inline-end:8px}
+#madar-labs .ml-lesson-instructions[open] summary:before{content:'−'}
+#madar-labs .ml-lesson-instructions ol{margin:8px 0;padding-inline-start:24px;font-size:14px;line-height:2}
+#madar-labs .ml-lesson-instructions li+li{margin-top:12px}
+#madar-labs .ml-lesson-prerequisite{grid-column:1/-1;border-top:1px solid #ffffff14;padding-top:12px;color:#cfdbd7}
+#madar-labs #ml-lesson-away{grid-column:1/-1;padding:12px;border:1px solid #71d7c97d;background:#12302d;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+#madar-labs[data-lesson] .ml-task #ml-task-detail{font-size:15px;line-height:1.95;max-width:920px}
+#madar-labs[data-lesson] #ml-requirements{margin-top:10px}
+@media(max-width:700px){#madar-labs #ml-lesson-guide{grid-template-columns:1fr;padding:16px;gap:12px}#madar-labs #ml-lesson-guide h3{font-size:20px}}
+/* Secondary tools stay in one reachable strip instead of pushing the canvas away. */
+@media(max-width:700px){
+ #madar-labs .ml-learning-tools{flex-wrap:nowrap;overflow-x:auto;padding:10px 2px 14px;scrollbar-width:thin;scrollbar-color:#8ba9ac #152024;overscroll-behavior-inline:contain;scroll-snap-type:x proximity}
+ #madar-labs .ml-learning-tools button{flex:0 0 auto;scroll-snap-align:start;font-size:12px;padding:8px 12px}
+ #madar-labs .ml-copybar button{flex:1 1 calc(50% - 8px);min-width:0;font-size:12px;padding:8px 5px}
+ #madar-labs #ml-clipboard{flex:1 1 100%;line-height:1.7}
+ #madar-labs .ml-task{gap:10px}#madar-labs .ml-task .ml-actions{width:100%;display:flex}
+ #madar-labs .ml-task .ml-actions button{flex:1;font-size:12px;padding-inline:8px}
+}
+/* Focused workbench: one live task; explanations live behind named keys. */
+#madar-labs .ml-disclosure{min-width:0;border:1px solid #738f9144;border-radius:10px;background:#142025;overflow-wrap:anywhere}
+#madar-labs .ml-disclosure>summary{cursor:pointer;min-height:44px;padding:9px 14px;display:flex;align-items:center;gap:8px;font-size:13px;color:#d9e4df;list-style:none}
+#madar-labs .ml-disclosure>summary::-webkit-details-marker{display:none}
+#madar-labs .ml-disclosure>summary:after{content:'＋';margin-inline-start:auto;color:#d9b782}
+#madar-labs .ml-disclosure[open]>summary:after{content:'−'}
+#madar-labs .ml-disclosure[open]>summary{border-bottom:1px solid #ffffff15;color:#f0cf9f}
+#madar-labs .ml-disclosure> :not(summary){margin:12px;padding:0;max-width:calc(100% - 24px)}
+#madar-labs .ml-secondary{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+#madar-labs .ml-secondary>.ml-disclosure{flex:1 1 145px}
+#madar-labs .ml-secondary>.ml-disclosure[open]{flex-basis:100%;order:1}
+#madar-labs .ml-task>div:first-child{min-width:0;flex:1 1 280px;overflow-wrap:anywhere}
+#madar-labs .ml-task{margin-bottom:8px;padding:16px}
+#madar-labs #ml-task-detail{display:block;max-width:100%;overflow-wrap:anywhere}
+#madar-labs #ml-step-position{font-size:12px;margin:0;color:#ceb58d}
+#madar-labs .ml-task .ml-kicker{display:none}
+#madar-labs #ml-learning-panel{padding:10px 14px;margin-bottom:8px;background:#111b20}
+#madar-labs #ml-learning-status:empty{display:none}
+#madar-labs #ml-learning-panel #ml-requirements{margin:0}
+#madar-labs #ml-requirements summary{cursor:pointer;min-height:38px;display:flex;align-items:center;font-size:13px;color:#b9c9ca}
+#madar-labs #ml-diagnosis{min-width:0;overflow-wrap:anywhere;padding:10px}
+#madar-labs #ml-locate{max-width:100%;white-space:normal}
+#madar-labs #ml-diagnostic-output:empty{display:none}
+#madar-labs #ml-context{padding-block:10px;align-items:center}
+#madar-labs #ml-tab-options{flex:0 1 auto;max-width:100%}
+#madar-labs #ml-tab-options>summary{font-size:12px}
+#madar-labs #ml-name{font-size:15px}
+#madar-labs #ml-kind{font-size:11px}
+#madar-labs #ml-description:empty{display:none}
+#madar-labs .ml-learning-tools{overflow:visible;flex-wrap:wrap;border:0}
+#madar-labs .ml-learning-tools button{flex:1 1 150px;white-space:normal}
+#madar-labs #ml-guidance{border:0;font-size:13px}
+#madar-labs #ml-lesson-guide{display:block;border:0;background:none;padding:0;margin:0 0 8px;min-width:0}
+#madar-labs .ml-lesson-instructions{padding:0;min-width:0}
+#madar-labs .ml-lesson-instructions>summary{padding:8px 14px;min-height:44px;font-size:13px}
+#madar-labs .ml-lesson-instructions>:not(summary){margin:14px;overflow-wrap:anywhere}
+#madar-labs #ml-lesson-guide h3{font-size:18px}
+#madar-labs #ml-lesson-away{margin-top:8px;font-size:13px}
+#madar-labs #ml-workspace-help{margin:10px 0}
+#madar-labs [hidden]{display:none!important}
+@media(max-width:700px){
+ #madar-labs .ml-top{padding-bottom:10px}#madar-labs h2{font-size:20px}
+ #madar-labs #ml-context{flex-direction:row;flex-wrap:wrap}
+ #madar-labs #ml-learning-panel{padding:8px 10px}
+ #madar-labs[data-lesson] .ml-task #ml-task-detail{font-size:13px;line-height:1.85}
+ #madar-labs .ml-secondary{gap:6px}#madar-labs .ml-secondary>.ml-disclosure{flex-basis:110px}
+ #madar-labs .ml-secondary>.ml-disclosure[open]{flex-basis:100%}
+ #madar-labs .ml-disclosure>summary{padding:8px 10px;font-size:12px}
+}
+#madar-labs #ml-ping-fold,#madar-labs #ml-simulation-scope{margin:12px 20px}
+#madar-labs #ml-cli-guide{margin:10px 0;font-size:12px}
+#madar-labs #ml-device-actions{margin-top:10px}
+#madar-labs #ml-device-actions>button{margin:8px 4px;padding:8px 12px}
+#madar-labs #ml-simulation-scope footer{border:0;background:transparent;line-height:1.9}
+#madar-labs #nf-cli-context:empty{display:none}
+#madar-labs .ml-course label,#madar-labs .ml-course select{min-width:0;max-width:100%}
+#madar-labs #ml-setup-fold .ml-course{display:flex;flex-wrap:wrap}
+#madar-labs #ml-setup-fold .ml-course label{flex:1 1 100%}
+#madar-labs #ml-setup-fold .ml-course select{width:100%}
+@media(max-width:700px){#madar-labs #ml-ping-fold,#madar-labs #ml-simulation-scope{margin:10px 12px}}
+
+/* Requirements are a permanent reference, grouped by the student's next lookup. */
+#madar-labs #ml-requirements-title{margin:0 0 16px;font-size:17px;color:#f2d2a5}
+#madar-labs #ml-requirements-content{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;text-align:right}
+#madar-labs .ml-req-group{min-width:0;padding:16px;border:1px solid #ffffff14;border-radius:12px;background:#182329}
+#madar-labs .ml-req-group h4{display:flex;align-items:center;gap:9px;font-size:14px;color:#f0e8db;margin:0 0 14px}
+#madar-labs .ml-req-group h4>span{display:grid;place-items:center;flex:none;width:25px;height:25px;border-radius:8px;background:#d8ac7215;color:#edc18a;font-size:12px}
+#madar-labs .ml-req-group table{width:100%;border-collapse:collapse;font-size:13px;text-align:right;table-layout:auto;margin:0}
+#madar-labs .ml-req-group th{font-size:11px;font-weight:400;color:#a8babf;padding:0 0 8px;border-bottom:1px solid #ffffff1a}
+#madar-labs .ml-req-group td{padding:9px 0;border-bottom:1px solid #ffffff0b;color:#e4eeee;vertical-align:top}
+#madar-labs .ml-req-group th:not(:last-child),#madar-labs .ml-req-group td:not(:last-child){padding-inline-end:12px}
+#madar-labs .ml-req-group tr:last-child td{border-bottom:0}
+#madar-labs .ml-req-group bdi{font-family:Consolas,monospace;font-size:.95em;unicode-bidi:isolate;overflow-wrap:anywhere}
+#madar-labs .ml-req-connections{list-style:none;padding:0;margin:0;display:grid;gap:0}
+#madar-labs .ml-req-connections li{padding:8px 0;border-bottom:1px solid #ffffff0b}
+#madar-labs .ml-req-connections li:last-child{border-bottom:0}
+#madar-labs .ml-req-path{display:flex;align-items:center;gap:10px;direction:ltr;justify-content:flex-start;flex-wrap:wrap;font-size:14px;color:#e4eeee}
+#madar-labs .ml-req-path>span{color:#d1aa75}
+#madar-labs .ml-req-purpose{display:block;font-size:12px;color:#a9bec0;margin-top:3px}
+#madar-labs .ml-req-facts{margin:12px 0 0;padding-top:10px;border-top:1px solid #ffffff14;font-size:12px}
+#madar-labs .ml-req-facts>div{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 14px;margin:5px 0}
+#madar-labs .ml-req-facts dt{color:#a9bec0}#madar-labs .ml-req-facts dd{margin:0;color:#e4eeee}
+#madar-labs .ml-req-rules{margin:0;padding-inline-start:20px;font-size:13px;color:#d7e3e5;line-height:1.9}
+#madar-labs .ml-req-rules li+li{margin-top:8px}
+#madar-labs #ml-requirements .ml-req-port-note{font-size:11px;color:#b4c4c9;background:#0e171d;padding:10px 12px;border-radius:8px;margin:14px 0 0}
+#madar-labs #ml-requirements .ml-requirements-source{display:block;margin-top:14px;padding-top:12px;border-top:1px solid #ffffff12;font-size:11px;color:#9dadb3}
+@media(max-width:760px){#madar-labs #ml-requirements-content{grid-template-columns:1fr}#madar-labs .ml-req-group{padding:12px}#madar-labs .ml-req-group table{font-size:12px}#madar-labs .ml-req-group th:not(:last-child),#madar-labs .ml-req-group td:not(:last-child){padding-inline-end:8px}}
+#madar-labs .ml-quick-edit{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap;padding:12px 16px;border-block:1px solid #ffffff12;background:#152026}
+#madar-labs .ml-quick-edit>div{display:flex;flex-wrap:wrap;gap:7px}
+#madar-labs #ml-quick-target{flex:1 1 180px;font-size:13px;color:#e9d8bd;overflow-wrap:anywhere}
+#madar-labs .ml-quick-edit button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;font-size:12px;padding:7px 11px}
+#madar-labs #ml-quick-delete{color:#ffb8bc;border-color:#c96b7455;background:#b0445014}
+#madar-labs #ml-quick-cable-mode[aria-pressed=true]{color:#a1fff1;border-color:#68dcd4;background:#24514e}
+#madar-labs #nf-stage[data-cable-select=true]{outline:2px solid #68dcd4;outline-offset:-2px}
+#madar-labs #nf-stage[data-cable-select=true]>canvas{cursor:crosshair!important}
+#madar-labs .ml-quick-tip{flex-basis:100%;font-size:11px;color:#9baeb6}
+#madar-labs #nf-stage canvas:focus-visible{outline:2px solid #e6bd8b;outline-offset:-3px}
+@media(pointer:coarse){#madar-labs .ml-quick-tip{display:none}#madar-labs .ml-quick-edit button{min-height:44px}}
+
+#madar-labs .ml-cable-picker{padding:14px 16px;background:linear-gradient(115deg,#17252b,#121c21);border:1px solid #3c535d;border-radius:12px 12px 0 0;margin-top:12px}
+#madar-labs .ml-cable-options{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+#madar-labs .ml-cable-options strong{margin-inline-end:8px;font-size:13px}
+#madar-labs .ml-cable-options button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:7px 12px;background:#172229;border-color:#44535b;font-size:12px}
+#madar-labs .ml-cable-options button[aria-pressed=true]{background:#233a40;border-color:#79c9c4;box-shadow:inset 0 0 0 1px #79c9c426;color:#e4fffa}
+#madar-labs .ml-cable-options small{color:#bccbd0;font-size:11px}
+#madar-labs .ml-wire-sample{width:23px;height:4px;border-radius:4px;background:#6fa2c7;box-shadow:0 1px 0 #061017;display:inline-block}
+#madar-labs .ml-wire-cross{background:#dc9a6c;transform:rotate(-20deg)}
+#madar-labs .ml-cable-picker p{font-size:12px;line-height:1.8;color:#bdd0d6;margin:9px 0}
+#madar-labs .ml-cable-current{display:flex;align-items:center;gap:12px;justify-content:space-between;flex-wrap:wrap;font-size:12px;color:#dce7e9}
+#madar-labs #ml-cable-replace{font-size:12px;min-height:40px}
+#madar-labs .ml-cable-picker details{margin-top:8px;font-size:12px;color:#9fb9c1}
+#madar-labs #ml-cable-pinmap{overflow-wrap:anywhere;font-family:Consolas,monospace}
+@media(max-width:600px){#madar-labs .ml-cable-options strong{flex-basis:100%}#madar-labs .ml-cable-options button{flex:1 1 auto;flex-wrap:wrap}#madar-labs .ml-cable-current{gap:8px}}
+#madar-labs .ml-tab-item{position:relative;flex:0 0 var(--ml-tabwidth,185px);width:var(--ml-tabwidth,185px);min-width:0;display:flex}
+#madar-labs .ml-tab-item>.ml-tab{width:100%;flex:1 1 auto;min-width:0;padding-inline-end:73px}
+#madar-labs .ml-tab-item>.ml-tab-delete,#madar-labs .ml-tab-item>.ml-tab-archive{position:absolute;inset-inline-end:3px;top:50%;transform:translateY(-50%);width:32px;min-height:36px;padding:6px;border:0;border-radius:7px;background:transparent;color:#9bcac4;touch-action:manipulation}
+#madar-labs .ml-tab-item>.ml-tab-archive{inset-inline-end:37px}
+#madar-labs .ml-tab-item>.ml-tab-archive:hover,#madar-labs .ml-tab-item>.ml-tab-archive:focus-visible{color:#c9fff3;background:#30716788}
+#madar-labs .ml-tab-item>.ml-tab-delete:hover,#madar-labs .ml-tab-item>.ml-tab-delete:focus-visible{color:#ffd1cb;background:#78342b66}
+#madar-labs #ml-deleted-notice{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;background:#172d2c;border:1px solid #37756e;border-radius:0 0 12px 12px;font-size:13px}
+#madar-labs #ml-deleted-label{flex:1 1 180px;overflow-wrap:anywhere;line-height:1.7}
+#madar-labs #ml-undo-delete{border-color:#60c9bb;color:#b9fff1;flex:none}
+@media(max-width:600px){
+ #madar-labs .ml-tabs{display:grid;grid-template-columns:32px minmax(0,1fr) 32px;gap:6px}
+ #madar-labs #ml-pinned{grid-column:1 / 3;grid-row:1;width:min(190px,100%);justify-self:start;box-shadow:none}
+ #madar-labs #ml-plus{grid-column:3;grid-row:1;width:32px}
+ #madar-labs #ml-back{grid-column:1;grid-row:2;width:32px;min-width:32px}
+ #madar-labs #ml-viewport{grid-column:2;grid-row:2;width:100%}
+ #madar-labs #ml-next{grid-column:3;grid-row:2;width:32px;min-width:32px}
+}
+#ml-selftest{padding:22px;margin:14px 0;border:1px solid #dcb17966;border-radius:18px;background:linear-gradient(125deg,#28251f,#141e24)}#ml-selftest[hidden]{display:none}.ml-selftest-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}#ml-selftest h3{margin:7px 0;font-size:1.3rem}#ml-selftest p{line-height:1.85;color:#c7d1d5}#ml-selftest label{display:grid;gap:8px;max-width:520px}#ml-selftest select{max-width:100%;width:100%;min-height:44px}#ml-selftest-result{border-top:1px solid #e4bb7544;margin-top:20px;padding-top:18px}#ml-selftest-result ul{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:10px}#ml-selftest-result li{padding:12px;border-radius:10px;background:#0a131a;color:#f0c6a0}#ml-selftest-result li[data-ok=true]{color:#92dfbc}#ml-selftest-result li span{display:block;font-size:.85rem;margin-top:5px;color:#c2cbd0}#ml-selftest-variables{display:grid;gap:12px;border:1px solid #64828266;border-radius:12px;margin-bottom:16px}#ml-selftest-variables label{display:flex;align-items:center;gap:10px;min-height:36px}
+
+/* Explicit transfer and freely selected steps; touch targets remain at least 44px. */
+#madar-labs .ml-transfer-tools,#madar-labs .ml-free-steps{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}
+#madar-labs .ml-free-steps label{flex:1 1 220px;min-width:0;display:flex;flex-direction:column;gap:4px}
+#madar-labs .ml-free-steps small{flex-basis:100%;color:#b9c5cc}
+#madar-labs .ml-free-steps select,#madar-labs .ml-free-steps button,#madar-labs .ml-transfer-tools button{min-height:44px}
+#madar-labs .ml-free-steps select{width:100%;min-width:0;max-width:100%}
+#madar-labs .ml-config-map{display:grid;grid-template-columns:minmax(90px,1fr) minmax(120px,2fr);align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #43515a}
+#madar-labs .ml-config-map select{min-width:0;width:100%}
+#madar-labs #madar-free .ml-zoom-dock{display:flex;align-items:center;justify-content:flex-end;gap:8px;padding:10px 14px;background:#152229;border-block:1px solid #42545c}
+#madar-labs #madar-free .ml-zoom-dock button{min-width:48px;min-height:48px;font-size:24px;line-height:1;padding:8px 12px;border-color:#7795a2;background:#243943}
+#madar-labs #madar-free .ml-zoom-dock #nf-all{font-size:14px}
+
+/* One row above the canvas; narrow screens scroll the tools, never the page. */
+#madar-labs #madar-free .ml-workspace-toolbar{display:flex;align-items:center;gap:4px;max-width:100%;min-width:0;background:linear-gradient(110deg,#16242a,#101c21);border:1px solid #465d67;border-radius:12px 12px 0 0;padding:8px;direction:rtl}
+#madar-labs .ml-tools-track{display:flex;align-items:center;flex:1;min-width:0;gap:10px;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#638692 transparent;direction:rtl;padding:3px 2px 7px}
+#madar-labs .ml-tools-group{display:flex;align-items:center;flex:0 0 auto;gap:6px;padding-inline-end:10px;border-inline-end:1px solid #40545e}
+#madar-labs #madar-free .ml-tools-track button{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;gap:6px;white-space:nowrap;min-height:44px;padding:8px 11px;font-size:12px}
+#madar-labs #madar-free .ml-tools-track #nf-plus,#madar-labs #madar-free .ml-tools-track #nf-minus{min-width:46px;font-size:23px;line-height:1}
+#madar-labs #madar-free .ml-tools-arrow{flex:0 0 44px;width:44px;min-height:44px;padding:0;font-size:27px;color:#b3e4ed;border-color:#648f9b;background:#213b45;box-shadow:0 0 10px #7ab6c21c}
+#madar-labs #madar-free .ml-tools-arrow:disabled{opacity:.3;box-shadow:none}
+#madar-labs .ml-tools-track button[aria-pressed=true]{background:#24474c;border-color:#82d8d0;color:#e7fffc}
+#madar-labs #ml-tools-guide{padding:14px 18px;background:#132128;border:1px solid #465d67;border-top:0;color:#c0d4dc;font-size:12px}
+#madar-labs #ml-tools-guide>span{display:block;margin-block:6px}
+#madar-labs #ml-tools-guide details{margin-top:10px}
+#madar-labs #ml-quick-delete{border-color:#81515c;color:#ffb9c5}
+#madar-labs #ml-skip-step{min-height:46px;border:1px solid #7dd5cd;background:#1b4144;color:#e3fffb;font-weight:700;box-shadow:inset 0 1px 0 #b6fff018}
+#madar-labs #ml-skip-step:hover:not(:disabled){background:#28575a;border-color:#b2fff5}
+#madar-labs .ml-free-steps{padding:12px 14px;border:1px solid #46646a;border-radius:10px;background:#14282d}
+
+/* Shared compact viewport, independent of lesson/tab type and future catalog entries. */
+#madar-labs #madar-free #nf-stage{height:clamp(260px,38vh,360px);min-height:240px}
+#madar-labs #madar-free #ml-workspace-fullscreen{flex:none;min-height:44px;white-space:nowrap;padding:8px 12px;border-color:#86b9c5;color:#defaff;background:#24404a;font-size:13px}
+#madar-labs.ml-workspace-expanded{position:fixed;inset:0;z-index:10000;width:100%;height:100vh;height:100dvh;max-width:none;margin:0;padding:0;border:0;border-radius:0;background:#101a20;overflow:auto;overscroll-behavior:contain}
+#madar-labs.ml-workspace-expanded> :not(#ml-workspace):not(#ml-dialog):not(#ml-toast){display:none!important}
+#madar-labs.ml-workspace-expanded #ml-workspace{margin:0;padding:0}
+#madar-labs.ml-workspace-expanded #madar-free{border-radius:0;overflow:visible}
+#madar-labs.ml-workspace-expanded #madar-free .ml-workspace-toolbar{position:sticky;top:0;z-index:20;border-radius:0;padding-top:max(8px,env(safe-area-inset-top))}
+#madar-labs.ml-workspace-expanded #madar-free #nf-stage{height:calc(100vh - 74px);height:calc(100dvh - 74px - env(safe-area-inset-top));min-height:180px}
+#madar-labs.ml-workspace-expanded #ml-tools-guide{max-height:30vh;overflow:auto}
+#madar-labs.ml-workspace-expanded #ml-toast{position:fixed;bottom:14px;inset-inline:16px;z-index:30}
+@media(max-width:700px){#madar-labs #madar-free #nf-stage{height:280px;min-height:240px}#madar-labs #madar-free #ml-workspace-fullscreen{font-size:12px;padding-inline:8px}}
+/* Help location and explicit independent-workspace confirmation. */
+#madar-labs .ml-help-choices{display:grid;gap:12px}
+#madar-labs .ml-help-choices button{display:grid;gap:7px;width:100%;text-align:start;padding:18px;border:1px solid #46696d;border-radius:14px;background:#17292e}
+#madar-labs .ml-help-choices strong{font-size:17px;color:#e6f7f5}
+#madar-labs .ml-help-choices span,#madar-labs .ml-help-choice-note{font-size:14px;line-height:1.8;color:#b8c9cd}
+#madar-labs .ml-help-warning{padding:18px;border:1px solid #df697d;border-inline-start:4px solid #ff8497;border-radius:14px;background:#341d28;color:#ffb6c2;line-height:1.9}
+#madar-labs .ml-help-warning strong{display:block;color:#ff91a5;font-size:18px}
+#madar-labs .ml-help-warning ul{padding-inline-start:22px;margin-bottom:0}
+#madar-labs .ml-help-warning li+li{margin-top:10px}
+#madar-labs .ml-help-confirm-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+@media(max-width:520px){#madar-labs .ml-help-confirm-actions button{width:100%}#madar-labs .ml-help-warning{padding:13px;font-size:14px}}
