@@ -9,3 +9,4 @@ export { createSearchController, searchText } from './search.mjs';
 export { bindHubEvents } from './events.mjs';
 export { createLessonActions } from './lesson-actions.mjs';
 export { createAccessActions } from './access-actions.mjs';
+export { createEditorActions } from './editor-actions.mjs';

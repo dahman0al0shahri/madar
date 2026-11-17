@@ -43,7 +43,8 @@
         "public/hub/views.mjs",
         "public/hub/events.mjs",
         "public/hub/lesson-actions.mjs",
-        "public/hub/access-actions.mjs"
+        "public/hub/access-actions.mjs",
+        "public/hub/editor-actions.mjs"
       ],
       "integration": [
         "build/madar/hub.cjs",

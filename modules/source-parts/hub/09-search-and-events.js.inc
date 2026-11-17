@@ -29,11 +29,8 @@
     getGrants: () => config.grants, hosted: environment.hosted, saves, render,
     resetAccountFilter: () => { accountFilter = 'all'; },
     syncViewer: value => { $('#mh-viewer').value = value; } });
-  function editAndRender(action) { action(); render(); scheduleSave(); }
-  function previewUpdate() {
-    captureEditor();
-    const update = state.editor;
-    $('#mh-update-preview').innerHTML = `<div class="mh-news-shell mh-space-top"><article class="mh-news-slide" style="--slide-accent:${courses[update.course]?.color||'#e9c691'}"><div class="mh-news-copy"><span class="mh-eyebrow">معاينة قبل الإتاحة</span><h2>${esc(update.title||'عنوان المستجد')}</h2><p>${esc(update.body)}</p></div><div class="mh-visual">${scene({...update,scene:update.course||'hub'})}</div></article></div>`;
+  function paintEditorPreview(update) {
+    $('#mh-update-preview').innerHTML = editorViews.previewMarkup(update);
     paintIcons();
     liquidOrbit?.dispose(); liquidOrbit = null;
     const previewMark = $('#mh-update-preview .mh-main-mark');
@@ -51,13 +48,12 @@
       filterCommandCards({ query: target.value, cards: $$('[data-command-search]'),
         emptyMessage: $('#mh-command-empty'), normalize: searchText });
     }
-    if (target.closest('#mh-editor-form')) { captureEditor(); scheduleSave(); }
+    if (target.closest('#mh-editor-form')) { editorActions.changed(); }
   }
   async function handleChange(event) {
     const target = event.target;
     if (target.name === 'course' && target.closest('#mh-editor-form')) {
-      captureEditor(); editor.resetDestination();
-      $('#mh-editor-form [name=destination]').innerHTML = targetOptions(state.editor);
+      editorActions.courseChanged();
     }
     if (target.id === 'mh-viewer') {
       await accessActions.switchViewer(target.value);
@@ -68,10 +64,10 @@
     }
     if (target.dataset.courseAccess) accessActions.setCourseAccess(target.dataset.courseAccess, target.value);
     if (target.dataset.contentAccess) accessActions.setContentAccess(target.dataset.contentAccess, target.value);
-    if (target.closest('#mh-editor-form')) { captureEditor(); scheduleSave(); }
+    if (target.closest('#mh-editor-form')) { editorActions.changed(); }
   }
   function handleKeydown(event) {
-    if (event.key === 'Enter' && event.target.tagName === 'INPUT' && event.target.closest('#mh-editor-form')) { event.preventDefault(); void saveEditor(); }
+    if (event.key === 'Enter' && event.target.tagName === 'INPUT' && event.target.closest('#mh-editor-form')) { event.preventDefault(); void editorActions.save(); }
     if (event.key === 'Enter' && event.target.id === 'mh-query') event.preventDefault();
     keyboard = true;
     if (event.key === 'Escape') {
@@ -84,17 +80,17 @@
     clickActions: {
       'mh-skip': () => { $('#mh-main').focus({ preventScroll: true }); $('#mh-main').scrollIntoView({ block: 'start' }); },
       'mh-picker-button': button => { const open = $('#mh-picker').hidden; $('#mh-picker').hidden = !open; button.setAttribute('aria-expanded', String(open)); },
-      'mh-save-update': saveEditor,
+      'mh-save-update': editorActions.save,
       'mh-search-button': openSearch,
       'mh-search-more': () => searchController.more(),
       'mh-retry': () => saves.retry().catch(() => {}),
       'mh-stay': () => { saves.cancelPendingAction(); $('#mh-error').hidden = true; },
       'mh-pause': () => setPaused(!paused), 'mh-scene': () => setPaused(!paused),
       'mh-replay': paintSlide, 'mh-next': () => moveSlide('next'), 'mh-prev': () => moveSlide('prev'),
-      'mh-new-update': () => editAndRender(editor.begin),
-      'mh-cancel-edit': () => editAndRender(editor.cancel),
-      'mh-preview-update': previewUpdate,
-      'mh-delete-confirm': () => { editor.remove(deleteId); deleteId = null; $('#mh-confirm').close(); render(); scheduleSave(); },
+      'mh-new-update': editorActions.begin,
+      'mh-cancel-edit': editorActions.cancel,
+      'mh-preview-update': editorActions.preview,
+      'mh-delete-confirm': editorActions.confirmDelete,
       ...(environment.hosted ? {
         'mh-profile-export': () => store.download(),
         'mh-recover-export': () => { store.download(); adminStore?.download(); },
@@ -106,12 +102,12 @@
       searchGo: async route => { $('#mh-search-dialog').close(); await go(route); },
       slide: value => moveSlide(Number(value)), step: lessonActions.moveStep,
       filter: value => { accountFilter = value; render(); },
-      editUpdate: id => editAndRender(() => editor.edit(id)),
-      deleteUpdate: id => { deleteId = id; $('#mh-confirm').showModal(); },
+      editUpdate: editorActions.edit,
+      deleteUpdate: editorActions.requestDelete,
     },
     actions: {
       input: handleInput, change: handleChange, keydown: handleKeydown,
-      submit: event => { event.preventDefault(); if (event.target.id === 'mh-editor-form') void saveEditor(); },
+      submit: event => { event.preventDefault(); if (event.target.id === 'mh-editor-form') void editorActions.save(); },
       pointerdown: () => { keyboard = false; },
       focusin: event => { if (keyboard && event.target.closest('.mh-carousel') && event.target.id !== 'mh-pause') setPaused(true); },
       outsideClick: event => { if (!event.target.closest('.mh-picker-wrap')) closePicker(); },

@@ -1,7 +1,7 @@
 (async () => {
   const { createHubState, createSaveController, createNavigation, routeFromHash,
     createPreviewEnvironment, createHostedEnvironment, createEditorController, createEditorViews,
-    createHubViews, createSearchController, searchText, bindHubEvents, createLessonActions, createAccessActions } = await import('/hub/index.mjs');
+    createHubViews, createSearchController, searchText, bindHubEvents, createLessonActions, createAccessActions, createEditorActions } = await import('/hub/index.mjs');
   'use strict';
   const root=document.getElementById('madar-hub'), $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
   const KEY='madar-hub-preview-v1', motionPreference=matchMedia('(prefers-reduced-motion: reduce)'), reduced=motionPreference.matches;
@@ -46,7 +46,7 @@
   let dirty = false;
   let scheduleDay = nowDay();
   let carousel = null, raf = 0, lastFrame = 0, elapsed = 0, paused = reduced;
-  let slideIndex = 0, keyboard = false, toastTimer, deleteId = null, accountFilter = 'all';
+  let slideIndex = 0, keyboard = false, toastTimer, accountFilter = 'all';
   
   const saves = createSaveController({
     getState: () => stateModel.value,
@@ -134,20 +134,26 @@ function officeArt(){return `<div class="mh-office-scene" aria-hidden="true"><di
   const editor = createEditorController({ getState: () => state, lessonBy, saves, persist,
     now: () => Date.now(), today: nowDay });
   const editorViews = createEditorViews({ getState: () => state, getAccountFilter: () => accountFilter,
-    courses, lessons, profile, available, canLesson, lessonBy, lessonPosition, heading, esc, icon,
+    courses, lessons, profile, available, canLesson, lessonBy, lessonPosition, heading, esc, icon, scene,
     hosted: environment.hosted, getGrants: () => config?.grants || {} });
   function account(){return editorViews.account();}
   function admin(){return editorViews.admin();}
-  const targetOptions = editorViews.targetOptions;
-  function captureEditor() {
+  function readEditorFields() {
     const form = $('#mh-editor-form');
     if (!form) return;
     const fields = Object.fromEntries(['title','body','course','placement','status','date','start','end','duration','destination']
       .map(name => [name, form.elements.namedItem(name).value]));
     fields.pin = form.elements.namedItem('pin').checked;
-    editor.capture(fields);
+    return fields;
   }
 
+  const editorActions = createEditorActions({ editor, getDraft: () => stateModel.value.editor,
+    readFields: readEditorFields, reportValidity: () => $('#mh-editor-form').reportValidity(), saves, render,
+    showError: message => { $('#mh-editor-error').textContent = message; },
+    notifySaved: () => say(environment.hosted ? 'تم حفظ المستجد.' : 'تم حفظ المستجد في المعاينة فقط.'),
+    showPreview: paintEditorPreview,
+    showDestinations: update => { $('#mh-editor-form [name=destination]').innerHTML = editorViews.targetOptions(update); },
+    openDelete: () => $('#mh-confirm').showModal(), closeDelete: () => $('#mh-confirm').close() });
 const hubViews = createHubViews({ courses, available, canCourse, canLesson, lessonBy,
     courseIcon, icon, srweAnnouncement, carouselMarkup, about, resume, heading, courseCard,
     account, admin, courseHome, courseSection, lessonPage,
@@ -189,11 +195,8 @@ const hubViews = createHubViews({ courses, available, canCourse, canLesson, less
     getGrants: () => config.grants, hosted: environment.hosted, saves, render,
     resetAccountFilter: () => { accountFilter = 'all'; },
     syncViewer: value => { $('#mh-viewer').value = value; } });
-  function editAndRender(action) { action(); render(); scheduleSave(); }
-  function previewUpdate() {
-    captureEditor();
-    const update = state.editor;
-    $('#mh-update-preview').innerHTML = `<div class="mh-news-shell mh-space-top"><article class="mh-news-slide" style="--slide-accent:${courses[update.course]?.color||'#e9c691'}"><div class="mh-news-copy"><span class="mh-eyebrow">معاينة قبل الإتاحة</span><h2>${esc(update.title||'عنوان المستجد')}</h2><p>${esc(update.body)}</p></div><div class="mh-visual">${scene({...update,scene:update.course||'hub'})}</div></article></div>`;
+  function paintEditorPreview(update) {
+    $('#mh-update-preview').innerHTML = editorViews.previewMarkup(update);
     paintIcons();
     liquidOrbit?.dispose(); liquidOrbit = null;
     const previewMark = $('#mh-update-preview .mh-main-mark');
@@ -211,13 +214,12 @@ const hubViews = createHubViews({ courses, available, canCourse, canLesson, less
       filterCommandCards({ query: target.value, cards: $$('[data-command-search]'),
         emptyMessage: $('#mh-command-empty'), normalize: searchText });
     }
-    if (target.closest('#mh-editor-form')) { captureEditor(); scheduleSave(); }
+    if (target.closest('#mh-editor-form')) { editorActions.changed(); }
   }
   async function handleChange(event) {
     const target = event.target;
     if (target.name === 'course' && target.closest('#mh-editor-form')) {
-      captureEditor(); editor.resetDestination();
-      $('#mh-editor-form [name=destination]').innerHTML = targetOptions(state.editor);
+      editorActions.courseChanged();
     }
     if (target.id === 'mh-viewer') {
       await accessActions.switchViewer(target.value);
@@ -228,10 +230,10 @@ const hubViews = createHubViews({ courses, available, canCourse, canLesson, less
     }
     if (target.dataset.courseAccess) accessActions.setCourseAccess(target.dataset.courseAccess, target.value);
     if (target.dataset.contentAccess) accessActions.setContentAccess(target.dataset.contentAccess, target.value);
-    if (target.closest('#mh-editor-form')) { captureEditor(); scheduleSave(); }
+    if (target.closest('#mh-editor-form')) { editorActions.changed(); }
   }
   function handleKeydown(event) {
-    if (event.key === 'Enter' && event.target.tagName === 'INPUT' && event.target.closest('#mh-editor-form')) { event.preventDefault(); void saveEditor(); }
+    if (event.key === 'Enter' && event.target.tagName === 'INPUT' && event.target.closest('#mh-editor-form')) { event.preventDefault(); void editorActions.save(); }
     if (event.key === 'Enter' && event.target.id === 'mh-query') event.preventDefault();
     keyboard = true;
     if (event.key === 'Escape') {
@@ -244,17 +246,17 @@ const hubViews = createHubViews({ courses, available, canCourse, canLesson, less
     clickActions: {
       'mh-skip': () => { $('#mh-main').focus({ preventScroll: true }); $('#mh-main').scrollIntoView({ block: 'start' }); },
       'mh-picker-button': button => { const open = $('#mh-picker').hidden; $('#mh-picker').hidden = !open; button.setAttribute('aria-expanded', String(open)); },
-      'mh-save-update': saveEditor,
+      'mh-save-update': editorActions.save,
       'mh-search-button': openSearch,
       'mh-search-more': () => searchController.more(),
       'mh-retry': () => saves.retry().catch(() => {}),
       'mh-stay': () => { saves.cancelPendingAction(); $('#mh-error').hidden = true; },
       'mh-pause': () => setPaused(!paused), 'mh-scene': () => setPaused(!paused),
       'mh-replay': paintSlide, 'mh-next': () => moveSlide('next'), 'mh-prev': () => moveSlide('prev'),
-      'mh-new-update': () => editAndRender(editor.begin),
-      'mh-cancel-edit': () => editAndRender(editor.cancel),
-      'mh-preview-update': previewUpdate,
-      'mh-delete-confirm': () => { editor.remove(deleteId); deleteId = null; $('#mh-confirm').close(); render(); scheduleSave(); },
+      'mh-new-update': editorActions.begin,
+      'mh-cancel-edit': editorActions.cancel,
+      'mh-preview-update': editorActions.preview,
+      'mh-delete-confirm': editorActions.confirmDelete,
       ...(environment.hosted ? {
         'mh-profile-export': () => store.download(),
         'mh-recover-export': () => { store.download(); adminStore?.download(); },
@@ -266,28 +268,18 @@ const hubViews = createHubViews({ courses, available, canCourse, canLesson, less
       searchGo: async route => { $('#mh-search-dialog').close(); await go(route); },
       slide: value => moveSlide(Number(value)), step: lessonActions.moveStep,
       filter: value => { accountFilter = value; render(); },
-      editUpdate: id => editAndRender(() => editor.edit(id)),
-      deleteUpdate: id => { deleteId = id; $('#mh-confirm').showModal(); },
+      editUpdate: editorActions.edit,
+      deleteUpdate: editorActions.requestDelete,
     },
     actions: {
       input: handleInput, change: handleChange, keydown: handleKeydown,
-      submit: event => { event.preventDefault(); if (event.target.id === 'mh-editor-form') void saveEditor(); },
+      submit: event => { event.preventDefault(); if (event.target.id === 'mh-editor-form') void editorActions.save(); },
       pointerdown: () => { keyboard = false; },
       focusin: event => { if (keyboard && event.target.closest('.mh-carousel') && event.target.id !== 'mh-pause') setPaused(true); },
       outsideClick: event => { if (!event.target.closest('.mh-picker-wrap')) closePicker(); },
     },
   });
 
-async function saveEditor() {
-    if (!$('#mh-editor-form').reportValidity()) return;
-    captureEditor();
-    try {
-      const result = await editor.save();
-      if (!result.saved) { $('#mh-editor-error').textContent = result.error; return; }
-      say(environment.hosted ? 'تم حفظ المستجد.' : 'تم حفظ المستجد في المعاينة فقط.');
-      render();
-    } catch { /* The save controller exposes retry without discarding the draft. */ }
-  }
   window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
   window.addEventListener('openai:set_globals',e=>{const next=e.detail?.globals?.widgetState?.privateContent?.hub;if(next&&!dirty){state=stateModel.replace(next);render();}});
   motionPreference.addEventListener('change',e=>{if(e.matches)setPaused(true);});

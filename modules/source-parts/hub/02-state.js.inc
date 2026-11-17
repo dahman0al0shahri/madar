@@ -17,5 +17,5 @@ const initial={version:1,route:'home',viewer:'student',access:{office:'public',n
   let dirty = false;
   let scheduleDay = nowDay();
   let carousel = null, raf = 0, lastFrame = 0, elapsed = 0, paused = reduced;
-  let slideIndex = 0, keyboard = false, toastTimer, deleteId = null, accountFilter = 'all';
+  let slideIndex = 0, keyboard = false, toastTimer, accountFilter = 'all';
   
