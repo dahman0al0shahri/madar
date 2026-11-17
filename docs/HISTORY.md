@@ -36,6 +36,8 @@ The owner subsequently authorized public GitHub access on 16 November 2026 and e
 
 [PR #10](https://github.com/dahman0al0shahri/madar/pull/10) was reviewed and merged at the owner's instruction in `a83bc635`. It records the developer/source map, 176 ordered parts for 21 compatibility units, generation contracts and independently testable hub state/save/navigation modules. Its pre-merge checks passed; the repository report records the later test-interceptor failure and its follow-up separately. This is repository engineering work, not a new hosted release or evidence of learner progress.
 
+On 17 November, [PR #11](https://github.com/dahman0al0shahri/madar/pull/11) was merged into `4413c433` after owner review authorization. It separated hub search, editing, templates and event registration, and corrected the synthetic recovery-test interceptor. All four post-merge checks passed in [run 44070829137](https://github.com/dahman0al0shahri/madar/actions/runs/44070829137), including 64 repository tests and 12 browser cases. No hosted deployment or learner-data change accompanied the merge.
+
 ## What the evidence establishes
 
 - **Owner-confirmed history:** the founding date, classmates' use, the connection to diploma study, the aim of improving teaching practice, and continuous learning inside and outside college. These are attributed statements, not inferred analytics.

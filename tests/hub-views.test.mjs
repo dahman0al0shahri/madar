@@ -119,9 +119,9 @@ test('delegated actions handle zero-valued data and dispose only their own liste
 
 test('hub module import edges stay explicit and browser globals remain in composition', () => {
   // Bounded source guard, not a complete JavaScript security/static analysis.
-  const edges = { 'index.mjs': ['state','persistence','navigation','environment','editor','editor-views','views','search','events'],
+  const edges = { 'index.mjs': ['state','persistence','navigation','environment','editor','editor-views','views','search','events','lesson-actions','access-actions'],
     'state.mjs': [], 'persistence.mjs': ['state'], 'navigation.mjs': [], 'environment.mjs': ['state','navigation'],
-    'editor.mjs': ['state'], 'editor-views.mjs': [], 'views.mjs': [], 'search.mjs': [], 'events.mjs': [] };
+    'editor.mjs': ['state'], 'editor-views.mjs': [], 'views.mjs': [], 'search.mjs': [], 'events.mjs': [], 'lesson-actions.mjs': [], 'access-actions.mjs': [] };
   const folder = new URL('../public/hub/', import.meta.url);
   assert.deepEqual(fs.readdirSync(folder).sort(), Object.keys(edges).sort(), 'Classify new modules and their allowed dependencies');
   for (const [file, allowed] of Object.entries(edges)) {
@@ -147,7 +147,7 @@ test('network command filtering operates on the supplied cards and empty message
 
 test('generated hosted hub retains composition and delegates extracted responsibilities', () => {
   const source = fs.readFileSync(new URL('../public/madar-hub.js', import.meta.url), 'utf8');
-  for (const name of ['createEditorController', 'createEditorViews', 'createHubViews', 'createSearchController', 'bindHubEvents']) {
+  for (const name of ['createEditorController', 'createEditorViews', 'createHubViews', 'createSearchController', 'bindHubEvents', 'createLessonActions', 'createAccessActions']) {
     assert.match(source, new RegExp('= ' + name + '\\('));
   }
   assert.match(source, /const editorViews = createEditorViews/);

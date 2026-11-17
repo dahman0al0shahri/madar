@@ -1,7 +1,7 @@
 (async () => {
   const { createHubState, createSaveController, createNavigation, routeFromHash,
     createPreviewEnvironment, createHostedEnvironment, createEditorController, createEditorViews,
-    createHubViews, createSearchController, searchText, bindHubEvents } = await import('/hub/index.mjs');
+    createHubViews, createSearchController, searchText, bindHubEvents, createLessonActions, createAccessActions } = await import('/hub/index.mjs');
   'use strict';
   const root=document.getElementById('madar-hub'), $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
   const KEY='madar-hub-preview-v1', motionPreference=matchMedia('(prefers-reduced-motion: reduce)'), reduced=motionPreference.matches;

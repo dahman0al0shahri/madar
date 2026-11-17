@@ -6,13 +6,19 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Hub action boundaries
+
+- Moved lesson-step/note mutations and access/viewer editing actions into two native modules with live state readers and explicit save, note and UI adapters. Event handlers now read controls and delegate those operations. Existing mutation order, retry behavior and stored formats are retained.
+- Added direct tests for pending/rejected note saves, invalid steps, profile recovery, grant parsing and cancelled viewer changes. Extended synthetic browser coverage for lesson movement and access editing; existing Office images remain unchanged.
+- PR #11 merged into main as 4413c433 after owner approval, with all four post-merge jobs passing. This follow-up is a separate review, not a deployment.
+
 ### Hub presentation maintenance
 
 - Separated hub search, update editing, route/editor templates and delegated event registration into native modules with explicit inputs. Retained the existing templates and course interfaces. The network command filter now receives its cards and normalization function explicitly.
 - Removed host text rewriting for migrated search, admin and event behavior. Kept the existing file paths, storage formats and framework. Added direct module/import-boundary tests and synthetic desktop/mobile editor/search interactions to existing CI.
 - Fixed the hosted admin options helper being removed by the old account-template replacement. Scoped the recovery browser test's boot interceptor to its setup reload so it cannot outlive the page during Office navigation. No screenshots were re-recorded, learner records changed or site deployed.
 
-Unreleased means that no named release has been created. Maintenance PRs #1–#10 are merged. Public visibility and collaborator-only PR creation are live; PR #9 includes their guard and documentation changes. Subsequent work is described by its own review. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
+Unreleased means that no named release has been created. Maintenance PRs #1–#11 are merged. Public visibility and collaborator-only PR creation are live; PR #9 includes their guard and documentation changes. Subsequent work is described by its own review. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
 
 ### Added
 
