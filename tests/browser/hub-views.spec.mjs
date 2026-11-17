@@ -46,6 +46,11 @@ test('hub search and update editor use isolated synthetic adapters', async ({ pa
     await expect(page.locator('#mh-editor-error')).toHaveText('اختر مقررًا لظهور المستجد في رئيسيته.');
     await page.locator('#mh-editor-form [name=course]').selectOption('office');
     await page.locator('#mh-editor-form [name=destination]').selectOption('lesson:synthetic-0');
+    await page.locator('#mh-preview-update').click();
+    await expect(page.locator('#mh-update-preview h2')).toHaveText('Synthetic update');
+    await expect(page.locator('#mh-update-preview p')).toHaveText('Synthetic body');
+    expect(await page.evaluate(() => document.getElementById('madar-hub').previewState().updates)).toEqual([]);
+    await expect(page.locator('#mh-editor-form [name=destination]')).toHaveValue('lesson:synthetic-0');
     await page.evaluate(() => { window.testHubReject = true; });
     await page.locator('#mh-save-update').click();
     await expect(page.locator('#mh-error')).toBeVisible();
@@ -58,6 +63,9 @@ test('hub search and update editor use isolated synthetic adapters', async ({ pa
     await expect(page.locator('#mh-editor-form')).toHaveCount(0);
     await page.locator('[data-edit-update]').click();
     await expect(page.locator('#mh-editor-form [name=title]')).toHaveValue('Synthetic update');
+    await page.locator('[data-delete-update]').click();
+    await page.keyboard.press('Escape');
+    await expect(page.locator('[data-edit-update]')).toHaveCount(1);
     await page.locator('[data-delete-update]').click();
     await page.locator('#mh-delete-confirm').click();
     await expect(page.locator('[data-edit-update]')).toHaveCount(0);

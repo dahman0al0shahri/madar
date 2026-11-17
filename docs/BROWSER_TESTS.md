@@ -59,3 +59,5 @@ Route mocks must have bounded lifetimes. The profile-recovery scenario removes i
 
 
 The lesson-action scenario (`tests/browser/hub-actions.spec.mjs`) uses a two-topic synthetic lesson and intercepted note/storage adapters. It verifies pending-note blocking, retry, topic focus, saved positions and retained note/profile fields on both viewport sizes. The editor/search scenario also checks course/content access and parsed grant saves. These tests verify client wiring, not real administrator authorization; the existing SQL-backed tests remain separate. Module extraction does not permit re-recording Office references.
+
+The editor/search scenario also checks that preview displays the captured draft without publishing it and that Escape closes delete confirmation without removing the update. These use synthetic administrator/storage adapters, not real administrator credentials or production data.

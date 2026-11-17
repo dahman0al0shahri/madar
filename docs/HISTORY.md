@@ -59,3 +59,7 @@ No earlier project name has been confirmed. The exact dates of the earliest prot
 Add a milestone when a meaningful change is supported by a dated source, an explicit owner statement or a verified delivery record. Identify which kind of evidence it is. Distinguish local work, a GitHub merge and a hosted deployment; do not turn planned work into a completed event. Correct a mistaken historical claim explicitly and preserve its supporting evidence in the appropriate record.
 
 [Owner's story](STORY.md) · [Repository report](REPOSITORY_REPORT.md) · [Back to MADAR](../README.md)
+
+### 17 November 2026 — PR #12 merged
+
+[PR #12](https://github.com/dahman0al0shahri/madar/pull/12) separated lesson/note and access/viewer actions from DOM handlers. The owner authorized merge `d753ea252d38fca9f5b13014d4cedb3a9e961027`; [post-merge run 44094414724](https://github.com/dahman0al0shahri/madar/actions/runs/44094414724) passed all four jobs, including 72 repository tests and 14 browser cases. This records repository maintenance, not deployment or learner outcomes.
