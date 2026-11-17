@@ -1,0 +1,10 @@
+function nowDay(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
+  function eligible(u,scope){const day=nowDay();return u.status==='published'&&(!u.course||canCourse(u.course))&&(!u.target.startsWith('lesson:')||canLesson(lessonBy(u.target.split(':')[1])))&&(!u.start||u.start<=day)&&(!u.end||u.end>=day)&&(scope?u.course===scope&&u.places.includes('course'):u.places.includes('global'));}
+  function news(scope){return state.updates.filter(u=>eligible(u,scope)).sort((a,b)=>Number(b.pin)-Number(a.pin)||b.date.localeCompare(a.date));}
+  function paintIcons(){globalThis.lucide?.createIcons({attrs:{width:19,height:19}});$$('button').forEach(b=>b.classList.add('cursor-interaction'));}
+  function say(t){clearTimeout(toastTimer);$('#mh-toast').textContent=t;$('#mh-toast').hidden=false;toastTimer=setTimeout(()=>$('#mh-toast').hidden=true,4500);}
+  function status(t){$('#mh-save').textContent=t;}
+  function scheduleSave(){dirty=true;status('تغييرات بانتظار الحفظ');clearTimeout(saveTimer);saveTimer=setTimeout(()=>persist().catch(()=>{}),350);}
+  function persist(){clearTimeout(saveTimer);const snapshot=clone(state);status('جارٍ الحفظ…');const job=chain.catch(()=>{}).then(async()=>{if($('#mh-fail').checked)throw Error('simulated');if(window.openai?.setWidgetState){await window.openai.setWidgetState({modelContent:{preview:'معاينة رئيسية مدار والمقررات؛ ليست بيانات تعلم',page:snapshot.route,viewer:snapshot.viewer},privateContent:{hub:snapshot}});}else{localStorage.setItem(KEY,JSON.stringify(snapshot));}if(JSON.stringify(snapshot)===JSON.stringify(state)){dirty=false;status('تم الحفظ في المعاينة');$('#mh-error').hidden=true;}return true;}).catch(e=>{dirty=true;status('لم يكتمل الحفظ');$('#mh-error').hidden=false;throw e;});chain=job;return job;}
+  async function guarded(action){pending=action;try{await persist();const next=pending;pending=null;if(next)await next();}catch{}}
+  

@@ -1,0 +1,19 @@
+function snapshot(){return{version:'physical-2',writer:writerId,write:savedSeq+1,selected,cableChoice,power:{...power},admin:Object.fromEntries(Object.entries(admin).filter(([k,v])=>v===false)),devices:Object.fromEntries(Object.entries(devices).map(([id,d])=>[id,{type:d.type,position:d.g.position.toArray(),rotation:d.g.rotation.y}])),cables:cables.map(c=>({id:c.id,a:c.a,b:c.b,color:c.color,type:c.type,autoPending:c.autoPending,looseA:c.looseA,looseB:c.looseB,homeA:c.homeA,homeB:c.homeB})),pan:pan.toArray(),view,network:network.export(),assistance:assist.export(),vlanExercise,lesson:lesson?{...lesson}:null,cli:Object.fromEntries(Object.entries(cliSessions).map(([id,c])=>[id,{...c,lines:c.lines.slice(-8)}]))};}
+let undoSnapshot=null;
+function rememberEdit(){undoSnapshot=snapshot();q('#nf-undo').disabled=false;}
+function afterEdit(){selected=ports[selected]?selected:Object.keys(ports)[0]||'';closeZoom();zoomSuppressed=false;linking=null;trafficUntil=0;dirtyCable=true;if(selected)selectPort(selected,false);else updateUI();save();wake();}
+function insertDevice(type){if(busy||wireDrag)return;rememberEdit();let n=1;while(devices[type+n])n++;const id=type+n,pos=V(pan.x,type==='S'?.35:type==='R'?.52:.85,pan.z);for(let i=0;i<200;i++){const angle=i*2.4,r=Math.sqrt(i)*2.8;pos.x=pan.x+Math.cos(angle)*r;pos.z=pan.z+Math.sin(angle)*r;if(Object.values(devices).every(d=>Math.abs(pos.x-d.g.position.x)>5.3||Math.abs(pos.z-d.g.position.z)>4.5))break;}createDevice(id,type,pos.toArray(),false);selected=id+':'+(type==='S'?'G0/1':type==='R'?'G0/0':'F0');afterEdit();announce('أُضيف '+id+(type==='R'?'؛ منافذه مغلقة بالإعداد وتحتاج no shutdown داخل إعداد المنفذ.':'؛ اسحبه إلى المكان الذي تريده.'));q('#nf-all').click();}
+root.querySelectorAll('[data-add-device]').forEach(b=>b.onclick=()=>insertDevice(b.dataset.addDevice));
+q('#nf-delete-device').onclick=()=>{if(busy||wireDrag||!ports[selected])return;rememberEdit();const id=ports[selected].id;removeDevice(id);afterEdit();announce('حُذف '+id+' ووصلاته؛ يمكنك التراجع.');};
+q('#nf-delete-cable').onclick=()=>{if(busy||wireDrag)return;const c=cableFor(selected)||looseForHome(selected)?.c;if(!c)return;rememberEdit();removeCable(c);afterEdit();announce('حُذف الكابل؛ يمكنك التراجع.');};
+q('#nf-clear').onclick=()=>{if(busy||wireDrag)return;rememberEdit();Object.keys(devices).forEach(removeDevice);afterEdit();announce('المساحة فارغة؛ أضف الأجهزة التي تحتاجها. التراجع يعيد الشبكة السابقة.');};
+q('#nf-undo').onclick=()=>{if(!undoSnapshot||busy||wireDrag)return;const s=undoSnapshot;undoSnapshot=null;s.writer='undo';restore(s);q('#nf-undo').disabled=true;save();announce('استُعيدت الشبكة قبل آخر إضافة أو حذف.');};
+
+function addPort(id,name,xyz,normal,width=.195,height=.142){const g=devices[id].g,key=id+':'+name,local=V(...xyz),n=V(...normal),indicator=new T.Group();indicator.position.copy(local);indicator.quaternion.setFromUnitVectors(V(0,0,1),n);g.add(indicator);const led=makeLed(indicator,V(-width*.36,height*.67,.005),.029);ports[key]={key,id,name,local,normal:n,led,indicator,width,height};admin[key]=true;}
+q('#nf-device').replaceChildren();createDevice('R1','R',[-4.5,.52,-1.5]);createDevice('S1','S',[2,.35,-1.1]);createDevice('PC1','PC',[-1.1,.85,4.6]);
+function at(key){const p=ports[key],g=devices[p.id].g;g.updateMatrixWorld(true);return{p:g.localToWorld(p.local.clone()),n:p.normal.clone().transformDirection(g.matrixWorld)};}
+function cableFor(key){return cables.find(c=>c.a===key||c.b===key);}
+function peer(c,key){return c.a===key?c.b:c.a;}
+function isAlive(key,t=performance.now()){const p=ports[key];return power[p.id]&&!(boot[p.id]>t)&&admin[key];}
+function cableCompatible(c){if(!c.a||!c.b)return false;const types=[c.a,c.b].map(k=>devices[ports[k]?.id]?.type);return types.includes('S')||c.type==='crossover';}
+function cableUp(c,t=performance.now()){return !!(c.a&&c.b&&cableCompatible(c)&&isAlive(c.a,t)&&isAlive(c.b,t)&&t>=c.readyAt&&!(animation&&animation.c===c));}

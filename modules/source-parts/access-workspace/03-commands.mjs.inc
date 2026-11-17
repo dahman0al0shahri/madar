@@ -1,0 +1,33 @@
+function command(c){const t=s.tables[s.active],names=Object.keys(s.tables),fieldNames=t?.fields.map(f=>f.name)||[];
+ if(c==='viewData'||c==='viewDesign')return act('view',{view:c==='viewData'?'data':'design'});
+ if(c==='asc'||c==='desc')return act('sort',{dir:c==='asc'?'تصاعدي':'تنازلي'});
+ if(['primary','hide','unhide','freeze','unfreeze','clearFilter'].includes(c))return act(c);
+ if(c==='deleteRecord')return confirmAction('حذف سجل',`السجل المحدد: ${t?.rows.find(r=>r.المعرف===s.selectedRow)?.الاسم||s.selectedRow}. راجع التحديد قبل الحذف.`,c);
+ if(c==='deleteField')return confirmAction('حذف الحقل',`سيزال الحقل «${s.selectedField}» وبياناته من الجدول.`,c);
+ if(c==='restore')return confirmAction('استعادة النسخة',`سيستبدل محتوى الجداول بالنسخة «${s.backup?.name||'غير موجودة'}».`,c);
+ if(c==='compact')return showDialog('ضغط وإصلاح','<p>نحاكي صيانة مساحة التخزين. لا يضغط هذا ملفًا حقيقيًا ولا يستعيد سجلات محذوفة.</p>',()=>act(c));
+ if(c==='newDB')return showDialog('ملف ← جديد',input('name','اسم قاعدة البيانات')+'<p class="small">المجلد التدريبي: مستندات / قواعد البيانات. لا تُنشأ ملفات على جهازك.</p>',v=>act(c,v));
+ if(c==='newTable'||c==='designTable')return showDialog('إنشاء جدول',input('name','اسم الجدول'),v=>act('newTable',{...v,design:c==='designTable'}));
+ if(c==='addField')return showDialog('إضافة حقل',input('name','اسم الحقل')+input('type','نوع البيانات Data Type','نص قصير','text',TYPES),v=>act(c,v));
+ if(c==='description')return showDialog('خصائص الجدول',input('description','الوصف Description',t?.description),v=>act(c,v));
+ if(c==='find')return showDialog('بحث عن البيانات',input('value','بحث عن Find What')+input('scope','بحث في Look In','الجدول','text',['الجدول','الحقل الحالي'])+input('match','مطابقة Match','الحقل بالكامل','text',['الحقل بالكامل','أي جزء']),v=>act(c,v));
+ if(c==='filter')return showDialog('تصفية «'+s.selectedField+'»',input('criteria','القيمة أو الشرط (مثل الرياض أو >1000)')+'<p>التصفية تخفي غير المطابق دون حذف بياناته.</p>',v=>act(c,v));
+ if(c==='addRecord')return showDialog('سجل جديد',t?t.fields.filter(f=>f.type!=='ترقيم تلقائي').map(f=>input(f.name,f.caption||f.name,f.default||'')).join(''):'<p>افتح جدولًا أولًا.</p>',v=>act(c,v));
+ if(c==='saveAs')return showDialog('حفظ قاعدة البيانات باسم',input('name','اسم النسخة دون امتداد')+input('format','التنسيق','.accdb','text',['.accdb','.mdb','.accdt','.accde'])+'<p class="small">ACCDB قاعدة حديثة · MDB نسخة قديمة · ACCDT قالب · ACCDE نسخة مجمعة. ملفات تعليمية داخل المختبر فقط.</p>',v=>act(c,v));
+ if(c==='backup'||c==='split')return showDialog(c==='backup'?'نسخ احتياطي':'تقسيم القاعدة',input('name',c==='backup'?'اسم النسخة':'اسم ملف البيانات الخلفي دون امتداد')+'<p>الملف الناتج تمثيل تعليمي داخل هذا التدريب.</p>',v=>act(c,v));
+ if(c==='encrypt')return showDialog('تشفير بكلمة مرور — محاكاة',input('password','كلمة تجريبية فقط (مثل demo123)','','password')+input('confirm','تأكيد الكلمة التجريبية','','password')+'<p>لا تدخل كلمة شخصية. لا نحتفظ بالكلمة ولا ننفذ تشفيرًا حقيقيًا. يلزم الفتح الحصري في Access.</p>',v=>act(c,v));
+ if(c==='print')return showDialog('إعداد الصفحة والمعاينة',input('paper','حجم الورق','A4','text',['A4','A5'])+input('orientation','الاتجاه','عمودي','text',['عمودي','أفقي']),v=>act(c,v));
+ if(c==='export')return showDialog('تصدير الجدول',input('name','اسم ملف الناتج')+input('format','صيغة الناتج','Excel','text',['Excel','Text','PDF'])+input('saved','حفظ خطوات التصدير',false,'checkbox')+'<p>نسخة من بيانات التدريب؛ لا يجري إنشاء ملف Office حقيقي.</p>',v=>act(c,v));
+ if(c==='spec')return showDialog('خيارات متقدمة — مواصفة استيراد',input('name','حفظ المواصفة باسم')+input('delimiter','فاصل الحقول',',','text',[',',';','Tab'])+input('headers','الصف الأول يحتوي أسماء الحقول',false,'checkbox'),v=>act(c,v));
+ if(c.startsWith('import')){const source={importExcel:'Excel',importAccess:'Access',importText:'نص'}[c];return showDialog('إحضار بيانات خارجية — '+source,`<p>ملف العينة: ${source==='Excel'?'العملاء.xlsx / ورقة العملاء':source==='Access'?'المصدر.accdb / العملاء':'العملاء.csv'}</p><pre dir="rtl">الاسم,المدينة\nريم,الرياض\nعلي,جدة</pre>`+input('name','اسم الجدول الجديد')+input('headers','الصف الأول عناوين',false,'checkbox')+input('key','إضافة مفتاح أساسي تلقائي',true,'checkbox')+(source==='نص'?input('delimiter','الفاصل',',','text',[',',';','Tab']):'')+(source==='Access'?input('link','إنشاء جدول مرتبط بدل الاستيراد',false,'checkbox'):'')+input('saved','حفظ خطوات الاستيراد',false,'checkbox'),v=>act('import',{...v,source}));}
+ if(c==='relink')return showDialog('إدارة الجداول المرتبطة',`<p>الجدول: ${esc(s.active)} · المصدر الحالي: ${esc(t?.linked||'ليس مرتبطًا')}</p>`+input('path','مسار المصدر الجديد'),v=>act(c,v));
+ if(c==='form')return showDialog('إنشاء نموذج / جزء تطبيق',input('name','اسم النموذج')+input('type','النوع','فارغ','text',['فارغ','جهات الاتصال','تنقل'])+input('source','مصدر النموذج','الموظفون','text',names),v=>act(c,v));
+ if(c==='nav')return showDialog('خيارات جزء التنقل',input('group','تجميع حسب','الكل','text',['الكل','نوع الكائن']),v=>act(c,v));
+ if(c==='relation')return showDialog('تحرير العلاقات',input('from','جدول المفتاح الأساسي','الأقسام','text',names)+input('fromField','حقل المفتاح الأساسي','رقم القسم')+input('to','الجدول المرتبط','الموظفون','text',names)+input('toField','الحقل المقابل','القسم')+input('enforce','فرض التكامل المرجعي',false,'checkbox'),v=>act(c,v));
+ if(c==='queryNew')return showDialog('إظهار جدول',input('source','أضف جدول المصدر','الموظفون','text',names),v=>act(c,v));
+ if(c==='querySave'||c==='queryDelete')return showDialog(c==='querySave'?'حفظ الاستعلام':'حذف الاستعلام',c==='querySave'?input('name','اسم الاستعلام'):input('name','الاستعلام المراد حذفه','','text',Object.keys(s.queries)),v=>act(c,v));
+ if(c==='queryType')return showDialog('نوع الاستعلام',input('type','نوع الاستعلام','تحديد','text',['تحديد','تكوين جدول','إلحاق'])+input('target','الجدول الهدف (للتكوين أو الإلحاق)')+'<p>تحديد يعرض النتائج. تكوين جدول ينشئ جدولًا جديدًا. إلحاق يضيف سجلات إلى جدول موجود.</p>',v=>act(c,v));
+ if(c==='run'){const prompt=Object.values(s.query.criteria).find(v=>/^\[.+\]$/.test(v));if(prompt)return showDialog('إدخال قيمة المعلمة',input('parameter',String(prompt).slice(1,-1)),v=>act('run',v));if(s.query.type!=='تحديد')return showDialog('تأكيد تنفيذ الاستعلام الإجرائي',`<p>النوع: ${esc(s.query.type)} · المصدر: ${esc(s.query.source)} · الهدف: ${esc(s.query.target)}.</p><p>سوف تنشأ سجلات في الجدول الهدف. راجع الحقول والمعايير قبل التنفيذ.</p>`,()=>act('run'));return act('run');}
+ if(c==='wizard')return wizard();
+ }
+ 

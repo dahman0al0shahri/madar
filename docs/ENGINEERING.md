@@ -14,6 +14,8 @@ Start here when maintaining MADAR or reviewing it with an invited developer. Thi
 
 The home route serves generated HTML. Editing only `modules/madar-hub/shell.html` does not describe the entire running page: the build also integrates scripts, styles and account behavior.
 
+For the 21 units listed in [source layout](SOURCE_LAYOUT.md), edit `modules/source-parts/<feature>/` instead of the assembled compatibility file. Part names identify responsibilities, but the manifest defines execution order. These fragments retain shared scope; they are not independent imports. Preserve boundaries and literal text, and read the [assembly rules](../modules/source-parts/README.md).
+
 Use this loop for module-source changes:
 
 ```sh
@@ -68,6 +70,6 @@ A separate project copy with synthetic data is sufficient. Never send the entire
 
 ## Current limitations
 
-The build still contains compatibility transformations and large legacy HTML/JavaScript sources. This organization does not claim to have converted all interfaces to React components, validated every dependency or completed a full lint/type/security audit. Refactor those areas by feature with behavior evidence; see [the generation decision](decisions/0001-generated-interface-boundary.md). Current maintenance readiness and hosted limits remain in [the repository report](REPOSITORY_REPORT.md).
+The enumerated mixed-responsibility units are now split into named maintained parts. Compatibility transformations and shared runtime scope remain, as do coherent content banks and bundled libraries. This organization does not claim independent-module isolation, conversion of all interfaces to React, a dependency audit or a full lint/type/security audit. See [the source-split decision](decisions/0002-preserve-shared-scope-during-source-split.md) and [repository report](REPOSITORY_REPORT.md).
 
 References: [Node.js CommonJS modules](https://nodejs.org/api/modules.html) and [VS Code workspace settings](https://code.visualstudio.com/docs/configure/settings).

@@ -1,0 +1,8 @@
+function lessonView(id){
+ const l=L(id)||D.lessons[0];lastLesson=l.id;if(saved.lastLesson!==l.id){saved.lastLesson=l.id;persist();}renderSide();
+ const videoId=new URL(l.video).searchParams.get('v');
+ $('#main').innerHTML=`<div class="lesson-heading"><a class="back-to-library" href="#word">مكتبة الوحدات</a><div class="intro-line"><span class="eyebrow">WORD / الوحدة ${ar(l.unit)} · الدرس ${ar(l.unit>=6?l.sourceNumber:D.lessons.filter(x=>x.unit===l.unit).findIndex(x=>x.id===l.id)+1)}</span><span class="chip">مرجع Word</span></div><h1>${esc(l.title)}</h1><p class="muted">${esc(D.unitNames[l.unit-1])}</p></div>
+ <div class="lesson-workbench"><aside id="lesson-notes" class="lesson-notes" aria-label="ملاحظتي على الدرس"></aside><section id="video-section" aria-label="فيديو شرح الدرس"><div class="stage-bar"><span><i aria-hidden="true"></i> شاهد لتفهم</span><span class="stage-id">WORD / ${String(l.number).padStart(2,'0')}</span></div><div class="video-frame"><iframe data-lesson="${l.id}" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(videoId)}?rel=0&playsinline=1&enablejsapi=1&origin=${encodeURIComponent(location.origin)}" title="شرح فيديو: ${esc(l.title)}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="video-info"><span>الإدارة العامة لمركز التدرب الإلكتروني</span><a href="${esc(l.video)}" target="_blank" rel="noopener">فتح الفيديو في YouTube</a></div><p class="small muted">إذا تعذر تشغيل الفيديو هنا، استخدم رابط YouTube. التشغيل يحتاج اتصالًا بالإنترنت.</p></section>
+ </div><div id="review"></div>`;
+ window.MADAR_NOTES.mount(l.id); renderReview(l);
+}

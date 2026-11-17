@@ -9,6 +9,8 @@ Choose the guide that matches your task. You do not need to read every document 
 | [MADAR history](HISTORY.md) | Owner-confirmed beginning, dated development milestones, and evidence boundaries |
 | [Engineering guide](ENGINEERING.md) | First session, code organization, review evidence and developer handoff |
 | [Code map](CODE_MAP.md) | Feature entry points, folder roles and generated sources |
+| [Source layout](SOURCE_LAYOUT.md) | Editable parts for 21 application/style units, compatibility paths and retained data/vendor boundaries |
+| [Source-split decision](decisions/0002-preserve-shared-scope-during-source-split.md) | Shared-scope assembly, exact-output verification and limits of the refactor |
 | [Generation decision](decisions/0001-generated-interface-boundary.md) | Why the existing interfaces remain while generation is reorganized |
 | [Development](DEVELOPMENT.md) | Requirements, commands, checks, and setup limitations |
 | [Backup and recovery](BACKUP_RECOVERY.md) | Account export, isolated database recovery checks, and hosted recovery limits |

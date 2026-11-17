@@ -10,6 +10,7 @@ Unreleased means that no named release has been created. Maintenance PRs #1–#9
 
 ### Added
 
+- Maintained named source parts for 21 application/style units (176 parts), an ordered assembly stage and editable-source guide. Generation now checks 40 outputs; missing/orphan parts and inconsistent output inventories fail validation. Runtime URLs, shared scope and interface bytes are preserved.
 - A developer entry guide, feature/code map, machine-checked source inventory, task handoff rules and optional repository-local VS Code tasks/settings. These do not add collaborators or change publication permissions.
 - Dependency-free checks for stale/missing source references, undocumented source roots, undeclared generator writes and stale or non-repeatable generated outputs, included in repository CI.
 

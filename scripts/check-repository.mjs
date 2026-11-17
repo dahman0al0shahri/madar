@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 process.chdir(root);
-for (const args of [['scripts/repository-guard.mjs'], ['scripts/check-structure.mjs'], ['scripts/check-generation.mjs'], ['--test', '--test-concurrency=1', 'tests/repository-guard.test.mjs', 'tests/publication-baseline.test.mjs', 'tests/publication-index.test.mjs', 'tests/local-state.test.mjs', 'tests/database-snapshot.test.mjs', 'tests/hosted-guest.test.mjs', 'tests/project-map.test.mjs', 'tests/generation-contract.test.mjs']]) {
+for (const args of [['scripts/repository-guard.mjs'], ['scripts/check-structure.mjs'], ['scripts/check-generation.mjs'], ['--test', '--test-concurrency=1', 'tests/repository-guard.test.mjs', 'tests/publication-baseline.test.mjs', 'tests/publication-index.test.mjs', 'tests/local-state.test.mjs', 'tests/database-snapshot.test.mjs', 'tests/hosted-guest.test.mjs', 'tests/project-map.test.mjs', 'tests/generation-contract.test.mjs', 'tests/source-assemblies.test.mjs']]) {
   // Git fixture tests create several independent repositories. Slow local disks
   // A measured Windows run of publication fixtures alone took 199 seconds.
   // Retain every assertion and a bounded five-minute test-suite timeout.
@@ -18,6 +18,7 @@ for (const args of [['scripts/repository-guard.mjs'], ['scripts/check-structure.
 }
 // Deliberately scoped to the maintained repository documentation.
 const documents = [
+  'docs/SOURCE_LAYOUT.md', 'modules/source-parts/README.md', 'docs/decisions/0002-preserve-shared-scope-during-source-split.md',
   'docs/ENGINEERING.md', 'docs/CODE_MAP.md', 'docs/decisions/0001-generated-interface-boundary.md',
   'README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'docs/README.md',
   'docs/START_HERE.md', 'docs/DEVELOPMENT.md', 'docs/ARCHITECTURE.md',

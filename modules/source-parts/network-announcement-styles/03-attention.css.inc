@@ -1,0 +1,8 @@
+/* Deliberate attention cue: two visible lifts, then a rest between cycles. */
+#madar-hub .sa button.sa-lang{border-color:#f7e9b8;background:linear-gradient(110deg,#8cecd5,#ffe0a1 40%,#9bf0e3 70%,#ffe7b0);background-size:280% 100%;box-shadow:0 0 0 3px #b8f5db29,0 0 32px #8eeacb72,0 7px 18px #0005;animation:sa-translate-attention 3.4s cubic-bezier(.3,.7,.3,1) infinite,sa-translate-glow-strong 3.4s ease-in-out infinite;transform-origin:center;will-change:transform}
+#madar-hub .sa button.sa-lang:before{background:linear-gradient(110deg,transparent 37%,#fff0dbdd 49%,transparent 61%);animation:sa-translate-sheen 3.4s ease-in-out infinite}
+#madar-hub .sa .sa-lang-icon{animation:sa-translate-icon-strong 3.4s ease-in-out infinite;background:#143a3430;border-color:#294b3740}#madar-hub .sa .sa-lang-icon svg{stroke-width:2.3}
+@keyframes sa-translate-attention{0%,34%,100%{transform:translateY(0) rotate(0) scale(1)}9%{transform:translateY(-6px) rotate(-3deg) scale(1.07)}17%{transform:translateY(1px) rotate(1.5deg) scale(1)}25%{transform:translateY(-4px) rotate(2deg) scale(1.045)}}
+@keyframes sa-translate-glow-strong{0%,100%{background-position:0% 50%;box-shadow:0 0 0 3px #b8f5db29,0 0 24px #8eeacb55,0 7px 18px #0005}12%,26%{background-position:100% 50%;box-shadow:0 0 0 6px #f4d4943b,0 0 40px #f1d18f99,0 8px 24px #0005}48%,76%{background-position:60% 50%;box-shadow:0 0 0 3px #b8f5db29,0 0 28px #8eeacb66,0 7px 18px #0005}}
+@keyframes sa-translate-icon-strong{0%,40%,100%{transform:rotate(0) scale(1)}10%{transform:rotate(-20deg) scale(1.2)}25%{transform:rotate(16deg) scale(1.12)}}
+@media(prefers-reduced-motion:reduce){#madar-hub .sa button.sa-lang{will-change:auto}}

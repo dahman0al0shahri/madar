@@ -17,7 +17,8 @@ const runtime = localStatePath(projectRoot, '.sites-runtime');
 fs.mkdirSync(runtime, {recursive: true});
 const runRoot = fs.mkdtempSync(path.join(runtime, 'generation-check-'));
 const source = path.join(runRoot, 'source');
-const inputs = files.filter(file => /^(?:modules|lib|public|scripts|build)\//.test(file) && /\.(?:html|css|[cm]?js|json)$/.test(file));
+const inputs = files.filter(file => file === 'project-map.json' ||
+  (/^(?:modules|lib|public|scripts|build)\//.test(file) && /\.(?:html|css|[cm]?js|json|inc)$/.test(file)));
 for (const file of inputs) {
   const origin = path.join(projectRoot, file);
   assert(fs.lstatSync(origin).isFile(), 'Only regular source files are copied: ' + file);

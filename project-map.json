@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "description": "Navigation map, not a dependency graph. Sources are entry points; read the named generator for the complete ordered integration.",
+  "description": "Navigation and ordered source-assembly map. Shared runtime scope is preserved; this is not a complete dependency graph.",
   "areas": {
     ".githooks": "Local Git publication safeguards; not server branch protection.",
     ".github": "Review templates, issue templates and automated checks.",
@@ -15,7 +15,7 @@
     "examples": "Starter examples; not the running application.",
     "hooks": "Shared React hooks; check actual imports before changing.",
     "lib": "Server logic, content, original HTML and explicitly listed generated HTML.",
-    "modules": "Editable feature sources and one explicitly listed generated simulator.",
+    "modules": "Editable feature modules/source parts and explicitly listed assembled compatibility files.",
     "public": "Served original assets/content and explicitly listed generated assets.",
     "scripts": "Developer, generation, verification and publication commands.",
     "tests": "Automated checks, synthetic fixtures and reviewed visual references.",
@@ -28,8 +28,9 @@
       "entry": "app/route.ts",
       "sources": [
         "modules/madar-hub/shell.html",
-        "modules/madar-hub/app.js",
-        "modules/madar-hub/styles.css"
+        "modules/source-parts/hub/00-bootstrap.js.inc",
+        "modules/madar-hub/styles.css",
+        "modules/source-parts/README.md"
       ],
       "integration": [
         "build/madar/hub.cjs",
@@ -53,9 +54,10 @@
       "title": "Network simulator and practical training",
       "entry": "app/network-lab/route.ts",
       "sources": [
-        "modules/network-diagnosis-preview/free-workspace.html",
+        "modules/source-parts/network-engine/00-bootstrap.html.inc",
         "modules/network-tabs-preview/shell.html",
-        "modules/network-tabs-preview/app.js"
+        "modules/source-parts/network-tabs/00-bootstrap.js.inc",
+        "modules/source-parts/README.md"
       ],
       "integration": [
         "modules/network-tabs-preview/build.cjs",
@@ -68,8 +70,9 @@
       "entry": "app/network-review/route.ts",
       "sources": [
         "lib/srwe-review.html",
-        "modules/srwe-review/practice-base.js",
-        "modules/srwe-review/integration.js"
+        "modules/source-parts/network-revision/00-bootstrap.js.inc",
+        "modules/srwe-review/integration.js",
+        "modules/source-parts/README.md"
       ],
       "integration": [
         "scripts/build-srwe.cjs"
@@ -81,8 +84,9 @@
       "entry": "modules/madar-hub/os1.js",
       "sources": [
         "modules/madar-hub/os-practice.js",
-        "modules/madar-hub/os-desktop.js",
-        "lib/os-simulator-curriculum.json"
+        "modules/source-parts/os-desktop/00-bootstrap.js.inc",
+        "lib/os-simulator-curriculum.json",
+        "modules/source-parts/README.md"
       ],
       "integration": [
         "build/madar/hub.cjs",
@@ -121,6 +125,7 @@
   "generation": {
     "entry": "scripts/build-madar.cjs",
     "generators": [
+      "build/madar/source-assemblies.cjs",
       "scripts/build-madar.cjs",
       "build/madar/context.cjs",
       "build/madar/network-simulator.cjs",
@@ -130,6 +135,35 @@
       "scripts/build-srwe.cjs"
     ],
     "groups": [
+      {
+        "stage": "build/madar/source-assemblies.cjs",
+        "sources": [
+          "project-map.json"
+        ],
+        "outputs": [
+          "modules/madar-hub/app.js",
+          "modules/network-tabs-preview/app.js",
+          "public/app.js",
+          "public/excel-sheet.js",
+          "public/access-lab.mjs",
+          "public/excel-course.js",
+          "public/access-course.js",
+          "modules/madar-hub/os-desktop.js",
+          "modules/network-tabs-preview/learning-controller.js",
+          "modules/network-tabs-preview/practical-controller.js",
+          "modules/madar-hub/os-practice-model.js",
+          "modules/madar-hub/os-curriculum-model.js",
+          "modules/madar-hub/os-curriculum.js",
+          "modules/srwe-review/practice-base.js",
+          "modules/network-diagnosis-preview/free-workspace.html",
+          "modules/network-background.html",
+          "modules/network-review-preview/review-assistance.html",
+          "modules/madar-hub/os-desktop.css",
+          "modules/madar-hub/srwe-announcement.css",
+          "modules/network-tabs-preview/refinement.css",
+          "public/observatory.css"
+        ]
+      },
       {
         "stage": "build/madar/network-simulator.cjs",
         "sources": [
@@ -211,5 +245,309 @@
         ]
       }
     ]
-  }
+  },
+  "sourceAssemblies": [
+    {
+      "output": "modules/madar-hub/app.js",
+      "purpose": "hub",
+      "parts": [
+        "modules/source-parts/hub/00-bootstrap.js.inc",
+        "modules/source-parts/hub/01-catalog.js.inc",
+        "modules/source-parts/hub/02-state.js.inc",
+        "modules/source-parts/hub/03-persistence.js.inc",
+        "modules/source-parts/hub/04-navigation.js.inc",
+        "modules/source-parts/hub/05-announcements.js.inc",
+        "modules/source-parts/hub/06-course-pages.js.inc",
+        "modules/source-parts/hub/07-account-and-editor.js.inc",
+        "modules/source-parts/hub/08-render.js.inc",
+        "modules/source-parts/hub/09-search-and-events.js.inc",
+        "modules/source-parts/hub/10-editor-save-and-startup.js.inc"
+      ]
+    },
+    {
+      "output": "modules/network-tabs-preview/app.js",
+      "purpose": "network tabs",
+      "parts": [
+        "modules/source-parts/network-tabs/00-bootstrap.js.inc",
+        "modules/source-parts/network-tabs/01-lab-normalization.js.inc",
+        "modules/source-parts/network-tabs/02-storage.js.inc",
+        "modules/source-parts/network-tabs/03-dialogs.js.inc",
+        "modules/source-parts/network-tabs/04-tab-lifecycle.js.inc",
+        "modules/source-parts/network-tabs/05-tab-drag.js.inc",
+        "modules/source-parts/network-tabs/06-tab-render.js.inc",
+        "modules/source-parts/network-tabs/07-lab-management.js.inc",
+        "modules/source-parts/network-tabs/08-library-and-device-copy.js.inc",
+        "modules/source-parts/network-tabs/09-device-paste.js.inc",
+        "modules/source-parts/network-tabs/10-command-tools.js.inc",
+        "modules/source-parts/network-tabs/11-recovery.js.inc"
+      ]
+    },
+    {
+      "output": "public/app.js",
+      "purpose": "office shell",
+      "parts": [
+        "modules/source-parts/office-shell/00-bootstrap.js.inc",
+        "modules/source-parts/office-shell/01-state.js.inc",
+        "modules/source-parts/office-shell/02-navigation-and-icons.js.inc",
+        "modules/source-parts/office-shell/03-home.js.inc",
+        "modules/source-parts/office-shell/04-word-course.js.inc",
+        "modules/source-parts/office-shell/05-lesson.js.inc",
+        "modules/source-parts/office-shell/06-review.js.inc",
+        "modules/source-parts/office-shell/07-quiz-setup.js.inc",
+        "modules/source-parts/office-shell/08-quiz-session.js.inc",
+        "modules/source-parts/office-shell/09-results.js.inc",
+        "modules/source-parts/office-shell/10-about-and-router.js.inc"
+      ]
+    },
+    {
+      "output": "public/excel-sheet.js",
+      "purpose": "excel worksheet",
+      "parts": [
+        "modules/source-parts/excel-worksheet/00-bootstrap.js.inc",
+        "modules/source-parts/excel-worksheet/01-formula-evaluation.js.inc",
+        "modules/source-parts/excel-worksheet/02-formula-assessment.js.inc",
+        "modules/source-parts/excel-worksheet/03-task-assessment.js.inc",
+        "modules/source-parts/excel-worksheet/04-worksheet-state.js.inc",
+        "modules/source-parts/excel-worksheet/05-grid-render.js.inc",
+        "modules/source-parts/excel-worksheet/06-editing-and-dialogs.js.inc",
+        "modules/source-parts/excel-worksheet/07-worksheet-actions.js.inc",
+        "modules/source-parts/excel-worksheet/08-formatting-and-feedback.js.inc",
+        "modules/source-parts/excel-worksheet/09-task-check.js.inc"
+      ]
+    },
+    {
+      "output": "public/access-lab.mjs",
+      "purpose": "access workspace",
+      "parts": [
+        "modules/source-parts/access-workspace/00-bootstrap.mjs.inc",
+        "modules/source-parts/access-workspace/01-session.mjs.inc",
+        "modules/source-parts/access-workspace/02-edit-and-dialogs.mjs.inc",
+        "modules/source-parts/access-workspace/03-commands.mjs.inc",
+        "modules/source-parts/access-workspace/04-wizard.mjs.inc",
+        "modules/source-parts/access-workspace/05-data-grid.mjs.inc",
+        "modules/source-parts/access-workspace/06-table-design.mjs.inc",
+        "modules/source-parts/access-workspace/07-query.mjs.inc",
+        "modules/source-parts/access-workspace/08-workspace.mjs.inc",
+        "modules/source-parts/access-workspace/09-render.mjs.inc"
+      ]
+    },
+    {
+      "output": "public/excel-course.js",
+      "purpose": "excel course",
+      "parts": [
+        "modules/source-parts/excel-course/00-bootstrap.js.inc",
+        "modules/source-parts/excel-course/01-content-rendering.js.inc",
+        "modules/source-parts/excel-course/02-event-persistence.js.inc",
+        "modules/source-parts/excel-course/03-course-library.js.inc",
+        "modules/source-parts/excel-course/04-lesson.js.inc",
+        "modules/source-parts/excel-course/05-quiz-setup.js.inc",
+        "modules/source-parts/excel-course/06-quiz-session.js.inc",
+        "modules/source-parts/excel-course/07-mount-and-review-api.js.inc"
+      ]
+    },
+    {
+      "output": "public/access-course.js",
+      "purpose": "access course",
+      "parts": [
+        "modules/source-parts/access-course/00-bootstrap.js.inc",
+        "modules/source-parts/access-course/01-content-rendering.js.inc",
+        "modules/source-parts/access-course/02-event-persistence.js.inc",
+        "modules/source-parts/access-course/03-course-library.js.inc",
+        "modules/source-parts/access-course/04-lesson.js.inc",
+        "modules/source-parts/access-course/05-quiz-setup.js.inc",
+        "modules/source-parts/access-course/06-quiz-session.js.inc",
+        "modules/source-parts/access-course/07-mount-and-review-api.js.inc"
+      ]
+    },
+    {
+      "output": "modules/madar-hub/os-desktop.js",
+      "purpose": "os desktop",
+      "parts": [
+        "modules/source-parts/os-desktop/00-bootstrap.js.inc",
+        "modules/source-parts/os-desktop/01-window-state.js.inc",
+        "modules/source-parts/os-desktop/02-window-controls.js.inc",
+        "modules/source-parts/os-desktop/03-window-content.js.inc",
+        "modules/source-parts/os-desktop/04-role-wizard.js.inc",
+        "modules/source-parts/os-desktop/05-promotion.js.inc",
+        "modules/source-parts/os-desktop/06-setup.js.inc",
+        "modules/source-parts/os-desktop/07-desktop.js.inc",
+        "modules/source-parts/os-desktop/08-form-events.js.inc",
+        "modules/source-parts/os-desktop/09-pointer-and-context-events.js.inc"
+      ]
+    },
+    {
+      "output": "modules/network-tabs-preview/learning-controller.js",
+      "purpose": "network learning",
+      "parts": [
+        "modules/source-parts/network-learning/00-bootstrap.js.inc",
+        "modules/source-parts/network-learning/01-requirements.js.inc",
+        "modules/source-parts/network-learning/02-step-render.js.inc",
+        "modules/source-parts/network-learning/03-history-and-restart.js.inc",
+        "modules/source-parts/network-learning/04-assessment.js.inc"
+      ]
+    },
+    {
+      "output": "modules/network-tabs-preview/practical-controller.js",
+      "purpose": "network practice",
+      "parts": [
+        "modules/source-parts/network-practice/00-bootstrap.js.inc",
+        "modules/source-parts/network-practice/01-open-lesson.js.inc",
+        "modules/source-parts/network-practice/02-requirements.js.inc",
+        "modules/source-parts/network-practice/03-render.js.inc",
+        "modules/source-parts/network-practice/04-events-and-history.js.inc"
+      ]
+    },
+    {
+      "output": "modules/madar-hub/os-practice-model.js",
+      "purpose": "os practice model",
+      "parts": [
+        "modules/source-parts/os-practice-model/00-bootstrap.js.inc",
+        "modules/source-parts/os-practice-model/01-initial-state.js.inc",
+        "modules/source-parts/os-practice-model/02-network-and-state.js.inc",
+        "modules/source-parts/os-practice-model/03-commands.js.inc",
+        "modules/source-parts/os-practice-model/04-menus.js.inc",
+        "modules/source-parts/os-practice-model/05-actions.js.inc",
+        "modules/source-parts/os-practice-model/06-inspection.js.inc"
+      ]
+    },
+    {
+      "output": "modules/madar-hub/os-curriculum-model.js",
+      "purpose": "os curriculum model",
+      "parts": [
+        "modules/source-parts/os-curriculum-model/00-bootstrap.js.inc",
+        "modules/source-parts/os-curriculum-model/01-seed.js.inc",
+        "modules/source-parts/os-curriculum-model/02-permissions.js.inc",
+        "modules/source-parts/os-curriculum-model/03-allocation.js.inc",
+        "modules/source-parts/os-curriculum-model/04-policy.js.inc",
+        "modules/source-parts/os-curriculum-model/05-commands.js.inc",
+        "modules/source-parts/os-curriculum-model/06-actions.js.inc",
+        "modules/source-parts/os-curriculum-model/07-final-state.js.inc"
+      ]
+    },
+    {
+      "output": "modules/madar-hub/os-curriculum.js",
+      "purpose": "os curriculum ui",
+      "parts": [
+        "modules/source-parts/os-curriculum-ui/00-bootstrap.js.inc",
+        "modules/source-parts/os-curriculum-ui/01-fields.js.inc",
+        "modules/source-parts/os-curriculum-ui/02-desktop.js.inc",
+        "modules/source-parts/os-curriculum-ui/03-properties.js.inc",
+        "modules/source-parts/os-curriculum-ui/04-disks-and-resources.js.inc",
+        "modules/source-parts/os-curriculum-ui/05-dialogs.js.inc",
+        "modules/source-parts/os-curriculum-ui/06-render-and-events.js.inc"
+      ]
+    },
+    {
+      "output": "modules/srwe-review/practice-base.js",
+      "purpose": "network revision",
+      "parts": [
+        "modules/source-parts/network-revision/00-bootstrap.js.inc",
+        "modules/source-parts/network-revision/01-storage.js.inc",
+        "modules/source-parts/network-revision/02-filters.js.inc",
+        "modules/source-parts/network-revision/03-render.js.inc",
+        "modules/source-parts/network-revision/04-answers.js.inc",
+        "modules/source-parts/network-revision/05-mode.js.inc"
+      ]
+    },
+    {
+      "output": "modules/network-diagnosis-preview/free-workspace.html",
+      "purpose": "network engine",
+      "parts": [
+        "modules/source-parts/network-engine/00-bootstrap.html.inc",
+        "modules/source-parts/network-engine/01-styles.html.inc",
+        "modules/source-parts/network-engine/02-device-models.html.inc",
+        "modules/source-parts/network-engine/03-device-bodies.html.inc",
+        "modules/source-parts/network-engine/04-assistance-model.html.inc",
+        "modules/source-parts/network-engine/05-network-model.html.inc",
+        "modules/source-parts/network-engine/06-ios-cli.html.inc",
+        "modules/source-parts/network-engine/07-devices.html.inc",
+        "modules/source-parts/network-engine/08-device-editing.html.inc",
+        "modules/source-parts/network-engine/09-cable-state.html.inc",
+        "modules/source-parts/network-engine/10-cable-geometry.html.inc",
+        "modules/source-parts/network-engine/11-persistence.html.inc",
+        "modules/source-parts/network-engine/12-selection.html.inc",
+        "modules/source-parts/network-engine/13-cable-actions.html.inc",
+        "modules/source-parts/network-engine/14-camera.html.inc",
+        "modules/source-parts/network-engine/15-pointer-geometry.html.inc",
+        "modules/source-parts/network-engine/16-wire-drag.html.inc",
+        "modules/source-parts/network-engine/17-cli-view.html.inc",
+        "modules/source-parts/network-engine/18-lesson-and-ping.html.inc",
+        "modules/source-parts/network-engine/19-vlan-exercise.html.inc",
+        "modules/source-parts/network-engine/20-assistance-view.html.inc",
+        "modules/source-parts/network-engine/21-port-zoom.html.inc",
+        "modules/source-parts/network-engine/22-restore.html.inc"
+      ]
+    },
+    {
+      "output": "modules/network-background.html",
+      "purpose": "network background",
+      "parts": [
+        "modules/source-parts/network-background/00-bootstrap.html.inc",
+        "modules/source-parts/network-background/01-styles.html.inc",
+        "modules/source-parts/network-background/02-script.html.inc",
+        "modules/source-parts/network-background/03-canvas-primitives.html.inc",
+        "modules/source-parts/network-background/04-scene-layout.html.inc",
+        "modules/source-parts/network-background/05-device-art.html.inc",
+        "modules/source-parts/network-background/06-scene-layers.html.inc",
+        "modules/source-parts/network-background/07-foreground.html.inc",
+        "modules/source-parts/network-background/08-frame-lifecycle.html.inc"
+      ]
+    },
+    {
+      "output": "modules/network-review-preview/review-assistance.html",
+      "purpose": "assistance review",
+      "parts": [
+        "modules/source-parts/assistance-review/00-bootstrap.html.inc",
+        "modules/source-parts/assistance-review/01-styles.html.inc",
+        "modules/source-parts/assistance-review/02-script.html.inc",
+        "modules/source-parts/assistance-review/03-halo.html.inc",
+        "modules/source-parts/assistance-review/04-state-and-render.html.inc"
+      ]
+    },
+    {
+      "output": "modules/madar-hub/os-desktop.css",
+      "purpose": "os desktop styles",
+      "parts": [
+        "modules/source-parts/os-desktop-styles/00-bootstrap.css.inc",
+        "modules/source-parts/os-desktop-styles/01-night-theme.css.inc",
+        "modules/source-parts/os-desktop-styles/02-orbital-brand.css.inc",
+        "modules/source-parts/os-desktop-styles/03-desktop-background.css.inc"
+      ]
+    },
+    {
+      "output": "modules/madar-hub/srwe-announcement.css",
+      "purpose": "network announcement styles",
+      "parts": [
+        "modules/source-parts/network-announcement-styles/00-bootstrap.css.inc",
+        "modules/source-parts/network-announcement-styles/01-exam-gateway.css.inc",
+        "modules/source-parts/network-announcement-styles/02-translation.css.inc",
+        "modules/source-parts/network-announcement-styles/03-attention.css.inc",
+        "modules/source-parts/network-announcement-styles/04-light.css.inc"
+      ]
+    },
+    {
+      "output": "modules/network-tabs-preview/refinement.css",
+      "purpose": "network workbench styles",
+      "parts": [
+        "modules/source-parts/network-workbench-styles/00-bootstrap.css.inc",
+        "modules/source-parts/network-workbench-styles/01-secondary-tools.css.inc",
+        "modules/source-parts/network-workbench-styles/02-workbench.css.inc",
+        "modules/source-parts/network-workbench-styles/03-requirements.css.inc",
+        "modules/source-parts/network-workbench-styles/04-transfer.css.inc",
+        "modules/source-parts/network-workbench-styles/05-tool-row.css.inc",
+        "modules/source-parts/network-workbench-styles/06-viewport.css.inc",
+        "modules/source-parts/network-workbench-styles/07-help.css.inc"
+      ]
+    },
+    {
+      "output": "public/observatory.css",
+      "purpose": "office observatory styles",
+      "parts": [
+        "modules/source-parts/office-observatory-styles/00-bootstrap.css.inc",
+        "modules/source-parts/office-observatory-styles/01-course-map.css.inc",
+        "modules/source-parts/office-observatory-styles/02-lesson-studio.css.inc",
+        "modules/source-parts/office-observatory-styles/03-quiz-bank.css.inc"
+      ]
+    }
+  ]
 }

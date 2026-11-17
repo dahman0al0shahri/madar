@@ -26,3 +26,24 @@ test('rejects references outside the repository', () => {
     assert.throws(() => validateProjectMap(map, files), /Invalid project-relative path/);
   }
 });
+
+function assemblyFixture() {
+  const map=fixture();
+  map.areas.build='Generation';map.areas.modules='Feature sources';
+  const part='modules/source-parts/example/00-state.js.inc', stage='build/madar/source-assemblies.cjs';
+  map.sourceAssemblies=[{output:'public/home.html',purpose:'Example state',parts:[part]}];
+  map.generation.generators=[stage];
+  map.generation.groups=[{stage,sources:['project-map.json'],outputs:['public/home.html']}];
+  return {map,files:[...files,stage,part,'modules/source-parts/README.md','project-map.json']};
+}
+
+test('source assembly inventory rejects orphaned and missing parts',()=>{
+  const x=assemblyFixture();validateProjectMap(x.map,x.files);
+  assert.throws(()=>validateProjectMap(x.map,[...x.files,'modules/source-parts/example/orphan.js.inc']),/Orphan source part/);
+  assert.throws(()=>validateProjectMap(x.map,x.files.filter(f=>!f.endsWith('.inc'))),/missing map reference/);
+});
+
+test('source assembly outputs must agree with the regular generation inventory',()=>{
+  const x=assemblyFixture();x.map.sourceAssemblies[0].output='app/route.ts';
+  assert.throws(()=>validateProjectMap(x.map,x.files),/output inventory differs/);
+});

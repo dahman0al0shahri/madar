@@ -42,6 +42,29 @@ export function validateProjectMap(map, files) {
       outputs.add(output);
     }
   }
+  if (map.sourceAssemblies) {
+    const assembled = new Set(), usedParts = new Set();
+    for (const assembly of map.sourceAssemblies) {
+      reference(assembly.output);
+      assert(!assembled.has(assembly.output), 'Duplicate source assembly');
+      assembled.add(assembly.output);
+      assert(assembly.purpose?.trim(), 'Assembly must explain its responsibility');
+      assert(assembly.parts.length && new Set(assembly.parts).size === assembly.parts.length, 'Missing or duplicate source parts');
+      for (const part of assembly.parts) {
+        reference(part);
+        assert(part.startsWith('modules/source-parts/'), 'Source parts must live in modules/source-parts');
+        usedParts.add(part);
+      }
+    }
+    const stage = map.generation.groups.find(g => g.stage === 'build/madar/source-assemblies.cjs');
+    assert(stage, 'Missing source assembly generation stage');
+    assert.deepEqual([...assembled].sort(), [...stage.outputs].sort(), 'Assembly output inventory differs from generation inventory');
+    assert(stage.sources.includes('project-map.json'), 'Assembly stage must declare its source manifest');
+    for (const part of usedParts) assert(!assembled.has(part), 'Source assembly cycle');
+    for (const file of files.filter(f => f.startsWith('modules/source-parts/') && f.endsWith('.inc'))) {
+      assert(usedParts.has(file), 'Orphan source part: ' + file);
+    }
+  }
   return { features: ids.size, outputs: outputs.size, areas: Object.keys(map.areas).length };
 }
 

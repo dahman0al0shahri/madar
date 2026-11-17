@@ -51,6 +51,7 @@ Apply these rules alongside the governing workspace instructions. This file does
 ## Maintainable source organization (owner request, 17 November 2026)
 
 - Read `docs/ENGINEERING.md` and `docs/CODE_MAP.md` before maintenance. Locate original sources, integration stages and affected tests before editing generated interfaces.
+- Read `docs/SOURCE_LAYOUT.md` for the 21 units assembled from `modules/source-parts/`. Edit the owning named part, preserve shared scope and boundary text, and use the order in `project-map.json.sourceAssemblies`. Never fix the assembled copy alone, import an individual `.inc` fragment or split content/vendor files solely because they are large.
 - Keep `project-map.json` accurate for feature entry points, top-level areas and generator outputs. Run `npm run check`; generator edits also require the isolated generation check and applicable startup/browser evidence. Do not silently refresh visual baselines.
 - Place new code with its owning feature, use readable named functions, and keep rendering, persistence and course data distinguishable. Do not grow the compatibility string-replacement pipeline when a maintained module can own the behavior. Preserve literal/template whitespace and approved interfaces.
 - Do not reorganize unrelated legacy files or replace frameworks as a side effect of a small task. State the reason and verification boundary for structural changes; document lasting decisions in `docs/decisions/`.
