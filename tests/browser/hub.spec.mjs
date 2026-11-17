@@ -16,9 +16,9 @@ test('hub modules preserve profile data, navigation, failure recovery and histor
   const seed = { ...saved.snapshot, version: 1, visits: saved.snapshot?.visits || {},
     notes: { ...saved.snapshot?.notes, 'hub-test': 'Earlier synthetic note' },
     customHubTest: { retained: true } };
-  const seeded = await page.request.put(url, { data: { snapshot: seed, revision: saved.revision,
+  const seeded = await page.request.put(url, { headers: { origin: baseURL }, data: { snapshot: seed, revision: saved.revision,
     requestId: await page.evaluate(() => crypto.randomUUID()) } });
-  expect(seeded.ok()).toBe(true);
+  expect(seeded.ok(), await seeded.text()).toBe(true);
   // A newer server note must enter the next profile save without losing unknown fields.
   await page.route('**/api/madar', async route => {
     const response = await route.fetch();
@@ -33,7 +33,7 @@ test('hub modules preserve profile data, navigation, failure recovery and histor
   await page.route('**/api/madar/state?*', route => route.request().method() === 'PUT' && rejectSave
     ? route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'unavailable' }) })
     : route.continue());
-  await page.locator('#mh-main [data-go="courses"]').click();
+  await page.locator('#mh-main .mh-course-door [data-go="courses"]').click();
   await expect(page.locator('#mh-error')).toBeVisible();
   expect((await state()).route).toBe('home');
   expect((await state()).profiles.student.notes['hub-test']).toBe('Synthetic preserved note');
