@@ -25,3 +25,9 @@
 - [ ] I did not change the appearance of Advanced Computer Applications without explicit authorization.
 <!-- For a new course or practice workflow, include evidence against docs/COURSE_INTEGRATION.md. -->
 <!-- For release preparation, use docs/MAINTENANCE.md and docs/templates/RELEASE_NOTES.md. -->
+
+## Source organization
+- Original source and integration stage:
+- Structure/map update: changed / not needed, with reason
+- Generation evidence (if applicable):
+- [ ] I followed docs/ENGINEERING.md and identified the next maintainer's entry point.

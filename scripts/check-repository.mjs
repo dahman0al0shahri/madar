@@ -5,14 +5,20 @@ import { spawnSync } from 'node:child_process';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 process.chdir(root);
-for (const args of [['scripts/repository-guard.mjs'], ['--test', '--test-concurrency=1', 'tests/repository-guard.test.mjs', 'tests/publication-baseline.test.mjs', 'tests/local-state.test.mjs', 'tests/database-snapshot.test.mjs', 'tests/hosted-guest.test.mjs']]) {
+for (const args of [['scripts/repository-guard.mjs'], ['scripts/check-structure.mjs'], ['scripts/check-generation.mjs'], ['--test', '--test-concurrency=1', 'tests/repository-guard.test.mjs', 'tests/publication-baseline.test.mjs', 'tests/publication-index.test.mjs', 'tests/local-state.test.mjs', 'tests/database-snapshot.test.mjs', 'tests/hosted-guest.test.mjs', 'tests/project-map.test.mjs', 'tests/generation-contract.test.mjs']]) {
   // Git fixture tests create several independent repositories. Slow local disks
-  // can exceed one minute without a test failure; retain a bounded full run.
-  const result = spawnSync(process.execPath, args, { cwd: root, stdio: 'inherit', timeout: args[0] === '--test' ? 180000 : 60000 });
-  if (result.status !== 0) process.exit(1);
+  // A measured Windows run of publication fixtures alone took 199 seconds.
+  // Retain every assertion and a bounded five-minute test-suite timeout.
+  const result = spawnSync(process.execPath, args, { cwd: root, stdio: 'inherit', timeout: args[0] === '--test' ? 300000 : 60000 });
+  if (result.error || result.status !== 0) {
+    console.error('Check failed: ' + args.join(' '));
+    console.error(result.error?.message ?? ('Exit status: ' + result.status));
+    process.exit(1);
+  }
 }
 // Deliberately scoped to the maintained repository documentation.
 const documents = [
+  'docs/ENGINEERING.md', 'docs/CODE_MAP.md', 'docs/decisions/0001-generated-interface-boundary.md',
   'README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'docs/README.md',
   'docs/START_HERE.md', 'docs/DEVELOPMENT.md', 'docs/ARCHITECTURE.md',
   'docs/RIGHTS.md', 'docs/RELEASE_READINESS.md', 'docs/COURSE_INTEGRATION.md',

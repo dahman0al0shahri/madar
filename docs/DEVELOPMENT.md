@@ -1,5 +1,7 @@
 # Development
 
+For your first maintenance task, start with [the engineering guide](ENGINEERING.md) and [code map](CODE_MAP.md).
+
 ## Requirements
 
 - Node.js **22.13.0 or later**, as specified in `package.json`, and npm.
@@ -30,7 +32,10 @@ Local authentication uses the synthetic `local_seedy` identity through **Sign in
 
 | Command | Purpose and limitations |
 | --- | --- |
-| `node scripts/check-repository.mjs` | Check identity, publication and local-state safeguards, documentation links, and five existing application test files; no dependency installation required |
+| `npm run check` | Check identity, structure, generated-output freshness/stability, safeguards, documentation and existing application test files; no dependency installation required |
+| `npm run check:structure` | Validate the tracked source areas, feature entry points and generated-output inventory |
+| `npm run check:generation` | Generate twice in an isolated source copy; audit writes and compare all registered outputs without rewriting your checkout |
+| `npm run generate` | Regenerate in the current checkout; review and include output changes with their sources |
 | `node scripts/check-hosted-guest.mjs --run-live` | Explicitly authorized anonymous GET-only checks of the fixed live MADAR Site; never an authenticated-account test or automatic CI step. See [hosted verification](HOSTED_VERIFICATION.md) |
 | `npm run db:local` | Apply pending SQL migrations to this checkout's portable local database |
 | `npm run check:application` | Build and test isolated local development and built-server HTTP behavior; requires a Git checkout and installed dependencies |
@@ -64,6 +69,8 @@ The check verifies:
 These are local integration and database recovery checks. The separate [browser checks](BROWSER_TESTS.md) cover selected interactions, JSON download and screenshots. Neither establishes hosted account isolation, hosted backup restoration, full course correctness, or learner performance. Full-project ESLint and TypeScript checks are not part of these commands. HTTP CI uses current Node 22 on `ubuntu-latest` and `windows-latest`; the read-only SQLite comparison requires Node 22.13 or newer. Local clean-install verification used Node 24.22.1 and npm 11.6.2 on Windows.
 
 On failure, read the printed error and the latest `result.json` / numbered logs in the run directory. Never commit these local logs or databases. If the build changes tracked content, fix the original generator and review its output; do not bypass the check or discard unrelated edits.
+
+The dependency-free repository check gives its Git-fixture test suite a five-minute limit; a Windows run of the publication fixtures alone took 199 seconds. Other command limits remain bounded separately. A timeout is a failed check, not a passing or skipped suite. The checker prints the failed command and process error to aid diagnosis.
 
 ## Existing test coverage
 

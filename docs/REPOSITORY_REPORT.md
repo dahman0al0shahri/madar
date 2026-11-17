@@ -32,6 +32,7 @@ MADAR remains experimental. The owner confirmed classmates have used it and that
 | [#6](https://github.com/dahman0al0shahri/madar/pull/6) | Synthetic local SQL recovery and account JSON download verification | `fea18ff` |
 | [#7](https://github.com/dahman0al0shahri/madar/pull/7) | Opt-in anonymous hosted check and offline verifier tests; documented missing-account blocker | `d86f5d9` |
 | [#8](https://github.com/dahman0al0shahri/madar/pull/8) | Evidence-attributed history, repository purpose and reconciled documentation | `fd4d3ee` |
+| [#9](https://github.com/dahman0al0shahri/madar/pull/9) | Public-access guards and owner-controlled maintenance policy | `d087c529` |
 
 All four jobs passed after PR #7 in [run 43895733024](https://github.com/dahman0al0shahri/madar/actions/runs/43895733024). Linux repository checks passed 24/24 without skips; the five existing simulator/application test files also passed. The browser suite passed 8/8, including six visual comparisons, in 36.3 seconds. The Windows host's earlier local symlink-test skip is not a Linux CI skip. No screenshot reference was replaced to pass this reconciliation.
 
@@ -70,3 +71,17 @@ Neither PR #8 nor the public-access update changes application logic, style, gen
 ## Remaining work
 
 Continue the source/contact/media/history/Actions review recorded in [publication review](RELEASE_READINESS.md); the owner's explicit public-access decision does not establish a comprehensive audit. No collaborator was added and external PR creation is restricted. A private security-reporting route and server branch protection remain separate configuration work. Dedicated-account and hosted recovery tests remain separate product verification.
+
+PR #9 was merged at the owner's instruction; all four post-merge jobs passed in [run 43932432140](https://github.com/dahman0al0shahri/madar/actions/runs/43932432140). Repository tests were 25/25 and browser tests 8/8 with unchanged visual references.
+
+## Developer organization — 17 November 2026
+
+This review adds `docs/ENGINEERING.md`, `docs/CODE_MAP.md`, `project-map.json` and a generation-boundary decision. The top-level source roles and seven developer feature entry points are explicit. The regular generator delegates to named stages under `build/madar/` while retaining the existing entry command, sources and integration order. The registered output inventory covers 19 files. Large legacy sources and compatibility string transformations remain; this is not a claim of complete architectural modernization.
+
+`npm run check` now checks map references and top-level areas, audits generation writes in an isolated copy, compares all registered outputs and repeats generation. No dependency installation or learner database is needed for these checks. Optional `.vscode` settings hide runtime/dependency directories, retain visible source and disable automatic formatting in this project; tasks run only when selected. No global editor settings are modified.
+
+The publisher stages only its validated manifest before checking the exported snapshot. This makes new files visible to Git-based checks; commit and push still happen only after successful checks. `tests/publication-index.test.mjs` verifies new-file visibility, hook mode and exclusion of unrelated files. No guard, clean-source requirement or owner merge rule is bypassed.
+
+Codex also updates the developer/source guides, maintenance and agent rules, PR handoff template and changelog. `db/schema.ts` changes only its misleading empty-template comment; real table declarations and SQL migrations are unchanged. README/changelog now include the previously merged PR #9.
+
+The exact before/after comparison and all four CI jobs are reported on this update's PR, not assumed from past runs. The work does not change application appearance, learner records, permission settings, hosting identity, dependency versions, visual references or hosted deployment. A separate owner instruction is required to merge.

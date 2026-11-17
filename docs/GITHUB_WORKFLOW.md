@@ -6,7 +6,7 @@ The public repository is [dahman0al0shahri/madar](https://github.com/dahman0al0s
 
 1. Codex completes the authorized application/documentation change in the bound source checkout and records it on a local review branch, preserving unrelated work.
 2. Codex runs the command below as part of finishing the update. It validates both checkout identities and the live public GitHub repository and collaborator-only pull request policy, runs checks, and exports only regular Git-tracked files into the separate publication clone.
-3. It rejects local-only paths, links, obvious credential patterns, unexpected deletions, and publication-side edits that would be overwritten. It creates or updates an `updates/*` review branch, checks the exported copy, and pushes without force.
+3. It rejects local-only paths, links, obvious credential patterns, unexpected deletions, and publication-side edits that would be overwritten. It creates or updates an `updates/*` review branch, stages only the explicit validated manifest so checks can see newly added files, checks the exported copy, then commits and pushes without force. A failed check preserves the candidate for inspection and prevents commit/push.
 4. It verifies the remote SHA and creates or updates a **draft pull request** against `main`. GitHub Actions runs on the push and PR. Codex checks the results for that SHA and reports them to the owner.
 5. The owner reviews the result and gives the decision. Codex executes an explicit merge instruction after verifying the current PR SHA and checks; the owner is not required to click Merge manually. Merging, releasing, and deploying are separate actions; the automated publisher performs none of them. Codex retains access needed for authorized execution.
 

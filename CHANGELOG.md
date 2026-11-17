@@ -6,9 +6,12 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
-Unreleased means that no named release has been created. Maintenance PRs #1–#8 are merged. Public visibility and collaborator-only PR creation are live; the corresponding guard and documentation changes are in the current review. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
+Unreleased means that no named release has been created. Maintenance PRs #1–#9 are merged. Public visibility and collaborator-only PR creation are live; PR #9 includes their guard and documentation changes. Subsequent work is described by its own review. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
 
 ### Added
+
+- A developer entry guide, feature/code map, machine-checked source inventory, task handoff rules and optional repository-local VS Code tasks/settings. These do not add collaborators or change publication permissions.
+- Dependency-free checks for stale/missing source references, undocumented source roots, undeclared generator writes and stale or non-repeatable generated outputs, included in repository CI.
 
 - An evidence-attributed history of MADAR from the owner-confirmed beginning on 18 Rabi al-Awwal 1448 AH (31 August 2026, Umm al-Qura), through preserved application and deployment milestones. Linked the history from the overview, story and documentation index and included it in the automated documentation-target check.
 - The owner's stated purpose for the repository, placed in the project story with overview/history references: documenting the work and MADAR's development with the ambition of drawing on that record at important turning points in life and for future opportunities.
@@ -35,6 +38,12 @@ Unreleased means that no named release has been created. Maintenance PRs #1–#8
 
 ### Fixed
 
+- Stage the validated publication manifest before export checks so newly added files are visible to structure/generation validation. Checks still block commit/push; an explicit-path regression test excludes unrelated files.
+
+- Report the command/process error when a repository check fails; allow five minutes for the Git-fixture suite after a measured Windows run exceeded the previous three-minute limit. No assertions are skipped.
+
+- Corrected documentation and an outdated schema comment that called populated table definitions an empty template; reconciled the merged PR #9 status.
+
 - Run existing Git-fixture safeguard test files sequentially and allow up to three minutes on slower local disks, without removing tests or changing pass criteria.
 
 - Network review integration and embedded hint-history generation now handle Windows CRLF inputs consistently with LF. A build-content check detects regenerated files that differ from the reviewed source snapshot.
@@ -42,6 +51,8 @@ Unreleased means that no named release has been created. Maintenance PRs #1–#8
 - Publication no longer mistakes LF/CRLF checkout conversion for a remote content conflict. Conflict detection uses committed Git file modes and blob IDs, while exact-byte copy and concurrency checks remain in place. Nine temporary-repository regression tests cover repeated updates, real content conflicts, binary changes, modes, deletions, dirty checkouts, and invalid baselines.
 
 ### Changed
+
+- Split MADAR generation into named network, hub and shared-asset stages while retaining the stable command, ordering and existing interface output. No new dependency, route or data-format migration.
 
 - Public repository visibility at the owner's explicit instruction, with downloading/forking accepted and pull request creation restricted to authorized collaborators. Updated the marker, live guard and regression tests while preserving numeric identity, destination, branch and path checks. Updated public-viewing and owner-maintenance documentation; no collaborator, new license, UI change or application deployment.
 

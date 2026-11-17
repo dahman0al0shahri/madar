@@ -1,6 +1,6 @@
 # Architecture
 
-This guide maps the existing source. Repository preparation does not restructure the application.
+This guide maps the existing source. Start with [the engineering guide](ENGINEERING.md) and [the code map](CODE_MAP.md) for feature entry points and editing rules. The generation command now delegates to named stages in `build/madar/`; application routes and UI sources retain their existing locations.
 
 ## Request and data flow
 
@@ -46,7 +46,7 @@ For account and course integration requirements, see the [course checklist](COUR
 
 `.openai/hosting.json` declares the `DB` and `BUCKET` bindings. Build configuration imports this file; do not remove it simply because it is in a hidden directory. Its hosting project identifier requires review when separating or transferring the repository.
 
-SQL migrations exist in `drizzle/`, but `db/schema.ts` contains an empty starter template in this version. Do not treat `npm run db:generate` as a way to reconstruct the existing database, or the template as its complete schema.
+`db/schema.ts` contains real table definitions, including `madar_states`, `learner_progress`, activity, notes and content records. SQL migrations in `drizzle/` record the applied schema history. Do not assume the model declarations and the full migration history are identical, or use `npm run db:generate` as a restoration procedure. Review actual SQL and schema differences before authoring a new migration.
 
 For a new portable checkout, `npm run db:local` applies the existing SQL migration history using local Wrangler D1. It uses the same placeholder binding ID and default `.wrangler/state` location as the Vite configuration. The script does not generate schema or modify hosted storage. The application check tests that initialization, restart, and repeated migration preserve a synthetic record; see [development](DEVELOPMENT.md).
 
