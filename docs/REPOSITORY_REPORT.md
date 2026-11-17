@@ -10,8 +10,8 @@ Reconciled by Codex on **17 November 2026**, using GitHub metadata, the publicat
 | Repository / owner IDs | `1459615658` / `281097261` |
 | Visibility / default branch | Public / `main` |
 | Owner's latest direction | Public viewing/documentation, downloading/forking accepted; external contributions restricted |
-| Merged baseline | PR #9, `d087c529a6b44790f0245aec348dc394b2ef1366` |
-| Baseline tree | `11b69c72ec6735f471fe2a59e1cb04dfeb3e6118` |
+| Merged baseline | PR #10, `a83bc6351c69e7d84ed9285aa23c85b18868b8eb` |
+| Baseline tree | `4e4ce2e9b63b544d5c69d8e2db9cd8e430ed27c6` |
 | Earlier inventory | 1,443 tracked files, 335,499,582 bytes (about 320 MiB); measured during the PR #8 preparation, before its documentation changes |
 | Issues | Enabled for users who can access the repository |
 | Named release | None created by this maintenance work |
@@ -33,6 +33,7 @@ MADAR remains experimental. The owner confirmed classmates have used it and that
 | [#7](https://github.com/dahman0al0shahri/madar/pull/7) | Opt-in anonymous hosted check and offline verifier tests; documented missing-account blocker | `d86f5d9` |
 | [#8](https://github.com/dahman0al0shahri/madar/pull/8) | Evidence-attributed history, repository purpose and reconciled documentation | `fd4d3ee` |
 | [#9](https://github.com/dahman0al0shahri/madar/pull/9) | Public-access guards and owner-controlled maintenance policy | `d087c529` |
+| [#10](https://github.com/dahman0al0shahri/madar/pull/10) | Developer organization, named source assemblies and hub state/save/navigation modules | `a83bc635` |
 
 PR #9 was merged at the owner's instruction; all four post-merge jobs passed in [run 43932432140](https://github.com/dahman0al0shahri/madar/actions/runs/43932432140). Linux repository tests were 25/25 and browser tests 8/8, including six unchanged visual comparisons. The Windows host's local symlink-test skip is not a Linux CI skip. Results for the current developer-organization change belong to its own PR and commit.
 
@@ -87,3 +88,13 @@ The publisher stages only its validated manifest before checking the exported sn
 Codex also updates the developer/source guides, maintenance and agent rules, PR handoff template and changelog. `db/schema.ts` changes only its misleading empty-template comment; real table declarations and SQL migrations are unchanged. README/changelog now include the previously merged PR #9.
 
 The exact before/after comparison and all four CI jobs are reported on this update's PR, not assumed from past runs. The work does not change application appearance, learner records, permission settings, hosting identity, dependency versions, visual references or hosted deployment. A separate owner instruction is required to merge.
+
+## Hub presentation follow-up — 17 November 2026
+
+PR #10 was merged after owner authorization, review and four successful jobs on head `00902651` in [run 44060101918](https://github.com/dahman0al0shahri/madar/actions/runs/44060101918). The merge tree matched the reviewed tree. The subsequent [main run 44061779032](https://github.com/dahman0al0shahri/madar/actions/runs/44061779032) passed repository and Windows/Linux application checks but failed the browser job: an intercepted synthetic boot response was disposed during test teardown. A failed-job retry reproduced that test failure. This follow-up scopes that interceptor to setup; it does not report the old main run as successful.
+
+Codex added five presentation modules: `search.mjs`, `editor.mjs`, `editor-views.mjs`, `views.mjs` and `events.mjs`, all under `public/hub/`. Source parts now supply catalog, state, browser actions and mount hooks explicitly. The builder retains course-specific integration but no longer rewrites the migrated search/admin/event implementations. The hosted admin option helper now remains with its template; previously the account replacement removed it. The existing `modules/madar-hub/search.js` now owns only the hosted network command-card filter with explicit inputs.
+
+Added ten focused tests for search visibility/normalization/pagination, editing/failed saves, route guards, admin templates, event disposal, module dependencies, network filtering and generated composition. Added a desktop/mobile browser scenario with isolated boot and persistence adapters for search/admin UI; it does not claim administrator authentication or production storage verification. Existing recovery/history and six Office visual references remain in CI. No dependency, schema, hosting, permission or visual-reference changes are included. Results for the exact new head belong to its PR and handoff.
+
+Remaining shared scope is explicit: course renderers, animation/lifecycle integrations and browser action callbacks remain in composition parts. This is not a claim that every legacy application has independent modules. Follow [hub contracts](HUB_CORE.md) for source ownership and test boundaries. This follow-up awaits the owner's merge decision separately from the already merged PR #10.

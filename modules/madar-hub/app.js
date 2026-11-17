@@ -1,6 +1,7 @@
 (async () => {
   const { createHubState, createSaveController, createNavigation, routeFromHash,
-    createPreviewEnvironment, createHostedEnvironment } = await import('/hub/index.mjs');
+    createPreviewEnvironment, createHostedEnvironment, createEditorController, createEditorViews,
+    createHubViews, createSearchController, searchText, bindHubEvents } = await import('/hub/index.mjs');
   'use strict';
   const root=document.getElementById('madar-hub'), $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
   const KEY='madar-hub-preview-v1', motionPreference=matchMedia('(prefers-reduced-motion: reduce)'), reduced=motionPreference.matches;
@@ -129,49 +130,175 @@ function officeArt(){return `<div class="mh-office-scene" aria-hidden="true"><di
   function lessonRows(list){return `<div class="mh-list">${list.map(l=>`<article class="mh-list-row">${icon(l.kind==='مختبر'?'network':'book-open')}<div><span class="mh-kicker">${l.kind} · ${courses[l.course].name}</span><h3>${esc(l.title)}</h3></div><button data-go="lesson:${l.id}">فتح ${icon('arrow-left')}</button></article>`).join('')}</div>`;}
   function courseSection(id,section){const c=courses[id],title=c.sections.find(x=>x[0]===section)?.[1]||'الدروس';if(section==='quiz')return `${heading('اختبر نفسك',c.name)}<div class="mh-empty"><h3>مكان الاختبارات داخل المقرر</h3><p>هذه المعاينة تختبر تنظيم الصفحات والتنقّل. بنك الأسئلة ونتائج الاختبارات يبقيان ضمن مقرر ${c.name} عند الربط.</p><button data-go="course:${id}:home">العودة لرئيسية المقرر</button></div>`;const list=lessons.filter(l=>l.course===id&&canLesson(l)&&(id==='network'||section==='reference'||l.section===section));return `${heading(title,c.name)}${lessonRows(list)}<p class="mh-footnote">عينة لتنقّل المعاينة؛ ليست قائمة المنهج كاملة.</p>`;}
   function lessonPage(l){const v=profile().visits[l.course]||{step:0},step=Math.min(2,v.step||0);return `${heading(l.title,courses[l.course].name+' / '+l.kind)}<div class="mh-learning-layout"><section class="mh-lesson"><span class="mh-eyebrow">مساحة الدرس</span><h2>${esc(l.steps[step])}</h2><p>${esc(l.intro)}</p><div class="mh-step" aria-label="الموضع داخل الدرس">${l.steps.map((_,i)=>`<span class="${i===step?'mh-step-current':''}">${i+1}</span>`).join('')}</div><div class="mh-actions"><button data-step="${step-1}" ${step===0?'disabled':''}>السابق</button><button data-step="${step+1}" ${step===2?'disabled':''} class="mh-primary">التالي ${icon('arrow-left')}</button></div><p class="mh-footnote">لتجربة حفظ موضعك: انتقل بين الخطوات واكتب ملاحظة، ثم غيّر المقرر وارجع إليه. هذا ليس تشغيلًا للمختبر أو تقييمًا لتعلّمك.</p></section><aside class="mh-note-box"><label for="mh-note">ملاحظتي في هذا الدرس<textarea id="mh-note" placeholder="اكتب ملاحظتك…">${esc(profile().notes[l.id]||'')}</textarea></label><p class="mh-footnote">تُحفظ تلقائيًا مع هذا الدرس.</p></aside></div>`;}
-  function account(){const visible=available();const rows=visible.filter(id=>accountFilter==='all'||id===accountFilter).map(id=>{const v=profile().visits[id],l=lessonBy(v?.lesson);return canLesson(l)?`<article class="mh-list-row">${icon('bookmark')}<div><span class="mh-kicker">${courses[id].name}</span><h3>${esc(l.title)}</h3><p class="mh-muted">آخر موضع: ${esc(lessonPosition(l,v))}</p><p class="mh-footnote">آخر وصول محفوظ، وليس دليل إتقان.</p></div><button data-go="lesson:${l.id}">متابعة</button></article>`:'';}).join('');const notes=Object.entries(profile().notes).filter(([id,text])=>text&&canLesson(lessonBy(id))&&(accountFilter==='all'||lessonBy(id).course===accountFilter));return `${heading('مساحتك في مدار')}<div class="mh-account-tabs">${[['all','كل المقررات'],...visible.map(id=>[id,courses[id].name])].map(([id,t])=>`<button data-filter="${id}" aria-pressed="${accountFilter===id}">${t}</button>`).join('')}</div><div class="mh-section-head"><h2>آخر مكان وقفت عنده</h2></div><div class="mh-list">${rows||'<div class="mh-empty">ابدأ درسًا ليظهر مكانك هنا.</div>'}</div><div class="mh-section-head mh-space-top"><h2>ملاحظاتي</h2></div><div class="mh-list">${notes.map(([id,t])=>`<article class="mh-list-row"><div><span class="mh-kicker">${courses[lessonBy(id).course].name}</span><h3>${esc(lessonBy(id).title)}</h3><p style="white-space:pre-wrap">${esc(t)}</p></div><button data-go="lesson:${id}">فتح الدرس</button></article>`).join('')||'<div class="mh-empty">لا توجد ملاحظات محفوظة في هذه المعاينة بعد.</div>'}</div>`;}
-  function accessOptions(value){return [['public','متاح للجميع'],['restricted','بصلاحية'],['draft','مسودة']].map(([v,t])=>`<option value="${v}" ${v===value?'selected':''}>${t}</option>`).join('');}
-  function admin(){return `${heading('إدارة المعاينة','تعديلات محلية فقط')}<div class="mh-actions"><button data-go="home">معاينة الرئيسية</button><button data-go="courses">معاينة المقررات</button></div><section class="mh-admin-block"><h2>المقررات وصلاحيات المحتوى</h2>${Object.keys(courses).map(id=>`<div class="mh-admin-row"><h3>${courses[id].name}</h3><label>حالة المقرر<select data-course-access="${id}">${accessOptions(state.access[id])}</select></label></div>${lessons.filter(l=>l.course===id).map(l=>`<div class="mh-admin-row"><span>${l.title}</span><label>ظهور المحتوى<select data-content-access="${l.id}">${accessOptions(state.contentAccess[l.id]||'public')}</select></label></div>`).join('')}`).join('')}<p class="mh-footnote">المحتوى لا يتجاوز صلاحية مقرره. المسودات تبقى في الإدارة فقط، والحفظ السابق لا يُحذف عند تغيير الظهور.</p></section><section class="mh-admin-block"><div class="mh-section-head"><h2>المستجدات</h2><button id="mh-new-update">${icon('plus')}مستجد جديد</button></div>${state.updates.map(u=>`<div class="mh-admin-row"><div><h3>${esc(u.title)}</h3><span class="mh-badge">${u.status==='draft'?'مسودة':'متاح في المعاينة'}</span> <small>${u.pin?'مثبّت · ':''}${u.course?courses[u.course]?.name:'مدار'}</small></div><div class="mh-actions"><button data-edit-update="${esc(u.id)}">تعديل ومعاينة</button><button data-delete-update="${esc(u.id)}" aria-label="حذف ${esc(u.title)}">${icon('trash-2')}</button></div></div>`).join('')}</section><div id="mh-editor-slot">${state.editor?editorMarkup():''}</div>`;}
-  function targetOptions(u){return `<option value="auto" ${!u.target.startsWith('lesson:')?'selected':''}>رئيسية المقرر أو المقررات</option>`+lessons.filter(l=>l.course===u.course).map(l=>`<option value="lesson:${l.id}" ${u.target===`lesson:${l.id}`?'selected':''}>${l.title}</option>`).join('');}
-  function editorMarkup(){const u=state.editor;return `<section class="mh-admin-block"><h2>تحرير المستجد</h2><form id="mh-editor-form"><div class="mh-admin-grid"><label class="mh-wide">العنوان<input name="title" maxlength="100" required value="${esc(u.title)}"></label><label class="mh-wide">النص<textarea name="body" maxlength="500" required>${esc(u.body)}</textarea></label><label>المقرر<select name="course"><option value="">مدار العامة</option>${Object.keys(courses).map(id=>`<option value="${id}" ${u.course===id?'selected':''}>${courses[id].name}</option>`).join('')}</select></label><label>مكان الظهور<select name="placement">${[['global','رئيسية مدار'],['course','رئيسية المقرر'],['both','المكانان']].map(([v,t])=>`<option value="${v}" ${(u.places.length===2?'both':u.places[0])===v?'selected':''}>${t}</option>`).join('')}</select></label><label>وجهة زر البطاقة<select name="destination">${targetOptions(u)}</select></label><label>الحالة<select name="status"><option value="draft" ${u.status==='draft'?'selected':''}>مسودة</option><option value="published" ${u.status==='published'?'selected':''}>متاح في المعاينة</option></select></label><label>تاريخ المستجد<input name="date" type="date" required value="${esc(u.date)}"></label><label>بداية الظهور — بتوقيت مكة<input name="start" type="date" value="${esc(u.start)}"></label><label>آخر يوم للظهور — بتوقيت مكة<input name="end" type="date" value="${esc(u.end)}"></label><label>مدة المشهد بالثواني<input name="duration" type="number" min="8" max="60" value="${u.duration}"></label><label class="mh-check"><input name="pin" type="checkbox" ${u.pin?'checked':''}>تثبيت في البداية</label></div><div class="mh-actions"><button type="button" id="mh-save-update" class="mh-primary">حفظ التعديل</button><button type="button" id="mh-preview-update">معاينة البطاقة</button><button type="button" id="mh-cancel-edit">إنهاء التحرير</button></div><p id="mh-editor-error" role="alert" class="mh-footnote"></p></form><div id="mh-update-preview"></div></section>`;}
-  function captureEditor(){const f=$('#mh-editor-form');if(!f)return;const get=n=>f.elements.namedItem(n);const placement=get('placement').value;state.editor={...state.editor,title:get('title').value,body:get('body').value,course:get('course').value,places:placement==='both'?['global','course']:[placement],status:get('status').value,date:get('date').value,start:get('start').value,end:get('end').value,duration:Number(get('duration').value),pin:get('pin').checked};const target=get('destination').value;state.editor.target=target==='auto'?(state.editor.course?`course:${state.editor.course}:home`:'courses'):target;}
-  function render(){if(state.route==='course:network:practical'){state.route='course:network:lessons';if(location.hash==='#course:network:practical')history.replaceState(null,'','#'+state.route);}cancelAnimationFrame(raf);if(!brandOrbit)brandOrbit=createLiquidOrbit($('.mh-brand .mh-orbit'));carousel=null;elapsed=0;lastFrame=0;const course=selectedCourse();root.style.setProperty('--mh-accent',courses[course]?.color||'#e9c691');root.dataset.course=course||'global';const permitted=course&&canCourse(course);$('#mh-home-link').setAttribute('aria-current',state.route==='home'?'page':'false');$('#mh-picker-button').setAttribute('aria-current',state.route==='courses'||permitted?'page':'false');$('#mh-picker').innerHTML=available().map(id=>`<button data-go="course:${id}:home" ${course===id?'aria-current="page"':''}>${courseIcon(id)}${courses[id].name}${course===id?icon('check'):''}</button>`).join('')+`<button class="mh-all-courses" data-go="courses">عرض جميع المقررات ${icon('arrow-left')}</button>`;$('#mh-subnav').innerHTML=permitted?`<div class="mh-subbar"><button class="mh-return" data-go="home">${icon('arrow-right')}رئيسية مدار</button><span class="mh-course-name">${courses[course].name}</span><nav class="mh-course-nav" aria-label="أقسام ${courses[course].name}">${courses[course].sections.map(([id,name])=>`<button data-go="course:${course}:${id}" ${(state.route===`course:${course}:${id}`||(course==='network'&&((state.route.startsWith('lesson:')&&id===(lessonBy(state.route.split(':')[1])?.section==='theory'?'theory':'lessons'))||(state.route==='course:network:lab'&&id==='lessons')||(id==='quiz'&&/^course:network:(practice(?:-(?:vlan|trunk|inter))?|exam)$/.test(state.route)))))?'aria-current="page"':''}>${name}</button>`).join('')}</nav></div>`:'';
-    let html='';if(state.route==='home')html=srweAnnouncement()+carouselMarkup(null)+about()+resume()+`<section class="mh-course-door"><div><h2>المقررات</h2><p>لكل مقرر مساحته. ولكل خطوة بداية.</p></div><button class="mh-primary" data-go="courses">استعرض المقررات ${icon('arrow-left')}</button></section>`;
-    else if(state.route==='courses')html=heading('المقررات')+`<div class="mh-courses">${available().map(courseCard).join('')}</div>`+(available().length?'':'<div class="mh-empty">لا توجد مقررات متاحة لهذا العرض الآن.</div>');
-    else if(state.route==='account')html=account();else if(state.route==='admin')html=admin();
-    else if(state.route.startsWith('course:')&&permitted){const sec=state.route.split(':')[2];html=sec==='home'?courseHome(course):courseSection(course,sec);}
-    else if(state.route.startsWith('lesson:')&&canLesson(lessonBy(state.route.split(':')[1])))html=lessonPage(lessonBy(state.route.split(':')[1]));
-    else html=heading('المحتوى غير متاح')+`<div class="mh-empty"><p>قد لا يكون متاحًا لهذا العرض حاليًا.</p><button data-go="courses">العودة إلى المقررات</button></div>`;
+  /* hub:editor-composition */
+  const editor = createEditorController({ getState: () => state, lessonBy, saves, persist,
+    now: () => Date.now(), today: nowDay });
+  const editorViews = createEditorViews({ getState: () => state, getAccountFilter: () => accountFilter,
+    courses, lessons, profile, available, canLesson, lessonBy, lessonPosition, heading, esc, icon,
+    hosted: environment.hosted, getGrants: () => config?.grants || {} });
+  function account(){return editorViews.account();}
+  function admin(){return editorViews.admin();}
+  const targetOptions = editorViews.targetOptions;
+  function captureEditor() {
+    const form = $('#mh-editor-form');
+    if (!form) return;
+    const fields = Object.fromEntries(['title','body','course','placement','status','date','start','end','duration','destination']
+      .map(name => [name, form.elements.namedItem(name).value]));
+    fields.pin = form.elements.namedItem('pin').checked;
+    editor.capture(fields);
+  }
+
+const hubViews = createHubViews({ courses, available, canCourse, canLesson, lessonBy,
+    courseIcon, icon, srweAnnouncement, carouselMarkup, about, resume, heading, courseCard,
+    account, admin, courseHome, courseSection, lessonPage,
+    hosted: environment.hosted, isAdmin: environment.isAdmin });
+  function render(){if(state.route==='course:network:practical'){state.route='course:network:lessons';if(location.hash==='#course:network:practical')history.replaceState(null,'','#'+state.route);}cancelAnimationFrame(raf);if(!brandOrbit)brandOrbit=createLiquidOrbit($('.mh-brand .mh-orbit'));carousel=null;elapsed=0;lastFrame=0;const course=selectedCourse();root.style.setProperty('--mh-accent',courses[course]?.color||'#e9c691');root.dataset.course=course||'global';const permitted=course&&canCourse(course);$('#mh-home-link').setAttribute('aria-current',state.route==='home'?'page':'false');$('#mh-picker-button').setAttribute('aria-current',state.route==='courses'||permitted?'page':'false');const chrome=hubViews.chrome(state,course);$('#mh-picker').innerHTML=chrome.picker;$('#mh-subnav').innerHTML=chrome.subnav;
+    const page = hubViews.page(state, course);
+    if (page.redirect) { location.replace(page.redirect); return; }
+    const html = page.html;
     disposeSrweAnnouncement();$('#mh-main').innerHTML=html;observeOfficeCelebration();$('#mh-viewer').value=state.viewer;paintSlide();paintIcons();mountSrweAnnouncement();raf=requestAnimationFrame(tick);
   }
-  function openSearch(){const current=selectedCourse();$('#mh-search-scope').innerHTML=`<option value="all">كل المقررات</option>`+available().map(id=>`<option value="${id}" ${id===current?'selected':''}>${courses[id].name}</option>`).join('');$('#mh-query').value='';search();$('#mh-search-dialog').showModal();$('#mh-query').focus();}
-  function search(){const q=$('#mh-query').value.trim().toLocaleLowerCase(),scope=$('#mh-search-scope').value;const courseHits=available().filter(id=>(scope==='all'||scope===id)&&courses[id].name.toLowerCase().includes(q)).map(id=>({title:courses[id].name,sub:'مقرر',route:`course:${id}:home`}));const hits=lessons.filter(l=>canLesson(l)&&(scope==='all'||scope===l.course)&&(l.title+' '+l.kind+' '+courses[l.course].name).toLowerCase().includes(q)).map(l=>({title:l.title,sub:courses[l.course].name+' · '+l.kind,route:`lesson:${l.id}`}));$('#mh-search-results').innerHTML=[...courseHits,...hits].map(h=>`<button class="mh-search-hit" data-search-go="${h.route}"><span>${esc(h.title)}<small>${esc(h.sub)}</small></span>${icon('arrow-left')}</button>`).join('')||'<p class="mh-muted">لا توجد نتائج متاحة مطابقة.</p>';paintIcons();}
-  root.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
-    if(b.dataset.go){await go(b.dataset.go);return;}if(b.dataset.close){$('#'+b.dataset.close).close();return;}
-    if(b.id==='mh-skip'){const main=$('#mh-main');main.focus({preventScroll:true});main.scrollIntoView({block:'start'});return;}if(b.id==='mh-picker-button'){const open=$('#mh-picker').hidden;$('#mh-picker').hidden=!open;b.setAttribute('aria-expanded',String(open));return;}
-    if(b.id==='mh-save-update'){await saveEditor();return;}
-    if(b.id==='mh-search-button'){openSearch();return;}if(b.dataset.searchGo){$('#mh-search-dialog').close();await go(b.dataset.searchGo);return;}
-    if(b.id==='mh-retry'){await saves.retry().catch(()=>{});return;}if(b.id==='mh-stay'){saves.cancelPendingAction();$('#mh-error').hidden=true;return;}
-    if(b.id==='mh-pause'||b.id==='mh-scene'){setPaused(!paused);return;}if(b.id==='mh-replay'){paintSlide();return;}
-    if(b.id==='mh-next'||b.id==='mh-prev'||b.dataset.slide!==undefined){if(!carousel)return;slideIndex=b.dataset.slide!==undefined?Number(b.dataset.slide):(slideIndex+(b.id==='mh-next'?1:-1)+carousel.items.length)%carousel.items.length;paintSlide();return;}
-    if(b.dataset.step!==undefined){const l=lessonBy(state.route.split(':')[1]),s=Number(b.dataset.step);if(l&&s>=0&&s<l.steps.length){if(window.MADAR_NOTES?.hasPending()){await window.MADAR_NOTES.retry();if(window.MADAR_NOTES.hasPending()){say('ملاحظتك لم تُحفظ بعد؛ أعد الحفظ قبل تغيير الموضوع.');return;}}if(l.theory){profile().theoryPositions||={};profile().theoryPositions[l.id]=s;}profile().visits[l.course]={lesson:l.id,step:s};profile().latest=l.course;saves.markDirty();render();if(l.theory){$('#nt-topic-title')?.focus({preventScroll:true});$('#nt-topic-title')?.scrollIntoView({block:'start'});}await persist().catch(()=>{});}return;}
-    if(b.dataset.filter){accountFilter=b.dataset.filter;render();return;}
-    if(b.id==='mh-new-update'){state.editor={id:'u-'+Date.now(),title:'',body:'',course:'',target:'courses',places:['global'],status:'draft',pin:false,date:nowDay(),start:'',end:'',duration:12,scene:'hub'};render();scheduleSave();return;}
-    if(b.dataset.editUpdate){state.editor=clone(state.updates.find(u=>u.id===b.dataset.editUpdate));render();scheduleSave();return;}
-    if(b.id==='mh-cancel-edit'){state.editor=null;render();scheduleSave();return;}
-    if(b.id==='mh-preview-update'){captureEditor();const u=state.editor;$('#mh-update-preview').innerHTML=`<div class="mh-news-shell mh-space-top"><article class="mh-news-slide" style="--slide-accent:${courses[u.course]?.color||'#e9c691'}"><div class="mh-news-copy"><span class="mh-eyebrow">معاينة قبل الإتاحة</span><h2>${esc(u.title||'عنوان المستجد')}</h2><p>${esc(u.body)}</p></div><div class="mh-visual">${scene({...u,scene:u.course||'hub'})}</div></article></div>`;paintIcons();liquidOrbit?.dispose();liquidOrbit=null;const previewMark=$('#mh-update-preview .mh-main-mark');if(previewMark)liquidOrbit=createLiquidOrbit(previewMark);networkNewsPlayer?.dispose();networkNewsPlayer=createNetworkNewsPlayer($('#mh-update-preview .mh-network-showcase'));return;}
-    if(b.dataset.deleteUpdate){deleteId=b.dataset.deleteUpdate;$('#mh-confirm').showModal();return;}
-    if(b.id==='mh-delete-confirm'){state.updates=state.updates.filter(u=>u.id!==deleteId);if(state.editor?.id===deleteId)state.editor=null;deleteId=null;$('#mh-confirm').close();render();scheduleSave();return;}
+  /* hub:course-tools */
+  const searchController = createSearchController({ courses, lessons, available, canLesson,
+    hosted: environment.hosted, esc, icon, paintIcons,
+    readQuery: () => $('#mh-query').value, readScope: () => $('#mh-search-scope').value,
+    showResults: html => { $('#mh-search-results').innerHTML = html; } });
+  const search = searchController.search;
+  function openSearch() {
+    const current = selectedCourse();
+    $('#mh-search-scope').innerHTML = `<option value="all">كل المقررات</option>` + available().map(id => `<option value="${id}" ${id===current?'selected':''}>${courses[id].name}</option>`).join('');
+    $('#mh-query').value = '';
+    search();
+    $('#mh-search-dialog').showModal();
+    $('#mh-query').focus();
+  }
+  function closePicker() {
+    $('#mh-picker').hidden = true;
+    $('#mh-picker-button').setAttribute('aria-expanded', 'false');
+  }
+  function moveSlide(value) {
+    if (!carousel) return;
+    slideIndex = typeof value === 'number' ? value : (slideIndex + (value === 'next' ? 1 : -1) + carousel.items.length) % carousel.items.length;
+    paintSlide();
+  }
+  async function moveLessonStep(value) {
+    const lesson = lessonBy(state.route.split(':')[1]), step = Number(value);
+    if (!(lesson && step >= 0 && step < lesson.steps.length)) return;
+    if (window.MADAR_NOTES?.hasPending()) {
+      await window.MADAR_NOTES.retry();
+      if (window.MADAR_NOTES.hasPending()) { say('ملاحظتك لم تُحفظ بعد؛ أعد الحفظ قبل تغيير الموضوع.'); return; }
+    }
+    if (lesson.theory) { profile().theoryPositions ||= {}; profile().theoryPositions[lesson.id] = step; }
+    profile().visits[lesson.course] = { lesson: lesson.id, step };
+    profile().latest = lesson.course;
+    saves.markDirty();
+    render();
+    if (lesson.theory) { $('#nt-topic-title')?.focus({ preventScroll: true }); $('#nt-topic-title')?.scrollIntoView({ block: 'start' }); }
+    await persist().catch(() => {});
+  }
+  function editAndRender(action) { action(); render(); scheduleSave(); }
+  function previewUpdate() {
+    captureEditor();
+    const update = state.editor;
+    $('#mh-update-preview').innerHTML = `<div class="mh-news-shell mh-space-top"><article class="mh-news-slide" style="--slide-accent:${courses[update.course]?.color||'#e9c691'}"><div class="mh-news-copy"><span class="mh-eyebrow">معاينة قبل الإتاحة</span><h2>${esc(update.title||'عنوان المستجد')}</h2><p>${esc(update.body)}</p></div><div class="mh-visual">${scene({...update,scene:update.course||'hub'})}</div></article></div>`;
+    paintIcons();
+    liquidOrbit?.dispose(); liquidOrbit = null;
+    const previewMark = $('#mh-update-preview .mh-main-mark');
+    if (previewMark) liquidOrbit = createLiquidOrbit(previewMark);
+    networkNewsPlayer?.dispose();
+    networkNewsPlayer = createNetworkNewsPlayer($('#mh-update-preview .mh-network-showcase'));
+  }
+  function handleInput(event) {
+    const target = event.target;
+    if (target.id === (environment.hosted ? 'lesson-note-text' : 'mh-note')) {
+      const lesson = lessonBy(state.route.split(':')[1]);
+      if (lesson) { profile().notes[lesson.id] = target.value; scheduleSave(); }
+    }
+    if (target.id === 'mh-query') search();
+    if (environment.hosted && target.id === 'mh-command-query') {
+      filterCommandCards({ query: target.value, cards: $$('[data-command-search]'),
+        emptyMessage: $('#mh-command-empty'), normalize: searchText });
+    }
+    if (target.closest('#mh-editor-form')) { captureEditor(); scheduleSave(); }
+  }
+  async function handleChange(event) {
+    const target = event.target;
+    if (target.name === 'course' && target.closest('#mh-editor-form')) {
+      captureEditor(); editor.resetDestination();
+      $('#mh-editor-form [name=destination]').innerHTML = targetOptions(state.editor);
+    }
+    if (target.id === 'mh-viewer') {
+      const next = target.value;
+      await guarded(async () => { state.viewer = next; accountFilter = 'all'; render(); await persist(); });
+      $('#mh-viewer').value = state.viewer;
+    }
+    if (target.id === 'mh-search-scope') search();
+    if (environment.hosted && target.dataset.grant) {
+      config.grants[target.dataset.grant] = target.value.split(',').map(value => value.trim()).filter(Boolean);
+      scheduleSave();
+    }
+    if (target.dataset.courseAccess) { state.access[target.dataset.courseAccess] = target.value; scheduleSave(); }
+    if (target.dataset.contentAccess) { state.contentAccess[target.dataset.contentAccess] = target.value; scheduleSave(); }
+    if (target.closest('#mh-editor-form')) { captureEditor(); scheduleSave(); }
+  }
+  function handleKeydown(event) {
+    if (event.key === 'Enter' && event.target.tagName === 'INPUT' && event.target.closest('#mh-editor-form')) { event.preventDefault(); void saveEditor(); }
+    if (event.key === 'Enter' && event.target.id === 'mh-query') event.preventDefault();
+    keyboard = true;
+    if (event.key === 'Escape') {
+      const dialog = $('dialog[open]');
+      if (dialog) { event.preventDefault(); dialog.close(); return; }
+      if (!$('#mh-picker').hidden) { closePicker(); $('#mh-picker-button').focus(); }
+    }
+  }
+  const disposeHubEvents = bindHubEvents({ root, documentTarget: document,
+    clickActions: {
+      'mh-skip': () => { $('#mh-main').focus({ preventScroll: true }); $('#mh-main').scrollIntoView({ block: 'start' }); },
+      'mh-picker-button': button => { const open = $('#mh-picker').hidden; $('#mh-picker').hidden = !open; button.setAttribute('aria-expanded', String(open)); },
+      'mh-save-update': saveEditor,
+      'mh-search-button': openSearch,
+      'mh-search-more': () => searchController.more(),
+      'mh-retry': () => saves.retry().catch(() => {}),
+      'mh-stay': () => { saves.cancelPendingAction(); $('#mh-error').hidden = true; },
+      'mh-pause': () => setPaused(!paused), 'mh-scene': () => setPaused(!paused),
+      'mh-replay': paintSlide, 'mh-next': () => moveSlide('next'), 'mh-prev': () => moveSlide('prev'),
+      'mh-new-update': () => editAndRender(editor.begin),
+      'mh-cancel-edit': () => editAndRender(editor.cancel),
+      'mh-preview-update': previewUpdate,
+      'mh-delete-confirm': () => { editor.remove(deleteId); deleteId = null; $('#mh-confirm').close(); render(); scheduleSave(); },
+      ...(environment.hosted ? {
+        'mh-profile-export': () => store.download(),
+        'mh-recover-export': () => { store.download(); adminStore?.download(); },
+        'mh-recover-load': () => store.discardAndReload(),
+      } : {}),
+    },
+    dataActions: {
+      go: go, close: id => $('#' + id).close(),
+      searchGo: async route => { $('#mh-search-dialog').close(); await go(route); },
+      slide: value => moveSlide(Number(value)), step: moveLessonStep,
+      filter: value => { accountFilter = value; render(); },
+      editUpdate: id => editAndRender(() => editor.edit(id)),
+      deleteUpdate: id => { deleteId = id; $('#mh-confirm').showModal(); },
+    },
+    actions: {
+      input: handleInput, change: handleChange, keydown: handleKeydown,
+      submit: event => { event.preventDefault(); if (event.target.id === 'mh-editor-form') void saveEditor(); },
+      pointerdown: () => { keyboard = false; },
+      focusin: event => { if (keyboard && event.target.closest('.mh-carousel') && event.target.id !== 'mh-pause') setPaused(true); },
+      outsideClick: event => { if (!event.target.closest('.mh-picker-wrap')) closePicker(); },
+    },
   });
-  root.addEventListener('input',e=>{if(e.target.id==='mh-note'){const l=lessonBy(state.route.split(':')[1]);if(l){profile().notes[l.id]=e.target.value;scheduleSave();}}if(e.target.id==='mh-query')search();if(e.target.closest('#mh-editor-form')){captureEditor();scheduleSave();}});
-  root.addEventListener('change',async e=>{if(e.target.name==='course'&&e.target.closest('#mh-editor-form')){captureEditor();state.editor.target=state.editor.course?`course:${state.editor.course}:home`:'courses';$('#mh-editor-form [name=destination]').innerHTML=targetOptions(state.editor);}if(e.target.id==='mh-viewer'){const next=e.target.value;await guarded(async()=>{state.viewer=next;accountFilter='all';render();await persist();});$('#mh-viewer').value=state.viewer;}if(e.target.id==='mh-search-scope')search();if(e.target.dataset.courseAccess){state.access[e.target.dataset.courseAccess]=e.target.value;scheduleSave();}if(e.target.dataset.contentAccess){state.contentAccess[e.target.dataset.contentAccess]=e.target.value;scheduleSave();}if(e.target.closest('#mh-editor-form')){captureEditor();scheduleSave();}});
-  async function saveEditor(){if(!$('#mh-editor-form').reportValidity())return;captureEditor();const u=state.editor;if(!u.title.trim()||!u.body.trim()){ $('#mh-editor-error').textContent='أدخل عنوان المستجد ونصه.';return;}if(!u.course&&u.places.includes('course')){$('#mh-editor-error').textContent='اختر مقررًا لظهور المستجد في رئيسيته.';return;}if(u.start&&u.end&&u.end<u.start){$('#mh-editor-error').textContent='نهاية الظهور يجب ألا تسبق بدايته.';return;}if(u.target.startsWith('lesson:')&&lessonBy(u.target.split(':')[1])?.course!==u.course){$('#mh-editor-error').textContent='اختر وجهة من المقرر نفسه.';return;}u.scene=u.course||'hub';const i=state.updates.findIndex(x=>x.id===u.id);if(i<0)state.updates.push(clone(u));else state.updates[i]=clone(u);saves.markDirty();try{await persist();say('تم حفظ المستجد في المعاينة فقط.');render();}catch{}}
-  root.addEventListener('submit',e=>{e.preventDefault();if(e.target.id==='mh-editor-form')saveEditor();});
-  root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.closest('#mh-editor-form')){e.preventDefault();saveEditor();}if(e.key==='Enter'&&e.target.id==='mh-query')e.preventDefault();});
-  root.addEventListener('keydown',e=>{keyboard=true;if(e.key==='Escape'){const dialog=$('dialog[open]');if(dialog){e.preventDefault();dialog.close();return;}if(!$('#mh-picker').hidden){$('#mh-picker').hidden=true;$('#mh-picker-button').setAttribute('aria-expanded','false');$('#mh-picker-button').focus();}}});
-  root.addEventListener('pointerdown',()=>keyboard=false);
-  root.addEventListener('focusin',e=>{if(keyboard&&e.target.closest('.mh-carousel')&&e.target.id!=='mh-pause')setPaused(true);});
-  document.addEventListener('click',e=>{if(!e.target.closest('.mh-picker-wrap')){$('#mh-picker').hidden=true;$('#mh-picker-button').setAttribute('aria-expanded','false');}});
+
+async function saveEditor() {
+    if (!$('#mh-editor-form').reportValidity()) return;
+    captureEditor();
+    try {
+      const result = await editor.save();
+      if (!result.saved) { $('#mh-editor-error').textContent = result.error; return; }
+      say(environment.hosted ? 'تم حفظ المستجد.' : 'تم حفظ المستجد في المعاينة فقط.');
+      render();
+    } catch { /* The save controller exposes retry without discarding the draft. */ }
+  }
   window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
   window.addEventListener('openai:set_globals',e=>{const next=e.detail?.globals?.widgetState?.privateContent?.hub;if(next&&!dirty){state=stateModel.replace(next);render();}});
   motionPreference.addEventListener('change',e=>{if(e.matches)setPaused(true);});

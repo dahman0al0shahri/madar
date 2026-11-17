@@ -36,7 +36,12 @@
         "public/hub/persistence.mjs",
         "public/hub/navigation.mjs",
         "public/hub/environment.mjs",
-        "modules/madar-hub/host-environment.js"
+        "modules/madar-hub/host-environment.js",
+        "public/hub/search.mjs",
+        "public/hub/editor.mjs",
+        "public/hub/editor-views.mjs",
+        "public/hub/views.mjs",
+        "public/hub/events.mjs"
       ],
       "integration": [
         "build/madar/hub.cjs",

@@ -30,7 +30,7 @@ The build uses React, TypeScript, and Vinext/Vite. The application also includes
 
 ## Sources and generated output
 
-The hub state/persistence/navigation rules are native modules under `public/hub/`, loaded by the hub entry and supplied with explicit browser/storage adapters. The generator inserts one checked host-environment slot instead of replacing those implementations. See [hub contracts](HUB_CORE.md); other view integrations still use the compatibility pipeline.
+Hub state, saving, navigation, search, editing, route/editor templates and event delegation are native modules under `public/hub/`, loaded by the hub entry with explicit adapters and callbacks. Checked environment/course-tool slots and an editor-composition boundary replace text rewriting for migrated responsibilities. See [hub contracts](HUB_CORE.md); course renderers, animation lifecycle and other legacy integrations still use the compatibility pipeline.
 
 `scripts/run-framework.mjs` runs `scripts/build-madar.cjs` before development and build commands. The first stage concatenates 176 ordered source parts into 21 compatibility files without altering their bytes, scope or loading order. Subsequent stages integrate these with other sources and write the existing 19 downstream outputs, including `lib/madar-home.html`, `lib/network-simulator.html`, and `public/index.html`.
 

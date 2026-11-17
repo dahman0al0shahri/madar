@@ -50,7 +50,7 @@ Apply these rules alongside the governing workspace instructions. This file does
 
 ## Maintainable source organization (owner request, 17 November 2026)
 
-- For hub state, save queue, storage adapters or navigation, read `docs/HUB_CORE.md` and edit `public/hub/*.mjs`. Keep dependencies explicit, test rules directly and run the browser failure/retry/history checks. Do not reintroduce generated text surgery for these extracted responsibilities. Other hub view parts still share mutable model state; do not claim full isolation.
+- For hub state, saves, storage, navigation, search, editing, route/editor templates or event delegation, read `docs/HUB_CORE.md` and edit the owning `public/hub/*.mjs` module. Keep dependencies explicit and update the module-edge guard when adding a dependency. Test rules directly and run browser recovery/history and editor/search checks. Do not reintroduce generated text surgery for extracted responsibilities. Browser action callbacks, course renderers and lifecycle parts still share scope; do not claim full isolation. Preserve template bytes unless a visual change is explicitly authorized.
 
 - Read `docs/ENGINEERING.md` and `docs/CODE_MAP.md` before maintenance. Locate original sources, integration stages and affected tests before editing generated interfaces.
 - Read `docs/SOURCE_LAYOUT.md` for the 21 units assembled from `modules/source-parts/`. Edit the owning named part, preserve shared scope and boundary text, and use the order in `project-map.json.sourceAssemblies`. Never fix the assembled copy alone, import an individual `.inc` fragment or split content/vendor files solely because they are large.
