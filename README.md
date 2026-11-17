@@ -12,6 +12,7 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/START_HERE.md">Start here</a> ·
   <a href="docs/STORY.md">The story</a> ·
   <a href="docs/HISTORY.md">History</a> ·
+  <a href="docs/ENGINEERING.md">For developers</a> ·
   <a href="docs/DEVELOPMENT.md">Development</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
   <a href="CONTRIBUTING.md">Maintenance policy</a> ·
@@ -19,7 +20,7 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/README.md">Documentation</a>
 </p>
 
-**Status (16 November 2026):** experimental application; the GitHub repository is public for viewing and documentation of the owner's work. Maintenance PRs #1–#8 are merged. External code contributions are not accepted: creating pull requests is restricted to authorized collaborators, and no new collaborator was added. Public files can be downloaded and forked; this does not grant write access to this repository. See the [maintenance policy](CONTRIBUTING.md). The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) remains separately public at version 115; real two-account isolation is untested. See the [repository report](docs/REPOSITORY_REPORT.md) and [publication review](docs/RELEASE_READINESS.md) for evidence and limits.
+**Status (17 November 2026):** experimental application; the GitHub repository is public for viewing and documentation of the owner's work. Maintenance PRs #1–#9 are merged. External code contributions are not accepted: creating pull requests is restricted to authorized collaborators, and no new collaborator was added. Public files can be downloaded and forked; this does not grant write access to this repository. See the [maintenance policy](CONTRIBUTING.md). The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) remains separately public at version 115; real two-account isolation is untested. See the [repository report](docs/REPOSITORY_REPORT.md) and [publication review](docs/RELEASE_READINESS.md) for evidence and limits.
 
 ## The Story Behind MADAR
 
@@ -46,6 +47,7 @@ The code includes progress, notes, review, and feedback workflows. Access depend
 | Your goal | Read |
 | --- | --- |
 | Understand the project without GitHub experience | [Start here](docs/START_HERE.md) |
+| Join a maintenance task or review the code | [Engineering guide](docs/ENGINEERING.md) · [Code map](docs/CODE_MAP.md) |
 | Set up a local development environment | [Development guide](docs/DEVELOPMENT.md) |
 | Find the source of a feature | [Architecture and source map](docs/ARCHITECTURE.md) |
 | Understand feedback and owner-controlled changes | [Maintenance policy](CONTRIBUTING.md) |

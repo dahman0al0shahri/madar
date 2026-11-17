@@ -15,7 +15,11 @@
     "db:local": "node scripts/local-database.mjs",
     "check:application": "node scripts/check-application.mjs",
     "check:browser": "node scripts/check-browser.mjs",
-    "browser:record": "node scripts/check-browser.mjs --record-baselines"
+    "browser:record": "node scripts/check-browser.mjs --record-baselines",
+    "generate": "node scripts/build-madar.cjs",
+    "check": "node scripts/check-repository.mjs",
+    "check:structure": "node scripts/check-structure.mjs",
+    "check:generation": "node scripts/check-generation.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

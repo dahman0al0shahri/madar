@@ -1,0 +1,16 @@
+(async () => {
+  const { createHubState, createSaveController, createNavigation, routeFromHash,
+    createPreviewEnvironment, createHostedEnvironment } = await import('/hub/index.mjs');
+  'use strict';
+  const root=document.getElementById('madar-hub'), $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
+  const KEY='madar-hub-preview-v1', motionPreference=matchMedia('(prefers-reduced-motion: reduce)'), reduced=motionPreference.matches;
+  const clone=x=>JSON.parse(JSON.stringify(x));
+  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const icon=n=>`<i data-lucide="${n}" aria-hidden="true"></i>`;
+  function courseIcon(id){
+    if(id==='office')return `<span class="mh-course-icon mh-course-icon-office" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><rect x="2" y="15" width="16" height="26" rx="2.5" fill="#492736" stroke="#dc7f9d"/><rect x="16" y="6" width="17" height="29" rx="2.5" fill="#193e32" stroke="#70c8a5"/><rect x="31" y="14" width="15" height="27" rx="2.5" fill="#203c59" stroke="#85b9f3"/><path d="m6 28 3.7-9 3.7 9M7.2 25h5M21 12l7 9m0-9-7 9M34 20l1.8 9 2.7-6 2.6 6 1.7-9" stroke="#f2f6fa" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 26h9v5h-9Zm4.5 0v5M20 28.5h9" stroke="#70c8a5" stroke-width=".7"/><path d="M35 33h7m-7 3h7" stroke="#85b9f3" stroke-width=".8"/><ellipse cx="10" cy="33" rx="3.2" ry="1.2" stroke="#dc7f9d" stroke-width=".8"/><path d="M6.8 33v3c0 1.7 6.4 1.7 6.4 0v-3" stroke="#dc7f9d" stroke-width=".8"/></svg></span>`;
+    const network=id==='network',tone=network?'#efb472':'#91c8ff';
+    const body=network?`<path d="M8 18 15 11h19l6 7v15l-7 5H8Z" fill="url(#course-device-network)" stroke="#9e876a"/><path d="M8 18h32M34 12v5" stroke="#e5c49b" stroke-opacity=".6"/><rect x="11" y="23" width="26" height="9" rx="1" fill="#080d12" stroke="#7e7160"/>${[13,19,25,31].map(x=>`<path d="M${x} 25h4v4h-4Z" fill="#303c42" stroke="#b19772" stroke-width=".55"/><path d="M${x+1} 25v1m2-1v1" stroke="#e6cd99" stroke-width=".6"/>`).join('')}<path d="M14 6h14l-3-3m3 3-3 3M34 42H20l3-3m-3 3 3 3" fill="none" stroke="${tone}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="35" r="1" fill="#8ed9ae"/>`:`<path d="M10 5h28v38H10Z" fill="#101b25" stroke="#718fa6"/><path d="M12 7h24M12 41h24" stroke="#a9becb" stroke-opacity=".5"/>${[9,20,31].map(y=>`<rect x="13" y="${y}" width="22" height="8" rx="1.2" fill="url(#course-device-os1)" stroke="#607b90" stroke-width=".7"/><path d="M17 ${y+2}v4m3-4v4m3-4v4m3-4v4" stroke="#09121b" stroke-width="1.4"/><circle cx="31" cy="${y+3}" r="1.2" fill="${tone}"/><circle cx="31" cy="${y+6}" r=".7" fill="#8de9bc"/>`).join('')}`;
+    return `<span class="mh-course-icon mh-course-icon-${id}" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><defs><linearGradient id="course-device-${id}" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="${network?'#5d6264':'#526a7c'}"/><stop offset=".5" stop-color="#26333d"/><stop offset="1" stop-color="#121c25"/></linearGradient></defs>${body}</svg></span>`;
+  }
+  

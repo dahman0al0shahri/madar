@@ -1,6 +1,6 @@
 # MADAR repository report
 
-Reconciled by Codex on **16 November 2026**, using current GitHub metadata, the publication tree, source code, CI evidence and the owner's latest instructions. This replaces the cumulative setup narrative with current status and a historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
+Reconciled by Codex on **17 November 2026**, using GitHub metadata, the publication tree, source code, CI evidence and the owner's instructions. This report separates current repository status from dated hosting checks and the historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
 
 ## Current state
 
@@ -10,8 +10,8 @@ Reconciled by Codex on **16 November 2026**, using current GitHub metadata, the 
 | Repository / owner IDs | `1459615658` / `281097261` |
 | Visibility / default branch | Public / `main` |
 | Owner's latest direction | Public viewing/documentation, downloading/forking accepted; external contributions restricted |
-| Merged baseline | PR #8, `fd4d3ee154b68988ea6e4a480f8179b77f39b1e5` |
-| Baseline tree | `3d25ab6100e61f4b9934de8993ab20867e54684a` |
+| Merged baseline | PR #9, `d087c529a6b44790f0245aec348dc394b2ef1366` |
+| Baseline tree | `11b69c72ec6735f471fe2a59e1cb04dfeb3e6118` |
 | Earlier inventory | 1,443 tracked files, 335,499,582 bytes (about 320 MiB); measured during the PR #8 preparation, before its documentation changes |
 | Issues | Enabled for users who can access the repository |
 | Named release | None created by this maintenance work |
@@ -32,8 +32,9 @@ MADAR remains experimental. The owner confirmed classmates have used it and that
 | [#6](https://github.com/dahman0al0shahri/madar/pull/6) | Synthetic local SQL recovery and account JSON download verification | `fea18ff` |
 | [#7](https://github.com/dahman0al0shahri/madar/pull/7) | Opt-in anonymous hosted check and offline verifier tests; documented missing-account blocker | `d86f5d9` |
 | [#8](https://github.com/dahman0al0shahri/madar/pull/8) | Evidence-attributed history, repository purpose and reconciled documentation | `fd4d3ee` |
+| [#9](https://github.com/dahman0al0shahri/madar/pull/9) | Public-access guards and owner-controlled maintenance policy | `d087c529` |
 
-All four jobs passed after PR #7 in [run 43895733024](https://github.com/dahman0al0shahri/madar/actions/runs/43895733024). Linux repository checks passed 24/24 without skips; the five existing simulator/application test files also passed. The browser suite passed 8/8, including six visual comparisons, in 36.3 seconds. The Windows host's earlier local symlink-test skip is not a Linux CI skip. No screenshot reference was replaced to pass this reconciliation.
+PR #9 was merged at the owner's instruction; all four post-merge jobs passed in [run 43932432140](https://github.com/dahman0al0shahri/madar/actions/runs/43932432140). Linux repository tests were 25/25 and browser tests 8/8, including six unchanged visual comparisons. The Windows host's local symlink-test skip is not a Linux CI skip. Results for the current developer-organization change belong to its own PR and commit.
 
 ## Source, publication and instructions
 
@@ -70,3 +71,19 @@ Neither PR #8 nor the public-access update changes application logic, style, gen
 ## Remaining work
 
 Continue the source/contact/media/history/Actions review recorded in [publication review](RELEASE_READINESS.md); the owner's explicit public-access decision does not establish a comprehensive audit. No collaborator was added and external PR creation is restricted. A private security-reporting route and server branch protection remain separate configuration work. Dedicated-account and hosted recovery tests remain separate product verification.
+
+## Developer organization — 17 November 2026
+
+The subsequent owner-authorized hub refactor introduces independently imported `public/hub/` modules for state, saving, navigation and environment adapters. The source-part view composes them through explicit callbacks and one checked host slot. It removes the old generator's state/save/navigation rewriting, adds 17 direct module behavior tests and a desktop/mobile browser recovery/history scenario, and preserves storage schemas and appearance. Network revision exits are now guarded and stale cancelled navigation is suppressed. Shared view mutation and other legacy transformations remain; see [hub contracts](HUB_CORE.md). Earlier byte-identical extraction evidence describes that earlier step, not the changed hub implementation.
+
+This review adds `docs/ENGINEERING.md`, `docs/CODE_MAP.md`, `docs/SOURCE_LAYOUT.md`, `project-map.json` and generation/source-split decisions. The top-level source roles and seven developer feature entry points are explicit. The regular generator first assembles 21 application/style units from 176 named source parts, then runs the existing network/hub/shared-asset stages. The registered output inventory covers 40 files: 21 compatibility assemblies and 19 downstream outputs. Content banks, bundled libraries, shared runtime scope and compatibility transformations remain; this is not a claim of complete architectural modernization.
+
+`npm run check` now checks map references and top-level areas, audits generation writes in an isolated copy, compares all registered outputs and repeats generation. No dependency installation or learner database is needed for these checks. Optional `.vscode` settings hide runtime/dependency directories, retain visible source and disable automatic formatting in this project; tasks run only when selected. No global editor settings are modified.
+
+The earlier source-split step completed the enumerated mixed-responsibility extraction: hub/navigation, Office shell and course/worksheet controllers, network engine/tabs/training, OS state/desktop/curriculum, revision, backgrounds, assistance and selected style concerns. The source-part manifest is the only order definition; `.inc` files are not independently executable modules. The assembler validates all entries before writing and tests cover exact Unicode/line-ending bytes, duplicate/traversal rejection and preservation of existing output when a later entry is invalid. Map tests reject missing/orphan parts and inconsistent inventories. That extraction introduced no browser requests. The subsequent hub modules add same-origin module requests, as documented above; no package dependency or migration is added.
+
+The publisher stages only its validated manifest before checking the exported snapshot. This makes new files visible to Git-based checks; commit and push still happen only after successful checks. `tests/publication-index.test.mjs` verifies new-file visibility, hook mode and exclusion of unrelated files. No guard, clean-source requirement or owner merge rule is bypassed.
+
+Codex also updates the developer/source guides, maintenance and agent rules, PR handoff template and changelog. `db/schema.ts` changes only its misleading empty-template comment; real table declarations and SQL migrations are unchanged. README/changelog now include the previously merged PR #9.
+
+The exact before/after comparison and all four CI jobs are reported on this update's PR, not assumed from past runs. The work does not change application appearance, learner records, permission settings, hosting identity, dependency versions, visual references or hosted deployment. A separate owner instruction is required to merge.

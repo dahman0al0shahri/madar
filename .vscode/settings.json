@@ -1,0 +1,15 @@
+{
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/.vinext": true,
+    "**/.wrangler": true,
+    "**/.sites-runtime": true,
+    "dist": true
+  },
+  "search.exclude": {
+    "outputs": true,
+    "work": true
+  },
+  "editor.formatOnSave": false
+}

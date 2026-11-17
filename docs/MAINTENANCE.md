@@ -85,3 +85,7 @@ Remaining work:
 A status of “not requested” or “pending” is valid. Do not mark a step complete without evidence.
 
 References: [GitHub releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases) and [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+
+## Organization and developer handoff
+
+Follow [the engineering guide](ENGINEERING.md) for source placement, the editing loop and the definition of done. Keep [the project map](../project-map.json) current when entry points, generation outputs or top-level areas change. New developer work starts from [the code map](CODE_MAP.md), not from guessing which HTML file is authoritative. The repository check includes structure validation, generation write auditing and repeat-generation comparison. Changes to UI, persistence and hosting still require their own behavior evidence.

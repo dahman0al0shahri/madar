@@ -1,0 +1,30 @@
+function blank(data){const s=clone(data);s.devices={};s.cables=[];s.network={};s.cli={};s.power={};s.admin={};s.selected='';s.ui={};s.lesson=null;s.vlanExercise=false;s.editUndo=null;s.assistance=new window.MadarAssistance.Assistance().export();return s;}
+function cloneLab(id,helper=false){capture();normalizeCopies(state);const source=lab(id),group=id,count=helper?null:(state.copyCounters[group]||0)+1;
+ const name=helper?'مساعد '+courseNames[state.course]:`نسخة ${count===1?'':count.toLocaleString('ar-SA')+' '}من ${source.name}`;
+ const n=makeLab(uid(),name,'scratch',source.data);n.course=source.course||state.course;n.cloneOf=group;n.copySourceName=source.name;n.copyNumber=count;n.aliases=clone(source.aliases);n.sourceOriginal=source.kind==='original'?source.id:source.sourceOriginal;n.sourceRevision=lab(n.sourceOriginal)?.revision;n.helper=helper;n.copied=source.copied;if(source.training){n.training=clone(source.training);delete n.training.selfTest;n.training.assessment=null;n.training.assessments=[];n.training.initial=clone(source.data);if(helper){n.training.sequence=[...(source.training.sequence||practiceScopes[source.training.scope]?.steps||L.order)];n.helperNavigationVersion=1;n.sourceOriginal=source.id;n.sourceRevision=source.revision;n.training.archive=[];n.training.assessment=null;n.training.checks={};n.training.completed=false;}}n.helpArchive=helper?[]:clone(source.helpArchive||[]);n.data.lesson=null;n.data.vlanExercise=false;n.data.editUndo=null;if(helper)n.data.assistance=new window.MadarAssistance.Assistance().export();state.labs.push(n);normalizeCopies(state);activate(n.id);close();return n;}
+function openPlus(){modal('مساحة جديدة لتجربتك',`<button class="ml-menu-option" id="ml-new-empty">${icon('plus')} افتح تبويب جديد حر</button><button class="ml-menu-option" id="ml-new-copy">${icon('copy')} نسخ مختبر…</button><button class="ml-menu-option" id="ml-open-library">${icon('panels-top-left')} مختبراتي</button>`);$('#ml-new-empty').onclick=startBlank;$('#ml-new-copy').onclick=copyPicker;$('#ml-open-library').onclick=library;}
+$('#ml-plus').onclick=openPlus;
+function copyPicker(){modal('اختر المختبر اللي تبي تنسخه',`<label class="ml-form">المختبر<select id="ml-copy-source">${state.labs.map(x=>`<option value="${x.id}" ${x.id===state.active?'selected':''}>${esc(x.name)} · ${x.kind==='original'?courseNames[x.course]:'مستقل'}</option>`).join('')}</select></label><p id="ml-copy-desc"></p><small>نسخة مستقلة بنفس الحالة الحالية. الأصل ما يتغيّر.</small><button id="ml-create-copy">إنشاء نسخة مستقلة</button>`);const update=()=>$('#ml-copy-desc').textContent=lab($('#ml-copy-source').value).description||'لا يوجد وصف';$('#ml-copy-source').onchange=update;update();$('#ml-create-copy').onclick=()=>cloneLab($('#ml-copy-source').value);}
+function editLab(id){const a=lab(id);if(a.kind==='original')return;modal('اسم المختبر ووصفه',`<label class="ml-form">اسم التبويب<input id="ml-edit-name" maxlength="70" value="${esc(a.name)}"></label><label class="ml-form">الوصف — اختياري<textarea id="ml-edit-desc" rows="3" maxlength="400">${esc(a.description)}</textarea></label><button id="ml-edit-save">حفظ الاسم والوصف</button>`);$('#ml-edit-save').onclick=()=>{const name=$('#ml-edit-name').value.trim();if(!name){$('#ml-edit-name').setCustomValidity('اكتب اسمًا للمختبر');$('#ml-edit-name').reportValidity();return;}a.name=name;a.custom=true;a.description=$('#ml-edit-desc').value.trim();changed();render();close();};}
+$('#ml-rename').onclick=()=>editLab(state.active);
+function hideLab(id){const a=lab(id);if(!a||a.kind==='original')return;if(B.busy()){toast('أكمل حركة الكابل أولًا، ثم أخفِ التبويب.');return;}guard(()=>{if(B.busy())return;a.hidden=true;if(state.active===id)activate(original().id);else{changed();renderTabs();}close();focusLabTab();toast('أُخفي «'+a.name+'». تقدر ترجعه من مختبراتي.');});}
+$('#ml-hide').onclick=()=>hideLab(state.active);
+function deleteLab(id,fromLibrary=false){
+ const a=lab(id);if(!a||a.kind!=='scratch')return;
+ if(B.busy()){toast('أكمل حركة الكابل أولًا، ثم احذف التبويب.');return;}
+ capture();modal('حذف «'+a.name+'»؟',`<p id="ml-delete-description">بينحذف هذا التبويب ومختبره: ${Object.keys(a.data.devices).length} أجهزة و${a.data.cables.length} كابلات، مع إعداداته وسجلّه. المختبرات الثانية ما تتأثر.</p><small>تقدر تتراجع عن آخر حذف من الشريط، حتى بعد إعادة فتح الصفحة.${state.lastDeletedLab?' الحذف الجديد يستبدل فرصة التراجع عن الحذف السابق.':''}</small><button id="ml-delete-hide">إخفاء بدل الحذف</button><button id="ml-delete-cancel">إلغاء</button><button id="ml-delete-confirm" class="ml-danger">حذف المختبر</button>`);
+ dialog.setAttribute('aria-describedby','ml-delete-description');
+ $('#ml-delete-cancel').focus({preventScroll:true});
+ $('#ml-delete-hide').onclick=()=>hideLab(id);$('#ml-delete-cancel').onclick=fromLibrary?library:close;
+ $('#ml-delete-confirm').onclick=()=>{
+  if(B.busy()){toast('أكمل حركة الكابل أولًا، ثم احذف التبويب.');return;}
+  const current=lab(id);if(!current||current.kind!=='scratch')return;capture();normalizeCopies(state);
+  const index=state.labs.indexOf(current),wasActive=state.active===id,list=visible(),vi=list.findIndex(x=>x.id===id),destination=list[vi+1]?.id||list[vi-1]?.id||original().id;
+  const saved=clone(current);if(pendingPings.has(id)){saved.data.ui.pingPending=false;saved.data.ui.pingResult='أُوقف الفحص عند حذف المختبر؛ أعد تشغيل Ping للتحقق.';saved.data.ui.pingOk=null;saved.data.ui.pingTrace='';}
+  state.lastDeletedLab={lab:saved,index,previous:state.labs[index-1]?.id,next:state.labs[index+1]?.id,wasActive};
+  if(wasActive)activate(destination);
+  state.labs=state.labs.filter(x=>x.id!==id);normalizeCopies(state);clearTimeout(pendingPings.get(id));pendingPings.delete(id);changed();render();
+  close();if(fromLibrary)library();else focusLabTab();
+ };
+}
+function moveLab(id,delta){const scratch=state.labs.filter(x=>x.kind==='scratch'),i=scratch.findIndex(x=>x.id===id),other=scratch[i+delta];if(!other)return;const a=state.labs.indexOf(lab(id)),b=state.labs.indexOf(other);[state.labs[a],state.labs[b]]=[state.labs[b],state.labs[a]];changed();renderTabs();library();}

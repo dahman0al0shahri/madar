@@ -6,6 +6,7 @@ import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { root, expected, git, assertCheckout, validateRemote, safeFile, githubClient, assertRepository, canResumePrepared } from './repository-guard.mjs';
 import { assertPublicationBaseline } from './publication-baseline.mjs';
+import { stagePublicationSnapshot } from './publication-index.mjs';
 
 const digest = data => crypto.createHash('sha256').update(data).digest('hex');
 function check(base) {
@@ -111,10 +112,10 @@ try {
   for (const [name, hash] of Object.entries(manifest)) assert.equal(digest(fs.readFileSync(safeFile(root, name))), hash, 'Source changed during snapshot');
   clean(root);
   git(target, ['config', '--local', 'core.hooksPath', '.githooks']);
+  // Checks enumerate the intended index, including new files. They must pass
+  // before commit/push; a failure retains the staged snapshot for inspection.
+  stagePublicationSnapshot(target, manifest);
   check(target);
-  // Explicit NUL-delimited path list; no add-all or shell interpolation.
-  git(target, ['add', '--pathspec-from-file=-', '--pathspec-file-nul'], { input: Object.keys(manifest).join('\0') + '\0' });
-  git(target, ['update-index', '--chmod=+x', '.githooks/pre-push']);
   const changed = git(target, ['diff', '--cached', '--name-only']).trim();
   if (!changed && !open.some(item => item.head.ref === branch)) {
     if (previous?.status !== 'prepared') throw Object.assign(new Error('No source changes to publish; no PR, merge, or deployment performed.'), { noChanges: true });

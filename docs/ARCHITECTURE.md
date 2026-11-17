@@ -1,6 +1,6 @@
 # Architecture
 
-This guide maps the existing source. Repository preparation does not restructure the application.
+This guide maps the existing source. Start with [the engineering guide](ENGINEERING.md), [code map](CODE_MAP.md) and [source layout](SOURCE_LAYOUT.md). The generation command delegates to named stages in `build/madar/`. Routes and compatibility outputs retain their existing paths; 21 application/style units now have their editable originals in `modules/source-parts/`.
 
 ## Request and data flow
 
@@ -30,7 +30,9 @@ The build uses React, TypeScript, and Vinext/Vite. The application also includes
 
 ## Sources and generated output
 
-`scripts/run-framework.mjs` runs `scripts/build-madar.cjs` before development and build commands. The generator reads sources in `modules/` and writes files in `lib/` and `public/`, including `lib/madar-home.html`, `lib/network-simulator.html`, and `public/index.html`.
+The hub state/persistence/navigation rules are native modules under `public/hub/`, loaded by the hub entry and supplied with explicit browser/storage adapters. The generator inserts one checked host-environment slot instead of replacing those implementations. See [hub contracts](HUB_CORE.md); other view integrations still use the compatibility pipeline.
+
+`scripts/run-framework.mjs` runs `scripts/build-madar.cjs` before development and build commands. The first stage concatenates 176 ordered source parts into 21 compatibility files without altering their bytes, scope or loading order. Subsequent stages integrate these with other sources and write the existing 19 downstream outputs, including `lib/madar-home.html`, `lib/network-simulator.html`, and `public/index.html`.
 
 Not every file in `lib/` or `public/` is generated. Find the relevant write operation in the generator before editing. Change the source, regenerate, and inspect the diff. Do not automatically include unrelated generated changes in a documentation update.
 
@@ -46,7 +48,7 @@ For account and course integration requirements, see the [course checklist](COUR
 
 `.openai/hosting.json` declares the `DB` and `BUCKET` bindings. Build configuration imports this file; do not remove it simply because it is in a hidden directory. Its hosting project identifier requires review when separating or transferring the repository.
 
-SQL migrations exist in `drizzle/`, but `db/schema.ts` contains an empty starter template in this version. Do not treat `npm run db:generate` as a way to reconstruct the existing database, or the template as its complete schema.
+`db/schema.ts` contains real table definitions, including `madar_states`, `learner_progress`, activity, notes and content records. SQL migrations in `drizzle/` record the applied schema history. Do not assume the model declarations and the full migration history are identical, or use `npm run db:generate` as a restoration procedure. Review actual SQL and schema differences before authoring a new migration.
 
 For a new portable checkout, `npm run db:local` applies the existing SQL migration history using local Wrangler D1. It uses the same placeholder binding ID and default `.wrangler/state` location as the Vite configuration. The script does not generate schema or modify hosted storage. The application check tests that initialization, restart, and repeated migration preserve a synthetic record; see [development](DEVELOPMENT.md).
 

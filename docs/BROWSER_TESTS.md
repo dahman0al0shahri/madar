@@ -47,3 +47,7 @@ Inspect expected/actual/difference images, the failed locator, and the trace bef
 This limited regression suite verifies selected browser interactions, account JSON download and appearance. It does not establish full accessibility, cross-browser behavior, video correctness, security, hosted account isolation or educational-content correctness. Local SQL recovery is covered separately by the [application checks](BACKUP_RECOVERY.md); hosted recovery remains untested.
 
 Implementation references: [Playwright visual comparisons](https://playwright.dev/docs/test-snapshots), [test isolation](https://playwright.dev/docs/browser-contexts), and [CI setup](https://playwright.dev/docs/ci-intro).
+
+## Hub module regression
+
+The hub scenario runs at both viewport sizes with disposable local authentication/storage. It loads the native modules, preserves a synthetic note and unknown profile fields, rejects a save before exit, retries, restores browser history, reloads the saved profile and follows the existing Office destination. It adds two interaction cases to the eight existing cases; the six reviewed Office screenshots remain unchanged.
