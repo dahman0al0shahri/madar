@@ -13,7 +13,8 @@ test('hub modules preserve profile data, navigation, failure recovery and histor
   await page.waitForFunction(() => typeof document.getElementById('madar-hub')?.previewState === 'function');
   const url = '/api/madar/state?kind=profile&owner=local_seedy';
   const saved = await (await page.request.get(url)).json();
-  const seed = { ...saved.snapshot, version: 1, notes: { ...saved.snapshot?.notes, 'hub-test': 'Earlier synthetic note' },
+  const seed = { ...saved.snapshot, version: 1, visits: saved.snapshot?.visits || {},
+    notes: { ...saved.snapshot?.notes, 'hub-test': 'Earlier synthetic note' },
     customHubTest: { retained: true } };
   const seeded = await page.request.put(url, { data: { snapshot: seed, revision: saved.revision,
     requestId: await page.evaluate(() => crypto.randomUUID()) } });
