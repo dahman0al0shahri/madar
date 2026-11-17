@@ -1,7 +1,7 @@
 (async () => {
   const { createHubState, createSaveController, createNavigation, routeFromHash,
     createPreviewEnvironment, createHostedEnvironment, createEditorController, createEditorViews,
-    createHubViews, createSearchController, searchText, bindHubEvents } = await import('/hub/index.mjs');
+    createHubViews, createSearchController, searchText, bindHubEvents, createLessonActions, createAccessActions } = await import('/hub/index.mjs');
   'use strict';
   const root=document.getElementById('madar-hub'), $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
   const KEY='madar-hub-preview-v1', motionPreference=matchMedia('(prefers-reduced-motion: reduce)'), reduced=motionPreference.matches;
@@ -967,21 +967,14 @@ function networkReference(){
     slideIndex = typeof value === 'number' ? value : (slideIndex + (value === 'next' ? 1 : -1) + carousel.items.length) % carousel.items.length;
     paintSlide();
   }
-  async function moveLessonStep(value) {
-    const lesson = lessonBy(state.route.split(':')[1]), step = Number(value);
-    if (!(lesson && step >= 0 && step < lesson.steps.length)) return;
-    if (window.MADAR_NOTES?.hasPending()) {
-      await window.MADAR_NOTES.retry();
-      if (window.MADAR_NOTES.hasPending()) { say('ملاحظتك لم تُحفظ بعد؛ أعد الحفظ قبل تغيير الموضوع.'); return; }
-    }
-    if (lesson.theory) { profile().theoryPositions ||= {}; profile().theoryPositions[lesson.id] = step; }
-    profile().visits[lesson.course] = { lesson: lesson.id, step };
-    profile().latest = lesson.course;
-    saves.markDirty();
-    render();
-    if (lesson.theory) { $('#nt-topic-title')?.focus({ preventScroll: true }); $('#nt-topic-title')?.scrollIntoView({ block: 'start' }); }
-    await persist().catch(() => {});
-  }
+  const lessonActions = createLessonActions({ getState: () => stateModel.value, profile, lessonBy, saves,
+    notes: { hasPending: () => Boolean(window.MADAR_NOTES?.hasPending()),
+      retry: () => window.MADAR_NOTES.retry() }, render, warn: say,
+    focusTopic: () => { $('#nt-topic-title')?.focus({ preventScroll: true }); $('#nt-topic-title')?.scrollIntoView({ block: 'start' }); } });
+  const accessActions = createAccessActions({ getState: () => stateModel.value,
+    getGrants: () => config.grants, hosted: environment.hosted, saves, render,
+    resetAccountFilter: () => { accountFilter = 'all'; },
+    syncViewer: value => { $('#mh-viewer').value = value; } });
   function editAndRender(action) { action(); render(); scheduleSave(); }
   function previewUpdate() {
     captureEditor();
@@ -997,8 +990,7 @@ function networkReference(){
   function handleInput(event) {
     const target = event.target;
     if (target.id === (environment.hosted ? 'lesson-note-text' : 'mh-note')) {
-      const lesson = lessonBy(state.route.split(':')[1]);
-      if (lesson) { profile().notes[lesson.id] = target.value; scheduleSave(); }
+      lessonActions.captureNote(target.value);
     }
     if (target.id === 'mh-query') search();
     if (environment.hosted && target.id === 'mh-command-query') {
@@ -1014,17 +1006,14 @@ function networkReference(){
       $('#mh-editor-form [name=destination]').innerHTML = targetOptions(state.editor);
     }
     if (target.id === 'mh-viewer') {
-      const next = target.value;
-      await guarded(async () => { state.viewer = next; accountFilter = 'all'; render(); await persist(); });
-      $('#mh-viewer').value = state.viewer;
+      await accessActions.switchViewer(target.value);
     }
     if (target.id === 'mh-search-scope') search();
     if (environment.hosted && target.dataset.grant) {
-      config.grants[target.dataset.grant] = target.value.split(',').map(value => value.trim()).filter(Boolean);
-      scheduleSave();
+      accessActions.setGrants(target.dataset.grant, target.value);
     }
-    if (target.dataset.courseAccess) { state.access[target.dataset.courseAccess] = target.value; scheduleSave(); }
-    if (target.dataset.contentAccess) { state.contentAccess[target.dataset.contentAccess] = target.value; scheduleSave(); }
+    if (target.dataset.courseAccess) accessActions.setCourseAccess(target.dataset.courseAccess, target.value);
+    if (target.dataset.contentAccess) accessActions.setContentAccess(target.dataset.contentAccess, target.value);
     if (target.closest('#mh-editor-form')) { captureEditor(); scheduleSave(); }
   }
   function handleKeydown(event) {
@@ -1061,7 +1050,7 @@ function networkReference(){
     dataActions: {
       go: go, close: id => $('#' + id).close(),
       searchGo: async route => { $('#mh-search-dialog').close(); await go(route); },
-      slide: value => moveSlide(Number(value)), step: moveLessonStep,
+      slide: value => moveSlide(Number(value)), step: lessonActions.moveStep,
       filter: value => { accountFilter = value; render(); },
       editUpdate: id => editAndRender(() => editor.edit(id)),
       deleteUpdate: id => { deleteId = id; $('#mh-confirm').showModal(); },

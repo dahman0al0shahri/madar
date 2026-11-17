@@ -10,6 +10,7 @@ test('hub search and update editor use isolated synthetic adapters', async ({ pa
   const config = { access: { office: 'public', network: 'public', os1: 'public' }, contentAccess: {}, updates: [], grants: {} };
   const lessons = Array.from({ length: 24 }, (_, index) => ({ id: 'synthetic-' + index,
     title: 'جدول ' + index, course: 'office', section: 'excel', kind: 'درس', steps: ['synthetic'] }));
+  lessons.push({ id: 'synthetic-network', title: 'Synthetic network', course: 'network', section: 'lessons', kind: 'درس', steps: ['synthetic'] });
   // This checks administrator UI wiring, not authentication/authorization. All
   // persistence and boot requests are synthetic; no administrator account is used.
   await page.route('**/api/madar', route => route.fulfill({ json: {
@@ -29,6 +30,14 @@ test('hub search and update editor use isolated synthetic adapters', async ({ pa
     await page.goto('/#admin');
     await page.waitForFunction(() => typeof document.getElementById('madar-hub')?.previewState === 'function');
     await expect(page.locator('[data-course-access="network"]')).toBeVisible();
+    await page.locator('[data-course-access="network"]').selectOption('restricted');
+    await page.locator('[data-content-access="synthetic-network"]').selectOption('draft');
+    await page.locator('[data-grant="network"]').fill(' first, ,second ');
+    await page.locator('[data-grant="network"]').press('Tab');
+    await expect.poll(() => page.evaluate(() => window.testHubWrites.filter(x => x.kind === 'config').at(-1)?.snapshot.grants.network)).toEqual(['first', 'second']);
+    const access = await page.evaluate(() => window.testHubWrites.filter(x => x.kind === 'config').at(-1).snapshot);
+    expect(access.access.network).toBe('restricted');
+    expect(access.contentAccess['synthetic-network']).toBe('draft');
     await page.locator('#mh-new-update').click();
     await page.locator('#mh-editor-form [name=title]').fill('Synthetic update');
     await page.locator('#mh-editor-form [name=body]').fill('Synthetic body');
