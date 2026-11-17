@@ -2,3 +2,8 @@ export { createHubState } from './state.mjs';
 export { createSaveController } from './persistence.mjs';
 export { createNavigation, routeFromHash } from './navigation.mjs';
 export { createPreviewEnvironment, createHostedEnvironment } from './environment.mjs';
+export { createEditorController } from './editor.mjs';
+export { createEditorViews } from './editor-views.mjs';
+export { createHubViews } from './views.mjs';
+export { createSearchController, searchText } from './search.mjs';
+export { bindHubEvents } from './events.mjs';

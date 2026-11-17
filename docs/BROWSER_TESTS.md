@@ -51,3 +51,8 @@ Implementation references: [Playwright visual comparisons](https://playwright.de
 ## Hub module regression
 
 The hub scenario runs at both viewport sizes with disposable local authentication/storage. It loads the native modules, preserves a synthetic note and unknown profile fields, rejects a save before exit, retries, restores browser history, reloads the saved profile and follows the existing Office destination. It adds two interaction cases to the eight existing cases; the six reviewed Office screenshots remain unchanged.
+
+
+The presentation scenario in [hub-views.spec.mjs](../tests/browser/hub-views.spec.mjs) adds two cases (one per viewport) for Arabic search aliases, pagination, scope selection and Escape, plus update validation, rejected-save recovery, edit and deletion. Its boot/store adapters are synthetic and isolated in the browser. It tests UI wiring, not real administrator authorization; existing API and SQL checks remain separate. This brings the suite to 12 cases without changing any of the six Office reference images.
+
+Route mocks must have bounded lifetimes. The profile-recovery scenario removes its synthetic boot interceptor immediately after setup; it must not intercept a later document and race context disposal. Await pending route handlers when removing all mocks; do not suppress errors with `ignoreErrors` to turn a failure green. See [Playwright route cleanup](https://playwright.dev/docs/api/class-page#page-unroute-all).

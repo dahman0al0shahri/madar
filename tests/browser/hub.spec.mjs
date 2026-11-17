@@ -20,14 +20,16 @@ test('hub modules preserve profile data, navigation, failure recovery and histor
     requestId: await page.evaluate(() => crypto.randomUUID()) } });
   expect(seeded.ok(), await seeded.text()).toBe(true);
   // A newer server note must enter the next profile save without losing unknown fields.
-  await page.route('**/api/madar', async route => {
+  const enrichBoot = async route => {
     const response = await route.fetch();
     const boot = await response.json();
     boot.notes = [...(boot.notes || []), { lesson: 'hub-test', note: 'Synthetic preserved note' }];
     await route.fulfill({ response, json: boot });
-  });
+  };
+  await page.route('**/api/madar', enrichBoot);
   await page.reload();
   await page.waitForFunction(() => document.getElementById('madar-hub')?.previewState?.().profiles.student.customHubTest?.retained);
+  await page.unroute('**/api/madar', enrichBoot);
   const state = () => page.evaluate(() => document.getElementById('madar-hub').previewState());
   let rejectSave = true;
   await page.route('**/api/madar/state?*', route => route.request().method() === 'PUT' && rejectSave

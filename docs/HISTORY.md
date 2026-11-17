@@ -32,6 +32,10 @@ Dates below use the Saudi local calendar date unless explicitly stated otherwise
 
 The owner subsequently authorized public GitHub access on 16 November 2026 and explicitly accepted downloading/forking while restricting contributions. The repository became public with pull request creation limited to authorized collaborators; no collaborator was added. This is a repository-access milestone, not an application release or deployment.
 
+## Source organization — 17 November 2026
+
+[PR #10](https://github.com/dahman0al0shahri/madar/pull/10) was reviewed and merged at the owner's instruction in `a83bc635`. It records the developer/source map, 176 ordered parts for 21 compatibility units, generation contracts and independently testable hub state/save/navigation modules. Its pre-merge checks passed; the repository report records the later test-interceptor failure and its follow-up separately. This is repository engineering work, not a new hosted release or evidence of learner progress.
+
 ## What the evidence establishes
 
 - **Owner-confirmed history:** the founding date, classmates' use, the connection to diploma study, the aim of improving teaching practice, and continuous learning inside and outside college. These are attributed statements, not inferred analytics.
