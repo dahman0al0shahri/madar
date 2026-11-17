@@ -6,7 +6,7 @@ Use this map to find the maintained source before editing. The machine-readable 
 
 | Feature | Start here | Original source / integration |
 | --- | --- | --- |
-| Home and course navigation | [Home route](../app/route.ts) | [Hub shell](../modules/madar-hub/shell.html), [hub source parts](../modules/source-parts/hub), [styles](../modules/madar-hub/styles.css), [hub integration](../build/madar/hub.cjs) |
+| Home and course navigation | [Home route](../app/route.ts) | [Hub shell](../modules/madar-hub/shell.html), [hub source parts](../modules/source-parts/hub), [hub core modules](HUB_CORE.md), [styles](../modules/madar-hub/styles.css), [hub integration](../build/madar/hub.cjs) |
 | Word, Excel, Access | [Applications route](../app/applications/route.ts) | [Original applications HTML](../lib/applications.html), [Office shell parts](../modules/source-parts/office-shell), course/worksheet parts in [source layout](SOURCE_LAYOUT.md), [Office API](../app/api/office/route.ts); appearance is protected |
 | Network practice | [Lab route](../app/network-lab/route.ts) | [Engine parts](../modules/source-parts/network-engine), [lab tabs parts](../modules/source-parts/network-tabs), [tabs builder](../modules/network-tabs-preview/build.cjs), [host integration](../build/madar/network-simulator.cjs) |
 | Network theory revision | [Revision route](../app/network-review/route.ts) | [Original review HTML](../lib/srwe-review.html), [revision behavior parts](../modules/source-parts/network-revision), other [review sources](../modules/srwe-review), [review builder](../scripts/build-srwe.cjs) |

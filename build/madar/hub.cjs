@@ -7,34 +7,15 @@ shell=shell.replace(/<details class="mh-preview-tools"[\s\S]*?<\/details>/,'<div
 shell=shell.replace('سيُحذف من هذه المعاينة ومن كل أماكن ظهوره. لن يؤثر هذا في المنصة المنشورة أو تقدّم أي طالب.','سيُحذف المستجد من جميع أماكن ظهوره. لا تُحذف المختبرات أو ملاحظات الطلاب.');
 let app=read('modules/madar-hub/app.js');
 app=replace(app,'  function heading(',read('modules/madar-hub/srwe-announcement.js')+'\n  function heading(');
-// Save the course position before a mobile lesson replaces this document.
-app=replace(app,"dirty=true;render();$('.mh-header')","dirty=true;await persist();render();$('.mh-header')");
-app=replace(app,"(() => {","(async () => {");
-app=replace(app,"  const KEY='madar-hub-preview-v1'","  const KEY='madar-hub-profile-v1'");
-const start=app.indexOf('  const lessons=['),end=app.indexOf('  const initial=',start);
-app=app.slice(0,start)+`  const bootResponse=await fetch('/api/madar',{cache:'no-store'});if(!bootResponse.ok)throw Error('تعذر تحميل مدار');const boot=await bootResponse.json();
-  window.MADAR_ACCOUNT={...boot.account,available:true};const store=await MadarStore.open('profile');const adminStore=boot.account.isAdmin?await MadarStore.open('config',true):null;
-  const lessons=boot.lessons;
-`+app.slice(end);
-const rs=app.indexOf('  let restored='),re=app.indexOf('  let state=normalize',rs);
-app=app.slice(0,rs)+`  const config=adminStore?.value||boot.config;Object.assign(initial,{access:config.access,contentAccess:config.contentAccess,updates:config.updates});
-  let restored={...initial,profiles:{student:{...store.value,visits:store.value?.visits||{},notes:store.value?.notes||{},latest:store.value?.latest||null},guest:{visits:{},notes:{},latest:null}},route:decodeURIComponent(location.hash.slice(1))||'home'};
-`+app.slice(re);
-app=replace(app,"const canCourse=id=>!!courses[id]&&(","const canCourse=id=>!!courses[id]&&(boot.account.isAdmin||");
-app=replace(app,"const canLesson=l=>!!l&&canCourse(l.course)&&(","const canLesson=l=>!!l&&canCourse(l.course)&&(boot.account.isAdmin||");
-// Fix the grouping introduced by the admin bypass without broad access mutations.
-app=app.replace("(state.contentAccess[l.id]!=='draft')&&(state.contentAccess[l.id]!=='restricted'||state.viewer==='student');","((state.contentAccess[l.id]!=='draft')&&(state.contentAccess[l.id]!=='restricted'||state.viewer==='student')));");
-const ps=app.indexOf('  function persist(){'),pe=app.indexOf('  async function guarded',ps);
-app=app.slice(0,ps)+`  function persist(){clearTimeout(saveTimer);const snapshot=clone(state);status('جارٍ الحفظ…');const job=chain.catch(()=>{}).then(async()=>{
-    if(adminStore)await adminStore.save({version:1,access:snapshot.access,contentAccess:snapshot.contentAccess,grants:config.grants||{},updates:snapshot.updates});
-    await store.save({version:1,...snapshot.profiles.student,editor:adminStore?snapshot.editor:null});
-    if(JSON.stringify(snapshot)===JSON.stringify(state)){dirty=false;status(boot.account.user?'تم الحفظ في حسابك':'تم الحفظ على هذا المتصفح');$('#mh-error').hidden=true;}return true;
-  }).catch(e=>{dirty=true;status(e.message||'لم يكتمل الحفظ');$('#mh-error').hidden=false;throw e;});chain=job;return job;}
-`+app.slice(pe);
-app=replace(app,"try{await persist();const next=pending;","try{const frame=$('#mh-network-lab');if(frame?.contentWindow?.document.getElementById('madar-labs')?.flushSave)await frame.contentWindow.document.getElementById('madar-labs').flushSave();if(window.MADAR_NOTES?.hasPending()){await window.MADAR_NOTES.retry();if(window.MADAR_NOTES.hasPending())throw Error('ملاحظتك لم تُحفظ بعد');}await persist();const next=pending;");
-app=replace(app,"state.route=route;if(route.startsWith('lesson:'))","const lesson=route.startsWith('lesson:')?lessonBy(route.split(':')[1]):null;if(route.startsWith('course:office:')||lesson?.course==='office'){const section=route.split(':')[2];location.href='/applications#'+(lesson?(lesson.section==='word'?'learn/':lesson.section+'/')+lesson.id:section||'home');return;}state.route=route;history.pushState(null,'','#'+route);if(route.startsWith('lesson:'))");
+// The host supplies dependencies through one explicit composition slot.
+const catalogStart = app.indexOf('  const lessons=[');
+const catalogEnd = app.indexOf('  const initial=', catalogStart);
+if (catalogStart < 0 || catalogEnd < catalogStart) throw Error('Missing preview catalog boundary');
+app = app.slice(0, catalogStart) + app.slice(catalogEnd);
+const environmentSlot = /\/\* hub:environment:start \*\/[\s\S]*?\/\* hub:environment:end \*\//g;
+if ([...app.matchAll(environmentSlot)].length !== 1) throw Error('Expected one hub environment slot');
+app = app.replace(environmentSlot, () => read('modules/madar-hub/host-environment.js'));
 app=app.replace('  function selectedCourse()',read('modules/madar-hub/network-frame.js')+'\n'+read('modules/madar-hub/mobile-practical.js')+'\n'+read('modules/madar-hub/lesson-progress.js')+'\n'+read('modules/madar-hub/page-reflection.js')+'\n'+read('modules/madar-hub/background-lifecycle.js')+'\n  function selectedCourse()');
-app=app.replace("await frame.contentWindow.document.getElementById('madar-labs').flushSave();", "await frame.contentWindow.document.getElementById('madar-labs').flushSave();syncLessonProgress(frame);");
 app=replace(app,"else if(state.route==='account')html=account();else if(state.route==='admin')html=admin();","else if(state.route==='account')html=account();else if(state.route==='admin'&&boot.account.isAdmin)html=admin();");
 app=app.replace("else if(state.route.startsWith('course:')&&permitted)","else if(state.route.startsWith('course:office:')){location.replace('/applications#'+state.route.split(':')[2]);return;}else if(state.route.startsWith('course:')&&permitted)");
 const searchStart=app.indexOf('  function search(){'),searchEnd=app.indexOf("  root.addEventListener('click'",searchStart);
@@ -63,20 +44,12 @@ app=app.replaceAll('هذه المعاينة بعد.','هذه المساحة بع
 app=app.replace("${Object.keys(courses).map(id=>`<div class=\"mh-admin-row\">","${['network'].map(id=>`<div class=\"mh-admin-row\">");
 app=replace(app,"if(b.dataset.go){await go(b.dataset.go);return;}","if(b.id==='mh-profile-export'){store.download();return;}if(b.dataset.go){await go(b.dataset.go);return;}");
 app=replace(app,"  render();status(restored?'استُعيدت بيانات المعاينة':'');",`  $('#mh-owner-tools').hidden=!boot.account.isAdmin;
-  addEventListener('popstate',()=>{if(dirty||$('#mh-network-lab')?.contentWindow?.MadarStore?.hasPending()){history.pushState(null,'','#'+(state.route==='home'?'madar':state.route==='account'?'my-space':state.route));say('احفظ تغييراتك قبل الرجوع.');return;}state.route=decodeURIComponent(location.hash.slice(1))||'home';render();});
   addEventListener('message',e=>{const f=$('#mh-network-lab');if(e.origin!==location.origin||!f||e.source!==f.contentWindow)return;if(e.data?.type==='madar-workspace-expanded'){if(e.data.expanded&&!f.dataset.expanded){f.dataset.previousStyle=f.getAttribute('style')||'';f.dataset.expanded='true';f.style.cssText='position:fixed;inset:0;width:100vw;height:100dvh;border:0;border-radius:0;z-index:10000';}else if(!e.data.expanded&&f.dataset.expanded){f.setAttribute('style',f.dataset.previousStyle);delete f.dataset.expanded;delete f.dataset.previousStyle;}}if(e.data?.type==='madar-network-state'){if(!f.dataset.expanded)f.style.height=Math.max(600,Math.min(15000,Number(e.data.height)||1400))+'px';syncLessonProgress(f);}});
   if(store.conflict){$('#mh-error').hidden=false;status('يوجد تعارض مع نسخة الحساب. نزّل مسودتك قبل إعادة التحميل.');}
   render();status('');
 `);
 if(!/\}\)\(\);\s*$/.test(app))throw Error('Missing root app completion');
 app=app.replace(/\}\)\(\);\s*$/,"})().catch(()=>{const main=document.getElementById('mh-main');main.innerHTML='<p role=\"alert\">تعذر تحميل بيانات مدار. لم نستبدل الحفظ السابق.</p><button onclick=\"location.reload()\">إعادة المحاولة</button>';});");
-app=app.replaceAll("decodeURIComponent(location.hash.slice(1))||'home'","({madar:'home','my-space':'account'}[decodeURIComponent(location.hash.slice(1))]||decodeURIComponent(location.hash.slice(1))||'home')");
-app=app.replaceAll("'#'+route","'#'+(route==='home'?'madar':route==='account'?'my-space':route)");
-app=app.replace("route:decodeURIComponent", "route:decodeURIComponent");
-app=app.replace("  const profile=()=>state.profiles[state.viewer];",`  for(const n of (boot.notes||[]))state.profiles.student.notes[n.lesson]=n.note;
-  if(!boot.account.user)for(const l of lessons){try{const n=JSON.parse(localStorage.getItem('madar-notes-v1:guest:'+l.id)||'null');if(n?.text)state.profiles.student.notes[l.id]=n.text;}catch{}}
-  state.editor=adminStore?store.value?.editor||null:null;
-  const profile=()=>state.profiles[state.viewer];`);
 app=app.replace("if(e.target.id==='mh-note'){","if(e.target.id==='lesson-note-text'){");
 app=app.replace("if(e.target.dataset.courseAccess)","if(e.target.dataset.grant){config.grants[e.target.dataset.grant]=e.target.value.split(',').map(x=>x.trim()).filter(Boolean);scheduleSave();}if(e.target.dataset.courseAccess)");
 app=app.replace("<h2>المقررات وصلاحيات المحتوى</h2>",'<h2>المقررات وصلاحيات المحتوى</h2><p>للصلاحية الخاصة: اكتب معرّفات الحسابات مفصولة بفاصلة. يمكن الرجوع إلى <a href="/admin/members">إدارة المشتركين</a>.</p><label>حسابات مقرر الشبكات<input data-grant="network" value="${esc((config.grants.network||[]).join(\',\'))}"></label>');
@@ -84,9 +57,7 @@ app=app.replaceAll('تم حفظ المستجد في المعاينة فقط.','�
 app=app.replace("  $('#mh-owner-tools').hidden",`  root.addEventListener('pointermove',e=>{const f=$('#mh-network-background');if(!f.hidden)f.contentWindow?.postMessage({type:'madar-background-pointer',x:e.clientX,y:e.clientY},location.origin);},{passive:true});
   $('#mh-owner-tools').hidden`);
 app=app.replace(/^  window.addEventListener\('openai:set_globals'.*$/m,'');
-app=app.replace("if(dirty||$('#mh-network-lab')?.contentWindow?.MadarStore?.hasPending())", "if(dirty||window.MADAR_NOTES?.hasPending()||$('#mh-network-lab')?.contentWindow?.MadarStore?.hasPending()||$('#mh-network-lab')?.contentWindow?.document.getElementById('madar-labs')?.getLabsState?.().dirty)");
 app=app.replace("void window.MADAR_NOTES?.mount(state.route.split(':')[1]);", "void window.MADAR_NOTES?.mount(state.route.split(':')[1],{video:false});");
-app=app.replace("addEventListener('popstate',()=>{", "addEventListener('hashchange',()=>{const key=location.hash.slice(1).split('/')[0];if(['home','word','excel','access','learn','quiz','reference','saved','mistakes','about','session','results'].includes(key)){location.replace('/applications'+location.search+location.hash);return;}const route=({madar:'home','my-space':'account'}[key]||location.hash.slice(1)||'home');if(route!==state.route)dispatchEvent(new PopStateEvent('popstate'));});addEventListener('popstate',()=>{");
 app=app.replace('<select data-content-access="\${l.id}">', '<input aria-label="حسابات \${esc(l.title)}" data-grant="\${l.id}" value="\${esc((config.grants[l.id]||[]).join(","))}"><select data-content-access="\${l.id}">');
 shell=shell.replace('<button id="mh-stay">','<button id="mh-recover-export">تنزيل المسودة</button><button id="mh-recover-load">تحميل نسخة الحساب</button><button id="mh-stay">');
 app=app.replace("if(b.id==='mh-profile-export')", "if(b.id==='mh-recover-export'){store.download();adminStore?.download();return;}if(b.id==='mh-recover-load'){await store.discardAndReload();return;}if(b.id==='mh-profile-export')");

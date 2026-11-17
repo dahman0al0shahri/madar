@@ -1,3 +1,27 @@
-function selectedCourse(){if(state.route.startsWith('course:'))return state.route.split(':')[1];if(state.route.startsWith('lesson:'))return lessonBy(state.route.split(':')[1])?.course;return null;}
-  async function go(route){if(/^lesson:network-srwe-[456]$/.test(route)){location.assign('/network-review?chapter='+route.slice(-1));return;}$('#mh-picker').hidden=true;$('#mh-picker-button').setAttribute('aria-expanded','false');await guarded(async()=>{state.route=route;if(route.startsWith('lesson:')){const l=lessonBy(route.split(':')[1]);if(canLesson(l)){const old=profile().visits[l.course];profile().visits[l.course]=old?.lesson===l.id?old:{lesson:l.id,step:profile().theoryPositions?.[l.id]||0};profile().latest=l.course;}}dirty=true;render();$('.mh-header').scrollIntoView({block:'start',behavior:'instant'});$('#mh-main').focus({preventScroll:true});await persist();});}
-  
+  const navigation = createNavigation({
+    model: stateModel, saves, hosted: environment.hosted,
+    closePicker: () => { $('#mh-picker').hidden = true; $('#mh-picker-button').setAttribute('aria-expanded', 'false'); },
+    pushHash: hash => history.pushState(null, '', hash),
+    getHash: () => location.hash,
+    leave: url => location.assign(url),
+    render: () => render(),
+    focus: () => { $('.mh-header').scrollIntoView({ block: 'start', behavior: 'instant' }); $('#mh-main').focus({ preventScroll: true }); },
+    hasPending: () => dirty || window.MADAR_NOTES?.hasPending() ||
+      $('#mh-network-lab')?.contentWindow?.MadarStore?.hasPending() ||
+      $('#mh-network-lab')?.contentWindow?.document.getElementById('madar-labs')?.getLabsState?.().dirty,
+    warn: () => say('احفظ تغييراتك قبل الرجوع.'),
+  });
+  function selectedCourse() { return navigation.selectedCourse(); }
+  const go = navigation.go;
+  if (environment.hosted) {
+    addEventListener('popstate', navigation.restoreHistory);
+    addEventListener('hashchange', () => {
+      const key = location.hash.slice(1).split('/')[0];
+      if (['home','word','excel','access','learn','quiz','reference','saved','mistakes','about','session','results'].includes(key)) {
+        location.replace('/applications' + location.search + location.hash);
+        return;
+      }
+      if (routeFromHash(location.hash) !== state.route) navigation.restoreHistory();
+    });
+  }
+

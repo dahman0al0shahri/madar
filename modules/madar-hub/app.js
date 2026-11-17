@@ -1,4 +1,6 @@
-(() => {
+(async () => {
+  const { createHubState, createSaveController, createNavigation, routeFromHash,
+    createPreviewEnvironment, createHostedEnvironment } = await import('/hub/index.mjs');
   'use strict';
   const root=document.getElementById('madar-hub'), $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
   const KEY='madar-hub-preview-v1', motionPreference=matchMedia('(prefers-reduced-motion: reduce)'), reduced=motionPreference.matches;
@@ -29,28 +31,84 @@
     {id:'network',title:'مساحة للشبكات. وفهم أقرب للتطبيق.',body:'دروس وتدريب عملي يجمعان الفكرة وتنفيذها، مع إرشاد يساعدك عند الحاجة.',course:'network',target:'course:network:lessons',places:['global','course'],status:'published',pin:false,date:'2026-10-15',start:'',end:'',duration:14,scene:'network'},
     {id:'office',title:'مذاكرتك صارت مترابطة',body:'تنتقل بين Word وExcel وAccess، وتجمع الشرح والتطبيق والمراجعة داخل مقرر واحد.',course:'office',target:'course:office:home',places:['global','course'],status:'published',pin:false,date:'2026-10-15',start:'',end:'',duration:12,scene:'office'}
   ]};
-  function normalize(v){if(!v||v.version!==1)return clone(initial);const d=clone(initial);Object.assign(d,v);for(const k of ['student','guest'])d.profiles[k]={visits:{},notes:{},latest:null,...v.profiles?.[k]};d.viewer=['student','guest'].includes(d.viewer)?d.viewer:'student';d.access={...initial.access,...v.access};d.contentAccess=v.contentAccess||{};d.updates=Array.isArray(v.updates)?v.updates:clone(initial.updates);return d;}
-  let scheduleDay=nowDay();
-  let restored=window.openai?.widgetState?.privateContent?.hub;
-  if(!restored)try{restored=JSON.parse(localStorage.getItem(KEY)||'null');}catch{}
-  let state=normalize(restored), dirty=false, saveTimer=null, chain=Promise.resolve(), pending=null, carousel=null, raf=0, lastFrame=0, elapsed=0, paused=reduced, slideIndex=0, keyboard=false, toastTimer, deleteId=null, accountFilter='all';
-  const profile=()=>state.profiles[state.viewer];
-  const canCourse=id=>!!courses[id]&&(state.access[id]==='public'||(state.access[id]==='restricted'&&state.viewer==='student'));
-  const canLesson=l=>!!l&&canCourse(l.course)&&(state.contentAccess[l.id]!=='draft')&&(state.contentAccess[l.id]!=='restricted'||state.viewer==='student');
-  const available=()=>Object.keys(courses).filter(canCourse);
-  const lessonBy=id=>lessons.find(l=>l.id===id);
-  function nowDay(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
+
+  /* hub:environment:start */
+  const environment = createPreviewEnvironment({ initial, key: KEY,
+    getWidget: () => window.openai, storage: localStorage, shouldFail: () => $('#mh-fail').checked });
+  /* hub:environment:end */
+  const { boot, store, adminStore, config, restored } = environment;
+  const stateModel = createHubState({ initial: environment.initial, restored, courses, lessons,
+    isAdmin: environment.isAdmin });
+  let state = stateModel.value;
+  const { profile, canCourse, canLesson, available, lessonBy } = stateModel;
+  // Temporary view compatibility: save status is driven only by the controller.
+  let dirty = false;
+  let scheduleDay = nowDay();
+  let carousel = null, raf = 0, lastFrame = 0, elapsed = 0, paused = reduced;
+  let slideIndex = 0, keyboard = false, toastTimer, deleteId = null, accountFilter = 'all';
+  
+  const saves = createSaveController({
+    getState: () => stateModel.value,
+    write: environment.write,
+    onDirty: value => { dirty = value; },
+    onStatus: (phase, error) => {
+      const messages = { pending: 'تغييرات بانتظار الحفظ', saving: 'جارٍ الحفظ…',
+        saved: environment.savedMessage, failed: environment.hosted ? error?.message || 'لم يكتمل الحفظ' : 'لم يكتمل الحفظ' };
+      status(messages[phase]);
+      if (phase === 'saved') $('#mh-error').hidden = true;
+    },
+    onError: error => { status(environment.hosted ? error.message || 'لم يكتمل الحفظ' : 'لم يكتمل الحفظ'); $('#mh-error').hidden = false; },
+    beforeLeave: async () => {
+      if (!environment.hosted) return;
+      const frame = $('#mh-network-lab');
+      const lab = frame?.contentWindow?.document.getElementById('madar-labs');
+      if (lab?.flushSave) await lab.flushSave();
+      syncLessonProgress(frame);
+      if (window.MADAR_NOTES?.hasPending()) {
+        await window.MADAR_NOTES.retry();
+        if (window.MADAR_NOTES.hasPending()) throw Error('ملاحظتك لم تُحفظ بعد');
+      }
+    },
+  });
+  const persist = saves.persist;
+  const scheduleSave = saves.scheduleSave;
+  const guarded = saves.guard;
+
+  const navigation = createNavigation({
+    model: stateModel, saves, hosted: environment.hosted,
+    closePicker: () => { $('#mh-picker').hidden = true; $('#mh-picker-button').setAttribute('aria-expanded', 'false'); },
+    pushHash: hash => history.pushState(null, '', hash),
+    getHash: () => location.hash,
+    leave: url => location.assign(url),
+    render: () => render(),
+    focus: () => { $('.mh-header').scrollIntoView({ block: 'start', behavior: 'instant' }); $('#mh-main').focus({ preventScroll: true }); },
+    hasPending: () => dirty || window.MADAR_NOTES?.hasPending() ||
+      $('#mh-network-lab')?.contentWindow?.MadarStore?.hasPending() ||
+      $('#mh-network-lab')?.contentWindow?.document.getElementById('madar-labs')?.getLabsState?.().dirty,
+    warn: () => say('احفظ تغييراتك قبل الرجوع.'),
+  });
+  function selectedCourse() { return navigation.selectedCourse(); }
+  const go = navigation.go;
+  if (environment.hosted) {
+    addEventListener('popstate', navigation.restoreHistory);
+    addEventListener('hashchange', () => {
+      const key = location.hash.slice(1).split('/')[0];
+      if (['home','word','excel','access','learn','quiz','reference','saved','mistakes','about','session','results'].includes(key)) {
+        location.replace('/applications' + location.search + location.hash);
+        return;
+      }
+      if (routeFromHash(location.hash) !== state.route) navigation.restoreHistory();
+    });
+  }
+
+function nowDay(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
   function eligible(u,scope){const day=nowDay();return u.status==='published'&&(!u.course||canCourse(u.course))&&(!u.target.startsWith('lesson:')||canLesson(lessonBy(u.target.split(':')[1])))&&(!u.start||u.start<=day)&&(!u.end||u.end>=day)&&(scope?u.course===scope&&u.places.includes('course'):u.places.includes('global'));}
   function news(scope){return state.updates.filter(u=>eligible(u,scope)).sort((a,b)=>Number(b.pin)-Number(a.pin)||b.date.localeCompare(a.date));}
   function paintIcons(){globalThis.lucide?.createIcons({attrs:{width:19,height:19}});$$('button').forEach(b=>b.classList.add('cursor-interaction'));}
   function say(t){clearTimeout(toastTimer);$('#mh-toast').textContent=t;$('#mh-toast').hidden=false;toastTimer=setTimeout(()=>$('#mh-toast').hidden=true,4500);}
   function status(t){$('#mh-save').textContent=t;}
-  function scheduleSave(){dirty=true;status('تغييرات بانتظار الحفظ');clearTimeout(saveTimer);saveTimer=setTimeout(()=>persist().catch(()=>{}),350);}
-  function persist(){clearTimeout(saveTimer);const snapshot=clone(state);status('جارٍ الحفظ…');const job=chain.catch(()=>{}).then(async()=>{if($('#mh-fail').checked)throw Error('simulated');if(window.openai?.setWidgetState){await window.openai.setWidgetState({modelContent:{preview:'معاينة رئيسية مدار والمقررات؛ ليست بيانات تعلم',page:snapshot.route,viewer:snapshot.viewer},privateContent:{hub:snapshot}});}else{localStorage.setItem(KEY,JSON.stringify(snapshot));}if(JSON.stringify(snapshot)===JSON.stringify(state)){dirty=false;status('تم الحفظ في المعاينة');$('#mh-error').hidden=true;}return true;}).catch(e=>{dirty=true;status('لم يكتمل الحفظ');$('#mh-error').hidden=false;throw e;});chain=job;return job;}
-  async function guarded(action){pending=action;try{await persist();const next=pending;pending=null;if(next)await next();}catch{}}
-  function selectedCourse(){if(state.route.startsWith('course:'))return state.route.split(':')[1];if(state.route.startsWith('lesson:'))return lessonBy(state.route.split(':')[1])?.course;return null;}
-  async function go(route){if(/^lesson:network-srwe-[456]$/.test(route)){location.assign('/network-review?chapter='+route.slice(-1));return;}$('#mh-picker').hidden=true;$('#mh-picker-button').setAttribute('aria-expanded','false');await guarded(async()=>{state.route=route;if(route.startsWith('lesson:')){const l=lessonBy(route.split(':')[1]);if(canLesson(l)){const old=profile().visits[l.course];profile().visits[l.course]=old?.lesson===l.id?old:{lesson:l.id,step:profile().theoryPositions?.[l.id]||0};profile().latest=l.course;}}dirty=true;render();$('.mh-header').scrollIntoView({block:'start',behavior:'instant'});$('#mh-main').focus({preventScroll:true});await persist();});}
-  function officeArt(){return `<div class="mh-office-scene" aria-hidden="true"><div class="mh-file" style="--i:0"><b>W</b><span class="mh-file-lines"></span></div><div class="mh-file" style="--i:1"><b>X</b><span class="mh-file-grid"></span></div><div class="mh-file" style="--i:2"><b>A</b><span class="mh-file-db"></span></div></div>`;}
+
+function officeArt(){return `<div class="mh-office-scene" aria-hidden="true"><div class="mh-file" style="--i:0"><b>W</b><span class="mh-file-lines"></span></div><div class="mh-file" style="--i:1"><b>X</b><span class="mh-file-grid"></span></div><div class="mh-file" style="--i:2"><b>A</b><span class="mh-file-db"></span></div></div>`;}
   function networkArt(){const paths=['M0 100L72 42L200 90','M200 90L320 30L400 80','M0 170L80 138L200 90','M200 90L320 145L400 170','M200 0V90','M200 90L210 180'];return `<div class="mh-network-map" aria-hidden="true"><svg viewBox="0 0 400 180"><path class="mh-network-wire" d="M0 100L72 42L200 90L320 30L400 80M0 170L80 138L200 90L320 145L400 170M72 42L80 138M320 30L320 145M200 0V90L210 180"/>${paths.map((d,i)=>`<path class="mh-network-flow mh-network-trail" pathLength="100" d="${d}" style="--flow-delay:${-i*.8}s;--flow-duration:${4+i%3}s"/><path class="mh-network-flow mh-network-signal" pathLength="100" d="${d}" style="--flow-delay:${-i*.8}s;--flow-duration:${4+i%3}s"/>`).join('')}${[[72,42],[80,138],[320,30],[320,145],[210,180]].map(([x,y],i)=>`<circle class="mh-network-node-halo" cx="${x}" cy="${y}" r="10" style="--node-delay:${-i*.8}s"/><circle class="mh-network-node" cx="${x}" cy="${y}" r="3.3" style="--node-delay:${-i*.8}s"/>`).join('')}</svg></div><div class="mh-network-center" aria-hidden="true"><span>${icon('cloud')}<i class="mh-network-leds"><b></b><b></b><b></b></i></span></div>`;}
   let liquidOrbit=null,brandOrbit=null,networkNewsPlayer=null;
   function scene(u){if(u.scene==='office')return officeArt();if(u.scene==='network')return '<iframe class="mh-network-showcase" src="/network-news.html" title="مشهد تفاعلي لتوصيل Router وSwitch — تكبير وسحب"></iframe>';return `<div class="mh-main-mark" aria-hidden="true"><div class="mh-orbit-core"></div><span>مدار</span><div class="mh-liquid-bubble"><canvas></canvas></div></div>`;}
@@ -93,10 +151,10 @@
     if(b.id==='mh-skip'){const main=$('#mh-main');main.focus({preventScroll:true});main.scrollIntoView({block:'start'});return;}if(b.id==='mh-picker-button'){const open=$('#mh-picker').hidden;$('#mh-picker').hidden=!open;b.setAttribute('aria-expanded',String(open));return;}
     if(b.id==='mh-save-update'){await saveEditor();return;}
     if(b.id==='mh-search-button'){openSearch();return;}if(b.dataset.searchGo){$('#mh-search-dialog').close();await go(b.dataset.searchGo);return;}
-    if(b.id==='mh-retry'){if(pending)await guarded(pending);else await persist().catch(()=>{});return;}if(b.id==='mh-stay'){pending=null;$('#mh-error').hidden=true;return;}
+    if(b.id==='mh-retry'){await saves.retry().catch(()=>{});return;}if(b.id==='mh-stay'){saves.cancelPendingAction();$('#mh-error').hidden=true;return;}
     if(b.id==='mh-pause'||b.id==='mh-scene'){setPaused(!paused);return;}if(b.id==='mh-replay'){paintSlide();return;}
     if(b.id==='mh-next'||b.id==='mh-prev'||b.dataset.slide!==undefined){if(!carousel)return;slideIndex=b.dataset.slide!==undefined?Number(b.dataset.slide):(slideIndex+(b.id==='mh-next'?1:-1)+carousel.items.length)%carousel.items.length;paintSlide();return;}
-    if(b.dataset.step!==undefined){const l=lessonBy(state.route.split(':')[1]),s=Number(b.dataset.step);if(l&&s>=0&&s<l.steps.length){if(window.MADAR_NOTES?.hasPending()){await window.MADAR_NOTES.retry();if(window.MADAR_NOTES.hasPending()){say('ملاحظتك لم تُحفظ بعد؛ أعد الحفظ قبل تغيير الموضوع.');return;}}if(l.theory){profile().theoryPositions||={};profile().theoryPositions[l.id]=s;}profile().visits[l.course]={lesson:l.id,step:s};profile().latest=l.course;dirty=true;render();if(l.theory){$('#nt-topic-title')?.focus({preventScroll:true});$('#nt-topic-title')?.scrollIntoView({block:'start'});}await persist().catch(()=>{});}return;}
+    if(b.dataset.step!==undefined){const l=lessonBy(state.route.split(':')[1]),s=Number(b.dataset.step);if(l&&s>=0&&s<l.steps.length){if(window.MADAR_NOTES?.hasPending()){await window.MADAR_NOTES.retry();if(window.MADAR_NOTES.hasPending()){say('ملاحظتك لم تُحفظ بعد؛ أعد الحفظ قبل تغيير الموضوع.');return;}}if(l.theory){profile().theoryPositions||={};profile().theoryPositions[l.id]=s;}profile().visits[l.course]={lesson:l.id,step:s};profile().latest=l.course;saves.markDirty();render();if(l.theory){$('#nt-topic-title')?.focus({preventScroll:true});$('#nt-topic-title')?.scrollIntoView({block:'start'});}await persist().catch(()=>{});}return;}
     if(b.dataset.filter){accountFilter=b.dataset.filter;render();return;}
     if(b.id==='mh-new-update'){state.editor={id:'u-'+Date.now(),title:'',body:'',course:'',target:'courses',places:['global'],status:'draft',pin:false,date:nowDay(),start:'',end:'',duration:12,scene:'hub'};render();scheduleSave();return;}
     if(b.dataset.editUpdate){state.editor=clone(state.updates.find(u=>u.id===b.dataset.editUpdate));render();scheduleSave();return;}
@@ -107,7 +165,7 @@
   });
   root.addEventListener('input',e=>{if(e.target.id==='mh-note'){const l=lessonBy(state.route.split(':')[1]);if(l){profile().notes[l.id]=e.target.value;scheduleSave();}}if(e.target.id==='mh-query')search();if(e.target.closest('#mh-editor-form')){captureEditor();scheduleSave();}});
   root.addEventListener('change',async e=>{if(e.target.name==='course'&&e.target.closest('#mh-editor-form')){captureEditor();state.editor.target=state.editor.course?`course:${state.editor.course}:home`:'courses';$('#mh-editor-form [name=destination]').innerHTML=targetOptions(state.editor);}if(e.target.id==='mh-viewer'){const next=e.target.value;await guarded(async()=>{state.viewer=next;accountFilter='all';render();await persist();});$('#mh-viewer').value=state.viewer;}if(e.target.id==='mh-search-scope')search();if(e.target.dataset.courseAccess){state.access[e.target.dataset.courseAccess]=e.target.value;scheduleSave();}if(e.target.dataset.contentAccess){state.contentAccess[e.target.dataset.contentAccess]=e.target.value;scheduleSave();}if(e.target.closest('#mh-editor-form')){captureEditor();scheduleSave();}});
-  async function saveEditor(){if(!$('#mh-editor-form').reportValidity())return;captureEditor();const u=state.editor;if(!u.title.trim()||!u.body.trim()){ $('#mh-editor-error').textContent='أدخل عنوان المستجد ونصه.';return;}if(!u.course&&u.places.includes('course')){$('#mh-editor-error').textContent='اختر مقررًا لظهور المستجد في رئيسيته.';return;}if(u.start&&u.end&&u.end<u.start){$('#mh-editor-error').textContent='نهاية الظهور يجب ألا تسبق بدايته.';return;}if(u.target.startsWith('lesson:')&&lessonBy(u.target.split(':')[1])?.course!==u.course){$('#mh-editor-error').textContent='اختر وجهة من المقرر نفسه.';return;}u.scene=u.course||'hub';const i=state.updates.findIndex(x=>x.id===u.id);if(i<0)state.updates.push(clone(u));else state.updates[i]=clone(u);dirty=true;try{await persist();say('تم حفظ المستجد في المعاينة فقط.');render();}catch{}}
+  async function saveEditor(){if(!$('#mh-editor-form').reportValidity())return;captureEditor();const u=state.editor;if(!u.title.trim()||!u.body.trim()){ $('#mh-editor-error').textContent='أدخل عنوان المستجد ونصه.';return;}if(!u.course&&u.places.includes('course')){$('#mh-editor-error').textContent='اختر مقررًا لظهور المستجد في رئيسيته.';return;}if(u.start&&u.end&&u.end<u.start){$('#mh-editor-error').textContent='نهاية الظهور يجب ألا تسبق بدايته.';return;}if(u.target.startsWith('lesson:')&&lessonBy(u.target.split(':')[1])?.course!==u.course){$('#mh-editor-error').textContent='اختر وجهة من المقرر نفسه.';return;}u.scene=u.course||'hub';const i=state.updates.findIndex(x=>x.id===u.id);if(i<0)state.updates.push(clone(u));else state.updates[i]=clone(u);saves.markDirty();try{await persist();say('تم حفظ المستجد في المعاينة فقط.');render();}catch{}}
   root.addEventListener('submit',e=>{e.preventDefault();if(e.target.id==='mh-editor-form')saveEditor();});
   root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'&&e.target.closest('#mh-editor-form')){e.preventDefault();saveEditor();}if(e.key==='Enter'&&e.target.id==='mh-query')e.preventDefault();});
   root.addEventListener('keydown',e=>{keyboard=true;if(e.key==='Escape'){const dialog=$('dialog[open]');if(dialog){e.preventDefault();dialog.close();return;}if(!$('#mh-picker').hidden){$('#mh-picker').hidden=true;$('#mh-picker-button').setAttribute('aria-expanded','false');$('#mh-picker-button').focus();}}});
@@ -115,7 +173,7 @@
   root.addEventListener('focusin',e=>{if(keyboard&&e.target.closest('.mh-carousel')&&e.target.id!=='mh-pause')setPaused(true);});
   document.addEventListener('click',e=>{if(!e.target.closest('.mh-picker-wrap')){$('#mh-picker').hidden=true;$('#mh-picker-button').setAttribute('aria-expanded','false');}});
   window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-  window.addEventListener('openai:set_globals',e=>{const next=e.detail?.globals?.widgetState?.privateContent?.hub;if(next&&!dirty){state=normalize(next);render();}});
+  window.addEventListener('openai:set_globals',e=>{const next=e.detail?.globals?.widgetState?.privateContent?.hub;if(next&&!dirty){state=stateModel.replace(next);render();}});
   motionPreference.addEventListener('change',e=>{if(e.matches)setPaused(true);});
   render();status(restored?'استُعيدت بيانات المعاينة':'');
   requestAnimationFrame(()=>{if(motionPreference.matches)setPaused(true);});

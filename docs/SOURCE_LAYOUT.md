@@ -28,6 +28,8 @@ The following 21 application/style units now assemble from 176 named source part
 
 ## Reading and changing a feature
 
+The hub's state, save queue and navigation have subsequently moved to independent native modules in `public/hub/`; see [hub contracts](HUB_CORE.md). Its parts now compose those modules with the existing rendering/event code. The 21/176 inventory remains the assembly inventory, not a count of independent modules or a claim that all parts retain their original bytes after later changes.
+
 The names identify bootstrap, state, persistence, commands, rendering, events and other existing responsibilities. Read neighboring parts for shared state. See [source-part rules](../modules/source-parts/README.md). The ordered list lives only in `project-map.json` under `sourceAssemblies`; a directory listing is not the build order.
 
 These are shared-scope fragments with the `.inc` suffix, not independent imports or new HTTP assets. Some function/wrapper/HTML boundaries span parts. No application code or literal string was reformatted as part of extraction. Run `npm run generate`, review the output diff, then run `npm run check`.

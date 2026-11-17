@@ -36,3 +36,5 @@ Dated documents in this directory and the repository root record earlier decisio
 The historical [appearance reference, in Arabic](APPEARANCE_AR.md) documents an earlier visual system; it does not authorize changes to any course interface. The original [course integration policy, in Arabic](../COURSE_INTEGRATION.md) remains the source for detailed project-specific requirements.
 
 The current maintenance status and owner decisions are summarized in [the repository report](REPOSITORY_REPORT.md). Dated design notes are historical evidence, not instructions to restore an old screen. The ban on changing Advanced Computer Applications appearance remains in force. Verify current code and the latest explicit owner decision when resolving a discrepancy.
+
+- [Hub state, persistence and navigation](HUB_CORE.md): independent modules, contracts and behavior checks.

@@ -30,7 +30,13 @@
         "modules/madar-hub/shell.html",
         "modules/source-parts/hub/00-bootstrap.js.inc",
         "modules/madar-hub/styles.css",
-        "modules/source-parts/README.md"
+        "modules/source-parts/README.md",
+        "public/hub/index.mjs",
+        "public/hub/state.mjs",
+        "public/hub/persistence.mjs",
+        "public/hub/navigation.mjs",
+        "public/hub/environment.mjs",
+        "modules/madar-hub/host-environment.js"
       ],
       "integration": [
         "build/madar/hub.cjs",

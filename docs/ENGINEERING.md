@@ -12,6 +12,8 @@ Start here when maintaining MADAR or reviewing it with an invited developer. Thi
 
 ## Editing and preview
 
+For hub state, saving or navigation changes, use the [hub modules and contracts](HUB_CORE.md). These modules have explicit imports and can be tested independently. The remaining hub view parts still share scope.
+
 The home route serves generated HTML. Editing only `modules/madar-hub/shell.html` does not describe the entire running page: the build also integrates scripts, styles and account behavior.
 
 For the 21 units listed in [source layout](SOURCE_LAYOUT.md), edit `modules/source-parts/<feature>/` instead of the assembled compatibility file. Part names identify responsibilities, but the manifest defines execution order. These fragments retain shared scope; they are not independent imports. Preserve boundaries and literal text, and read the [assembly rules](../modules/source-parts/README.md).
