@@ -44,7 +44,7 @@ Unreleased means that no named release has been created. Maintenance PRs #1–#9
 
 - Corrected documentation and an outdated schema comment that called populated table definitions an empty template; reconciled the merged PR #9 status.
 
-- Run existing Git-fixture safeguard test files sequentially and allow up to three minutes on slower local disks, without removing tests or changing pass criteria.
+- Run existing Git-fixture safeguard test files sequentially on slower local disks, without removing tests or changing pass criteria. The current timeout is described above.
 
 - Network review integration and embedded hint-history generation now handle Windows CRLF inputs consistently with LF. A build-content check detects regenerated files that differ from the reviewed source snapshot.
 

@@ -1,6 +1,6 @@
 # MADAR repository report
 
-Reconciled by Codex on **16 November 2026**, using current GitHub metadata, the publication tree, source code, CI evidence and the owner's latest instructions. This replaces the cumulative setup narrative with current status and a historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
+Reconciled by Codex on **17 November 2026**, using GitHub metadata, the publication tree, source code, CI evidence and the owner's instructions. This report separates current repository status from dated hosting checks and the historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
 
 ## Current state
 
@@ -10,8 +10,8 @@ Reconciled by Codex on **16 November 2026**, using current GitHub metadata, the 
 | Repository / owner IDs | `1459615658` / `281097261` |
 | Visibility / default branch | Public / `main` |
 | Owner's latest direction | Public viewing/documentation, downloading/forking accepted; external contributions restricted |
-| Merged baseline | PR #8, `fd4d3ee154b68988ea6e4a480f8179b77f39b1e5` |
-| Baseline tree | `3d25ab6100e61f4b9934de8993ab20867e54684a` |
+| Merged baseline | PR #9, `d087c529a6b44790f0245aec348dc394b2ef1366` |
+| Baseline tree | `11b69c72ec6735f471fe2a59e1cb04dfeb3e6118` |
 | Earlier inventory | 1,443 tracked files, 335,499,582 bytes (about 320 MiB); measured during the PR #8 preparation, before its documentation changes |
 | Issues | Enabled for users who can access the repository |
 | Named release | None created by this maintenance work |
@@ -34,7 +34,7 @@ MADAR remains experimental. The owner confirmed classmates have used it and that
 | [#8](https://github.com/dahman0al0shahri/madar/pull/8) | Evidence-attributed history, repository purpose and reconciled documentation | `fd4d3ee` |
 | [#9](https://github.com/dahman0al0shahri/madar/pull/9) | Public-access guards and owner-controlled maintenance policy | `d087c529` |
 
-All four jobs passed after PR #7 in [run 43895733024](https://github.com/dahman0al0shahri/madar/actions/runs/43895733024). Linux repository checks passed 24/24 without skips; the five existing simulator/application test files also passed. The browser suite passed 8/8, including six visual comparisons, in 36.3 seconds. The Windows host's earlier local symlink-test skip is not a Linux CI skip. No screenshot reference was replaced to pass this reconciliation.
+PR #9 was merged at the owner's instruction; all four post-merge jobs passed in [run 43932432140](https://github.com/dahman0al0shahri/madar/actions/runs/43932432140). Linux repository tests were 25/25 and browser tests 8/8, including six unchanged visual comparisons. The Windows host's local symlink-test skip is not a Linux CI skip. Results for the current developer-organization change belong to its own PR and commit.
 
 ## Source, publication and instructions
 
@@ -71,8 +71,6 @@ Neither PR #8 nor the public-access update changes application logic, style, gen
 ## Remaining work
 
 Continue the source/contact/media/history/Actions review recorded in [publication review](RELEASE_READINESS.md); the owner's explicit public-access decision does not establish a comprehensive audit. No collaborator was added and external PR creation is restricted. A private security-reporting route and server branch protection remain separate configuration work. Dedicated-account and hosted recovery tests remain separate product verification.
-
-PR #9 was merged at the owner's instruction; all four post-merge jobs passed in [run 43932432140](https://github.com/dahman0al0shahri/madar/actions/runs/43932432140). Repository tests were 25/25 and browser tests 8/8 with unchanged visual references.
 
 ## Developer organization — 17 November 2026
 
