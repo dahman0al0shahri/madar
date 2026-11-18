@@ -6,12 +6,16 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Developer onboarding
+
+- Added a fresh-clone walkthrough for tracing animation cancellation and running its focused test. Aligned the entry guides and repository status with the merged runtime modules.
+
 ### Hub runtime and course composition
 
 - Separated announcement timing/resources, route lifecycle and common/hosted course templates into five native modules. Preserved existing markup, routes, save behavior and course engines.
 - Replaced executable-code rewriting in the hub builder with eight checked named composition slots, plus explicit hosted mount/startup adapters. Other legacy generators are unchanged.
 - Added direct lifecycle/course/slot tests and desktop/mobile repeated-navigation coverage to existing checks, without changing visual references, dependencies or workflow permissions.
-- PR #13 merged as c63dca99 with all four post-merge jobs passing. The owner authorized this follow-up to be reviewed and merged after its checks; exact-head and post-merge evidence belongs to its PR. No deployment is included.
+- PR #13 merged as c63dca99 with all four post-merge jobs passing. The runtime follow-up merged in [PR #14](https://github.com/dahman0al0shahri/madar/pull/14). No deployment is included.
 
 ### Editor workflow organization
 

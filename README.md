@@ -20,7 +20,7 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/README.md">Documentation</a>
 </p>
 
-**Status (17 November 2026):** experimental application; the GitHub repository is public for viewing and documentation of the owner's work. Maintenance PRs #1–#12 are merged. External code contributions are not accepted: creating pull requests is restricted to authorized collaborators, and no new collaborator was added. Public files can be downloaded and forked; this does not grant write access to this repository. See the [maintenance policy](CONTRIBUTING.md). The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) remains separately public at version 115; real two-account isolation is untested. See the [repository report](docs/REPOSITORY_REPORT.md) and [publication review](docs/RELEASE_READINESS.md) for evidence and limits.
+MADAR is experimental. Anyone can view, download or fork the source. The owner restricts pull requests to authorized collaborators. See the [maintenance policy](CONTRIBUTING.md), [merged changes](https://github.com/dahman0al0shahri/madar/pulls?q=is%3Apr+is%3Amerged) and [project history](docs/HISTORY.md). The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) has a separate deployment history. The [repository report](docs/REPOSITORY_REPORT.md) records its last verified version and [hosted verification](docs/HOSTED_VERIFICATION.md) records which account checks have been performed.
 
 ## The Story Behind MADAR
 
@@ -47,6 +47,7 @@ The code includes progress, notes, review, and feedback workflows. Access depend
 | Your goal | Read |
 | --- | --- |
 | Understand the project without GitHub experience | [Start here](docs/START_HERE.md) |
+| Trace and test the announcement animation from a fresh clone | [First maintenance task](docs/ENGINEERING.md#trace-the-announcement-animation) |
 | Join a maintenance task or review the code | [Engineering guide](docs/ENGINEERING.md) · [Code map](docs/CODE_MAP.md) |
 | Set up a local development environment | [Development guide](docs/DEVELOPMENT.md) |
 | Find the source of a feature | [Architecture and source map](docs/ARCHITECTURE.md) |
@@ -69,7 +70,7 @@ The default portable development profile uses port **5173**. Open the URL printe
 
 Local sign-in uses a test identity. Hosted authentication and storage depend on the Sites environment. Uploading the source to GitHub does not deploy the application or provision those services.
 
-To check repository safeguards, local documentation links, and the five existing application test files without installing project dependencies:
+To check repository safeguards, generated outputs, local documentation links, hub behavior and simulator tests without installing project dependencies:
 
 ```sh
 node scripts/check-repository.mjs
