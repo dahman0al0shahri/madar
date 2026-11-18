@@ -28,6 +28,12 @@ test('search preserves Arabic normalization, aliases, multiword matching and vis
   assert.equal(find('')[0].route, 'course:office:home');
 });
 
+test('a course without search aliases contributes only its actual name', () => {
+  const source = { ...catalog, courses: { os1: { name: 'Operating Systems' } }, lessons: [], available: () => ['os1'], scope: 'all' };
+  assert.deepEqual(findSearchResults({ ...source, query: 'undefined' }), []);
+  assert.equal(findSearchResults({ ...source, query: 'Systems' })[0].route, 'course:os1:home');
+});
+
 test('search pagination resets on a new query and escapes results', () => {
   let query = '', output = '';
   const controller = createSearchController({ ...catalog,

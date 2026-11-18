@@ -14,6 +14,7 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/HISTORY.md">History</a> ·
   <a href="docs/ENGINEERING.md">For developers</a> ·
   <a href="docs/DEVELOPMENT.md">Development</a> ·
+  <a href="docs/code-atlas/README.md">Interactive code atlas</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
   <a href="CONTRIBUTING.md">Maintenance policy</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·

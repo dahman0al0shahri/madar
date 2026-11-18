@@ -1,9 +1,19 @@
+const routeAliases = new Map([['madar', 'home'], ['my-space', 'account']]);
+const hashAliases = new Map(Array.from(routeAliases, ([hash, route]) => [route, hash]));
+
 export function routeFromHash(hash) {
-  const route = decodeURIComponent(hash.replace(/^#/, ''));
-  return ({ madar: 'home', 'my-space': 'account' })[route] || route || 'home';
+  const raw = hash.replace(/^#/, '');
+  let route;
+  try {
+    route = decodeURIComponent(raw);
+  } catch (error) {
+    if (!(error instanceof URIError)) throw error;
+    return 'home';
+  }
+  return routeAliases.get(route) ?? (route || 'home');
 }
 
-export const hashForRoute = route => '#' + ({ home: 'madar', account: 'my-space' }[route] || route);
+export const hashForRoute = route => '#' + (hashAliases.get(route) ?? route);
 
 export function externalDestination(route, lessonBy, hosted) {
   if (/^lesson:network-srwe-[456]$/.test(route)) return '/network-review?chapter=' + route.slice(-1);

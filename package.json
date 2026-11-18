@@ -13,6 +13,9 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "db:local": "node scripts/local-database.mjs",
+    "atlas:build": "node scripts/build-code-atlas.mjs",
+    "atlas:check": "node scripts/check-code-atlas.mjs",
+    "check:types": "tsc --noEmit --incremental false --noUnusedLocals",
     "check:application": "node scripts/check-application.mjs",
     "check:browser": "node scripts/check-browser.mjs",
     "browser:record": "node scripts/check-browser.mjs --record-baselines",
@@ -61,6 +64,7 @@
     "eslint": "9.39.4",
     "eslint-config-next": "16.3.4",
     "json-rpc-2.0": "1.7.1",
+    "postcss": "8.5.23",
     "raw-body": "3.0.2",
     "react-server-dom-webpack": "19.2.6",
     "tailwindcss": "4.2.1",
@@ -68,7 +72,14 @@
     "typescript": "5.9.3",
     "vinext": "1.0.0-beta.5",
     "vite": "8.0.13",
-    "wrangler": "4.92.0"
+    "wrangler": "4.92.0",
+    "@lezer/markdown": "1.8.1",
+    "@lezer/html": "1.3.13",
+    "@lezer/css": "1.3.9",
+    "@lezer/python": "1.1.19",
+    "@fig/lezer-bash": "1.2.5",
+    "@lezer/common": "1.5.2",
+    "js-yaml": "4.1.1"
   },
   "type": "module",
   "overrides": {

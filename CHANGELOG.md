@@ -6,6 +6,14 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Interactive source atlas and reliability
+
+- Added an offline Arabic source explorer with feature tours, line inspection, assembly inputs and a review of duplicate content. CI verifies the archive and exercises it in Chromium.
+- Added a second evidence entry for every physical source line, including isolated SQL migration and syntax-removal comparisons, navigable JSON fields and links to confirmed consumers. The same reader can inspect an earlier Git commit.
+- Added a complete folder tree, per-line functional explanations, cross-file named import uses, asset references and 16 executable before-and-after examples to the offline reader. Its check rejects unmatched text lines.
+- Separated the hub bootstrap response into lesson projection, publication visibility, and review statistics; tests cover the access matrix and retained defaults.
+- Fixed malformed routes, inherited alias names and a false search result for courses without aliases. Removed a redundant account configuration parse and enabled cross-platform TypeScript checks.
+
 ### Course and editor views
 
 - Organized shared course cards, home pages, preview lessons, account history, access rows, and announcement forms into readable rendering steps. Added coverage for restored visits and notes when lesson visibility changes.

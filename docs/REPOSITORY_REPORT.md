@@ -1,5 +1,7 @@
 # MADAR repository report
 
+The [interactive code atlas](code-atlas/README.md) provides a searchable snapshot of the repository, feature tours, line details and build relationships. The browser CI job verifies and archives it for each revision.
+
 Reconciled by Codex on **18 November 2026**, using GitHub metadata, the publication tree, source code, CI evidence and the owner's instructions. This report separates current repository status from dated hosting checks and the historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
 
 ## Current state
@@ -110,6 +112,10 @@ Eight direct tests and a synthetic desktop/mobile lesson-action scenario cover p
 PR #12 merged into main as `d753ea252d38fca9f5b13014d4cedb3a9e961027`. All four jobs passed in [run 44094414724](https://github.com/dahman0al0shahri/madar/actions/runs/44094414724): 72 repository tests, 14 browser/visual cases and isolated Windows/Ubuntu application recovery.
 
 This follow-up adds `public/hub/editor-actions.mjs` for form capture coordination, preview/save and deletion confirmation. The pending delete identifier is private to that controller. `editor-views.mjs` owns the unchanged preview markup; composition supplies form/dialog readers and scene lifecycle callbacks. Source map, import-edge guard, generator outputs, Codex instructions and affected guides are updated together. Seven direct tests join the existing repository job, and the existing editor browser case checks preview and cancellation on both viewport sizes. No dependency, workflow permission, schema, account setting, visual reference or hosting change is introduced. This stage subsequently merged as PR #13 at the owner’s instruction; it did not deploy the application. The later runtime section describes the current remaining boundaries.
+
+## Interactive repository atlas
+
+The [atlas guide](code-atlas/README.md) describes the offline reader generated from committed files. It includes a navigable repository tree, source-line explanations, compiler-resolved local uses, named imports across modules, asset references and executable examples. The atlas check verifies coverage and source integrity separately, exercises the reader offline on desktop and mobile, and rejects unclassified lines. The versioned line inspector also records a second piece of evidence for every physical source line. Its build-only parsers cover script, document, configuration, markup and style grammars. SQLite trials use isolated in-memory databases. The current tooling can reproduce the 170,310-line publication snapshot by commit ID. See the atlas guide for evidence types and replay instructions. Its CSS analysis uses the existing locked PostCSS version as a direct development dependency.
 
 ## Runtime/course organization — 18 November 2026
 
