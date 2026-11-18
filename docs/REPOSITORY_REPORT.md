@@ -1,6 +1,6 @@
 # MADAR repository report
 
-Reconciled by Codex on **17 November 2026**, using GitHub metadata, the publication tree, source code, CI evidence and the owner's instructions. This report separates current repository status from dated hosting checks and the historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
+Reconciled by Codex on **18 November 2026**, using GitHub metadata, the publication tree, source code, CI evidence and the owner's instructions. This report separates current repository status from dated hosting checks and the historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
 
 ## Current state
 
@@ -10,8 +10,7 @@ Reconciled by Codex on **17 November 2026**, using GitHub metadata, the publicat
 | Repository / owner IDs | `1459615658` / `281097261` |
 | Visibility / default branch | Public / `main` |
 | Owner's latest direction | Public viewing/documentation, downloading/forking accepted; external contributions restricted |
-| Merged baseline | PR #10, `a83bc6351c69e7d84ed9285aa23c85b18868b8eb` |
-| Baseline tree | `4e4ce2e9b63b544d5c69d8e2db9cd8e430ed27c6` |
+| Merged changes | [GitHub merge history](https://github.com/dahman0al0shahri/madar/pulls?q=is%3Apr+is%3Amerged) and [dated project milestones](HISTORY.md) |
 | Earlier inventory | 1,443 tracked files, 335,499,582 bytes (about 320 MiB); measured during the PR #8 preparation, before its documentation changes |
 | Issues | Enabled for users who can access the repository |
 | Named release | None created by this maintenance work |
@@ -104,7 +103,7 @@ At this dated stage, course renderers, animation/lifecycle integrations and brow
 
 Codex added `public/hub/lesson-actions.mjs` and `public/hub/access-actions.mjs`. The first owns note capture and lesson-step mutation/retry sequencing; the second owns existing access/grant edits and guarded preview-viewer switching. The DOM adapters in source part 09 supply current model/profile readers and browser callbacks. Both factories are re-exported by the existing entry, classified in the dependency-edge guard and included in the project map. Source and both generated hub entries change together; templates, styles, database schemas, dependency versions and server authorization remain unchanged.
 
-Eight direct tests and a synthetic desktop/mobile lesson-action scenario cover pending-note retry, failed writes, restored state and preserved fields. The editor/browser scenario additionally verifies access/grant edits. Existing SQL-backed recovery and Office image tests remain required; CI results for the exact head are reported in the PR. DOM/carousel/editor presentation callbacks, course renderers and animation lifecycle still remain in composition. This is a bounded extraction, not a completed modernization of every legacy module. This stage subsequently merged as PR #12; it did not deploy the application.
+Eight direct tests and a synthetic desktop/mobile lesson-action scenario cover pending-note retry, failed writes, restored state and preserved fields. The editor/browser scenario additionally verifies access/grant edits. Existing SQL-backed recovery and Office image tests remain required; CI results for the exact head are reported in the PR. At the PR #12 stage, DOM/carousel/editor callbacks, course renderers and animation lifecycle remained in composition. This is a bounded extraction, not a completed modernization of every legacy module. This stage subsequently merged as PR #12; it did not deploy the application.
 
 ## Editor workflow follow-up
 
@@ -116,6 +115,6 @@ This follow-up adds `public/hub/editor-actions.mjs` for form capture coordinatio
 
 PR #13 merged as `c63dca99743e983c88c60f90007399825a176dfb`. All four post-merge jobs passed in [run 44099138418](https://github.com/dahman0al0shahri/madar/actions/runs/44099138418): 79 repository tests, 14 browser/visual cases, and isolated Windows/Ubuntu persistence/recovery.
 
-Codex added five native modules for announcement resources/timing, guarded scene messages, common and hosted course views, and ordered route lifecycle. Codex replaced hub executable text surgery with eight checked slots and maintained hosted mount/startup adapters; the existing lesson adapter now supplies dependencies. Project map, dependency guard, focused tests, browser coverage and affected guides were updated together. The owner explicitly authorized one reviewed merge after successful checks for this combined step. The PR records its actual upload, exact-head checks and post-merge state; this document does not predeclare their success.
+Codex added five native modules for announcement resources/timing, guarded scene messages, common and hosted course views, and ordered route lifecycle. Codex replaced hub executable text surgery with eight checked slots and maintained hosted mount/startup adapters; the existing lesson adapter now supplies dependencies. Project map, dependency guard, focused tests, browser coverage and affected guides were updated together. [PR #14](https://github.com/dahman0al0shahri/madar/pull/14) merged as `67da7415`. Its [main checks](https://github.com/dahman0al0shahri/madar/actions/runs/44230108122) passed all four jobs, including 86 repository tests and 16 browser cases.
 
 No new dependency, workflow permission, screenshot baseline, server authentication, database schema, account setting, hosting identity or deployment is introduced. Existing browser tests automatically discover the new desktop/mobile case. Real hosted two-account isolation and recovery remain blocked by the missing dedicated accounts and isolated hosted recovery target described in [hosted verification](HOSTED_VERIFICATION.md). Synthetic/local results do not satisfy that requirement. Legacy OS/network engines and non-hub generation stages remain explicit compatibility boundaries.
