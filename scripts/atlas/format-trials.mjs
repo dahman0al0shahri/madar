@@ -20,10 +20,14 @@ function hierarchy(node){
   for(let p=node;p;p=p.parent)chain.unshift(title(p));
   return chain.join(' / ');
 }
-function parserFor(file){
+export function isShellSource(file, content) {
+  return file.endsWith('.sh') || /^#!\s*(?:\/bin\/(?:ba)?sh|\/usr\/bin\/env\s+(?:ba)?sh)(?:\s|$)/.test(content);
+}
+
+function parserFor(file,content){
   if(/\.css$|night-review-style\.txt$/.test(file))return css;
   if(/\.(html|svg)$/.test(file))return markup;
-  if(/\.sh$|\/pre-push$/.test(file))return bash;
+  if(isShellSource(file,content))return bash;
   if(file.endsWith('.py'))return python;
   if(/\.md$|README|LICENSE/i.test(file))return md;
 }
@@ -79,7 +83,7 @@ export function formatTrials(file,content,lines,context){
     const meanings={audit:'إرسال طلب التدقيق في الاعتماديات أثناء أوامر npm المناسبة',fund:'عرض معلومات تمويل الحزم', 'update-notifier':'إشعار تحديث npm'};
     return i=>{const [k,v]=lines[i].trim().split('=');return 'يضبط المشروع '+(meanings[k]||k)+' بالقيمة '+v+'. حذف السطر يرفع هذا التجاوز المحلي؛ تتحدد القيمة بعدها من بقية إعدادات npm.';};
   }
-  const parser=parserFor(context?.output||file);
+  const parser=parserFor(context?.output||file,content);
   if(!parser)return null;
   const full=context?.combined||content,base=context?.begin||0;
   const tree=parser.parse(full);

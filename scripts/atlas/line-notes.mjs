@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { jsonRemoval,dataMeaning } from './data-evidence.mjs';
 import { documentNotes } from './document-lines.mjs';
-import { formatTrials } from './format-trials.mjs';
+import { formatTrials, isShellSource } from './format-trials.mjs';
 import { sqlMeaning } from './schema-evidence.mjs';
 import { functionalContext } from './functional-context.mjs';
 
@@ -41,6 +41,7 @@ export function makeLineNotes(file,content,analysis,migrations,context,fieldGuid
       fieldGuides.push(detail||(Array.isArray(value)?'تحدد هذه القائمة ترتيب عناصرها وعددها '+value.length+'.':value&&typeof value==='object'?'يضم السجل الحقول '+Object.keys(value).slice(0,12).join('، ')+'.':typeof key==='number'?'هذه القيمة في الموضع '+(key+1)+' من القائمة؛ حذفها يزيح العناصر التالية موضعًا واحدًا.':'يخصص هذا الحقل القيمة '+JSON.stringify(value)?.slice(0,110)+' للمفتاح '+key+'، ويمكن تتبّع أثر حذفه في تجربة السطر.'));
     }
   }
+  const shell = isShellSource(file,content);
   const doc=ext==='md'||name.includes('README')||/license/i.test(name)?documentNotes(file,lines):null;
   for(let i=0;i<lines.length;i++){
     const raw=lines[i],t=raw.trim(),first=pos+Math.max(0,raw.search(/\S/)), scriptRow=script.get(first);
@@ -92,7 +93,7 @@ export function makeLineNotes(file,content,analysis,migrations,context,fieldGuid
     } else if(ext==='sql'){
       const m=t.match(/\b(CREATE\s+(?:UNIQUE\s+)?(?:TABLE|INDEX)|ALTER TABLE|INSERT INTO|UPDATE|DROP TABLE|SELECT)\s+(?:IF (?:NOT )?EXISTS\s+)?[`"\[]?([\w.]+)/i);if(m)statement=m[1]+' '+m[2];
       finish('sql',sqlMeaning(t,statement));
-    } else if(ext==='sh'||name==='pre-push'||ext==='py'){
+    } else if(shell||ext==='py'){
       const word=t.match(/^[A-Za-z_][\w.-]*/)?.[0];const assign=t.match(/^([\w_]+)=/);
       finish('automation',t.startsWith('#!')?'يحدد مفسّر الملف '+t.slice(2)+'.':assign?'يضبط '+assign[1]+' لتستخدمه خطوات '+name+' اللاحقة.':(shellRoles[word]|| (t.startsWith('#')?'يشرح خطوة التشغيل':ext==='py'?'تعليمة Python في مولّد الصورة':'جزء من أمر أو تدفق تنفيذ في '+name))+' · '+sample(t));
     } else if(['yaml','yml'].includes(ext)||['.npmrc','.gitignore','.gitattributes'].includes(name)){
