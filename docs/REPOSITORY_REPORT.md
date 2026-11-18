@@ -21,22 +21,45 @@ Reconciled by Codex on **18 November 2026**, using GitHub metadata, the publicat
 
 MADAR remains experimental. The owner confirmed classmates have used it and that it documents continuous learning inside and outside college. Future expansion beyond the college remains tentative. The approved [English story](STORY.md) retains those distinctions and AI-assisted development wording. No user counts, measured learning gains, active future team or commercial success are inferred.
 
+## Maintainer handoff
+
+| Task | Evidence |
+| --- | --- |
+| Trace a feature and run its test | [Interactive atlas](code-atlas/README.md) and [engineering guide](ENGINEERING.md) |
+| Review course materials and contact locations | [public-source inventory](PUBLICATION_INVENTORY.md) |
+| Open a maintenance PR | [GitHub workflow](GITHUB_WORKFLOW.md). GitHub enforces a PR with all four current checks on an up-to-date branch, including for administrators. |
+| Report a sensitive issue | [Private reporting](../SECURITY.md), enabled on 18 November 2026 |
+| Verify appearance and recovery | [Browser tests](BROWSER_TESTS.md) and [local recovery](BACKUP_RECOVERY.md) |
+| Verify hosting | [Hosted verification](HOSTED_VERIFICATION.md). Dedicated test accounts and a disposable hosted restore target remain prerequisites. |
+
+The first-time developer exercise is ready in the engineering guide. Independent feedback awaits a participant. For package advisories and lint coverage see the [public-source inventory](PUBLICATION_INVENTORY.md).
+
 ## Completed merge ledger
 
-| PR | Delivered change | Merge commit |
+| PR | Change reviewed | Merge |
 | --- | --- | --- |
-| [#1](https://github.com/dahman0al0shahri/madar/pull/1) | English repository setup, navigation, guarded publication and disclosure instructions | `4b1f2d0` |
-| [#2](https://github.com/dahman0al0shahri/madar/pull/2) | Owner-approved project story | `2235357` |
-| [#3](https://github.com/dahman0al0shahri/madar/pull/3) | LF/CRLF-independent publication conflict checks | `284235b` |
-| [#4](https://github.com/dahman0al0shahri/madar/pull/4) | Clean-clone startup, local migrations and persistence checks; generator line-ending fixes | `d2196e0` |
-| [#5](https://github.com/dahman0al0shahri/madar/pull/5) | Isolated browser interactions and six reviewed visual references | `e8f1150` |
-| [#6](https://github.com/dahman0al0shahri/madar/pull/6) | Synthetic local SQL recovery and account JSON download verification | `fea18ff` |
-| [#7](https://github.com/dahman0al0shahri/madar/pull/7) | Opt-in anonymous hosted check and offline verifier tests; documented missing-account blocker | `d86f5d9` |
-| [#8](https://github.com/dahman0al0shahri/madar/pull/8) | Evidence-attributed history, repository purpose and reconciled documentation | `fd4d3ee` |
-| [#9](https://github.com/dahman0al0shahri/madar/pull/9) | Public-access guards and owner-controlled maintenance policy | `d087c529` |
-| [#10](https://github.com/dahman0al0shahri/madar/pull/10) | Developer organization, named source assemblies and hub state/save/navigation modules | `a83bc635` |
-
-PR #9 was merged at the owner's instruction; all four post-merge jobs passed in [run 43932432140](https://github.com/dahman0al0shahri/madar/actions/runs/43932432140). Linux repository tests were 25/25 and browser tests 8/8, including six unchanged visual comparisons. The Windows host's local symlink-test skip is not a Linux CI skip. Results for the current developer-organization change belong to its own PR and commit.
+| [#1](https://github.com/dahman0al0shahri/madar/pull/1) | Prepare MADAR repository and reviewed update workflow | `4b1f2d0` |
+| [#2](https://github.com/dahman0al0shahri/madar/pull/2) | docs: add owner-approved MADAR story | `2235357` |
+| [#3](https://github.com/dahman0al0shahri/madar/pull/3) | fix: prevent line-ending false conflicts during publication | `284235b` |
+| [#4](https://github.com/dahman0al0shahri/madar/pull/4) | fix: verify clean clone setup and local application checks | `d2196e0` |
+| [#5](https://github.com/dahman0al0shahri/madar/pull/5) | test: add isolated browser and visual regression checks | `e8f1150` |
+| [#6](https://github.com/dahman0al0shahri/madar/pull/6) | test: verify database recovery and account backup downloads | `fea18ff` |
+| [#7](https://github.com/dahman0al0shahri/madar/pull/7) | test: verify hosted guest access without account credentials | `d86f5d9` |
+| [#8](https://github.com/dahman0al0shahri/madar/pull/8) | docs: reconcile MADAR history and publication readiness | `fd4d3ee` |
+| [#9](https://github.com/dahman0al0shahri/madar/pull/9) | Align public access guards and owner-controlled maintenance | `d087c52` |
+| [#10](https://github.com/dahman0al0shahri/madar/pull/10) | Organize source workflow and extract tested hub modules | `a83bc63` |
+| [#11](https://github.com/dahman0al0shahri/madar/pull/11) | Separate hub presentation, search and editor responsibilities | `4413c43` |
+| [#12](https://github.com/dahman0al0shahri/madar/pull/12) | Separate hub lesson and access actions from DOM handlers | `d753ea2` |
+| [#13](https://github.com/dahman0al0shahri/madar/pull/13) | Separate hub editor workflows from browser event handlers | `c63dca9` |
+| [#14](https://github.com/dahman0al0shahri/madar/pull/14) | Separate hub runtime and course composition | `67da741` |
+| [#15](https://github.com/dahman0al0shahri/madar/pull/15) | Guide developers through announcement animation and tests | `35c005b` |
+| [#16](https://github.com/dahman0al0shahri/madar/pull/16) | Clarify hosted course section rendering | `f6e28ed` |
+| [#17](https://github.com/dahman0al0shahri/madar/pull/17) | Clarify hosted lesson page rendering | `9eeff9b` |
+| [#18](https://github.com/dahman0al0shahri/madar/pull/18) | Organize shared course, account, and editor views | `3a28228` |
+| [#19](https://github.com/dahman0al0shahri/madar/pull/19) | Explain and verify every physical line in the MADAR source atlas | `5beb301` |
+| [#20](https://github.com/dahman0al0shahri/madar/pull/20) | Trace lesson note persistence and publish the verified source atlas | `150bd6c` |
+| [#21](https://github.com/dahman0al0shahri/madar/pull/21) | Guard network and OS simulator builds and document their maintenance paths | `ef7a9cc` |
+| [#22](https://github.com/dahman0al0shahri/madar/pull/22) | Verify theory review recovery and organize the home build | `bb018cb` |
 
 ## Source, publication and instructions
 
@@ -48,17 +71,8 @@ The owner decides; Codex executes authorized updates and reports every change. E
 
 Credentials are obtained from Git Credential Manager in memory and are not printed or stored in source. None was revoked, rotated or introduced by the visibility change. The owner is the sole privileged collaborator. Public viewing/downloading/forking does not grant write access. Local hooks are not server-enforced branch protection; prior private-plan limitations are historical and must not be assumed to describe public-plan capability.
 
-## Current verification boundaries
-
-| Area | Evidence and limitation |
-| --- | --- |
-| Source generation and startup | Windows/Linux CI installs locked dependencies, builds, verifies tracked-output stability, initializes 14 existing migrations and checks development/built servers |
-| Data persistence and recovery | Isolated synthetic state only; local SQL comparison covers schema and application rows, and recovered API export. Not real production recovery |
-| Browser and appearance | Pinned Chromium on Ubuntu 24.04, desktop/mobile; synthetic login, notes, reload and account download. Not every browser, screen or accessibility condition |
-| Live hosting | Twelve anonymous GET-only checks passed on 16 November 2026 at 15:05 UTC; no owner session, service token, followed OAuth redirect or application writes |
-| Authenticated hosting | No dedicated test accounts available, as confirmed by the owner. Real sign-in, two-account isolation and hosted recovery remain untested |
-| Full lint/type audit | Not included in the current four-job gate; do not claim full-project lint/type success |
-| Source/publication review | Current tree and publication history inventoried; document text extracted, candidate patterns reviewed. No blanket approval of every image/video frame or GitHub metadata surface |
+<details>
+<summary>Historical implementation notes through PR #22</summary>
 
 ## Reconciliation delivered in PR #8
 
@@ -69,10 +83,6 @@ Codex updated the README, beginner/developer/architecture/browser/recovery/hosti
 The front page no longer repeats broad ownership/publication language. Actual bundled upstream notices remain unchanged. PDF extraction found Cisco Confidential and original notices in source material, and source inspection found embedded personal contact/administrator configuration. The [publication review](RELEASE_READINESS.md) preserves these findings and the subsequent owner-authorized public-access decision; it does not establish that every included source is original.
 
 Neither PR #8 nor the public-access update changes application logic, style, generated UI, screenshot references, course documents, media, schema, dependencies, lockfiles, hosting audience or real learner records. Neither creates a release or application deployment. Each PR records its exact branch/commit, changed-file inventory, checks and merge status; no prospective check is marked passed here.
-
-## Remaining work
-
-Continue the source/contact/media/history/Actions review recorded in [publication review](RELEASE_READINESS.md); the owner's explicit public-access decision does not establish a comprehensive audit. No collaborator was added and external PR creation is restricted. A private security-reporting route and server branch protection remain separate configuration work. Dedicated-account and hosted recovery tests remain separate product verification.
 
 ## Developer organization — 17 November 2026
 
@@ -134,3 +144,5 @@ No new dependency, workflow permission, screenshot baseline, server authenticati
 ## Home assembly and theory review evidence
 
 The repository check includes shared-build anchor failures, home resource ordering, and named test targets for all eight current tours. Browser CI exercises theory-review persistence for a guest and a local test account, using temporary storage at two viewport sizes. The [developer walkthrough](ENGINEERING.md#trace-a-theory-review-answer) identifies the editable source, generated bundle, persistence boundary and verification commands.
+
+</details>

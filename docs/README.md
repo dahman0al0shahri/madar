@@ -4,6 +4,7 @@ Choose the guide that matches your task. You do not need to read every document 
 
 | Guide | Purpose |
 | --- | --- |
+| [Public-source inventory](PUBLICATION_INVENTORY.md) | Check provenance, contact usage, dependency findings and outstanding decisions |
 | [Start here](START_HERE.md) | Explore the repository without prior GitHub experience |
 | [The Story Behind MADAR](STORY.md) | The owner's learning journey, current experiment, and tentative future direction |
 | [MADAR history](HISTORY.md) | Owner-confirmed beginning, dated development milestones, and evidence boundaries |

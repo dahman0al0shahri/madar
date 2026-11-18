@@ -21,3 +21,5 @@ The snapshot includes 22 document files: 8 PDF, 9 PowerPoint, 3 Word and 2 Excel
 The documents and embedded notices were not edited or removed. The owner subsequently directed public visibility after these findings were reported. That decision does not itself establish redistribution permission. The source-review options remain: confirm an applicable permission or prepare a source package that references these files without redistributing them. Removing a current-tree file alone would leave earlier Git copies and possible derived media accessible; that requires a separately reviewed distribution/history plan.
 
 See [publication readiness](RELEASE_READINESS.md). GitHub explains that a public repository and an open-source license are separate choices in [its licensing guide](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository). No new project-wide license is granted by this documentation update.
+
+The dated [public-source inventory](PUBLICATION_INVENTORY.md) lists the reviewed teaching files and outstanding distribution decisions.

@@ -60,7 +60,7 @@ Git Credential Manager stores the user's Git login. The command obtains the exis
 
 While the repository was private, its account plan did not enforce protected branches, as checked on 16 November 2026. That observation is historical. Public access does not automatically configure a branch rule. The publisher never merges, and the local pre-push guard prevents normal accidental pushes to `main`; these are not server-side branch controls. Collaborator-only PR creation restricts who can propose a change, not what the owner can do.
 
-Server branch protection must be configured and verified separately. If enabled, the intended workflow uses PRs, all four check jobs above, conversation resolution and no force push/deletion. A PR author cannot provide their own approving review; do not require an independent approval in this one-owner repository without an explicit reviewer decision.
+Verified on 18 November 2026: GitHub requires a pull request, an up-to-date branch and the four GitHub Actions checks listed above. The rule applies to administrators, with zero required approving reviews. Force pushes and branch deletion are disabled. Conversation resolution is not required. The owner authorizes each merge.
 
 ## When something stops
 

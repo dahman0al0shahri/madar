@@ -73,3 +73,5 @@ The editor/search scenario also checks that preview displays the captured draft 
 ## Theory review persistence
 
 Run `npm run check:browser -- --review-save` for both viewports. The guest test rejects the first storage write for the review key, checks the previous value, retries and reloads. The account test rejects one PUT, checks that the SQL revision and snapshot survived, retries, and reopens the selected answer in a new browser context signed in to the same disposable local account. Both open the real review route. The test runner creates a private temporary database for each run. Use `npm run check:browser -- --grep "hub modules preserve profile data"` to run a named browser case.
+
+The isolated suite checks stale-session conflict recovery with two sessions of one synthetic account, worksheet save/read/export for Excel and Access, a feedback retry and an OS1 practice result. The admin editor scenario uses injected configuration adapters. Its companion service test runs real SQL against an in-memory database, checking unauthorized writes, an accepted save, a duplicate and a stale revision. Run `node --test tests/admin-storage.test.mjs`.

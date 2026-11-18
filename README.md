@@ -23,7 +23,7 @@ This repository contains the application source and its resources. The documenta
 
 MADAR is experimental. Anyone can view, download or fork the source. The owner restricts pull requests to authorized collaborators. See the [maintenance policy](CONTRIBUTING.md), [merged changes](https://github.com/dahman0al0shahri/madar/pulls?q=is%3Apr+is%3Amerged) and [project history](docs/HISTORY.md). The [hosted application](https://madar-word-lab.d7d7y7.chatgpt.site) has a separate deployment history. The [repository report](docs/REPOSITORY_REPORT.md) records its last verified version and [hosted verification](docs/HOSTED_VERIFICATION.md) records which account checks have been performed.
 
-Developers can follow [a theory review answer from selection to recovery](docs/ENGINEERING.md#trace-a-theory-review-answer) or [trace the home page build](docs/ENGINEERING.md#edit-the-home-assembly). Each current [atlas tour](docs/code-atlas/README.md#feature-verification) links its test and command.
+Developers can follow [a theory review answer from selection to recovery](docs/ENGINEERING.md#trace-a-theory-review-answer) or [trace the home page build](docs/ENGINEERING.md#edit-the-home-assembly). For the repository controls, source decisions, remaining package advisories and verification boundaries, see the [maintainer handoff](docs/REPOSITORY_REPORT.md#maintainer-handoff). Each current [atlas tour](docs/code-atlas/README.md#feature-verification) links its test and command.
 
 ## The Story Behind MADAR
 

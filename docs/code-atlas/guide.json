@@ -219,7 +219,7 @@
       [
         "حفظ الضيف والحساب",
         "public/madar-persistence.js",
-        "if(owner==='guest'){value=clone(next)",
+        "async function write(next)",
         "يكتب الضيف الإجابة داخل متصفحه. للحساب مسودة في الجلسة، ثم يرسل المتصفح اللقطة ورقم نسختها إلى الخادم."
       ],
       [
@@ -240,6 +240,13 @@
         "test('theory review restores a retried account answer in a fresh session",
         "يفحص كتابة الإجابة بعد فشل طلب الحساب واستعادتها من قاعدة البيانات في جلسة جديدة. يشمل الأمر أيضًا اختبار الضيف.",
         "npm run check:browser -- --review-save"
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/review-save.spec.mjs",
+        "test('conflicting review sessions",
+        "يختبر تعارض جلستين لنفس الحساب وتنزيل المسودة واسترجاع إجابة الخادم.",
+        "npm run check:browser -- --grep \"conflicting review sessions\""
       ]
     ]
   },
@@ -307,6 +314,13 @@
         "test('lesson pages delegate OS",
         "يفحص اختيار عارض درس نظم التشغيل قبل معالجة إتاحة مختبر الشبكات.",
         "node --test tests/hub-runtime.test.mjs"
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/service-paths.spec.mjs",
+        "test('OS1 practice records",
+        "يختار وسيط التثبيت في محاكاة الدرس الأول، ويقلع إلى برنامج الإعداد ثم يفحص النتيجة ويعود إلى الدرس.",
+        "npm run check:browser -- --grep \"OS1 practice records\""
       ]
     ]
   },
@@ -411,6 +425,13 @@
         "test('hub search and update editor use isolated synthetic adapters",
         "يفحص واجهة محرر المستجدات والبحث ببيانات تجريبية.",
         "npm run check:browser -- --grep \"hub search and update editor\""
+      ],
+      [
+        "حفظ إعدادات الإدارة",
+        "tests/admin-storage.test.mjs",
+        "test('administrator configuration persists",
+        "يشغّل الخدمة مع قاعدة SQLite في الذاكرة ليفحص الصلاحيات وتكرار الطلب وتعارض النسخ.",
+        "node --test tests/admin-storage.test.mjs"
       ]
     ]
   },
@@ -502,6 +523,99 @@
         "test('course navigation and saved lesson note survive a fresh browser session",
         "يفحص استرجاع الملاحظة في جلسة جديدة وتطابق النص في النسخة المنزّلة.",
         "npm run check:browser -- --lesson-note"
+      ]
+    ]
+  },
+  "backup": {
+    "title": "تنزيل نسخة من الحساب",
+    "note": "يجمع بيانات المقررات والملاحظات وأوراق العمل لصاحب الحساب في نسخة قابلة للتنزيل.",
+    "steps": [
+      [
+        "إجراء المستخدم",
+        "public/account-center.mjs",
+        "if(action==='backup')",
+        "يتحقق زر النسخ من هوية الحساب ثم يطلب الملف."
+      ],
+      [
+        "تنفيذ الطلب",
+        "app/api/study-backup/route.ts",
+        null,
+        "يربط طلب التطبيق بخدمة البيانات."
+      ],
+      [
+        "مسار البيانات",
+        "lib/study-backup.mjs",
+        "function studyBackup",
+        "يجمع بيانات المقررات والملاحظات وأوراق العمل لصاحب الحساب في نسخة قابلة للتنزيل."
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/application.spec.mjs",
+        "test('course navigation and saved lesson note",
+        "ينزّل نسخة الحساب من الواجهة ويفحص الملاحظة المحفوظة داخل الملف.",
+        "npm run check:browser -- --grep \"course navigation and saved lesson note\""
+      ]
+    ]
+  },
+  "feedback": {
+    "title": "الملاحظات والبلاغات",
+    "note": "يحفظ البلاغ ويربط إعادة إرسال الطلب نفسه بالبلاغ الموجود.",
+    "steps": [
+      [
+        "إجراء المستخدم",
+        "public/feedback-center.js",
+        "fetch('/api/feedback-center',{method:'POST'",
+        "يرسل النموذج مرجع الطلب مع بيانات البلاغ لتمييز المحاولة المعادة."
+      ],
+      [
+        "تنفيذ الطلب",
+        "app/api/feedback-center/route.ts",
+        null,
+        "يربط طلب التطبيق بخدمة البيانات."
+      ],
+      [
+        "مسار البيانات",
+        "lib/feedback-center.mjs",
+        "function submitFeedback",
+        "يحفظ البلاغ ويربط إعادة إرسال الطلب نفسه بالبلاغ الموجود."
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/service-paths.spec.mjs",
+        "test('feedback retries create",
+        "يرسل بلاغًا تجريبيًا مرتين ويتأكد من ظهور سجل واحد.",
+        "npm run check:browser -- --grep \"feedback retries create\""
+      ]
+    ]
+  },
+  "worksheets": {
+    "title": "حفظ أوراق Excel ومختبر Access",
+    "note": "يتحقق من هوية الحساب والدرس وإصدار الحفظ قبل كتابة الحالة.",
+    "steps": [
+      [
+        "إجراء المستخدم",
+        "public/worksheet-store.js",
+        "const url=s=>'/api/worksheet",
+        "يربط محرر التمرين رقم الدرس وصاحب المسودة بعنوان خدمة الحفظ."
+      ],
+      [
+        "تنفيذ الطلب",
+        "app/api/worksheet/route.ts",
+        null,
+        "يربط طلب التطبيق بخدمة البيانات."
+      ],
+      [
+        "مسار البيانات",
+        "lib/worksheet.mjs",
+        "function worksheetRequest",
+        "يتحقق من هوية الحساب والدرس وإصدار الحفظ قبل كتابة الحالة."
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/service-paths.spec.mjs",
+        "test('worksheet saves for Excel",
+        "يحفظ نشاطين في قاعدة مؤقتة ويفحص استعادتهما في النسخة الاحتياطية.",
+        "npm run check:browser -- --grep \"worksheet saves for Excel\""
       ]
     ]
   }

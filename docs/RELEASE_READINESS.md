@@ -1,8 +1,8 @@
 # Publication review record
 
-Updated **16 November 2026**, after PR #8 merged. The owner subsequently instructed public GitHub access and explicitly confirmed that downloading/forking should remain possible while external contributions are restricted. Visibility is public, pull request creation is collaborator-only, and no collaborator was added. This decision does not convert the earlier audit into comprehensive content/security clearance.
+Historical baseline from **16 November 2026**, after PR #8 merged. The owner subsequently instructed public GitHub access and explicitly confirmed that downloading/forking should remain possible while external contributions are restricted. Visibility is public, pull request creation is collaborator-only, and no collaborator was added. This decision does not convert the earlier audit into comprehensive content/security clearance.
 
-## Verified maintenance baseline
+## Maintenance baseline through PR #8
 
 PRs #1–#8 are merged through `fd4d3ee154b68988ea6e4a480f8179b77f39b1e5`. All four jobs passed in [main run 43926717029](https://github.com/dahman0al0shahri/madar/actions/runs/43926717029): repository checks, Windows application, Linux application, and Linux browser/visual checks. Browser cases passed 8/8, including six visual references. The [repository report](REPOSITORY_REPORT.md) records the eight changes and their boundaries.
 
@@ -18,8 +18,8 @@ Local startup, synthetic persistence, account export and local SQL recovery are 
 | Images and video | The current tree contains 147 MP4 files and hundreds of image assets. Text extraction does not inspect every frame, screenshot or embedded image. Their origin and visible personal information still need review |
 | GitHub metadata and CI evidence | PR/Issue bodies, commit metadata, Actions logs and retained artifacts remain outside the completed Git-object scan. Actions history/logs became public with the repository; comprehensive review of these surfaces remains outstanding |
 | Visibility guard | The marker, repository guard and tests now require public visibility and collaborator-only PR creation. Numeric identity, destination, path and branch safeguards remain unchanged |
-| Server review protection | The prior private-plan limitation is a dated observation. Recheck available protection for the public repository; no server-enforced rule has been configured or verified by this update |
-| Sensitive reporting | Verify a usable private reporting route before inviting public security reports; do not invent an address or response commitment |
+| Server review protection | A required PR and four strict checks apply to administrators. See [current workflow](GITHUB_WORKFLOW.md). |
+| Sensitive reporting | Private reporting is enabled. See [security reporting](../SECURITY.md). |
 
 The document scan extracted text from all 22 tracked office/PDF documents, and the Module 4 cover was visually inspected. It did not OCR or visually approve all media, inspect every dependency term, or determine permission from a missing notice. Detailed candidate paths and scan evidence stay in the owner's local audit report rather than being copied into public-facing documentation.
 
@@ -34,3 +34,5 @@ The document scan extracted text from all 22 tracked office/PDF documents, and t
 Current PR checks must be verified at its own head before any authorized merge; previous green runs do not cover later edits. Public access is now enabled; a named release and application deployment are separate actions. No comprehensive security or complete content-clearance claim is made.
 
 References: [GitHub visibility consequences](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/setting-repository-visibility), [security handling](../SECURITY.md), and [hosted verification](HOSTED_VERIFICATION.md).
+
+Current source, GitHub and dependency review: [public-source inventory](PUBLICATION_INVENTORY.md).

@@ -124,7 +124,8 @@
         "build/madar/hub.cjs",
         "build/madar/network-simulator.cjs",
         "tests/simulator-build.test.mjs",
-        "tests/hub-runtime.test.mjs"
+        "tests/hub-runtime.test.mjs",
+        "tests/browser/service-paths.spec.mjs"
       ]
     },
     {
@@ -169,7 +170,44 @@
       ],
       "integration": [
         "SECURITY.md",
-        "tests/browser/hub-views.spec.mjs"
+        "tests/browser/hub-views.spec.mjs",
+        "tests/admin-storage.test.mjs"
+      ]
+    },
+    {
+      "id": "backup",
+      "title": "Account backup",
+      "entry": "app/api/study-backup/route.ts",
+      "sources": [
+        "public/account-center.mjs",
+        "lib/study-backup.mjs"
+      ],
+      "integration": [
+        "tests/browser/application.spec.mjs"
+      ]
+    },
+    {
+      "id": "feedback",
+      "title": "Feedback and reporting",
+      "entry": "app/api/feedback-center/route.ts",
+      "sources": [
+        "public/feedback-center.js",
+        "lib/feedback-center.mjs"
+      ],
+      "integration": [
+        "tests/browser/service-paths.spec.mjs"
+      ]
+    },
+    {
+      "id": "worksheets",
+      "title": "Excel and Access worksheet saves",
+      "entry": "app/api/worksheet/route.ts",
+      "sources": [
+        "public/worksheet-store.js",
+        "lib/worksheet.mjs"
+      ],
+      "integration": [
+        "tests/browser/service-paths.spec.mjs"
       ]
     }
   ],

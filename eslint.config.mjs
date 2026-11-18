@@ -10,9 +10,17 @@ const eslintConfig = defineConfig([
     // Default ignores of eslint-config-next:
     ".next/**",
     "out/**",
-    "build/**",
+    "!build/",
+    "build/*",
+    "!build/madar/",
+    "!build/madar/**",
     "next-env.d.ts",
   ]),
+  {
+    files: ["**/*.cjs"],
+    // These source files use the CommonJS module format.
+    rules: { "@typescript-eslint/no-require-imports": "off" },
+  },
   {
     files: ["components/ui/**/*.{ts,tsx}", "hooks/use-mobile.ts"],
     rules: {

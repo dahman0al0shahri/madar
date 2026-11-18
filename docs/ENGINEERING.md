@@ -132,3 +132,5 @@ From a clean checkout with locked dependencies and Chromium installed, run `npm 
 The enumerated mixed-responsibility units are now split into named maintained parts. Compatibility transformations and shared runtime scope remain, as do coherent content banks and bundled libraries. This organization does not claim independent-module isolation, conversion of all interfaces to React, a dependency audit or a full lint/type/security audit. See [the source-split decision](decisions/0002-preserve-shared-scope-during-source-split.md) and [repository report](REPOSITORY_REPORT.md).
 
 References: [Node.js CommonJS modules](https://nodejs.org/api/modules.html) and [VS Code workspace settings](https://code.visualstudio.com/docs/configure/settings).
+
+For a stale review save, run `npm run check:browser -- --grep "conflicting review sessions"`. Inspect the saved server revision, stale local export and restored answer. [Additional feature tests](BROWSER_TESTS.md) cover worksheets, backup, feedback and OS1 practice.
