@@ -113,6 +113,10 @@ PR #12 merged into main as `d753ea252d38fca9f5b13014d4cedb3a9e961027`. All four 
 
 This follow-up adds `public/hub/editor-actions.mjs` for form capture coordination, preview/save and deletion confirmation. The pending delete identifier is private to that controller. `editor-views.mjs` owns the unchanged preview markup; composition supplies form/dialog readers and scene lifecycle callbacks. Source map, import-edge guard, generator outputs, Codex instructions and affected guides are updated together. Seven direct tests join the existing repository job, and the existing editor browser case checks preview and cancellation on both viewport sizes. No dependency, workflow permission, schema, account setting, visual reference or hosting change is introduced. This stage subsequently merged as PR #13 at the owner’s instruction; it did not deploy the application. The later runtime section describes the current remaining boundaries.
 
+## Simulator build checks
+
+The [build walkthrough](ENGINEERING.md#trace-the-simulator-builds) and the network and OS atlas tours link maintained inputs with generated files. The repository job exercises missing and duplicated save and curriculum markers, and browser CI covers a failed guest save, retry and reload. The maintainer trial includes a prompt for an independent first-time reader.
+
 ## Interactive repository atlas
 
 [Public atlas](https://dahman0al0shahri.github.io/madar/) · [Word lesson note tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=lesson-notes). GitHub Pages uses Actions as its publishing source. The deployment depends on all four main checks and packages only the checked HTML. A final HTTP check verifies its digest. PRs produce review artifacts, and the stable address continues to serve the last published snapshot when a validation job fails. To recover a failed deployment, inspect the main run and rerun its failed jobs.

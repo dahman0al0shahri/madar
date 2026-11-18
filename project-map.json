@@ -78,11 +78,15 @@
         "modules/source-parts/network-engine/00-bootstrap.html.inc",
         "modules/network-tabs-preview/shell.html",
         "modules/source-parts/network-tabs/00-bootstrap.js.inc",
-        "modules/source-parts/README.md"
+        "modules/source-parts/README.md",
+        "modules/source-parts/network-tabs/02-storage.js.inc",
+        "public/network-boot.js"
       ],
       "integration": [
         "modules/network-tabs-preview/build.cjs",
-        "build/madar/network-simulator.cjs"
+        "build/madar/network-simulator.cjs",
+        "tests/browser/network-save.spec.mjs",
+        "tests/simulator-build.test.mjs"
       ]
     },
     {
@@ -107,11 +111,13 @@
         "modules/madar-hub/os-practice.js",
         "modules/source-parts/os-desktop/00-bootstrap.js.inc",
         "lib/os-simulator-curriculum.json",
-        "modules/source-parts/README.md"
+        "modules/source-parts/README.md",
+        "modules/source-parts/os-curriculum-model/00-bootstrap.js.inc"
       ],
       "integration": [
         "build/madar/hub.cjs",
-        "build/madar/network-simulator.cjs"
+        "build/madar/network-simulator.cjs",
+        "tests/simulator-build.test.mjs"
       ]
     },
     {
