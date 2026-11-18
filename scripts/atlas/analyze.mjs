@@ -1,4 +1,6 @@
 import ts from 'typescript';
+import {displayMeaning} from './display-roles.mjs';
+import { expressionRole } from './expression-roles.mjs';
 import {markupOperations,styleOperations} from './markup.mjs';
 import { scriptLineNotes } from './script-lines.mjs';
 import path from 'node:path';
@@ -54,7 +56,12 @@ export function analyze(file, source, boundaries = []) {
     function visit(n) {
       const start = offset + n.getStart(ast),
         end = offset + n.end;
-      const op = (type, subject) => operations.push([start, end, type, subject]);
+      const role = expressionRole(n);
+      if(role)operations.push([start,end,...role]);
+      const op = (type, subject) => {
+        const effects={import:'يجعل الصادرات المطلوبة متاحة في هذا الملف.',export:'يتيح الصادرات المحددة للمستهلكين من مسار الوحدة.',if:'تتحكم قيمة الشرط في دخول الفرع التالي.',choose:'يحدد الشرط أي التعبيرين يعطي القيمة.',return:n.expression?'ينهي الدالة الحالية ويعيد نتيجة التعبير إلى المستدعي.':'ينهي الدالة ويعيد undefined.',throw:'يقطع المسار العادي وينقل الاستثناء إلى معالج مؤهل إن وجد.',await:'يعلق متابعة الدالة حتى تستقر نتيجة التعبير.',new:'ينشئ كائنًا باستدعاء الباني بهذه الوسائط.',call:'يمرر '+(n.arguments?.length??0)+' وسيطًا إلى الاستدعاء المعروض.',bind:n.initializer?'يربط الاسم بنتيجة التهيئة '+snippet(n.initializer)+'.':'يعلن الارتباط في هذا الموضع.',assign:'يخزن نتيجة '+(n.right?snippet(n.right):'التعبير')+' في الوجهة المبينة.',loop:'ينظم تكرار تنفيذ جسم الحلقة.',catch:'يبدأ معالجة الاستثناء الذي خرج من كتلة المحاولة.'};
+        operations.push([start,end,type,subject,effects[type]]);
+      };
       if (ts.isFunctionLike(n) && n.body || ts.isClassDeclaration(n) || ts.isInterfaceDeclaration(n) || ts.isTypeAliasDeclaration(n)) {
         const name = n.name || n.parent && ts.isVariableDeclaration(n.parent) && n.parent.name;
         if (name) symbols.push([start, end, snippet(name)]);
@@ -120,13 +127,16 @@ export function analyze(file, source, boundaries = []) {
   }
   if(lang==='CSS')styleOperations(source,0,operations,diagnostics,file);
   if(lang==='HTML'||lang==='SVG')markupOperations(source,operations,diagnostics,file);
+  for(const op of operations){
+    if(['style','openTag','closeTag','attribute'].includes(op[2]))op.push(displayMeaning(op[2],op[3]));
+  }
   if (lang === 'JSON') {
     const ast = ts.parseJsonText(file, source);
     for (const d of ast.parseDiagnostics) diagnostics.push([d.start || 0, ts.flattenDiagnosticMessageText(d.messageText, ' ')]);
     function walk(value, parent, key, start) {
       if (!value) return;
       const index = fields.length;
-      fields.push([start, value.end, parent, key]);
+      fields.push([start, value.end, parent, key, value.getStart(ast)]);
       if (ts.isObjectLiteralExpression(value)) {
         const keys = new Set();
         for (const prop of value.properties) {

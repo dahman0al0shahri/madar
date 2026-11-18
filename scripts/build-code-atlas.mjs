@@ -1,4 +1,7 @@
 import fs from 'node:fs';
+import {documentLinker} from './atlas/document-links.mjs';
+import { migrationTrials } from './atlas/schema-evidence.mjs';
+import { dataAnchors } from './atlas/data-evidence.mjs';
 import { makeLineNotes } from './atlas/line-notes.mjs';
 import { runExperiments } from './atlas/experiments.mjs';
 import { assetPurpose,linkResources } from './atlas/resource-links.mjs';
@@ -14,7 +17,13 @@ const git = (...args) => execFileSync('git', args, {
   cwd: root,
   maxBuffer: 128 * 1024 * 1024
 });
-const revision = git('rev-parse', 'HEAD').toString().trim();
+const requested=process.argv.slice(2);
+assert(!requested.length || requested.length===2 && requested[0]==='--source-commit' && /^[0-9a-f]{40}$/.test(requested[1]),'Use --source-commit <full Git commit>');
+const revision = git('rev-parse', requested[1] || 'HEAD').toString().trim();
+const readerEnv={...process.env};
+delete readerEnv.GIT_DIR; delete readerEnv.GIT_WORK_TREE; delete readerEnv.GIT_INDEX_FILE;
+const readerGit=(...args)=>execFileSync('git',args,{cwd:root,env:readerEnv,encoding:'utf8'});
+const readerSource=name=>readerGit('show','HEAD:'+name);
 const listing = git('ls-tree', '-rlz', revision).toString().split('\0').filter(Boolean);
 const files = {};
 for (const record of listing) {
@@ -65,6 +74,8 @@ const duplicateKeys = [],
   parseNotes = [];
 const payloads = {};
 const coverage={};
+const migrations=migrationTrials(paths,source);
+const documentLinks=documentLinker(paths,source);
 const importUses=[];
 const exportsByFile=new Map();
 let lineCount = 0,
@@ -103,7 +114,12 @@ function digestAnalysis(name, result, content) {
   const key = f.oid + ':' + name + ':' + language(name) + (originalParts.has(name) ? ':part:' + name : '');
   f.payload = key;
   if (!Object.hasOwn(payloads, key)) {
-    const notes=makeLineNotes(name,content,result);
+    const part=originalParts.get(name);
+    if(part)f.assemblyStart=[part.output,part.combined.slice(0,part.begin).split('\n').length];
+    const fieldGuides=[];
+    const notes=makeLineNotes(name,content,result,migrations.get(name),part,fieldGuides);
+    f.fieldReaders=dataAnchors(name,files,source);
+    f.documentLinks=documentLinks(name,content);
     assert.equal(notes.length,lines,name);
     for (const [category] of notes) coverage[category]=(coverage[category]||0)+1;
     payloads[key] = gzipSync(JSON.stringify({
@@ -113,7 +129,7 @@ function digestAnalysis(name, result, content) {
       ops: result.operations,
       bindings: result.bindings,
       branches: result.branches,
-      fields: result.fields || []
+      fields: result.fields || [], fieldGuides
     })).toString('base64');
   }
   const lineAt = offset => content.slice(0, offset).split('\n').length;
@@ -141,8 +157,8 @@ for (const assembly of map.sourceAssemblies) {
     const operations = clip(whole.operations);
     const bindings = whole.bindings.filter(([at]) => at >= begin && at < end).map(([at, label, uses]) => [at - begin, label, uses.filter(i => i >= begin && i < end).map(i => i - begin)]);
     originalParts.set(part, {
-      output: assembly.output,
-      scriptNotes:whole.scriptNotes.filter(([at])=>at>=begin && at<end).map(([at,kind,msg,origin])=>[at-begin,kind,msg,Math.max(0,origin-begin)]),
+      output: assembly.output, combined, begin,
+      scriptNotes:whole.scriptNotes.filter(([at])=>at>=begin && at<end).map(([at,kind,msg,origin,trial])=>[at-begin,kind,msg,Math.max(0,origin-begin),trial]),
       bindings,
       branches: clip(whole.branches),
       symbols: clip(whole.symbols),
@@ -208,14 +224,14 @@ const data = {
     lines: lineCount
   }
 };
-const template = source('docs/code-atlas/atlas.html');
+const template = readerSource('docs/code-atlas/atlas.html');
 function insert(html, marker, value) {
   assert.equal(html.split(marker).length, 2, marker);
   return html.replace(marker, () => value);
 }
-let html = insert(template, '/* ATLAS_STYLE */', source('docs/code-atlas/atlas.css'));
+let html = insert(template, '/* ATLAS_STYLE */', readerSource('docs/code-atlas/atlas.css'));
 html = insert(html, '<!-- ATLAS_DATA -->', '<script id="inventory" type="application/json">' + JSON.stringify(data).replaceAll('<', '\\u003c') + '</script>');
-html = insert(html, '/* ATLAS_READER */', source('docs/code-atlas/reader.js'));
+html = insert(html, '/* ATLAS_READER */', readerSource('docs/code-atlas/reader.js'));
 const dest = path.join(root, 'out', 'code-atlas.html');
 fs.mkdirSync(path.dirname(dest), {
   recursive: true

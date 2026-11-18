@@ -147,6 +147,7 @@
     go('files', current, n);
   }
   const verbs = {
+    operator:'عامل',member:'خاصية',unary:'عامل أحادي',branch:'اختيار',objectField:'حقل كائن',expand:'توسيع',interpolate:'إدراج داخل نص',
     style:'يضبط قاعدة التنسيق',openTag:'يفتح عنصر',closeTag:'يغلق عنصر',attribute:'يضبط خاصية العنصر',
     if: 'يتحقق من الشرط',
     choose: 'يختار قيمة بحسب',
@@ -169,8 +170,12 @@
       end = start + Math.max(1, text.length);
     h.replaceChildren();
     ids('line-title').textContent = 'السطر ' + format(line);
-    const [category,message]=decoded.notes[line-1];
+    const [category,message,trial]=decoded.notes[line-1];
     const summary=el('p',message,'line-reading');summary.dataset.category=category;h.append(summary);
+    if(trial){const section=el('div',undefined,'line-trial');section.append(el('strong','دليل السطر'),el('p',trial));h.append(section);}
+    const part=files[current].assemblyStart;
+    if(part)h.append(fileLink(part[0],part[1]+line-1,'السطر المقابل عند تجميع الأجزاء · '+part[0]+' · L'+(part[1]+line-1)));
+    for(const [p,n,label] of files[current].documentLinks?.[line]||[])h.append(fileLink(p,n,label+' · '+p+' · L'+n));
     for(const evidence of data.experiments.filter(e=>e.file===current && e.line===line)){
       h.append(el('p',evidence.reason,'experiment'));
       const detail=el('details');detail.append(el('summary','دليل التجربة'),el('p','الأصل · '+evidence.expression+' ← '+JSON.stringify(evidence.actual)),el('p','التغيير المعزول · '+evidence.replacement+' ← '+JSON.stringify(evidence.observed)));h.append(detail);
@@ -211,14 +216,20 @@
       const appendOp = op => {
         const row = el('div', undefined, 'op');
         row.append(document.createTextNode((verbs[op[2]] || op[2]) + ' '), el('bdi', op[3] || '—'));
+        if(op[4])row.append(el('span',' · '+op[4]));
+        const full=el('details');full.append(el('summary','التعبير كاملًا'));
+        full.addEventListener('toggle',()=>{if(full.open && !full.querySelector('code'))full.append(el('code',decoded.content.slice(op[0],op[1])));});
+        row.append(full);
         wrap.append(row);
       };
       ops.slice(0, 8).forEach(appendOp);
       h.append(wrap);
       if (ops.length > 8) {
-        const b = button('عرض بقية العمليات (' + format(ops.length - 8) + ')', () => {
-          ops.slice(8).forEach(appendOp);
-          b.remove();
+        let shown=8;
+        const b = button('عرض المزيد من العمليات (' + format(ops.length - shown) + ')', () => {
+          ops.slice(shown,shown+40).forEach(appendOp);
+          shown=Math.min(shown+40,ops.length);
+          if(shown===ops.length)b.remove();else b.textContent='عرض المزيد من العمليات ('+format(ops.length-shown)+')';
         }, 'more');
         h.append(b);
       }
@@ -237,6 +248,9 @@
         const p = el('p', segments.length ? 'موقع القيمة داخل بنية البيانات · ' : 'جذر ملف البيانات · ');
         p.append(el('bdi', segments.length ? pointer : '(root)'));
         h.append(p);
+        const key=segments.filter(k=>typeof k==='string').at(-1);
+        const reader=Object.hasOwn(files[current].fieldReaders||{},key) && files[current].fieldReaders[key];
+        if(reader)h.append(fileLink(reader[0],reader[1],'استعمال الحقل في مدار · '+reader[0]+' · L'+reader[1]));
         const packageEntry = current.endsWith('package-lock.json') && segments[0] === 'packages';
         if (packageEntry) {
           const meanings = {
@@ -254,12 +268,16 @@
     const entries=decoded.fields.filter(field=>field[0]>=start && field[0]<end);
     if(entries.length>1){
       const box=el('details');box.append(el('summary','حقول البيانات على هذا السطر · '+format(entries.length)));
+      const firstField=decoded.fields.indexOf(entries[0]);
       let shown=0;
       const batch=button('المزيد',()=>{
-        for(const field of entries.slice(shown,shown+40)){
+        for(const [j,field] of entries.slice(shown,shown+40).entries()){
           const keys=[];let f=field;
           while(f && f[2]>=0){keys.unshift(f[3]);f=decoded.fields[f[2]];}
-          box.insertBefore(el('p','/'+keys.join('/')+' · '+decoded.content.slice(field[0],Math.min(field[1],field[0]+100))),batch);
+          const item=el('details');
+          item.append(el('summary','/'+keys.map(k=>String(k).replaceAll('~','~0').replaceAll('/','~1')).join('/')),el('p',decoded.fieldGuides[firstField+shown+j]));
+          item.addEventListener('toggle',()=>{if(item.open && !item.querySelector('code'))item.append(el('code',decoded.content.slice(field[0],field[1])));});
+          box.insertBefore(item,batch);
         }
         shown+=40;if(shown>=entries.length)batch.remove();
       });

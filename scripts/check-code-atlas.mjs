@@ -21,7 +21,10 @@ for (const [file, entry] of Object.entries(inventory.files)) {
   }
   const model = JSON.parse(gunzipSync(Buffer.from(inventory.payloads[entry.payload], 'base64')));
   assert.equal(model.notes.length,entry.lines,file);
-  for(const [category,explanation] of model.notes){
+  assert.equal(model.fieldGuides.length,model.fields.length,file);
+  assert(model.fieldGuides.every(value=>typeof value==='string' && value.length>10),file);
+  for(const [category,explanation,evidence] of model.notes){
+    assert(typeof evidence==='string' && evidence.length>15 && evidence!==explanation,'Missing independent detail in '+file);
     assert(typeof explanation==='string' && explanation.length>10,file);
     counted[category]=(counted[category]||0)+1;
   }
@@ -49,6 +52,11 @@ for (const [file, entry] of Object.entries(inventory.files)) {
   texts++;
 }
 assert.deepEqual(counted,inventory.coverage);
+if(inventory.revision==='9ce3df0f1314262e5e2c95285c7544312fba577a')assert.deepEqual([texts,lines],[831,170310]);
+const curriculum=inventory.files['lib/os-simulator-curriculum.json'];
+const [reader,site]=curriculum.fieldReaders.host;
+const sourceAt=(name,line)=>JSON.parse(gunzipSync(Buffer.from(inventory.payloads[inventory.files[name].payload],'base64'))).content.split('\n')[line-1];
+assert.match(sourceAt(reader,site),/\.host\b/);
 function noteContaining(file, marker) {
   const model=JSON.parse(gunzipSync(Buffer.from(inventory.payloads[inventory.files[file].payload], 'base64')));
   const index=model.content.split('\n').findIndex(line=>line.includes(marker));
@@ -62,6 +70,11 @@ assert(inventory.files['public/assets/network-sources/chapter-9.pptx'].mentions.
 assert(inventory.files['public/assets/os1/server-interior.webp'].mentions.some(([file])=>file==='modules/madar-hub/os1.js'));
 assert(inventory.files['lib/access-content.json'].dataReads.some(([file,,mode])=>file==='lib/course-base.mjs' && mode==='import'));
 assert(inventory.files['lib/os-simulator-curriculum.json'].dataReads.some(([file])=>file==='build/madar/network-simulator.cjs'));
+assert.match(noteContaining('lib/word-bank-v81.json','"answer": 0'),/ترقيم مصفوفة البدائل من صفر/);
+const indexFile='drizzle/0010_great_wendell_vaughn.sql';
+const schema=JSON.parse(gunzipSync(Buffer.from(inventory.payloads[inventory.files[indexFile].payload],'base64')));
+const indexLine=schema.content.split('\n').findIndex(row=>row.startsWith('CREATE UNIQUE INDEX'));
+assert.match(schema.notes[indexLine][2],/CREATE UNIQUE INDEX.*account_code_unique/);
 assert(!counted.literal,'Unclassified source lines require inspection');
 assert(inventory.experiments.length>=16,'Missing behavioral experiments');
 for(const item of inventory.experiments){
@@ -87,6 +100,10 @@ try {
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));
     await page.goto(url.href);
+    await page.goto(url.href+'#'+new URLSearchParams({view:'files',file:'lib/os-simulator-curriculum.json',line:'10'}));
+    await expect(page.locator('#explanation')).toContainText('جهاز');
+    await expect(page.locator('#explanation a').filter({hasText:'استعمال الحقل'})).toHaveCount(1);
+    await page.locator('[data-tab=map]').click();
     for (const [id, tour] of Object.entries(inventory.guide)) {
       await page.locator('#features button[data-id="' + id + '"]').click();
       await expect(page.locator('#feature-name')).toHaveText(tour.title);

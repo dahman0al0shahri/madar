@@ -1,4 +1,8 @@
 import path from 'node:path';
+import { jsonRemoval,dataMeaning } from './data-evidence.mjs';
+import { documentNotes } from './document-lines.mjs';
+import { formatTrials } from './format-trials.mjs';
+import { sqlMeaning } from './schema-evidence.mjs';
 import { functionalContext } from './functional-context.mjs';
 
 const sample = text => text.trim().replace(/\s+/g,' ').slice(0,140);
@@ -14,18 +18,37 @@ const htmlRoles={button:'ينشئ زرًا يستقبل تفاعل المستخ�
 const shellRoles={export:'يمرر المتغير إلى الأوامر الفرعية',exec:'يسلّم التنفيذ إلى البرنامج المذكور',set:'يضبط خيارات تنفيذ الصدفة',exit:'ينهي العملية بالحالة المحددة',return:'يعيد التحكم إلى مستدعي الدالة',source:'يحمّل الملف داخل بيئة الصدفة الحالية',echo:'يكتب الرسالة إلى المخرج',printf:'ينسق الرسالة ويكتبها',mkdir:'يجهز المجلد الذي تحتاجه الخطوات التالية',cd:'يغيّر دليل تنفيذ الخطوات التالية',test:'يفحص شرطًا وتعبّر حالة الخروج عن النتيجة',if:'يختار ما ينفذ وفق نتيجة الأمر',elif:'يختبر فرعًا بديلًا',fi:'يغلق الفرع الشرطي',for:'يكرر العمل على العناصر المذكورة',done:'ينهي جسم الحلقة',case:'يطابق القيمة مع أحد الفروع',esac:'يغلق كتلة المطابقة',trap:'يربط إجراءً بإشارة أو بخروج العملية'};
 
 
-export function makeLineNotes(file,content,analysis) {
+export function makeLineNotes(file,content,analysis,migrations,context,fieldGuides) {
   const name=path.posix.basename(file), ext=path.posix.extname(name.replace(/\.inc$/,'')).slice(1).toLowerCase();
   const lines=content.split('\n'); if(lines.at(-1)==='') lines.pop();
   const script=new Map(analysis.scriptNotes.map(row=>[row[0],row]));
   const fields=analysis.fields||[], stack=[];
   const rootData=fields.length?JSON.parse(content.replace(/^\uFEFF/,'')):null;
-  let index=0, pos=0, heading='', rule='', statement='', workflow='', blockComment=false, inStyle=false;
+  let index=0, pos=0, rule='', statement='', workflow='', blockComment=false, inStyle=false;
   const records=[];
+  let otherTrial;
+  if(fields.length){
+    const ancestors=[],values=[];
+    for(const [at,stop,parent,key] of fields){
+      while(ancestors.length && ancestors.at(-1).stop<=at){ancestors.pop();values.pop();}
+      const value=parent<0?rootData:values.at(-1)?.[key];
+      ancestors.push({key,stop});values.push(value);
+      const keys=ancestors.slice(1).map(x=>x.key);
+      const lastKey=keys.filter(k=>typeof k==='string').at(-1);
+      const k=name==='package-lock.json'?keys[2]:lastKey;
+      const roles=name==='package-lock.json'?lockRoles:dataRoles;
+      const detail=dataMeaning(file,keys,value,rootData)||(Object.hasOwn(roles,k)?roles[k]:'');
+      fieldGuides.push(detail||(Array.isArray(value)?'تحدد هذه القائمة ترتيب عناصرها وعددها '+value.length+'.':value&&typeof value==='object'?'يضم السجل الحقول '+Object.keys(value).slice(0,12).join('، ')+'.':typeof key==='number'?'هذه القيمة في الموضع '+(key+1)+' من القائمة؛ حذفها يزيح العناصر التالية موضعًا واحدًا.':'يخصص هذا الحقل القيمة '+JSON.stringify(value)?.slice(0,110)+' للمفتاح '+key+'، ويمكن تتبّع أثر حذفه في تجربة السطر.'));
+    }
+  }
+  const doc=ext==='md'||name.includes('README')||/license/i.test(name)?documentNotes(file,lines):null;
   for(let i=0;i<lines.length;i++){
     const raw=lines[i],t=raw.trim(),first=pos+Math.max(0,raw.search(/\S/)), scriptRow=script.get(first);
+    let detail;
     const finish=(cat,msg)=>records.push([cat,msg]);
-    if(!t)finish('structure','يفصل بصريًا بين '+(i && lines[i-1].trim()? '«'+sample(lines[i-1])+'»':'المقطع السابق')+' والمقطع التالي في الملف.');
+    if(!t && scriptRow?.[1]==='template-space')finish('structure',scriptRow[2]);
+    else if(!t && doc)finish('structure',doc[i]);
+    else if(!t)finish('structure','يفصل بصريًا بين '+(i && lines[i-1].trim()? '«'+sample(lines[i-1])+'»':'المقطع السابق')+' والمقطع التالي في الملف.');
     else if(ext==='json' && fields.length){
       while(index<fields.length&&fields[index][0]<=first){
         const f=fields[index];while(stack.length && fields[stack.at(-1)][1]<=f[0])stack.pop();
@@ -46,19 +69,18 @@ export function makeLineNotes(file,content,analysis) {
         }
         value=value?.[part];
       }
-      const shape=Array.isArray(value)?'يرتب '+value.length+' عنصرًا داخل هذه القائمة.':value && typeof value==='object'?'يجمع '+Object.keys(value).length+' حقول في سجل واحد.':typeof value==='boolean'?'يحفظ حالة '+(value?'التفعيل':'التعطيل')+' لهذا الحقل.':value===null?'يسجل غياب القيمة لهذا الحقل.':'يحفظ قيمة '+(key||'العنصر')+' التي تُنقل مع السجل.';
+      const shape=Array.isArray(value)?'يرتب '+value.length+' عنصرًا داخل هذه القائمة.':value && typeof value==='object'?'يجمع '+Object.keys(value).length+' حقول في سجل واحد.':typeof value==='boolean'?'يحفظ حالة '+(value?'التفعيل':'التعطيل')+' لهذا الحقل.':value===null?'يسجل غياب القيمة لهذا الحقل.':'قيمة '+(typeof value==='string'?'نصية':typeof value==='number'?'عددية':'محددة')+' ضمن '+(path.length>1?'/'+path.slice(0,-1).join('/'):'الجذر')+'، ومحتواها '+JSON.stringify(value)?.slice(0,120)+'.';
       const mark=t.match(/^[}\]],?$/)?'يغلق قيمة':'يحدد قيمة';
-      finish('data',mark+' '+pointer+' في '+name+'. '+(role||shape)+(record?' ضمن «'+record+'».':''));
-    } else if(scriptRow)finish('syntax',scriptRow[2]);
+      detail=jsonRemoval(content,rootData,fields,stack,pos,Math.min(content.length,pos+raw.length+1));
+      const meaning=dataMeaning(file,path,value,rootData);
+      finish('data',mark+' '+pointer+' في '+name+'. '+(meaning||role||shape)+(record?' ضمن «'+record+'».':''));
+    } else if(scriptRow && scriptRow[1]!=='trivia'){finish('syntax',scriptRow[2]);detail=scriptRow[4];}
     else if(t.startsWith('/*')||t.startsWith('//')||t.startsWith('<!--')||blockComment||t.startsWith('-- ')){
       finish('comment','يوثّق المصدر هنا '+sample(t.replace(/^(?:\/\*+|\/\/|<!--|-- |\*)\s?/,''))+' ضمن '+name+'.');
       if(t.startsWith('/*')||t.startsWith('<!--'))blockComment=true;
       if(t.includes('*/')||t.includes('-->'))blockComment=false;
     } else if(ext==='md'||ext==='txt' && name.includes('README')||/license/i.test(name)){
-      const h=t.match(/^#+\s+(.+)/);
-      if(h)heading=h[1];
-      const links=[...t.matchAll(/\[([^\]]+)\]\(([^)]+)\)/g)].map(m=>m[2]);
-      finish('document',h?'يفتح قسم «'+heading+'» الذي تنتظم تحته الفقرات التالية.':links.length?'يوجه القارئ من «'+(heading||name)+'» إلى '+links.join('، ')+'.':t.startsWith('|')?'يسجل صف الجدول «'+sample(t.split('|').find(x=>x.trim())||t)+'» في قسم '+(heading||name)+'.':'يحفظ ضمن «'+(heading||name)+'» '+(t.startsWith('```')?'حد كتلة المثال أو الأمر.':'النص المرجعي «'+sample(t)+'».'));
+      finish('document',doc[i]);
     } else if(ext==='css'||inStyle && !t.includes('</style')||name==='night-review-style.txt'){
       if(t.includes('{'))rule=sample(t.slice(0,t.indexOf('{'))) || rule;
       const prop=/(?:^|[;{])\s*([\w-]+)\s*:\s*([^;}]+)/.exec(t);
@@ -69,8 +91,7 @@ export function makeLineNotes(file,content,analysis) {
       finish('markup',tag?(tag[1]?'يغلق عنصر '+tag[2]:(htmlRoles[tag[2]]||'ينشئ عنصر '+tag[2]))+' في '+name+(t.match(/\b(?:id|class|src|href|name)=["']([^"']+)/)?.[1]?'، بالقيمة «'+sample(t.match(/\b(?:id|class|src|href|name)=["']([^"']+)/)[1])+'»':'')+'.':'يدخل «'+sample(t)+'» في محتوى المستند '+name+' عند عرض هذا الموضع.');
     } else if(ext==='sql'){
       const m=t.match(/\b(CREATE\s+(?:UNIQUE\s+)?(?:TABLE|INDEX)|ALTER TABLE|INSERT INTO|UPDATE|DROP TABLE|SELECT)\s+(?:IF (?:NOT )?EXISTS\s+)?[`"\[]?([\w.]+)/i);if(m)statement=m[1]+' '+m[2];
-      const purpose=/PRIMARY KEY/i.test(t)?'يحدد المفتاح الذي يميز الصف.':/FOREIGN KEY|REFERENCES/i.test(t)?'يربط قيمة العمود بسجل في جدول مرجعي.':/NOT NULL/i.test(t)?'يشترط وجود قيمة للعمود.':/DEFAULT/i.test(t)?'يحدد القيمة المستخدمة عند غياب مدخل صريح.':/CREATE.*INDEX/i.test(t)?'ينشئ فهرسًا لمفاتيح البحث المذكورة.':'يحدد جزءًا من تعليمة الترحيل وترتيب تطبيقها.';
-      finish('sql',(statement||name)+' · '+purpose+' '+sample(t));
+      finish('sql',sqlMeaning(t,statement));
     } else if(ext==='sh'||name==='pre-push'||ext==='py'){
       const word=t.match(/^[A-Za-z_][\w.-]*/)?.[0];const assign=t.match(/^([\w_]+)=/);
       finish('automation',t.startsWith('#!')?'يحدد مفسّر الملف '+t.slice(2)+'.':assign?'يضبط '+assign[1]+' لتستخدمه خطوات '+name+' اللاحقة.':(shellRoles[word]|| (t.startsWith('#')?'يشرح خطوة التشغيل':ext==='py'?'تعليمة Python في مولّد الصورة':'جزء من أمر أو تدفق تنفيذ في '+name))+' · '+sample(t));
@@ -79,6 +100,16 @@ export function makeLineNotes(file,content,analysis) {
       if(key?.[1]==='name')workflow=key[2];
       finish('configuration',name==='.gitignore'?'تطبّق قاعدة Git «'+t+'» على إدراج المسارات غير المتتبعة.':key?'يضبط '+key[1]+' ضمن '+(workflow||name)+' '+(key[2]?'بالقيمة '+sample(key[2]):'وتفصّل الأسطر التابعة قيمته')+'.':'يحدد «'+sample(t)+'» ضمن إعدادات '+(workflow||name)+'.');
     } else finish('literal','يحفظ «'+sample(t)+'» ضمن '+name+' في موضعه من النص الأصلي.');
+    const note=records.at(-1);
+    if(migrations)detail=migrations[i];
+    if(!detail && scriptRow?.[4])detail=scriptRow[4];
+    if(!detail && fields.length)detail=jsonRemoval(content,rootData,fields,stack,pos,Math.min(content.length,pos+raw.length+1));
+    if(!detail){
+      if(otherTrial===undefined)otherTrial=formatTrials(file,content,lines,context);
+      detail=otherTrial?.(i,pos,Math.min(content.length,pos+raw.length+1));
+    }
+    if(!detail)throw Error('Missing line evidence: '+file+':'+(i+1));
+    note.push(detail);
     const effect=functionalContext(file,t);
     if(effect && (scriptRow || ext==='py'))records.at(-1)[1]+=' '+effect;
     pos+=raw.length+1;

@@ -1,4 +1,5 @@
 import ts from 'typescript';
+import { scriptTrial, finishScriptTrials } from './syntax-trial.mjs';
 
 const preview = (node, ast) => node ? ast.text.slice(node.getStart(ast), Math.min(node.end,node.getStart(ast)+320)).replace(/\s+/g,' ').trim().slice(0,145) : '';
 const closer = /^[\s}\]);,]+$/;
@@ -70,19 +71,28 @@ export function scriptLineNotes(ast, code, offset, boundaries = []) {
   const descriptions=new WeakMap();
   for (const start of new Set([...ast.getLineStarts(), ...boundaries])) {
     const newline = code.indexOf('\n', start);
-    const text = code.slice(start, newline < 0 ? undefined : newline);
+    const stop=Math.min(newline<0?code.length:newline+1,...boundaries.filter(at=>at>start));
+    const text = code.slice(start,stop).replace(/\n$/,'');
     const first = text.search(/\S/);
-    if (first < 0) continue;
-    const pos = start + first;
-    let token = ts.getTokenAtPosition(ast,pos);
-    if (!token || pos < token.getStart(ast)) continue; // comment trivia
+    const pos = start + Math.max(0,first);
+    const token = ts.getTokenAtPosition(ast,pos);
+    if(first<0||!token||pos<token.getStart(ast)){
+      if(start<code.length){
+        const withinText=token && pos>=token.getStart(ast) && pos<token.end && (ts.isTemplateLiteralToken(token)||ts.isStringLiteral(token)||ts.isJsxText(token));
+        rows.push([offset+pos,withinText?'template-space':'trivia',withinText?'هذا الفراغ جزء من النص الذي يحتفظ به المصدر داخل التعبير، وحذفه يغير تسلسل محارفه.':'',offset+pos,scriptTrial(ast,token||ast,start,stop)]);
+      }
+      continue;
+    }
     const chain = [];
     for(let node=token;node && !ts.isSourceFile(node);node=node.parent){
       if(!descriptions.has(node))descriptions.set(node,describe(node,ast));
       const note=descriptions.get(node);
       if(note)chain.push({note,node});
     }
-    if (!chain.length) continue;
+    if (!chain.length){
+      rows.push([offset+pos,'trivia','',offset+pos,scriptTrial(ast,token,start,stop)]);
+      continue;
+    }
     const [{note,node}]=chain;
     const scope = chain.find(x=>ts.isFunctionLike(x.node))?.node;
     const scopeName=preview(scope?.name||scope?.parent?.name,ast);
@@ -90,7 +100,8 @@ export function scriptLineNotes(ast, code, offset, boundaries = []) {
     if(closer.test(text)) message='يغلق هذا الموضع الجزء السابق من البنية. '+message;
     else if(chain.length>1 && chain[1].note[0] !== note[0] && ['value','return','guard','field','argument','choice'].includes(chain[1].note[0])) message+=' '+chain[1].note[1];
     if(scopeName && scope!==node) message+=' داخل '+scopeName+'.';
-    rows.push([offset+pos,note[0],message,offset+node.getStart(ast)]);
+    rows.push([offset+pos,note[0],message,offset+node.getStart(ast),scriptTrial(ast,token,start,stop)]);
   }
+  finishScriptTrials(ast);
   return rows;
 }

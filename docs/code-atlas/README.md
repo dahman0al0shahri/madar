@@ -11,6 +11,14 @@ npm run atlas:build
 
 Open `out/code-atlas.html`. The builder reads the committed Git tree at HEAD, including the reader and guide from that tree. Commit local source edits before regenerating a snapshot. To reproduce the checks, install the pinned Chromium using `node node_modules/@playwright/test/cli.js install chromium`, then run `npm run atlas:check`. Set `MADAR_ATLAS_CHROME` to the path of an existing Chromium-compatible browser for a local test.
 
+### Inspect the 170,310-line snapshot
+
+In a checkout that contains publication commit `9ce3df0f1314262e5e2c95285c7544312fba577a`, run `npm run atlas:build -- --source-commit 9ce3df0f1314262e5e2c95285c7544312fba577a` and `npm run atlas:check`. This selects the original tracked inputs, including assembled and generated copies, while using the current inspector and reader. Every physical line has an explanation and an evidence entry. The verifier recomputes Git object identities, line totals, operation ranges and nested field coverage.
+
+Select a line in **Files** to inspect its scope, expressions, data fields, and available uses. For example, the `host` field on line 10 of `lib/os-simulator-curriculum.json` links to the simulator code that uses it. Compact JSON and code expose their contents progressively. Markdown passages use source-matched annotations where available.
+
+Evidence is specific to the file format. Script trials remove the line in an enclosing parseable context. JSON trials compare the enclosing data before and after removal. SQL migration trials apply each variant to a disposable in-memory database. Other parsing trials compare the surrounding syntax. Git ignore rules use example paths, and npm options describe the configuration override. A syntax result cannot predict all runtime outcomes or establish an author's historical motive. The behavioral experiments are separately identified in the reader.
+
 | View | How to use it |
 | --- | --- |
 | Features | Follow an editorial tour from an entry point into an implementation and its tests or documentation. Open any stop at its source line. |
