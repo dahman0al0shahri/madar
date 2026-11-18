@@ -45,7 +45,7 @@ scripts/build-madar.cjs
        modules/network-tabs-preview/build.cjs -> network-labs.html
        wrap simulator; assemble OS practice model
   2. build/madar/hub.cjs
-       integrate hub shell, behavior, styles and embedded history
+       fill eight checked hub composition slots; assemble shell, styles and embedded history
   3. build/madar/shared-assets.cjs
        background/assets; finish home HTML, index and styles
   4. scripts/build-srwe.cjs

@@ -119,9 +119,9 @@ test('delegated actions handle zero-valued data and dispose only their own liste
 
 test('hub module import edges stay explicit and browser globals remain in composition', () => {
   // Bounded source guard, not a complete JavaScript security/static analysis.
-  const edges = { 'index.mjs': ['state','persistence','navigation','environment','editor','editor-views','views','search','events','lesson-actions','access-actions','editor-actions'],
+  const edges = { 'index.mjs': ['state','persistence','navigation','environment','editor','editor-views','views','search','events','lesson-actions','access-actions','editor-actions','announcements','course-views','hosted-course-views','view-lifecycle','scene-resources'],
     'state.mjs': [], 'persistence.mjs': ['state'], 'navigation.mjs': [], 'environment.mjs': ['state','navigation'],
-    'editor.mjs': ['state'], 'editor-views.mjs': [], 'views.mjs': [], 'search.mjs': [], 'events.mjs': [], 'lesson-actions.mjs': [], 'access-actions.mjs': [], 'editor-actions.mjs': [] };
+    'editor.mjs': ['state'], 'editor-views.mjs': [], 'views.mjs': [], 'search.mjs': [], 'events.mjs': [], 'lesson-actions.mjs': [], 'access-actions.mjs': [], 'editor-actions.mjs': [], 'announcements.mjs': [], 'course-views.mjs': [], 'hosted-course-views.mjs': [], 'view-lifecycle.mjs': [], 'scene-resources.mjs': [] };
   const folder = new URL('../public/hub/', import.meta.url);
   assert.deepEqual(fs.readdirSync(folder).sort(), Object.keys(edges).sort(), 'Classify new modules and their allowed dependencies');
   for (const [file, allowed] of Object.entries(edges)) {

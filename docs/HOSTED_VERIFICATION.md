@@ -48,3 +48,7 @@ These offline tests do **not** contact production or demonstrate real account is
 Sites service-access tokens bypass the Site gate without supplying a user identity. They cannot stand in for the two real accounts. Local `local_seedy` authentication likewise does not prove hosted sign-in. Until the prerequisites exist, retain the blocker instead of weakening authentication or claiming a simulated result as hosted evidence.
 
 See [backup and recovery](BACKUP_RECOVERY.md), [browser tests](BROWSER_TESTS.md), and OWASP's [authorization testing guidance](https://owasp.github.io/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/02-Testing_for_Bypassing_Authorization_Schema).
+
+## Read-only recheck — 18 November 2026
+
+The existing live anonymous verifier passed all twelve GET checks on 18 November 2026. Public pages remained available and the tested private endpoints rejected guest/forged-identity requests. This measured the currently hosted version; the hub refactor was not deployed. Two real accounts, cross-account isolation and hosted D1/R2 recovery remain untested for the prerequisites above.

@@ -1,4 +1,5 @@
-/* hub:course-tools */
+/* hub:course-tools:start */
+  /* hub:course-tools:end */
   const searchController = createSearchController({ courses, lessons, available, canLesson,
     hosted: environment.hosted, esc, icon, paintIcons,
     readQuery: () => $('#mh-query').value, readScope: () => $('#mh-search-scope').value,
@@ -16,11 +17,6 @@
     $('#mh-picker').hidden = true;
     $('#mh-picker-button').setAttribute('aria-expanded', 'false');
   }
-  function moveSlide(value) {
-    if (!carousel) return;
-    slideIndex = typeof value === 'number' ? value : (slideIndex + (value === 'next' ? 1 : -1) + carousel.items.length) % carousel.items.length;
-    paintSlide();
-  }
   const lessonActions = createLessonActions({ getState: () => stateModel.value, profile, lessonBy, saves,
     notes: { hasPending: () => Boolean(window.MADAR_NOTES?.hasPending()),
       retry: () => window.MADAR_NOTES.retry() }, render, warn: say,
@@ -32,11 +28,7 @@
   function paintEditorPreview(update) {
     $('#mh-update-preview').innerHTML = editorViews.previewMarkup(update);
     paintIcons();
-    liquidOrbit?.dispose(); liquidOrbit = null;
-    const previewMark = $('#mh-update-preview .mh-main-mark');
-    if (previewMark) liquidOrbit = createLiquidOrbit(previewMark);
-    networkNewsPlayer?.dispose();
-    networkNewsPlayer = createNetworkNewsPlayer($('#mh-update-preview .mh-network-showcase'));
+    announcements.paintPreview();
   }
   function handleInput(event) {
     const target = event.target;
@@ -85,7 +77,7 @@
       'mh-search-more': () => searchController.more(),
       'mh-retry': () => saves.retry().catch(() => {}),
       'mh-stay': () => { saves.cancelPendingAction(); $('#mh-error').hidden = true; },
-      'mh-pause': () => setPaused(!paused), 'mh-scene': () => setPaused(!paused),
+      'mh-pause': () => setPaused(!announcements.isPaused()), 'mh-scene': () => setPaused(!announcements.isPaused()),
       'mh-replay': paintSlide, 'mh-next': () => moveSlide('next'), 'mh-prev': () => moveSlide('prev'),
       'mh-new-update': editorActions.begin,
       'mh-cancel-edit': editorActions.cancel,

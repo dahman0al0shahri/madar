@@ -44,7 +44,14 @@
         "public/hub/events.mjs",
         "public/hub/lesson-actions.mjs",
         "public/hub/access-actions.mjs",
-        "public/hub/editor-actions.mjs"
+        "public/hub/editor-actions.mjs",
+        "public/hub/announcements.mjs",
+        "public/hub/course-views.mjs",
+        "public/hub/hosted-course-views.mjs",
+        "public/hub/view-lifecycle.mjs",
+        "modules/madar-hub/route-adapter.js",
+        "modules/madar-hub/host-startup.js",
+        "public/hub/scene-resources.mjs"
       ],
       "integration": [
         "build/madar/hub.cjs",
@@ -146,7 +153,8 @@
       "build/madar/hub.cjs",
       "build/madar/shared-assets.cjs",
       "modules/network-tabs-preview/build.cjs",
-      "scripts/build-srwe.cjs"
+      "scripts/build-srwe.cjs",
+      "build/madar/hub-slots.cjs"
     ],
     "groups": [
       {

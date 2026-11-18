@@ -5,54 +5,28 @@ let shell=read('modules/madar-hub/shell.html');
 write('lib/network-simulator.html',read('lib/network-simulator.html').replace('</head>','<link rel="stylesheet" href="/network-page.css"><link rel="stylesheet" href="/notes.css"></head>').replace('<script src="/network-boot.js">','<script src="/notes.js"></script><script src="/network-page.js"></script><script src="/network-boot.js">'));
 shell=shell.replace(/<details class="mh-preview-tools"[\s\S]*?<\/details>/,'<div hidden><input id="mh-fail" type="checkbox"><select id="mh-viewer"><option value="student">الحساب الحالي</option></select></div><div id="mh-owner-tools" hidden><button data-go="admin">إدارة المقررات والمستجدات</button></div>');
 shell=shell.replace('سيُحذف من هذه المعاينة ومن كل أماكن ظهوره. لن يؤثر هذا في المنصة المنشورة أو تقدّم أي طالب.','سيُحذف المستجد من جميع أماكن ظهوره. لا تُحذف المختبرات أو ملاحظات الطلاب.');
-let app=read('modules/madar-hub/app.js');
-app=replace(app,'  function heading(',read('modules/madar-hub/srwe-announcement.js')+'\n  function heading(');
-// The host supplies dependencies through one explicit composition slot.
-const catalogStart = app.indexOf('  const lessons=[');
-const catalogEnd = app.indexOf('  const initial=', catalogStart);
-if (catalogStart < 0 || catalogEnd < catalogStart) throw Error('Missing preview catalog boundary');
-app = app.slice(0, catalogStart) + app.slice(catalogEnd);
-const environmentSlot = /\/\* hub:environment:start \*\/[\s\S]*?\/\* hub:environment:end \*\//g;
-if ([...app.matchAll(environmentSlot)].length !== 1) throw Error('Expected one hub environment slot');
-app = app.replace(environmentSlot, () => read('modules/madar-hub/host-environment.js'));
-app=app.replace('  function selectedCourse()',read('modules/madar-hub/network-frame.js')+'\n'+read('modules/madar-hub/mobile-practical.js')+'\n'+read('modules/madar-hub/lesson-progress.js')+'\n'+read('modules/madar-hub/page-reflection.js')+'\n'+read('modules/madar-hub/background-lifecycle.js')+'\n  function selectedCourse()');
-app=replace(app,'/* hub:course-tools */',read('modules/madar-hub/search.js')+'\n'+read('modules/madar-hub/network-reference.js')+'\n'+read('modules/madar-hub/network-selftest.js'));
-app=app.replace('  function courseSection(',read('modules/madar-hub/network-practical-index.js')+'\n  function courseSection(');
-const cs=app.indexOf('  function courseSection('),ce=app.indexOf('  function lessonPage(',cs);
-app=app.slice(0,cs)+`  function courseSection(id,section){if(id==='os1')return osSection(section);if(id==='network'&&section==='lessons')return networkPracticalIndex();const c=courses[id],title=c.sections.find(x=>x[0]===section)?.[1]||'مختبرات الشبكات';if(id==='network'&&['quiz','practice','exam','practice-vlan','practice-trunk','practice-inter'].includes(section))return networkSelfTestPage(section);if(section==='theory')return networkTheoryIndex();if(section==='lab'&&!boot.canPractice)return heading('المختبر غير متاح لهذا الحساب')+'<p>يتطلب هذا المختبر صلاحية أجزاء VLAN وTrunk وInter-VLAN جميعها.</p>';if(section==='lab')return heading('مختبرات الشبكات',c.name)+'<iframe allowfullscreen id="mh-network-lab" title="محاكي الشبكات" data-network-src="/network-lab" style="width:100%;height:1400px;border:0;border-radius:16px"></iframe>';const list=lessons.filter(l=>l.course===id&&canLesson(l)&&(section==='reference'||l.section!=='theory'));return heading(title,c.name)+(section==='lessons'||section==='quiz'?'<div class="mh-course-cover"><h2>'+ (section==='quiz'?'اختبر فهمك بالتطبيق':'مختبر جاهز أو تبويب جديد حر')+'</h2><p>متطلبات متغيرة وإرشاد تختاره. مختبراتك مستقلة، ويمكنك النسخ بينها باختيارك.</p><button class="mh-primary" data-go="course:network:lab">فتح محاكي الشبكات</button></div>':'')+(section==='reference'&&boot.canPractice?networkReference()+lessonRows(list.filter(l=>l.section==='theory')):lessonRows(list))+(section==='reference'?'<section class="mh-feedback-fold" aria-labelledby="mh-feedback-title"><h2 id="mh-feedback-title">شارك تجربتك أو بلّغ عن مشكلة</h2><div id="mh-network-feedback"></div></section>':'');}
-`+app.slice(ce);
-const hintMarkup=read('public/network-hint-history.html').replace(/\r\n/g,'\n').match(/<main id="history">[\s\S]*?<\/main>/)?.[0]?.replace('<main id="history">','<div id="history">').replace('</main>','</div>');if(!hintMarkup)throw Error('Missing hint history template');
-app=replace(app,"if(section==='theory')return networkTheoryIndex();","if(id==='network'&&section==='hints')return "+JSON.stringify('<section id="mh-hint-history-root">'+hintMarkup+'</section>')+";if(section==='theory')return networkTheoryIndex();");
-app=app.replace("step=Math.min(2,v.step||0)","step=Math.min(l.steps.length-1,v.step||0)").replace("step===2?'disabled'","step===l.steps.length-1?'disabled'");
-app=app.replace('لتجربة حفظ موضعك: انتقل بين الخطوات واكتب ملاحظة، ثم غيّر المقرر وارجع إليه. هذا ليس تشغيلًا للمختبر أو تقييمًا لتعلّمك.','المصدر: ${esc(l.source||"المادة المرتبطة")}. الوصول إلى الخطوة لا يعني إتقانها.');
-app=app.replace('<aside class="mh-note-box"><label for="mh-note">ملاحظتي في هذا الدرس<textarea id="mh-note" placeholder="اكتب ملاحظتك…">${esc(profile().notes[l.id]||\'\')}</textarea></label><p class="mh-footnote">تُحفظ تلقائيًا مع هذا الدرس.</p></aside>','<aside class="mh-note-box"><div id="lesson-notes"></div><button data-go="course:network:lab">طبّق في المحاكي</button></aside>');
-const lessonPageStart=app.indexOf('  function lessonPage('),lessonPageEnd=app.indexOf('/* hub:editor-composition */',lessonPageStart);
-if(lessonPageStart<0||lessonPageEnd<0)throw Error('Missing lesson integration anchor');
-app=app.slice(0,lessonPageStart)+read('modules/madar-hub/network-theory.js')+'\n'+read('modules/madar-hub/lesson-integrated.js')+'\n'+app.slice(lessonPageEnd);
-app=replace(app,"$('#mh-main').innerHTML=html;","const mobileTarget=mobilePracticalTarget(html);if(mobileTarget){location.replace(mobileTarget);return;}$('#mh-main').innerHTML=html;document.body.dataset.view=course==='network'?'network':state.route==='courses'?'courses':'home';window.MADAR_ACTIVITY?.emit('page_open',state.route.startsWith('lesson:')?{lesson:state.route.split(':')[1]}:{});if(state.route.startsWith('lesson:'))void window.MADAR_NOTES?.mount(state.route.split(':')[1]);if($('#mh-network-feedback')){$('#mh-network-feedback').innerHTML=window.MADAR_FEEDBACK.markup();void window.MADAR_FEEDBACK.bind({subject:'Network',bankVersion:'network-lab452-v1',currentLesson:state.route.startsWith('lesson:')?state.route.split(':')[1]:null,lessons:lessons.filter(l=>l.course==='network'),questions:[]});}$('#mh-network-background').hidden=course!=='network';");
-app=replace(app,"  render();status(restored?'استُعيدت بيانات المعاينة':'');",`  $('#mh-owner-tools').hidden=!boot.account.isAdmin;
-  addEventListener('message',e=>{const f=$('#mh-network-lab');if(e.origin!==location.origin||!f||e.source!==f.contentWindow)return;if(e.data?.type==='madar-workspace-expanded'){if(e.data.expanded&&!f.dataset.expanded){f.dataset.previousStyle=f.getAttribute('style')||'';f.dataset.expanded='true';f.style.cssText='position:fixed;inset:0;width:100vw;height:100dvh;border:0;border-radius:0;z-index:10000';}else if(!e.data.expanded&&f.dataset.expanded){f.setAttribute('style',f.dataset.previousStyle);delete f.dataset.expanded;delete f.dataset.previousStyle;}}if(e.data?.type==='madar-network-state'){if(!f.dataset.expanded)f.style.height=Math.max(600,Math.min(15000,Number(e.data.height)||1400))+'px';syncLessonProgress(f);}});
-  if(store.conflict){$('#mh-error').hidden=false;status('يوجد تعارض مع نسخة الحساب. نزّل مسودتك قبل إعادة التحميل.');}
-  render();status('');
-`);
-if(!/\}\)\(\);\s*$/.test(app))throw Error('Missing root app completion');
-app=app.replace(/\}\)\(\);\s*$/,"})().catch(()=>{const main=document.getElementById('mh-main');main.innerHTML='<p role=\"alert\">تعذر تحميل بيانات مدار. لم نستبدل الحفظ السابق.</p><button onclick=\"location.reload()\">إعادة المحاولة</button>';});");
-app=app.replace("  $('#mh-owner-tools').hidden",`  root.addEventListener('pointermove',e=>{const f=$('#mh-network-background');if(!f.hidden)f.contentWindow?.postMessage({type:'madar-background-pointer',x:e.clientX,y:e.clientY},location.origin);},{passive:true});
-  $('#mh-owner-tools').hidden`);
-app=app.replace(/^  window.addEventListener\('openai:set_globals'.*$/m,'');
-app=app.replace("void window.MADAR_NOTES?.mount(state.route.split(':')[1]);", "void window.MADAR_NOTES?.mount(state.route.split(':')[1],{video:false});");
+const { fillHubSlots } = require('./hub-slots.cjs');
+const join = files => files.map(read).join('\n');
+const hintMarkup=read('public/network-hint-history.html').replace(/\r\n/g,'\n').match(/<main id="history">[\s\S]*?<\/main>/)?.[0]?.replace('<main id="history">','<div id="history">').replace('</main>','</div>');
+if(!hintMarkup)throw Error('Missing hint history template');
+const app = fillHubSlots(read('modules/madar-hub/app.js'), {
+  'preview-catalog': '',
+  environment: read('modules/madar-hub/host-environment.js'),
+  'frame-support': join(['modules/madar-hub/network-frame.js', 'modules/madar-hub/mobile-practical.js',
+    'modules/madar-hub/lesson-progress.js', 'modules/madar-hub/page-reflection.js', 'modules/madar-hub/background-lifecycle.js']),
+  'scene-support': join(['modules/madar-hub/liquid-orbit.js', 'modules/madar-hub/network-news-host.js', 'modules/madar-hub/srwe-announcement.js']),
+  'course-support': join(['modules/madar-hub/os1.js', 'modules/madar-hub/os-practice.js', 'modules/madar-hub/os-wallpaper.js',
+    'modules/madar-hub/os-desktop.js', 'modules/madar-hub/os-curriculum.js',
+    'modules/madar-hub/network-practical-index.js', 'modules/madar-hub/network-theory.js', 'modules/madar-hub/lesson-integrated.js'])
+    + '\nconst hintHistoryMarkup = ' + JSON.stringify('<section id="mh-hint-history-root">'+hintMarkup+'</section>') + ';\n',
+  'course-tools': join(['modules/madar-hub/search.js', 'modules/madar-hub/network-reference.js', 'modules/madar-hub/network-selftest.js']),
+  'mount-adapter': read('modules/madar-hub/route-adapter.js'),
+  startup: read('modules/madar-hub/host-startup.js'),
+});
 shell=shell.replace('<button id="mh-stay">','<button id="mh-recover-export">تنزيل المسودة</button><button id="mh-recover-load">تحميل نسخة الحساب</button><button id="mh-stay">');
-app=app.replace("if(day!==scheduleDay){scheduleDay=day;render();return;}","if(day!==scheduleDay){scheduleDay=day;if(!adminStore)fetch('/api/madar',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(b=>{boot.allowed=b.allowed;boot.canPractice=b.canPractice;state.access=b.config.access;state.updates=b.config.updates;render();}).catch(()=>{scheduleDay='';});else render();return;}");
-app=app.replace("$('#mh-network-background').hidden=course!=='network';", "updateNetworkBackground(course);");
-app=replace(app,'  function scene(u){',read('modules/madar-hub/liquid-orbit.js')+'\n'+read('modules/madar-hub/network-news-host.js')+'\n  function scene(u){');
 new Function(read('modules/madar-hub/global-space.js'));write('public/madar-space.js',read('modules/madar-hub/global-space.js'));
-app=replace(app,"$('#mh-main').innerHTML=html;","$('#mh-main').innerHTML=html;if($('#mh-hint-history-root'))window.MadarHintHistoryPage($('#mh-hint-history-root'));");
-// Scope the standalone history stylesheet to its route; preserve all course designs.
+// Only static document/style assembly remains here; runtime rules belong to native modules/adapters.
 write('public/hint-history-embedded.css',read('public/hint-history.css').replace(/([^{}]+)\{/g,(whole,selector)=>{const s=selector.trim();if(s.startsWith('@'))return whole;if([':root','html,body','body'].includes(s))return '#mh-hint-history-root{';return '#mh-hint-history-root :is('+s+'){';}));
-app=replace(app,'  function heading(',read('modules/madar-hub/os1.js')+'\n'+read('modules/madar-hub/os-practice.js')+'\n'+read('modules/madar-hub/os-wallpaper.js')+'\n'+read('modules/madar-hub/os-desktop.js')+'\n'+read('modules/madar-hub/os-curriculum.js')+'\n  function heading(');
-app=app.replace("$('#mh-main').innerHTML=html;","disposeOsScene();$('#mh-main').innerHTML=html;mountOsScene();");
-app=app.replace("course==='network'?'network':state.route","course==='os1'?'os1':course==='network'?'network':state.route");
-app=replace(app,"disposeOsScene();$('#mh-main').innerHTML=html;mountOsScene();","disposeNetworkFrame();disposeOsScene();$('#mh-main').innerHTML=html;mountNetworkFrame();mountOsScene();");
 new Function(app);write('public/madar-hub.js',app);write('public/madar-hub.css',read('modules/madar-hub/styles.css')+'\n'+read('modules/madar-hub/refinement.css')+'\n'+read('modules/madar-hub/global-space.css')+'\n'+read('modules/madar-hub/liquid-orbit.css')+'\n'+read('modules/madar-hub/office-celebration.css')+'\n'+read('modules/madar-hub/network-card.css')+'\n'+read('modules/madar-hub/network-news.css')+'\n'+read('modules/madar-hub/network-theory.css')+'\n'+read('modules/madar-hub/network-practical-index.css')+'\n'+read('modules/madar-hub/os1.css')+'\n'+read('modules/madar-hub/os-practice.css')+'\n'+read('modules/madar-hub/os-desktop.css')+'\n'+read('modules/madar-hub/os-curriculum.css')+'\nhtml,body{margin:0;background:#101118}#madar-hub{border-radius:0;min-height:100vh}#mh-owner-tools{padding:15px 34px}#mh-network-background{position:fixed;inset:0;width:100%;height:100%;border:0;z-index:-1;pointer-events:none}#madar-hub[data-course=network] .mh-atmosphere{display:none}#madar-hub[data-course=network]{background:#090b0e}#madar-hub[data-course=network] #mh-main{background:transparent}');
 shell=shell.replace('<div class="mh-atmosphere"','<iframe id="mh-network-background" title="خلفية الشبكة" tabindex="-1" aria-hidden="true" hidden></iframe><div class="mh-atmosphere"');
 const legacy=`<script>if(['account','my-space'].includes(location.hash.slice(1)))location.replace('/account');else if(['home','word','excel','access','learn','quiz','reference','saved','mistakes','about','session','results'].includes(location.hash.slice(1).split('/')[0]))location.replace('/applications'+location.search+location.hash);</script>`;
