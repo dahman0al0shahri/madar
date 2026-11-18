@@ -18,7 +18,7 @@ export function findSearchResults({ query, scope, courses, lessons, available, c
     ? words.every(word => searchText(value).includes(word))
     : value.toLowerCase().includes(text);
   const courseHits = available().filter(id => (scope === 'all' || scope === id)
-    && matches(courses[id].name + (hosted ? ' ' + aliases[id] : '')))
+    && matches(courses[id].name + (hosted ? ' ' + (aliases[id] || '') : '')))
     .map(id => ({ title: courses[id].name, sub: 'مقرر', route: `course:${id}:home` }));
   const lessonHits = lessons.filter(lesson => canLesson(lesson)
     && (scope === 'all' || scope === lesson.course)

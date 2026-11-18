@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مدار · أطلس الشيفرة</title><style>/* ATLAS_STYLE */</style></head><body>
+<header><div class="bar"><b class="brand"><span class="orbit" aria-hidden="true"></span> مدار <span class="slash">/</span> أطلس الشيفرة</b><bdi id="revision"></bdi></div></header>
+<main>
+<section class="intro"><div><h1>خريطة مدار</h1><p>من شاشة المستخدم إلى الدالة والسطر والاختبار.</p></div><div class="metrics" id="metrics"></div></section>
+<nav id="tabs" aria-label="أقسام الخريطة"><button data-tab="map">خريطة الوظائف</button><button data-tab="files">مستكشف الشيفرة</button><button data-tab="build">مسار البناء</button><button data-tab="audit">سجل الفحص</button></nav>
+<section id="map" class="pane"><div class="map-layout"><aside><h2>أجزاء المشروع</h2><div id="features"></div></aside><article class="panel"><h2 id="feature-name"></h2><p class="hint" id="feature-note"></p><div id="trail" class="trail"></div><details><summary>كل المداخل والمصادر المسجلة لهذه الوظيفة</summary><div id="related"></div></details></article></div></section>
+<section id="files" class="pane" hidden><div class="workbench"><aside><h2>ملفات المستودع</h2><label>اسم ملف أو دالة<input id="query" type="search" placeholder="courseCard / course-views" dir="auto"></label><label>نوع الملف<select id="role"></select></label><div class="pager"><button id="prevFiles" aria-label="ملفات سابقة">السابق</button><small id="results"></small><button id="nextFiles" aria-label="ملفات تالية">التالي</button></div><div id="matches"></div></aside>
+<article class="panel" id="file-panel"><h2 dir="ltr" id="filename"></h2><p class="hint" id="file-desc"></p><div id="file-rel"></div><div id="source-area"><div class="source-tools"><label>السطر<input id="line" type="number" min="1"></label><label>الدالة أو التعريف<select id="symbol"></select></label></div><div id="code" aria-label="أسطر الملف"></div><section class="analysis"><h3 id="line-title">شرح السطر</h3><div id="explanation" aria-live="polite"></div></section></div></article></div></section>
+<section id="build" class="pane panel" hidden><h2>من المصدر إلى الملف المولّد</h2><p class="hint">اختر ناتجًا لرؤية مرحلة بنائه ومدخلاتها. عند تجميع أجزاء ملف واحد، ترتيب القائمة هو ترتيب الدمج.</p><label>ملف ناتج<select id="product" dir="ltr"></select></label><div id="assembly"></div></section>
+<section id="audit" class="pane panel" hidden><h2>سجل الفحص</h2><p class="hint">فصلٌ بين إصلاح يمكن إعادة اختباره، وتشابه أو ملاحظة بناء تحتاج إلى قراءة سياقها.</p><div id="findings"></div></section>
+</main><!-- ATLAS_DATA --><script>/* ATLAS_READER */</script></body></html>

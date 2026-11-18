@@ -1,5 +1,7 @@
 # Code map
 
+The [interactive code atlas](code-atlas/README.md) provides a searchable snapshot of the repository, feature tours, line details and build relationships. The browser CI job verifies and archives it for each revision.
+
 Use this map to find the maintained source before editing. The machine-readable [project map](../project-map.json) validates feature entry points, top-level areas, source parts and generated output paths with `npm run check:structure`. The [source layout](SOURCE_LAYOUT.md) lists all 21 units now edited as named parts.
 
 ## Find a feature

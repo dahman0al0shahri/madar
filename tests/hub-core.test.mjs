@@ -163,6 +163,15 @@ test('network revision exit also waits for pending notes and profile persistence
   assert.equal(f.events.at(-1), '/network-review?chapter=4');
 });
 
+test('route aliases accept encoded names, malformed fragments and ordinary object names', () => {
+  assert.equal(routeFromHash('#my%2Dspace'), 'account');
+  assert.equal(routeFromHash('#%'), 'home');
+  for (const name of ['constructor', 'toString', '__proto__']) {
+    assert.equal(routeFromHash('#' + name), name);
+    assert.equal(hashForRoute(name), '#' + name);
+  }
+});
+
 test('history restores aliases and blocks pending changes', () => {
   const f = navigationFixture();
   f.setHash('#courses'); assert.equal(f.navigation.restoreHistory(), true);
@@ -213,4 +222,17 @@ test('preview adapter retains its key and widget payload contract', async () => 
   const widget = createPreviewEnvironment({ initial: initial(), storage, key: 'preview',
     getWidget: () => ({ setWidgetState: value => calls.push(value) }), shouldFail: () => false });
   await widget.write(initial()); assert.equal(calls[1].privateContent.hub.route, 'home');
+});
+
+
+test('account configuration keeps saved revision, legacy defaults and independent fallback copies', async () => {
+  const { configFor } = await import('../lib/madar-state.mjs');
+  const store = row => ({ prepare: () => ({ first: async () => row }) });
+  const first = await configFor(store(null));
+  first.config.access.os1 = 'restricted';
+  assert.equal((await configFor(store(null))).config.access.os1, 'public');
+  const saved = { access: { office: 'restricted' }, custom: 'preserved' };
+  assert.deepEqual(await configFor(store({ snapshot: JSON.stringify(saved), revision: 7 })), {
+    config: { ...saved, access: { os1: 'public', office: 'restricted' } }, revision: 7
+  });
 });

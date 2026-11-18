@@ -1,5 +1,7 @@
 # MADAR repository report
 
+The [interactive code atlas](code-atlas/README.md) provides a searchable snapshot of the repository, feature tours, line details and build relationships. The browser CI job verifies and archives it for each revision.
+
 Reconciled by Codex on **18 November 2026**, using GitHub metadata, the publication tree, source code, CI evidence and the owner's instructions. This report separates current repository status from dated hosting checks and the historical merge ledger. Earlier task-specific authorizations remain historical, not standing merge permission.
 
 ## Current state

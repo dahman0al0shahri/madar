@@ -6,6 +6,11 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Interactive source atlas and reliability
+
+- Added an offline Arabic source explorer with feature tours, line inspection, assembly inputs and a review of duplicate content. CI verifies the archive and exercises it in Chromium.
+- Fixed malformed routes, inherited alias names and a false search result for courses without aliases. Removed a redundant account configuration parse and enabled cross-platform TypeScript checks.
+
 ### Course and editor views
 
 - Organized shared course cards, home pages, preview lessons, account history, access rows, and announcement forms into readable rendering steps. Added coverage for restored visits and notes when lesson visibility changes.
