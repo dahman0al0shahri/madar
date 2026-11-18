@@ -44,6 +44,11 @@ The delegated event binder returns an idempotent disposer for its own listeners.
 
 Editor workflow coordination now belongs to `editor-actions.mjs`. It receives native form validation and field readers, keeps save-error reporting with the existing save controller, and owns the pending delete identifier. Requesting deletion only opens confirmation; it does not delete data. The composition still reads DOM fields and displays dialogs; the announcement controller owns the preview orbit/player lifetime. The preview template moved byte-for-byte to `editor-views.mjs`; no templates were redesigned. Course-change events retain their capture/reset/options/capture/schedule sequence.
 
+## Finding a view
+
+- In `course-views.mjs`, start with `courseCard` for the catalog card and `courseHome` for the course landing page. The latter delegates the operating systems home and uses `sectionLinks` for the other courses. The fallback section and lesson renderers are `previewCourseSection` and `previewLessonPage`. Hosted overrides live in `hosted-course-views.mjs`.
+- In `editor-views.mjs`, `account` builds the course filters, visible visits and notes. Follow `admin` to `courseAccessRows` for course and lesson visibility or to `updateRow` for an announcement. `editorMarkup` groups the form fields and actions. Saving and cancellation are handled by `editor-actions.mjs`.
+
 ## Verification and maintenance
 
 `tests/hub-core.test.mjs` imports the modules directly without a DOM or installed browser. It covers restoration, permissions, positions, concurrent saves, debounce, failures, cancellation, retry, history, redirects and adapter payloads. It runs in `npm run check`.
