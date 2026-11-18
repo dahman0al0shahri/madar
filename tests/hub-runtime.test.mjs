@@ -90,8 +90,14 @@ test('route lifecycle disposes old content before replacement, mounts in order a
 
 test('hosted course adapters preserve denied labs, theory/practice routing, hints and live permissions', () => {
   let boot={canPractice:false},route='lesson:x';const calls=[];
-  const v=createHostedCourseViews({courses:{network:{name:'Network',sections:[]}},lessons:[],canLesson:()=>true,
-    getBoot:()=>boot,getRoute:()=>route,heading:String,esc:String,lessonRows:()=>'',
+  const referenceLessons = [
+    { id: 'theory', course: 'network', section: 'theory' },
+    { id: 'practice', course: 'network', section: 'lessons' },
+    { id: 'hidden', course: 'network', section: 'theory' },
+    { id: 'other', course: 'os1', section: 'theory' },
+  ];
+  const v=createHostedCourseViews({courses:{network:{name:'Network',sections:[]}},lessons:referenceLessons,canLesson:lesson=>lesson.id!=='hidden',
+    getBoot:()=>boot,getRoute:()=>route,heading:String,esc:String,lessonRows:rows=>'[rows:'+rows.map(row=>row.id).join(',')+']',
     osSection:s=>'os:'+s,osLessonPage:l=>'os:'+l.id,networkPracticalIndex:()=> 'practical-index',
     networkSelfTestPage:s=>'test:'+s,networkTheoryIndex:()=> 'theory-index',networkReference:()=> 'reference',
     theoryLessonPage:l=>{calls.push(l.id);return 'theory';},hintHistory:()=>'<section>hints</section>'});
@@ -99,9 +105,11 @@ test('hosted course adapters preserve denied labs, theory/practice routing, hint
   assert.equal(v.courseSection('network','hints'),'<section>hints</section>');
   assert.equal(v.courseSection('network','practice-vlan'),'test:practice-vlan');
   assert.doesNotMatch(v.courseSection('network','lab'),/<iframe/);
+  assert.match(v.courseSection('network','reference'), /\[rows:theory,practice\]<section class="mh-feedback-fold"/);
   const lesson={id:'x',course:'network',title:'Synthetic',theory:true,practice:true};
   assert.doesNotMatch(v.lessonPage(lesson),/<iframe/);route='lesson:x:reference';assert.match(v.lessonPage(lesson),/theory/);
   route='lesson:x';boot={canPractice:true};assert.match(v.lessonPage(lesson),/data-network-src="\/network-lab\?lesson=x"/);
+  assert.match(v.courseSection('network','reference'), /reference\[rows:theory\]<section class="mh-feedback-fold"/);
   assert.match(v.courseSection('network','lab'),/data-network-src="\/network-lab"/);assert.deepEqual(calls,['x']);
 });
 

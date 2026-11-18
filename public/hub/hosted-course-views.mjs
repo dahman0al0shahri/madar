@@ -2,7 +2,55 @@
 export function createHostedCourseViews({ courses, lessons, canLesson, getBoot, getRoute, heading, esc,
   lessonRows, osSection, osLessonPage, networkPracticalIndex, networkSelfTestPage,
   networkTheoryIndex, networkReference, theoryLessonPage, hintHistory }) {
-  function courseSection(id,section){if(id==='os1')return osSection(section);if(id==='network'&&section==='lessons')return networkPracticalIndex();const c=courses[id],title=c.sections.find(x=>x[0]===section)?.[1]||'مختبرات الشبكات';if(id==='network'&&['quiz','practice','exam','practice-vlan','practice-trunk','practice-inter'].includes(section))return networkSelfTestPage(section);if(id==='network'&&section==='hints')return hintHistory();if(section==='theory')return networkTheoryIndex();if(section==='lab'&&!getBoot().canPractice)return heading('المختبر غير متاح لهذا الحساب')+'<p>يتطلب هذا المختبر صلاحية أجزاء VLAN وTrunk وInter-VLAN جميعها.</p>';if(section==='lab')return heading('مختبرات الشبكات',c.name)+'<iframe allowfullscreen id="mh-network-lab" title="محاكي الشبكات" data-network-src="/network-lab" style="width:100%;height:1400px;border:0;border-radius:16px"></iframe>';const list=lessons.filter(l=>l.course===id&&canLesson(l)&&(section==='reference'||l.section!=='theory'));return heading(title,c.name)+(section==='lessons'||section==='quiz'?'<div class="mh-course-cover"><h2>'+ (section==='quiz'?'اختبر فهمك بالتطبيق':'مختبر جاهز أو تبويب جديد حر')+'</h2><p>متطلبات متغيرة وإرشاد تختاره. مختبراتك مستقلة، ويمكنك النسخ بينها باختيارك.</p><button class="mh-primary" data-go="course:network:lab">فتح محاكي الشبكات</button></div>':'')+(section==='reference'&&getBoot().canPractice?networkReference()+lessonRows(list.filter(l=>l.section==='theory')):lessonRows(list))+(section==='reference'?'<section class="mh-feedback-fold" aria-labelledby="mh-feedback-title"><h2 id="mh-feedback-title">شارك تجربتك أو بلّغ عن مشكلة</h2><div id="mh-network-feedback"></div></section>':'');}
+  const selfTestSections = ['quiz', 'practice', 'exam', 'practice-vlan', 'practice-trunk', 'practice-inter'];
+
+  function labPage(course) {
+    if (!getBoot().canPractice) {
+      return heading('المختبر غير متاح لهذا الحساب')
+        + '<p>يتطلب هذا المختبر صلاحية أجزاء VLAN وTrunk وInter-VLAN جميعها.</p>';
+    }
+    return heading('مختبرات الشبكات', course.name)
+      + '<iframe allowfullscreen id="mh-network-lab" title="محاكي الشبكات" data-network-src="/network-lab" style="width:100%;height:1400px;border:0;border-radius:16px"></iframe>';
+  }
+
+  function labCover(section) {
+    const title = section === 'quiz' ? 'اختبر فهمك بالتطبيق' : 'مختبر جاهز أو تبويب جديد حر';
+    return '<div class="mh-course-cover"><h2>' + title + '</h2>'
+      + '<p>متطلبات متغيرة وإرشاد تختاره. مختبراتك مستقلة، ويمكنك النسخ بينها باختيارك.</p>'
+      + '<button class="mh-primary" data-go="course:network:lab">فتح محاكي الشبكات</button></div>';
+  }
+
+  function courseSection(courseId, section) {
+    if (courseId === 'os1') return osSection(section);
+    if (courseId === 'network' && section === 'lessons') return networkPracticalIndex();
+
+    const course = courses[courseId];
+    const title = course.sections.find(([key]) => key === section)?.[1] || 'مختبرات الشبكات';
+    if (courseId === 'network') {
+      if (selfTestSections.includes(section)) return networkSelfTestPage(section);
+      if (section === 'hints') return hintHistory();
+    }
+    if (section === 'theory') return networkTheoryIndex();
+    if (section === 'lab') return labPage(course);
+
+    const isReference = section === 'reference';
+    const visibleLessons = lessons.filter(lesson =>
+      lesson.course === courseId && canLesson(lesson) && (isReference || lesson.section !== 'theory')
+    );
+    let html = heading(title, course.name);
+    if (section === 'lessons' || section === 'quiz') html += labCover(section);
+
+    if (isReference && getBoot().canPractice) {
+      html += networkReference() + lessonRows(visibleLessons.filter(lesson => lesson.section === 'theory'));
+    } else {
+      html += lessonRows(visibleLessons);
+    }
+    if (isReference) {
+      html += '<section class="mh-feedback-fold" aria-labelledby="mh-feedback-title"><h2 id="mh-feedback-title">شارك تجربتك أو بلّغ عن مشكلة</h2><div id="mh-network-feedback"></div></section>';
+    }
+    return html;
+  }
+
   function lessonPage(l){
     if(l.course==='os1')return osLessonPage(l);
     if(l.theory&&(!l.practice||getRoute().endsWith(':reference')))return (l.practice?'<button class="mh-btn" data-go="lesson:'+esc(l.id)+'">ارجع للتطبيق العملي</button>':'')+theoryLessonPage(l);
