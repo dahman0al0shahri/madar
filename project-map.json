@@ -179,6 +179,7 @@
       "title": "Account backup",
       "entry": "app/api/study-backup/route.ts",
       "sources": [
+        "public/account-center.mjs",
         "lib/study-backup.mjs"
       ],
       "integration": [
@@ -190,6 +191,7 @@
       "title": "Feedback and reporting",
       "entry": "app/api/feedback-center/route.ts",
       "sources": [
+        "public/feedback-center.js",
         "lib/feedback-center.mjs"
       ],
       "integration": [
@@ -201,6 +203,7 @@
       "title": "Excel and Access worksheet saves",
       "entry": "app/api/worksheet/route.ts",
       "sources": [
+        "public/worksheet-store.js",
         "lib/worksheet.mjs"
       ],
       "integration": [

@@ -35,6 +35,14 @@ The owner received the Cisco materials through college courses. Evidence of perm
 
 The inventory contained 533 WebP, 147 JPEG, 10 PNG, 147 MP4, 22 SVG and one TTF. Contact sheets covered the 690 raster images and a decoded midpoint from each of the 147 recordings. These include rendered course slides, lab documents, operating-system demonstrations and visual test references. Small text, audio and other video frames require a separate review if publication depends on their contents. Keep original notices with bundled components. [Component inventory](RIGHTS.md)
 
+| Asset family | Used by | Practical replacement if redistribution is not approved |
+| --- | --- | --- |
+| `public/assets/network-labs/` | Lab downloads and illustrated practical instructions | Link each lab to its authorized college source and supply original diagrams and practice instructions. |
+| `public/assets/network-sources/` | Networking chapter slides and rendered course pages | Replace deck and slide images together with original explanations. |
+| `public/srwe-review/` | Chapter 4–6 theory review references and question illustrations | Replace referenced PDFs and derivative question images together; verify question references and offline review. |
+| `public/assets/os1/` | OS1 lesson scenes, video and posters | Confirm the recording source, or substitute original demonstrations and matching posters; verify scene IDs and playback. |
+| `public/downloads/excel/` | Downloadable exercise and solution workbooks | Verify provenance or author an equivalent exercise and solution with the same learning objective. |
+
 ## Administrator and feedback contact
 
 | Source | Use |
@@ -51,9 +59,11 @@ The publication-clone scan covered 64 reachable commits, 383 trees and 2,084 uni
 
 ## Dependency and code quality
 
-The 18 November lockfile audit recorded 43 affected packages, including critical findings for Next.js and React Server DOM. Next.js and its ESLint configuration move from 16.3.4 to 16.4.6. React, React DOM and React Server DOM move together from 19.2.6 to 19.3.1. The candidate audit returned 41 affected packages (25 high, 15 moderate and one low). These are dependency findings. Hosted reachability needs a separate assessment. Remaining families include Vite, the Cloudflare and vinext toolchain, Drizzle Kit and Zod; review their upgrades with their framework and storage compatibility constraints. Run `npm audit --package-lock-only` again when making a dependency decision.
+The 18 November lockfile audit recorded 43 affected packages, including critical findings for Next.js and React Server DOM. Next.js and its ESLint configuration move from 16.3.4 to 16.4.6. React, React DOM and React Server DOM move together from 19.2.6 to 19.3.1. The candidate audit returned 41 affected packages (25 high, 15 moderate and one low). These are dependency findings. A separate production-only lockfile query returned four affected packages (two high and two moderate). Hosted reachability needs a separate assessment. Remaining families include Vite, the Cloudflare and vinext toolchain, Drizzle Kit and Zod; review their upgrades with their framework and storage compatibility constraints. Run `npm audit --package-lock-only` again when making a dependency decision.
 
 `npm run check:lint` covers app routes, services, maintained hub modules, scripts, tests and the MADAR build helpers. The candidate run reported zero errors and 18 existing warnings (unused values and an anonymous export). CommonJS modules retain their native require syntax. TypeScript and the repository generation, browser and recovery tests are separate checks. Generated bundles, embedded legacy fragments and vendored code require their respective generation and behavior checks.
+
+The home composer uses checked slots. The network simulator and shared asset builders retain source-text replacements where the surrounding HTML, CSS and JavaScript share scope; missing or repeated required anchors fail tests. The engineering guide identifies editable parts and the generation inventory. Replacing these contracts without a concrete behavior or maintenance defect would put the checked outputs at risk. The release comparison covered all 40 generated outputs.
 
 ## Open verification
 

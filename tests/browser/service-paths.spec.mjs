@@ -6,11 +6,18 @@ import { localRequestsOnly } from './local-requests.mjs';
 test.beforeEach(async ({ context, baseURL }) => localRequestsOnly(context, baseURL));
 
 test('OS1 practice records a checked explanation and returns to the source lesson', async ({ page }) => {
-  await page.goto('/#course:os1:practice');
-  const card = page.locator('.op-card [data-os-lab]').first();
-  const activity = await card.getAttribute('data-os-lab');
-  await card.click();
-  await expect(page.locator('.op-lab')).toHaveAttribute('data-op-lab', activity);
+  await page.goto('/#lesson:os1-lesson-1');
+  await page.locator('[data-os-step="3"]').first().click();
+  await page.locator('[data-os-lab="install"]').click();
+  await expect(page.locator('.op-lab')).toHaveAttribute('data-op-lab', 'install');
+  await page.locator('[data-vm="open"][data-window="settings"]').click();
+  const drive = page.locator('[data-vm-form="dvd"]');
+  await drive.locator('select[name="iso"]').selectOption('Windows2012R2RTM.iso');
+  await drive.getByRole('button', { name: 'OK', exact: true }).click();
+  await page.locator('[data-vm="power"]').first().click();
+  await expect(page.locator('[data-window-id="boot"]')).toContainText('Press any key to boot');
+  await page.locator('[data-vm="boot-key"]').click();
+  await expect(page.locator('[data-window-id="setup"]')).toBeVisible();
   await page.locator('input[name="op-reason"]').first().check();
   await page.locator('[data-op-action="check"]').click();
   await expect(page.locator('.op-result li').first()).toBeVisible();
