@@ -26,6 +26,7 @@ for (const [file, entry] of Object.entries(inventory.files)) {
   for(const [category,explanation,evidence] of model.notes){
     assert(typeof evidence==='string' && evidence.length>15 && evidence!==explanation,'Missing independent detail in '+file);
     assert(typeof explanation==='string' && explanation.length>10,file);
+    if(category==='data' && inventory.revision==='9ce3df0f1314262e5e2c95285c7544312fba577a')assert(!explanation.includes('، ومحتواها '),'Data purpose needs review in '+file);
     counted[category]=(counted[category]||0)+1;
   }
   const bytes = Buffer.from(model.content);
@@ -75,6 +76,8 @@ const indexFile='drizzle/0010_great_wendell_vaughn.sql';
 const schema=JSON.parse(gunzipSync(Buffer.from(inventory.payloads[inventory.files[indexFile].payload],'base64')));
 const indexLine=schema.content.split('\n').findIndex(row=>row.startsWith('CREATE UNIQUE INDEX'));
 assert.match(schema.notes[indexLine][2],/CREATE UNIQUE INDEX.*account_code_unique/);
+assert.match(noteContaining('lib/feedback-lessons.json','"general"'),/خيار البلاغ العام/);
+assert.match(noteContaining('drizzle/meta/_journal.json','"when"'),/المللي ثانية/);
 assert(!counted.literal,'Unclassified source lines require inspection');
 assert(inventory.experiments.length>=16,'Missing behavioral experiments');
 for(const item of inventory.experiments){

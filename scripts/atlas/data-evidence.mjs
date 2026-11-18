@@ -1,4 +1,5 @@
 // Compare a physical line deletion inside the smallest unchanged enclosing JSON container.
+import {contextField} from './context-fields.mjs';
 const pointer = keys => keys.length ? '/'+keys.map(k=>String(k).replaceAll('~','~0').replaceAll('/','~1')).join('/') : '(الجذر)';
 const brief = value => JSON.stringify(value)?.slice(0,95) ?? 'غير موجود';
 
@@ -108,6 +109,8 @@ export function dataMeaning(file,keys,value,root){
   if(file==='lib/os-media-manifest.json' && (key==='offset'||key==='size'))return key==='offset'?'إزاحة بداية الجزء بالبايت داخل الملف المجزأ.':'عدد بايتات هذا الجزء عند تجميع مورد الوسائط.';
   if(file==='package-lock.json' && keys[0]==='packages' && keys.length===2)return 'يسجل وصف الحزمة المثبتة في '+(keys[1]||'جذر المشروع')+' وتُقرأ تحته نسخة الحزمة ومتطلباتها المتاحة.';
   if(file==='tsconfig.json')return 'يدخل هذا الضبط في إعداد فاحص TypeScript للمشروع تحت '+pointer(keys)+'.';
+  const specific=contextField(file,keys,value,root);
+  if(specific)return specific;
   if(file==='package-lock.json')return '';
   return Object.hasOwn(terms,key)?terms[key]:'';
 }
