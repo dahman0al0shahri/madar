@@ -1,3 +1,4 @@
+import { readFile } from 'node:fs/promises';
 import { expect, test } from '@playwright/test';
 import { localRequestsOnly } from './local-requests.mjs';
 
@@ -91,4 +92,52 @@ test('theory review restores a retried account answer in a fresh session', async
   } finally {
     await fresh.close();
   }
+});
+
+test('conflicting review sessions preserve the server answer and export the stale draft', async ({ page, browser, baseURL }) => {
+  await openReview(page, signIn);
+  const second = await browser.newContext({ baseURL });
+  try {
+    await localRequestsOnly(second, baseURL);
+    const stale = await second.newPage();
+    await openReview(stale, signIn);
+    const record = async () => {
+      const response = await page.request.get(accountEndpoint);
+      expect(response.ok()).toBe(true);
+      return response.json();
+    };
+    const initial = await record();
+    const id = '4-01';
+    const choices = initial.snapshot?.study?.[id]?.choices || [];
+    const [firstChoice, secondChoice] = [0, 1, 2, 3].filter(i => !choices.includes(i));
+    const answers = tab => tab.locator('[data-qid="4-01"] .choice-input');
+    await activate(answers(page).nth(firstChoice), 'Space');
+    await expect(page.locator('#save-status')).toHaveAttribute('data-status', 'saved');
+    const firstSave = await record();
+    expect(firstSave.snapshot.study[id].choices).toEqual([firstChoice]);
+
+    const conflict = stale.waitForResponse(r => r.url().endsWith(accountEndpoint) && r.request().method() === 'PUT');
+    await activate(answers(stale).nth(secondChoice), 'Space');
+    expect((await conflict).status()).toBe(409);
+    await expect(stale.locator('#save-status')).toContainText('نسخة أحدث');
+    await activate(stale.locator('#srwe-retry-save'), 'Enter');
+    await expect(answers(stale).nth(secondChoice)).toBeChecked();
+    expect(await record()).toEqual(firstSave);
+
+    const downloading = stale.waitForEvent('download');
+    await activate(stale.locator('#export-progress'), 'Enter');
+    const download = await downloading;
+    expect(await download.failure()).toBeNull();
+    const draft = JSON.parse(await readFile(await download.path(), 'utf8'));
+    expect(draft.study[id].choices).toEqual([secondChoice]);
+
+    stale.on('dialog', dialog => dialog.accept());
+    await Promise.all([
+      stale.waitForEvent('domcontentloaded'),
+      activate(stale.getByRole('button', { name: 'تحميل نسخة الحساب' }), 'Enter')
+    ]);
+    await stale.waitForFunction(() => window.SRWE_READY === true);
+    await expect(answers(stale).nth(firstChoice)).toBeChecked();
+    expect(await record()).toEqual(firstSave);
+  } finally { await second.close(); }
 });

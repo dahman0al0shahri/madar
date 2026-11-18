@@ -6,9 +6,7 @@ These instructions describe how to handle sensitive information. They are not a 
 
 Do not publish credentials, real learner data, or account-exposing reproduction details in a public issue.
 
-The repository exists and Issues are enabled. Use **Security → Report a vulnerability** only if that option is available. Private vulnerability reporting has not been verified as enabled; do not assume that an ordinary Issue is private. Otherwise, contact the owner through an existing private channel rather than posting sensitive details in Issues.
-
-No dedicated security email or response-time commitment has been established. Confirm a usable private reporting route for the now-public repository; do not publish a personal address as that route without the owner's decision.
+Use [Report a vulnerability](https://github.com/dahman0al0shahri/madar/security/advisories/new) for sensitive reports. Private reporting was enabled and verified through the GitHub API on 18 November 2026. The owner has not established a response-time commitment.
 
 ## Keep out of the repository
 
@@ -24,6 +22,6 @@ Application code reads identity headers supplied by a hosting gateway. Local tes
 
 ## Automated checks
 
-The four-job workflow requests read access to repository contents, pins actions to full commit hashes, and has no deployment steps or deployment secrets. It tests repository safeguards, Windows/Linux startup and recovery, and Linux browser/visual behavior with synthetic data. The hosted guest verifier is opt-in and does not run against production in CI. These checks do not establish comprehensive security, real hosted account isolation, or clearance of Git history and media for public access.
+The four-job workflow requests read access to repository contents, pins actions to full commit hashes, and deploys the checked source atlas to GitHub Pages after a successful main run. It tests repository safeguards, Windows/Linux startup and recovery, and Linux browser/visual behavior with synthetic data. The hosted guest verifier is opt-in and does not run against production in CI. These checks do not establish comprehensive security, real hosted account isolation, or clearance of Git history and media for public access.
 
 Reference: [GitHub Actions secure use](https://docs.github.com/en/actions/reference/security/secure-use).

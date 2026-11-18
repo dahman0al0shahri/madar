@@ -23,7 +23,7 @@ const documents = [
   'docs/ENGINEERING.md', 'docs/CODE_MAP.md', 'docs/decisions/0001-generated-interface-boundary.md',
   'README.md', 'CONTRIBUTING.md', 'SECURITY.md', 'docs/README.md',
   'docs/START_HERE.md', 'docs/DEVELOPMENT.md', 'docs/ARCHITECTURE.md',
-  'docs/RIGHTS.md', 'docs/RELEASE_READINESS.md', 'docs/COURSE_INTEGRATION.md',
+  'docs/RIGHTS.md', 'docs/PUBLICATION_INVENTORY.md', 'docs/RELEASE_READINESS.md', 'docs/COURSE_INTEGRATION.md',
   'CHANGELOG.md', 'AGENTS.md', 'docs/MAINTENANCE.md', 'docs/templates/RELEASE_NOTES.md',
   'docs/GITHUB_WORKFLOW.md', 'docs/REPOSITORY_REPORT.md',
   'docs/STORY.md', 'docs/HISTORY.md', 'docs/BROWSER_TESTS.md', 'docs/BACKUP_RECOVERY.md', 'docs/HOSTED_VERIFICATION.md',

@@ -47,6 +47,8 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm run install:ci
+      - name: Lint application routes, services, hub, build tools and tests
+        run: npm run check:lint
       - name: Check TypeScript and unused locals
         run: npm run check:types
       - name: Build and test isolated startup, persistence and backup recovery

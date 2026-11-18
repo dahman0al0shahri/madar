@@ -219,7 +219,7 @@
       [
         "حفظ الضيف والحساب",
         "public/madar-persistence.js",
-        "if(owner==='guest'){value=clone(next)",
+        "async function write(next)",
         "يكتب الضيف الإجابة داخل متصفحه. للحساب مسودة في الجلسة، ثم يرسل المتصفح اللقطة ورقم نسختها إلى الخادم."
       ],
       [
@@ -240,6 +240,13 @@
         "test('theory review restores a retried account answer in a fresh session",
         "يفحص كتابة الإجابة بعد فشل طلب الحساب واستعادتها من قاعدة البيانات في جلسة جديدة. يشمل الأمر أيضًا اختبار الضيف.",
         "npm run check:browser -- --review-save"
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/review-save.spec.mjs",
+        "test('conflicting review sessions",
+        "يختبر تعارض جلستين لنفس الحساب وتنزيل المسودة واسترجاع إجابة الخادم.",
+        "npm run check:browser -- --grep \"conflicting review sessions\""
       ]
     ]
   },
@@ -307,6 +314,13 @@
         "test('lesson pages delegate OS",
         "يفحص اختيار عارض درس نظم التشغيل قبل معالجة إتاحة مختبر الشبكات.",
         "node --test tests/hub-runtime.test.mjs"
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/service-paths.spec.mjs",
+        "test('OS1 practice records",
+        "يفتح نشاطًا محليًا ويختار تفسيرًا ويتحقق من النتيجة ثم يعود إلى الدرس.",
+        "npm run check:browser -- --grep \"OS1 practice records\""
       ]
     ]
   },
@@ -502,6 +516,81 @@
         "test('course navigation and saved lesson note survive a fresh browser session",
         "يفحص استرجاع الملاحظة في جلسة جديدة وتطابق النص في النسخة المنزّلة.",
         "npm run check:browser -- --lesson-note"
+      ]
+    ]
+  },
+  "backup": {
+    "title": "تنزيل نسخة من الحساب",
+    "note": "يجمع بيانات المقررات والملاحظات وأوراق العمل لصاحب الحساب في نسخة قابلة للتنزيل.",
+    "steps": [
+      [
+        "تنفيذ الطلب",
+        "app/api/study-backup/route.ts",
+        null,
+        "يربط طلب التطبيق بخدمة البيانات."
+      ],
+      [
+        "مسار البيانات",
+        "lib/study-backup.mjs",
+        "function studyBackup",
+        "يجمع بيانات المقررات والملاحظات وأوراق العمل لصاحب الحساب في نسخة قابلة للتنزيل."
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/application.spec.mjs",
+        "test('course navigation and saved lesson note",
+        "ينزّل نسخة الحساب من الواجهة ويفحص الملاحظة المحفوظة داخل الملف.",
+        "npm run check:browser -- --grep \"course navigation and saved lesson note\""
+      ]
+    ]
+  },
+  "feedback": {
+    "title": "الملاحظات والبلاغات",
+    "note": "يحفظ البلاغ ويربط إعادة إرسال الطلب نفسه بالبلاغ الموجود.",
+    "steps": [
+      [
+        "تنفيذ الطلب",
+        "app/api/feedback-center/route.ts",
+        null,
+        "يربط طلب التطبيق بخدمة البيانات."
+      ],
+      [
+        "مسار البيانات",
+        "lib/feedback-center.mjs",
+        "function submitFeedback",
+        "يحفظ البلاغ ويربط إعادة إرسال الطلب نفسه بالبلاغ الموجود."
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/service-paths.spec.mjs",
+        "test('feedback retries create",
+        "يرسل بلاغًا تجريبيًا مرتين ويتأكد من ظهور سجل واحد.",
+        "npm run check:browser -- --grep \"feedback retries create\""
+      ]
+    ]
+  },
+  "worksheets": {
+    "title": "حفظ أوراق Excel ومختبر Access",
+    "note": "يتحقق من هوية الحساب والدرس وإصدار الحفظ قبل كتابة الحالة.",
+    "steps": [
+      [
+        "تنفيذ الطلب",
+        "app/api/worksheet/route.ts",
+        null,
+        "يربط طلب التطبيق بخدمة البيانات."
+      ],
+      [
+        "مسار البيانات",
+        "lib/worksheet.mjs",
+        "function worksheetRequest",
+        "يتحقق من هوية الحساب والدرس وإصدار الحفظ قبل كتابة الحالة."
+      ],
+      [
+        "تشغيل اختبار المسار",
+        "tests/browser/service-paths.spec.mjs",
+        "test('worksheet saves for Excel",
+        "يحفظ نشاطين في قاعدة مؤقتة ويفحص استعادتهما في النسخة الاحتياطية.",
+        "npm run check:browser -- --grep \"worksheet saves for Excel\""
       ]
     ]
   }

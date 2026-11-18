@@ -59,3 +59,5 @@ JavaScript and TypeScript operations use compiler syntax ranges. Supported inlin
 ## Feature verification
 
 Every current tour contains a named test, a description of its assertions and a copyable command. Select the test link to jump to its declaration. The [network theory review tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=network-review) follows the guest and account stores through retry and restore. The [home tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=home) identifies the two build stages and their output-order test. Historical snapshots display the guide stored with that revision.
+
+The backup, feedback and worksheet tours follow each request to its storage service and name the browser test that verifies its result.
