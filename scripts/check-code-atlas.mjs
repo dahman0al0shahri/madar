@@ -78,6 +78,8 @@ const indexLine=schema.content.split('\n').findIndex(row=>row.startsWith('CREATE
 assert.match(schema.notes[indexLine][2],/CREATE UNIQUE INDEX.*account_code_unique/);
 assert.match(noteContaining('lib/feedback-lessons.json','"general"'),/خيار البلاغ العام/);
 assert.match(noteContaining('drizzle/meta/_journal.json','"when"'),/المللي ثانية/);
+assert.match(noteContaining('.githooks/pre-commit','#!/bin/sh'), /مفسّر/);
+assert.match(noteContaining('.githooks/pre-commit','--staged'), /--staged/);
 assert(!counted.literal,'Unclassified source lines require inspection');
 assert(inventory.experiments.length>=16,'Missing behavioral experiments');
 for(const item of inventory.experiments){

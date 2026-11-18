@@ -22,6 +22,14 @@ The description file must contain the actual change, checks, impact, and limits.
 
 This is end-of-update automation executed by Codex, **not** an always-running background file watcher. It does not publish arbitrary edits made by another editor or host. The owner does not need to repeat the GitHub request for future authorized MADAR updates; the agent instructions require this completion step.
 
+## Codex project guidance
+
+The project instructions in [AGENTS.md](../AGENTS.md) include a generated command and feature reference. Edit commands in `package.json` and feature routes and generator inventories in `project-map.json`. Keep owner decisions and authorization in the hand-written sections of the guide. Changes to those decisions require owner review.
+
+The maintained source checkout uses `.githooks/pre-commit` to refresh this reference from staged inputs on commit. For another checkout, inspect existing hooks before opting into the repository hooks with `git config --local core.hooksPath .githooks`. This also enables the repository pre-push guard. An ordinary checkout can run `npm run maintenance:sync` explicitly. If the guide has unstaged edits and needs an update, the hook stops so you can refresh and stage only what you intend.
+
+`npm run check:guidance` checks freshness without writing. The repository check runs it before publication and on GitHub. Each push and PR also rebuilds and checks the atlas. A successful main push publishes the verified atlas and checks the public files against the build.
+
 ## Public access and owner-controlled maintenance
 
 The owner explicitly requested public GitHub access on 16 November 2026, then confirmed public downloading/forking with external contributions restricted. GitHub now uses `visibility: public` and `pull_request_creation_policy: collaborators_only`. The sole existing privileged account is the owner; no collaborators were added. Pull requests stay enabled for the owner's reviewed update workflow. Issues remain available for feedback, while wiki and discussions remain disabled. Public viewing/copying does not grant write access. The marker and guard validate this policy alongside the same numeric identity, destination, branch and path boundaries. [Publication findings](RELEASE_READINESS.md) remain a record of the audit limits; visibility is not a claim that every finding was resolved.

@@ -53,8 +53,46 @@ Apply these rules alongside the governing workspace instructions. This file does
 - For hub state, saves, storage, navigation, search, editing, route/editor templates or event delegation, read `docs/HUB_CORE.md` and edit the owning `public/hub/*.mjs` module. Keep dependencies explicit and update the module-edge guard when adding a dependency. Test rules directly and run browser recovery/history and editor/search checks. Do not reintroduce generated text surgery for extracted responsibilities. Lesson-step/note and access/viewer mutations belong to `lesson-actions.mjs` and `access-actions.mjs`; supply live readers and explicit note/save/UI adapters. Editor workflow coordination belongs to `editor-actions.mjs`, and preview markup belongs to `editor-views.mjs`; keep form reads in composition. Announcement state/resources belong to `announcements.mjs` and `scene-resources.mjs`; common/hosted templates belong to `course-views.mjs` and `hosted-course-views.mjs`. Keep route replacement in `view-lifecycle.mjs` with explicit browser hooks in `route-adapter.js`. Use checked named hub slots rather than matching executable statements in the generator. Course-specific legacy engines still share composition scope; do not claim full isolation. Preserve template bytes unless a visual change is explicitly authorized.
 
 - Read `docs/ENGINEERING.md` and `docs/CODE_MAP.md` before maintenance. Locate original sources, integration stages and affected tests before editing generated interfaces.
-- Read `docs/SOURCE_LAYOUT.md` for the 21 units assembled from `modules/source-parts/`. Edit the owning named part, preserve shared scope and boundary text, and use the order in `project-map.json.sourceAssemblies`. Never fix the assembled copy alone, import an individual `.inc` fragment or split content/vendor files solely because they are large.
+- Read `docs/SOURCE_LAYOUT.md` for the units assembled from `modules/source-parts/`. Edit the owning named part, preserve shared scope and boundary text, and use the order in `project-map.json.sourceAssemblies`. Never fix the assembled copy alone, import an individual `.inc` fragment or split content/vendor files solely because they are large.
 - Keep `project-map.json` accurate for feature entry points, top-level areas and generator outputs. Run `npm run check`; generator edits also require the isolated generation check and applicable startup/browser evidence. Do not silently refresh visual baselines.
 - Place new code with its owning feature, use readable named functions, and keep rendering, persistence and course data distinguishable. Do not grow the compatibility string-replacement pipeline when a maintained module can own the behavior. Preserve literal/template whitespace and approved interfaces.
 - Do not reorganize unrelated legacy files or replace frameworks as a side effect of a small task. State the reason and verification boundary for structural changes; document lasting decisions in `docs/decisions/`.
 - End each task with the actual changes, original source paths, checks/limits, branch/commit/PR and explicit local/upload/merge/deployment state. Use the developer handoff format when another person needs to continue. No standing authorization to merge, deploy or add collaborators is introduced.
+
+<!-- BEGIN generated maintenance reference -->
+### Current maintenance reference
+
+Refresh this section with `npm run maintenance:sync`. Repository checks verify it against `package.json` and `project-map.json`.
+
+Run these scripts with `npm run <name>`:
+
+- `atlas:build`
+- `atlas:check`
+- `check`
+- `check:application`
+- `check:browser`
+- `check:generation`
+- `check:guidance`
+- `check:lint`
+- `check:structure`
+- `check:types`
+- `generate`
+- `install:ci`
+- `maintenance:sync`
+
+| Feature | Start reading here |
+| --- | --- |
+| `home` | `app/route.ts` |
+| `office` | `app/applications/route.ts` |
+| `network-lab` | `app/network-lab/route.ts` |
+| `network-review` | `app/network-review/route.ts` |
+| `os1` | `modules/madar-hub/os1.js` |
+| `lesson-notes` | `public/notes.js` |
+| `accounts` | `app/api/account/route.ts` |
+| `admin` | `app/admin/route.ts` |
+| `backup` | `app/api/study-backup/route.ts` |
+| `feedback` | `app/api/feedback-center/route.ts` |
+| `worksheets` | `app/api/worksheet/route.ts` |
+
+The generator has 21 source assemblies and 40 declared outputs.
+<!-- END generated maintenance reference -->

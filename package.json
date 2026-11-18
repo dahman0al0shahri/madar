@@ -13,6 +13,8 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "db:local": "node scripts/local-database.mjs",
+    "maintenance:sync": "node scripts/maintenance-guidance.mjs --write",
+    "check:guidance": "node scripts/maintenance-guidance.mjs --check",
     "atlas:build": "node scripts/build-code-atlas.mjs",
     "atlas:check": "node scripts/check-code-atlas.mjs",
     "check:types": "tsc --noEmit --incremental false --noUnusedLocals",

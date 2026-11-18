@@ -83,6 +83,8 @@ node scripts/check-repository.mjs
 
 After installing dependencies, `npm run check:application` builds and tests local startup, persistence and SQL recovery with isolated synthetic data. A separate Chromium suite checks desktop/mobile interactions, account export and six visual references. GitHub runs four jobs: repository checks, Windows application checks, Linux application checks, and Linux browser/visual checks. It does not deploy the application. See [development](docs/DEVELOPMENT.md), [browser checks](docs/BROWSER_TESTS.md), and [backup/recovery](docs/BACKUP_RECOVERY.md).
 
+The [project instructions for Codex](AGENTS.md) include the current maintenance commands and feature entry points. The [GitHub workflow](docs/GITHUB_WORKFLOW.md#codex-project-guidance) explains how commits refresh the reference and how CI verifies it.
+
 ## Repository map
 
 | Directory | Purpose |

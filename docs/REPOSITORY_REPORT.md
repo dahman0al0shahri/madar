@@ -27,6 +27,7 @@ MADAR remains experimental. The owner confirmed classmates have used it and that
 | --- | --- |
 | Trace a feature and run its test | [Interactive atlas](code-atlas/README.md) and [engineering guide](ENGINEERING.md) |
 | Review course materials and contact locations | [public-source inventory](PUBLICATION_INVENTORY.md) |
+| Check current Codex guidance | The local commit hook refreshes the command and feature reference in [AGENTS.md](../AGENTS.md). CI independently regenerates and compares that section. See the [setup and edit workflow](GITHUB_WORKFLOW.md#codex-project-guidance). |
 | Open a maintenance PR | [GitHub workflow](GITHUB_WORKFLOW.md). GitHub enforces a PR with all four current checks on an up-to-date branch, including for administrators. |
 | Report a sensitive issue | [Private reporting](../SECURITY.md), enabled on 18 November 2026 |
 | Verify appearance and recovery | [Browser tests](BROWSER_TESTS.md) and [local recovery](BACKUP_RECOVERY.md) |
@@ -35,6 +36,8 @@ MADAR remains experimental. The owner confirmed classmates have used it and that
 The first-time developer exercise is ready in the engineering guide. Independent feedback awaits a participant. For package advisories and lint coverage see the [public-source inventory](PUBLICATION_INVENTORY.md).
 
 ## Completed merge ledger
+
+GitHub updates the [complete list of merges to main](https://github.com/dahman0al0shahri/madar/pulls?q=is%3Apr+is%3Amerged+base%3Amain+sort%3Aupdated-desc) when a PR merges. Use the [main workflow runs](https://github.com/dahman0al0shahri/madar/actions/workflows/repository-checks.yml?query=branch%3Amain) for post-merge verification and the [published atlas](https://dahman0al0shahri.github.io/madar/) for the latest verified source inventory. The table below is the historical snapshot through PR #22.
 
 | PR | Change reviewed | Merge |
 | --- | --- | --- |

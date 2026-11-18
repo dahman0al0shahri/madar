@@ -1,0 +1,2 @@
+#!/bin/sh
+exec node scripts/maintenance-guidance.mjs --staged
