@@ -425,6 +425,13 @@
         "test('hub search and update editor use isolated synthetic adapters",
         "يفحص واجهة محرر المستجدات والبحث ببيانات تجريبية.",
         "npm run check:browser -- --grep \"hub search and update editor\""
+      ],
+      [
+        "حفظ إعدادات الإدارة",
+        "tests/admin-storage.test.mjs",
+        "test('administrator configuration persists",
+        "يشغّل الخدمة مع قاعدة SQLite في الذاكرة ليفحص الصلاحيات وتكرار الطلب وتعارض النسخ.",
+        "node --test tests/admin-storage.test.mjs"
       ]
     ]
   },

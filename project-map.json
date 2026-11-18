@@ -170,7 +170,8 @@
       ],
       "integration": [
         "SECURITY.md",
-        "tests/browser/hub-views.spec.mjs"
+        "tests/browser/hub-views.spec.mjs",
+        "tests/admin-storage.test.mjs"
       ]
     },
     {
