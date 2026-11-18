@@ -43,14 +43,14 @@ const payloads={};
 let lineCount=0,textCount=0;
 function digestAnalysis(name, result, content) {
   const f=files[name];
-  f.deps=[...new Set(result.imports.map(spec=>resolveImport(name,spec,paths)).filter(Boolean))];
+  f.deps=[...new Set(result.imports.map(spec=>resolveImport(originalParts.get(name)?.output || name,spec,paths)).filter(Boolean))];
   f.symbols=[...new Set(result.symbols.map(s=>s[2]))];
   const lines=content ? content.split('\n').length - Number(content.endsWith('\n')) : 0;
   f.lines=lines; textCount++;lineCount+=lines;
   const key=f.oid+':'+language(name)+(originalParts.has(name)?':part:'+name:'');
   f.payload=key;
   if (!Object.hasOwn(payloads,key)) {
-    payloads[key]=gzipSync(JSON.stringify({content,symbols:result.symbols,ops:result.operations,bindings:result.bindings})).toString('base64');
+    payloads[key]=gzipSync(JSON.stringify({content,symbols:result.symbols,ops:result.operations,bindings:result.bindings,branches:result.branches,fields:result.fields||[]})).toString('base64');
   }
   const lineAt = offset => content.slice(0,offset).split('\n').length;
   if (!generated.has(name) && !name.startsWith('vendor/')) {
@@ -71,7 +71,7 @@ for (const assembly of map.sourceAssemblies) {
     const operations=clip(whole.operations);
     const bindings=whole.bindings.filter(([at])=>at>=begin && at<end)
       .map(([at,label,uses])=>[at-begin,label,uses.filter(i=>i>=begin&&i<end).map(i=>i-begin)]);
-    originalParts.set(part,{bindings,symbols:clip(whole.symbols),operations,imports:operations.filter(row=>['import','export'].includes(row[2])).map(row=>row[3]),
+    originalParts.set(part,{output:assembly.output,bindings,branches:clip(whole.branches),symbols:clip(whole.symbols),operations,imports:operations.filter(row=>['import','export'].includes(row[2])).map(row=>row[3]),
       diagnostics:points(whole.diagnostics),repeatedKeys:points(whole.repeatedKeys)});
     begin=end;
   }

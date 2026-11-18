@@ -17,6 +17,8 @@ export function analyze(file, source) {
   const symbols = [], operations = [], imports = [], diagnostics = [], repeatedKeys = [];
   const lang = language(file);
   const bindings = [];
+  const branches = [];
+  const fields = [];
 
   function parseScript(code, offset, kind) {
     const ast = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, kind);
@@ -28,6 +30,12 @@ export function analyze(file, source) {
       if (ts.isFunctionLike(n) && n.body || ts.isClassDeclaration(n) || ts.isInterfaceDeclaration(n) || ts.isTypeAliasDeclaration(n)) {
         const name = n.name || (n.parent && ts.isVariableDeclaration(n.parent) && n.parent.name);
         if (name) symbols.push([start, end, snippet(name)]);
+      }
+      if (ts.isIfStatement(n) || ts.isConditionalExpression(n)) {
+        const condition = snippet(n.expression || n.condition);
+        for (const [block,expected] of [[n.thenStatement || n.whenTrue,true],[n.elseStatement || n.whenFalse,false]]) {
+          if (block) branches.push([offset+block.getStart(ast),offset+block.end,expected,condition]);
+        }
       }
       if (ts.isImportDeclaration(n) || ts.isExportDeclaration(n)) {
         if (n.moduleSpecifier && ts.isStringLiteral(n.moduleSpecifier)) {
@@ -85,6 +93,29 @@ export function analyze(file, source) {
     bindings.push(...uses.values());
   }
 
+  if (lang === 'JSON') {
+    const ast = ts.parseJsonText(file, source);
+    for (const d of ast.parseDiagnostics) diagnostics.push([d.start || 0, ts.flattenDiagnosticMessageText(d.messageText, ' ')]);
+    function walk(value,parent,key,start) {
+      if (!value) return;
+      const index = fields.length;
+      fields.push([start, value.end, parent, key]);
+      if (ts.isObjectLiteralExpression(value)) {
+        const keys = new Set();
+        for (const prop of value.properties) {
+          if (!ts.isPropertyAssignment(prop)) continue;
+          const key = prop.name.text;
+          if (keys.has(key)) repeatedKeys.push([prop.getStart(ast),key]);
+          keys.add(key);
+          walk(prop.initializer,index,key,prop.getStart(ast));
+        }
+      } else if (ts.isArrayLiteralExpression(value)) {
+        value.elements.forEach((item,i)=>walk(item,index,i,item.getStart(ast)));
+      }
+    }
+    const root = ast.statements[0]?.expression;
+    if (root) walk(root,-1,'',root.getStart(ast));
+  }
   if (lang === 'JavaScript / TypeScript') {
     const kind = /\.tsx(?:\.inc)?$/.test(file) ? ts.ScriptKind.TSX : /\.[cm]?ts$/.test(file) ? ts.ScriptKind.TS : ts.ScriptKind.JS;
     parseScript(source, 0, kind);
@@ -96,7 +127,7 @@ export function analyze(file, source) {
       }
     }
   }
-  return { symbols, operations, bindings, imports: [...new Set(imports)], diagnostics, repeatedKeys };
+  return { symbols, operations, bindings, branches, fields, imports: [...new Set(imports)], diagnostics, repeatedKeys };
 }
 
 export function resolveImport(from, specifier, paths) {

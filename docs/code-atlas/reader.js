@@ -133,6 +133,11 @@
       const purpose=anchors.find(step=>offsets[step[2]-1]<=owner[0] && offsets[step[2]-1]+lines[step[2]-1].length>=owner[0]);
       if(purpose)h.append(el('p','وظيفة التعريف في مدار: '+purpose[3]));
     }
+    const guarded=decoded.branches.filter(([a,b])=>a<=start+text.search(/\S|$/) && b>start);
+    for(const [, , expected,condition] of guarded){
+      const row=el('p','يتنفذ هذا الفرع عندما يكون الشرط '+(expected?'متحققًا':'غير متحقق')+' · ');
+      row.append(el('bdi',condition));h.append(row);
+    }
     const direct=decoded.ops.filter(op=>op[0]>=start&&op[0]<end);
     const ops=direct.length?direct:decoded.ops.filter(op=>op[0]<start&&op[1]>start).sort((a,b)=>(a[1]-a[0])-(b[1]-b[0])).slice(0,1);
     if(ops.length){
@@ -141,6 +146,23 @@
       ops.slice(0,8).forEach(appendOp);h.append(wrap);
       if(ops.length>8){const b=button('عرض بقية العمليات ('+format(ops.length-8)+')',()=>{ops.slice(8).forEach(appendOp);b.remove();},'more');h.append(b);}
     }else h.append(el('p',localText(current,text)));
+    if(decoded.fields.length){
+      const pos=start+text.search(/\S|$/);
+      const selected=decoded.fields.filter(field=>field[0]<=pos&&field[1]>pos).at(-1);
+      if(selected){
+        const segments=[];let field=selected;
+        while(field && field[2]>=0){segments.unshift(field[3]);field=decoded.fields[field[2]];}
+        const pointer='/'+segments.map(key=>String(key).replaceAll('~','~0').replaceAll('/','~1')).join('/');
+        const p=el('p',segments.length?'موقع القيمة داخل بنية البيانات · ':'جذر ملف البيانات · ');
+        p.append(el('bdi',segments.length?pointer:'(root)'));h.append(p);
+        const packageEntry=current.endsWith('package-lock.json') && segments[0]==='packages';
+        if(packageEntry){
+          const meanings={version:'الإصدار المثبّت الذي يستخدمه التثبيت القابل للتكرار.',integrity:'بصمة تتحقق بها أداة التثبيت من محتوى الحزمة.',resolved:'العنوان الذي سُجّل لجلب هذه الحزمة.',dependencies:'حزم يحتاجها هذا الإدخال عند التثبيت.',engines:'إصدارات بيئة التشغيل التي يعلن هذا الإدخال دعمها.'};
+          const key=segments.slice(2).find(k=>Object.hasOwn(meanings,k));
+          if(key)h.append(el('p',meanings[key]));
+        }
+      }
+    }
     const refs=decoded.bindings.filter(([at,label,uses])=>(at>=start&&at<end)||uses.some(i=>i>=start&&i<end));
     if(refs.length){
       const box=el('details');box.append(el('summary','التعريفات ومواضع استخدامها في هذا الملف · '+format(refs.length)));
@@ -170,7 +192,23 @@
     ids('file-desc').textContent=roles[f.role]+' · '+(f.text?format(f.lines)+' سطر':'حجم '+format(f.bytes)+' بايت')+' — '+context;
     const relations=ids('file-rel');relations.replaceChildren();
     if(feature)relations.append(el('small',feature.title));
-    group(relations,'يستورد ملفات محلية',f.deps);group(relations,'تستورده هذه الملفات',reverse.get(name));
+    const inputs=f.deps||[], callers=reverse.get(name)||[];
+    if(inputs.length||callers.length){
+      const graph=el('details',undefined,'dependency-map');graph.open=true;
+      graph.append(el('summary','خريطة ارتباط هذا الملف'));
+      const lanes=el('div',undefined,'lanes');
+      function lane(title,paths){
+        const col=el('section');col.append(el('strong',title));
+        paths.slice(0,4).forEach(p=>col.append(fileLink(p)));
+        if(paths.length>4)group(col,'بقية الملفات',paths.slice(4));
+        return col;
+      }
+      const center=el('section',undefined,'selected-node');center.append(el('strong','الملف المحدد'),el('bdi',name.split('/').at(-1)));
+      if(callers.length)lanes.append(lane('ملفات تستورده',callers));
+      lanes.append(center);
+      if(inputs.length)lanes.append(lane('ملفات يستوردها',inputs));
+      graph.append(lanes);relations.append(graph);
+    }
     if(assembly)group(relations,'يُجمّع في',[assembly.output]);
     const unit=map.sourceAssemblies.find(x=>x.output===name);
     if(unit)group(relations,'مصادر التعديل بالترتيب',unit.parts);

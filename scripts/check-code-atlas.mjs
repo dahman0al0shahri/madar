@@ -15,9 +15,12 @@ for (const [file, entry] of Object.entries(inventory.files)) {
   const bytes = Buffer.from(model.content);
   assert.equal(createHash('sha1').update('blob ' + bytes.length + '\0').update(bytes).digest('hex'), entry.oid, file);
   assert.equal(entry.lines, bytes.length ? model.content.split('\n').length - Number(model.content.endsWith('\n')) : 0, file);
-  for (const [start, end] of [...model.symbols, ...model.ops]) assert(start >= 0 && start <= end && end <= model.content.length, file);
+  for (const [start, end] of [...model.symbols, ...model.ops, ...model.branches]) assert(start >= 0 && start <= end && end <= model.content.length, file);
   for (const [offset,name,mentions] of model.bindings) {
     for (const at of [offset,...mentions]) assert(at >= 0 && at < model.content.length, name+' in '+file);
+  }
+  for (const [i,[a,b,parent]] of model.fields.entries()) {
+    assert(a>=0 && b<=model.content.length && b>=a && parent<i, file);
   }
   for (const target of entry.deps) assert(Object.hasOwn(inventory.files, target), target);
   if (inventory.subjects && entry.lines) {
