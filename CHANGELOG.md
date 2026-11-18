@@ -6,6 +6,8 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+- Added guest and account theory-review recovery checks, organized home and shared asset assembly, and linked each atlas tour to its test and run command.
+
 - Added checked network simulator and OS curriculum build integrations, targeted failure and recovery tests, source-linked atlas tours and a first-time maintainer exercise.
 
 ### Interactive source atlas and reliability

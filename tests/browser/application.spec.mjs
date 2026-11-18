@@ -1,14 +1,7 @@
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs/promises';
 
-async function localRequestsOnly(context, baseURL) {
-  // All requests stay on the disposable local server. No production analytics or learner services.
-  await context.route('**/*', route => {
-    const url = new URL(route.request().url());
-    return url.origin === baseURL || ['data:', 'blob:'].includes(url.protocol)
-      ? route.continue() : route.abort('blockedbyclient');
-  });
-}
+import { localRequestsOnly } from './local-requests.mjs';
 test.beforeEach(async ({ context, baseURL }) => localRequestsOnly(context, baseURL));
 
 test('course navigation and saved lesson note survive a fresh browser session', async ({ page, browser, baseURL }, testInfo) => {

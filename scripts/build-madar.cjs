@@ -12,5 +12,5 @@ buildSourceAssemblies(context);
 buildNetworkSimulator(context);
 buildHub(context);
 buildSharedAssets(context);
-require('./build-srwe.cjs');
+require('./build-srwe.cjs').buildTheoryReview();
 console.log('Built integrated MADAR pages and simulator');

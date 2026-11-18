@@ -115,6 +115,18 @@ Remaining questions:
 
 A separate project copy with synthetic data is sufficient. Never send the entire parent study workspace, a learner database, a token or a browser session. An invited developer's feedback does not itself authorize a merge or grant write access.
 
+## Trace a theory review answer
+
+Open [the network review tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=network-review). In `modules/source-parts/network-revision/04-answers.js.inc`, the choice handler updates the record for the question and requests a save. The assembly produces `modules/srwe-review/practice-base.js`. The review builder in `scripts/build-srwe.cjs` connects that request to `MadarStore.open('srwe')` in the browser bundle. Its status element distinguishes a pending write, successful write and error. The retry button sends the current draft.
+
+In `public/madar-persistence.js`, a guest writes to `localStorage` in the current browser. A signed-in user keeps a pending draft in the session and sends a revision and request ID to the state API. The server checks the authenticated owner, lesson access and snapshot schema. A subsequent GET in a fresh signed-in session retrieves the accepted SQL record. Both routes open the snapshot through the review validator before showing the saved choices.
+
+From a clean checkout with locked dependencies and Chromium installed, run `npm run check:browser -- --review-save`. The two tests in [review-save.spec.mjs](../tests/browser/review-save.spec.mjs) cover those paths separately. Use `node --test tests/shared-review-build.test.mjs` for changes to the build integration or tour links.
+
+## Edit the home assembly
+
+[hub.cjs](../build/madar/hub.cjs) prepares the lab attachments, fills the hub script slots, renders the home shell and assembles the ordered styles. [shared-assets.cjs](../build/madar/shared-assets.cjs) integrates the background, copies static resources and adds the deferred scripts and styles to both home documents. Edit the maintained inputs and run `npm run check:generation` to compare all registered outputs in an isolated copy.
+
 ## Current limitations
 
 The enumerated mixed-responsibility units are now split into named maintained parts. Compatibility transformations and shared runtime scope remain, as do coherent content banks and bundled libraries. This organization does not claim independent-module isolation, conversion of all interfaces to React, a dependency audit or a full lint/type/security audit. See [the source-split decision](decisions/0002-preserve-shared-scope-during-source-split.md) and [repository report](REPOSITORY_REPORT.md).

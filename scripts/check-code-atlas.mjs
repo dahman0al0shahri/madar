@@ -112,7 +112,8 @@ try {
       await expect(page.locator('#feature-name')).toHaveText(tour.title);
       const stops = page.locator('#trail a');
       await expect(stops).toHaveCount(tour.steps.length);
-      for (const [index, [, file, line]] of tour.steps.entries()) {
+      for (const [index, [, file, line, , command]] of tour.steps.entries()) {
+        if (command) await expect(page.locator('#trail .stop').nth(index).locator('code')).toHaveText(command);
         await expect(stops.nth(index)).toHaveAttribute('href', '#' + new URLSearchParams({ view: 'files', file, line }));
       }
     }
