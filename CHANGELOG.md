@@ -6,6 +6,8 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+- Refresh the Codex command and feature reference from staged project files on commit. Repository checks detect stale guidance in any checkout. The repository report links to live merge history, checks and the published atlas.
+
 - Organized shared persistence and covered two-session conflicts, worksheet recovery, feedback retries and OS1 practice. Added corresponding atlas tours, documented the source review and enabled server-enforced PR checks and private reporting.
 
 - Added guest and account theory-review recovery checks, organized home and shared asset assembly, and linked each atlas tour to its test and run command.
