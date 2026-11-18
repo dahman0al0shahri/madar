@@ -6,6 +6,10 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Hosted course sections
+
+- Made the section dispatcher, lab access check and lesson-list rendering readable in the hosted course view. Existing routes, permission checks and rendered HTML are preserved.
+
 ### Developer onboarding
 
 - Added a fresh-clone walkthrough for tracing animation cancellation and running its focused test. Aligned the entry guides and repository status with the merged runtime modules.
