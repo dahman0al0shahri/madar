@@ -6,6 +6,10 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Hosted lesson pages
+
+- Clarified how the hub selects the operating systems, theory, and practical lesson views. The practical template now groups the reference button, simulator, and notes in display order.
+
 ### Hosted course sections
 
 - Made the section dispatcher, lab access check and lesson-list rendering readable in the hosted course view. Existing routes, permission checks and rendered HTML are preserved.
