@@ -113,6 +113,33 @@ test('hosted course adapters preserve denied labs, theory/practice routing, hint
   assert.match(v.courseSection('network','lab'),/data-network-src="\/network-lab"/);assert.deepEqual(calls,['x']);
 });
 
+test('lesson pages delegate OS and theory before checking practice access and keep lab links and notes together', () => {
+  let canPractice = false;
+  const views = createHostedCourseViews({
+    courses: { network: { name: 'Network' } },
+    osLessonPage: () => 'OS lesson',
+    theoryLessonPage: () => 'Theory lesson',
+    getRoute: () => assert.fail('Only mixed lessons need a route lookup'),
+    getBoot: () => ({ canPractice }),
+    heading: title => title,
+    esc: value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;'),
+  });
+  const lesson = Object.freeze({ course: 'network', id: 'unit/a&b', title: 'Lab "A"', practice: true });
+
+  assert.equal(views.lessonPage({ course: 'os1' }), 'OS lesson');
+  assert.equal(views.lessonPage({ course: 'network', theory: true }), 'Theory lesson');
+  const denied = views.lessonPage(lesson);
+  assert.match(denied, /mh-empty/);
+  assert.doesNotMatch(denied, /data-network-src|lesson-notes/);
+
+  canPractice = true;
+  const practical = views.lessonPage(lesson);
+  assert.ok(practical.includes('data-go="lesson:unit/a&amp;b:reference"'));
+  assert.ok(practical.includes('title="Lab &quot;A&quot; — الدرس والمحاكي"'));
+  assert.ok(practical.includes('data-network-src="/network-lab?lesson=unit%2Fa%26b"'));
+  assert.match(practical, /<\/iframe><details[^>]*>.*id="lesson-notes"/);
+});
+
 test('common course templates read restored profiles and delegate without mutating learning data', () => {
   let p={visits:{},notes:{}};const lessons=[{id:'n1',course:'network',title:'Synthetic',steps:['One'],kind:'درس',section:'theory'}];
   const courses={network:{name:'Network',description:'Course',color:'#fff',tags:[],sections:[['theory','Theory']]}};

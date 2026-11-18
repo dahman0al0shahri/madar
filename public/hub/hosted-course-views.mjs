@@ -51,11 +51,34 @@ export function createHostedCourseViews({ courses, lessons, canLesson, getBoot, 
     return html;
   }
 
-  function lessonPage(l){
-    if(l.course==='os1')return osLessonPage(l);
-    if(l.theory&&(!l.practice||getRoute().endsWith(':reference')))return (l.practice?'<button class="mh-btn" data-go="lesson:'+esc(l.id)+'">ارجع للتطبيق العملي</button>':'')+theoryLessonPage(l);
-    if(!getBoot().canPractice)return heading(l.title,courses[l.course].name)+'<div class="mh-empty">المختبر غير متاح لهذا الحساب. يتطلب الوصول إلى أجزاء VLAN وTrunk وInter-VLAN.</div>';
-    return heading(l.title,courses[l.course].name+' / الدرس العملي')+(l.practice?'<button class="mh-btn" data-go="lesson:'+esc(l.id)+':reference">الشرح والصور وأسئلة المراجعة</button>':'')+'<iframe allowfullscreen id="mh-network-lab" title="'+esc(l.title)+' — الدرس والمحاكي" data-network-src="/network-lab?lesson='+encodeURIComponent(l.id)+'" style="width:100%;height:1400px;border:0;border-radius:16px"></iframe><details class="mh-note-box mh-space-top"><summary>ملاحظاتي في هذا الدرس</summary><div id="lesson-notes"></div></details>';
+  function practicalLessonPage(lesson) {
+    const title = heading(lesson.title, courses[lesson.course].name + ' / الدرس العملي');
+    const referenceButton = lesson.practice
+      ? `<button class="mh-btn" data-go="lesson:${esc(lesson.id)}:reference">الشرح والصور وأسئلة المراجعة</button>`
+      : '';
+    const lab = `<iframe allowfullscreen id="mh-network-lab" title="${esc(lesson.title)} — الدرس والمحاكي"`
+      + ` data-network-src="/network-lab?lesson=${encodeURIComponent(lesson.id)}"`
+      + ' style="width:100%;height:1400px;border:0;border-radius:16px"></iframe>';
+    const notes = '<details class="mh-note-box mh-space-top"><summary>ملاحظاتي في هذا الدرس</summary><div id="lesson-notes"></div></details>';
+    return title + referenceButton + lab + notes;
+  }
+
+  function lessonPage(lesson) {
+    if (lesson.course === 'os1') return osLessonPage(lesson);
+
+    const showTheory = lesson.theory && (!lesson.practice || getRoute().endsWith(':reference'));
+    if (showTheory) {
+      const practiceButton = lesson.practice
+        ? `<button class="mh-btn" data-go="lesson:${esc(lesson.id)}">ارجع للتطبيق العملي</button>`
+        : '';
+      return practiceButton + theoryLessonPage(lesson);
+    }
+
+    if (!getBoot().canPractice) {
+      return heading(lesson.title, courses[lesson.course].name)
+        + '<div class="mh-empty">المختبر غير متاح لهذا الحساب. يتطلب الوصول إلى أجزاء VLAN وTrunk وInter-VLAN.</div>';
+    }
+    return practicalLessonPage(lesson);
   }
 
   return { courseSection, lessonPage };
