@@ -108,3 +108,5 @@ The repository is public at the owner's explicit request, with external pull req
 Repository-facing documentation is written in English. The application's Arabic content and original course names retain their source language.
 
 Browser regression checks: [desktop/mobile interactions and visual references](docs/BROWSER_TESTS.md).
+
+Hub scene resources, route lifecycle and course rendering are documented in [hub contracts](docs/HUB_CORE.md). Maintainers should edit their native module or explicit browser adapter; the hub builder uses checked named slots instead of rewriting function bodies. Existing OS/network engines remain compatibility inputs.

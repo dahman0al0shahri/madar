@@ -30,7 +30,7 @@ The build uses React, TypeScript, and Vinext/Vite. The application also includes
 
 ## Sources and generated output
 
-Hub state, saving, navigation, search, editing, route/editor templates, event delegation and lesson/access actions are native modules under `public/hub/`, loaded by the hub entry with explicit adapters and callbacks. Checked environment/course-tool slots and an editor-composition boundary replace text rewriting for migrated responsibilities. See [hub contracts](HUB_CORE.md); course renderers, animation lifecycle and other legacy integrations still use the compatibility pipeline.
+Hub state, saving, navigation, search, editing, route/editor templates, event delegation and lesson/access actions are native modules under `public/hub/`, loaded by the hub entry with explicit adapters and callbacks. Checked environment/course-tool slots and an editor-composition boundary replace text rewriting for migrated responsibilities. See [hub contracts](HUB_CORE.md); common/hosted course views and route/announcement lifecycle are independent modules. Eight checked slots compose the remaining course engines and browser adapters without rewriting executable hub statements. Other legacy generators retain their documented compatibility transformations.
 
 `scripts/run-framework.mjs` runs `scripts/build-madar.cjs` before development and build commands. The first stage concatenates 176 ordered source parts into 21 compatibility files without altering their bytes, scope or loading order. Subsequent stages integrate these with other sources and write the existing 19 downstream outputs, including `lib/madar-home.html`, `lib/network-simulator.html`, and `public/index.html`.
 
@@ -54,4 +54,4 @@ For a new portable checkout, `npm run db:local` applies the existing SQL migrati
 
 `scripts/local-state.mjs` validates checkout-contained storage paths. The integration check selects an isolated directory under `.sites-runtime` via `MADAR_LOCAL_STATE_PATH`; regular development retains its existing default. Local SQL recovery and account export are verified by the [backup checks](BACKUP_RECOVERY.md). Hosted guest access is covered by the explicit [anonymous check](HOSTED_VERIFICATION.md). Real hosted sign-in, two-account isolation, hosted recovery and R2 media recovery remain unverified; the local result must not be extended to those cases.
 
-Editor workflow coordination uses `public/hub/editor-actions.mjs`, separate from the draft rules in `editor.mjs` and markup in `editor-views.mjs`. Form/dialog and scene-lifecycle adapters remain in composition; state formats and server authorization are unchanged.
+Editor workflow coordination uses `public/hub/editor-actions.mjs`, separate from the draft rules in `editor.mjs` and markup in `editor-views.mjs`. Form/dialog adapters remain in composition; announcement resources and ordered route replacement have their own controllers. State formats and server authorization are unchanged.

@@ -63,3 +63,7 @@ Add a milestone when a meaningful change is supported by a dated source, an expl
 ### 17 November 2026 — PR #12 merged
 
 [PR #12](https://github.com/dahman0al0shahri/madar/pull/12) separated lesson/note and access/viewer actions from DOM handlers. The owner authorized merge `d753ea252d38fca9f5b13014d4cedb3a9e961027`; [post-merge run 44094414724](https://github.com/dahman0al0shahri/madar/actions/runs/44094414724) passed all four jobs, including 72 repository tests and 14 browser cases. This records repository maintenance, not deployment or learner outcomes.
+
+## 18 November 2026 — Hub runtime and course organization
+
+Following the owner-authorized merge of [PR #13](https://github.com/dahman0al0shahri/madar/pull/13), the owner requested completion of the remaining hub scene/lifecycle, course-view and build-integration organization in one reviewed update. Source now separates those responsibilities and replaces executable hub text rewriting with checked composition slots. Tests use synthetic data, including repeated navigation and preserved profile fields. This records source work and the requested workflow; the resulting PR and CI records establish upload/merge status separately. No hosted deployment or learner outcome is claimed.

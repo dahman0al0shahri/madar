@@ -11,6 +11,8 @@
       $('#mh-network-lab')?.contentWindow?.document.getElementById('madar-labs')?.getLabsState?.().dirty,
     warn: () => say('احفظ تغييراتك قبل الرجوع.'),
   });
+  /* hub:frame-support:start */
+  /* hub:frame-support:end */
   function selectedCourse() { return navigation.selectedCourse(); }
   const go = navigation.go;
   if (environment.hosted) {

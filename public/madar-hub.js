@@ -1,7 +1,7 @@
 (async () => {
   const { createHubState, createSaveController, createNavigation, routeFromHash,
     createPreviewEnvironment, createHostedEnvironment, createEditorController, createEditorViews,
-    createHubViews, createSearchController, searchText, bindHubEvents, createLessonActions, createAccessActions, createEditorActions } = await import('/hub/index.mjs');
+    createHubViews, createSearchController, searchText, bindHubEvents, createLessonActions, createAccessActions, createEditorActions, createAnnouncements, nowDay, createCourseViews, createHostedCourseViews, createViewLifecycle, createNewsFramePlayer } = await import('/hub/index.mjs');
   'use strict';
   const root=document.getElementById('madar-hub'), $=s=>root.querySelector(s), $$=s=>[...root.querySelectorAll(s)];
   const KEY='madar-hub-preview-v1', motionPreference=matchMedia('(prefers-reduced-motion: reduce)'), reduced=motionPreference.matches;
@@ -14,12 +14,14 @@
     const body=network?`<path d="M8 18 15 11h19l6 7v15l-7 5H8Z" fill="url(#course-device-network)" stroke="#9e876a"/><path d="M8 18h32M34 12v5" stroke="#e5c49b" stroke-opacity=".6"/><rect x="11" y="23" width="26" height="9" rx="1" fill="#080d12" stroke="#7e7160"/>${[13,19,25,31].map(x=>`<path d="M${x} 25h4v4h-4Z" fill="#303c42" stroke="#b19772" stroke-width=".55"/><path d="M${x+1} 25v1m2-1v1" stroke="#e6cd99" stroke-width=".6"/>`).join('')}<path d="M14 6h14l-3-3m3 3-3 3M34 42H20l3-3m-3 3 3 3" fill="none" stroke="${tone}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="35" r="1" fill="#8ed9ae"/>`:`<path d="M10 5h28v38H10Z" fill="#101b25" stroke="#718fa6"/><path d="M12 7h24M12 41h24" stroke="#a9becb" stroke-opacity=".5"/>${[9,20,31].map(y=>`<rect x="13" y="${y}" width="22" height="8" rx="1.2" fill="url(#course-device-os1)" stroke="#607b90" stroke-width=".7"/><path d="M17 ${y+2}v4m3-4v4m3-4v4m3-4v4" stroke="#09121b" stroke-width="1.4"/><circle cx="31" cy="${y+3}" r="1.2" fill="${tone}"/><circle cx="31" cy="${y+6}" r=".7" fill="#8de9bc"/>`).join('')}`;
     return `<span class="mh-course-icon mh-course-icon-${id}" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><defs><linearGradient id="course-device-${id}" x1="0" y1="0" x2=".5" y2="1"><stop stop-color="${network?'#5d6264':'#526a7c'}"/><stop offset=".5" stop-color="#26333d"/><stop offset="1" stop-color="#121c25"/></linearGradient></defs>${body}</svg></span>`;
   }
-  const courses={
+
+const courses={
     os1:{name:'نظم التشغيل 1',color:'#91c8ff',description:'Windows Server · التثبيت، Server Core، وإدارة المجال.',tags:['Windows Server','Server Core','AD DS'],sections:[['home','رئيسية المقرر'],['lessons','الجزء العملي'],['practice','طبّق وتحقّق'],['reference','الملاحظات والمصادر']]},
     office:{name:'تطبيقات الحاسب المتقدمة',color:'#8fbfff',description:'من المستندات والجداول إلى قواعد البيانات؛ شرح وتطبيق ومراجعة في Word وExcel وAccess.',tags:['Word','Excel','Access'],sections:[['home','رئيسية المقرر'],['word','Word'],['excel','Excel'],['access','Access'],['quiz','اختبر نفسك'],['reference','المرجع']]},
     network:{name:'التوجيه والتحويل ١',color:'#efb472',description:'افهم الشبكة من اتصال أجهزتها إلى إعدادها؛ دروس وتطبيق عملي في VLAN وInter-VLAN.',tags:['VLAN','Inter-VLAN','تطبيق عملي'],sections:[['home','رئيسية المقرر'],['theory','الجزء النظري'],['lessons','الجزء العملي'],['hints','سجل التلميحات'],['quiz','تمارين وتقييم'],['reference','المرجع']]}
   };
-  const initial={version:1,route:'home',viewer:'student',access:{office:'public',network:'public'},contentAccess:{},profiles:{student:{visits:{},notes:{},latest:null},guest:{visits:{},notes:{},latest:null}},editor:null,updates:[
+
+const initial={version:1,route:'home',viewer:'student',access:{office:'public',network:'public'},contentAccess:{},profiles:{student:{visits:{},notes:{},latest:null},guest:{visits:{},notes:{},latest:null}},editor:null,updates:[
     {id:'hub',title:'مدار يجمع رحلتك',body:'مقرراتك في مكان واحد. ادخل إلى مساحة كل مقرر، وارجع إلى تعلّمك من المكان اللي وقفت عنده.',course:'',target:'courses',places:['global'],status:'published',pin:true,date:'2026-10-15',start:'',end:'',duration:12,scene:'hub'},
     {id:'network',title:'مساحة للشبكات. وفهم أقرب للتطبيق.',body:'دروس وتدريب عملي يجمعان الفكرة وتنفيذها، مع إرشاد يساعدك عند الحاجة.',course:'network',target:'course:network:lessons',places:['global','course'],status:'published',pin:false,date:'2026-10-15',start:'',end:'',duration:14,scene:'network'},
     {id:'office',title:'مذاكرتك صارت مترابطة',body:'تنتقل بين Word وExcel وAccess، وتجمع الشرح والتطبيق والمراجعة داخل مقرر واحد.',course:'office',target:'course:office:home',places:['global','course'],status:'published',pin:false,date:'2026-10-15',start:'',end:'',duration:12,scene:'office'}
@@ -42,9 +44,7 @@ window.MADAR_ACCOUNT = { ...environment.boot.account, available: true };
   const { profile, canCourse, canLesson, available, lessonBy } = stateModel;
   // Temporary view compatibility: save status is driven only by the controller.
   let dirty = false;
-  let scheduleDay = nowDay();
-  let carousel = null, raf = 0, lastFrame = 0, elapsed = 0, paused = reduced;
-  let slideIndex = 0, keyboard = false, toastTimer, accountFilter = 'all';
+  let keyboard = false, toastTimer, accountFilter = 'all';
   
   const saves = createSaveController({
     getState: () => stateModel.value,
@@ -86,7 +86,7 @@ window.MADAR_ACCOUNT = { ...environment.boot.account, available: true };
       $('#mh-network-lab')?.contentWindow?.document.getElementById('madar-labs')?.getLabsState?.().dirty,
     warn: () => say('احفظ تغييراتك قبل الرجوع.'),
   });
-// A frame load event is not proof that the lab restored and opened its lesson.
+  // A frame load event is not proof that the lab restored and opened its lesson.
 // Keep startup visible, fetch the document explicitly, and never reload a
 // running lab (which may contain unsaved work).
 let disposeNetworkFrame=()=>{};
@@ -280,17 +280,12 @@ function updateNetworkBackground(course){
     });
   }
 
-function nowDay(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Riyadh',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());}
-  function eligible(u,scope){const day=nowDay();return u.status==='published'&&(!u.course||canCourse(u.course))&&(!u.target.startsWith('lesson:')||canLesson(lessonBy(u.target.split(':')[1])))&&(!u.start||u.start<=day)&&(!u.end||u.end>=day)&&(scope?u.course===scope&&u.places.includes('course'):u.places.includes('global'));}
-  function news(scope){return state.updates.filter(u=>eligible(u,scope)).sort((a,b)=>Number(b.pin)-Number(a.pin)||b.date.localeCompare(a.date));}
   function paintIcons(){globalThis.lucide?.createIcons({attrs:{width:19,height:19}});$$('button').forEach(b=>b.classList.add('cursor-interaction'));}
   function say(t){clearTimeout(toastTimer);$('#mh-toast').textContent=t;$('#mh-toast').hidden=false;toastTimer=setTimeout(()=>$('#mh-toast').hidden=true,4500);}
   function status(t){$('#mh-save').textContent=t;}
 
-function officeArt(){return `<div class="mh-office-scene" aria-hidden="true"><div class="mh-file" style="--i:0"><b>W</b><span class="mh-file-lines"></span></div><div class="mh-file" style="--i:1"><b>X</b><span class="mh-file-grid"></span></div><div class="mh-file" style="--i:2"><b>A</b><span class="mh-file-db"></span></div></div>`;}
-  function networkArt(){const paths=['M0 100L72 42L200 90','M200 90L320 30L400 80','M0 170L80 138L200 90','M200 90L320 145L400 170','M200 0V90','M200 90L210 180'];return `<div class="mh-network-map" aria-hidden="true"><svg viewBox="0 0 400 180"><path class="mh-network-wire" d="M0 100L72 42L200 90L320 30L400 80M0 170L80 138L200 90L320 145L400 170M72 42L80 138M320 30L320 145M200 0V90L210 180"/>${paths.map((d,i)=>`<path class="mh-network-flow mh-network-trail" pathLength="100" d="${d}" style="--flow-delay:${-i*.8}s;--flow-duration:${4+i%3}s"/><path class="mh-network-flow mh-network-signal" pathLength="100" d="${d}" style="--flow-delay:${-i*.8}s;--flow-duration:${4+i%3}s"/>`).join('')}${[[72,42],[80,138],[320,30],[320,145],[210,180]].map(([x,y],i)=>`<circle class="mh-network-node-halo" cx="${x}" cy="${y}" r="10" style="--node-delay:${-i*.8}s"/><circle class="mh-network-node" cx="${x}" cy="${y}" r="3.3" style="--node-delay:${-i*.8}s"/>`).join('')}</svg></div><div class="mh-network-center" aria-hidden="true"><span>${icon('cloud')}<i class="mh-network-leds"><b></b><b></b><b></b></i></span></div>`;}
-  let liquidOrbit=null,brandOrbit=null,networkNewsPlayer=null;
-// Curated triads, not random RGB: broad variety without muddy or near-identical mixes.
+
+  // Curated triads, not random RGB: broad variety without muddy or near-identical mixes.
 const orbitTriads=[
   ['#31D7EA','#8467F5','#F6A7D8'],['#18D3B1','#379DFA','#E3B9FF'],
   ['#FFB45E','#F46491','#8A75F4'],['#51E0C1','#D5EE8F','#F4B364'],
@@ -386,25 +381,12 @@ function createLiquidOrbit(mark,options={}){
   };
 }
 
-function createNetworkNewsPlayer(frame){
-  if(!frame)return null;
-  let showing=false;
-  const send=()=>frame.contentWindow?.postMessage({type:'madar-news-scene',active:showing,paused:paused||motionPreference.matches},location.origin);
-  const observer=new IntersectionObserver(entries=>{showing=entries[0].isIntersecting;send();});observer.observe(frame);
-  const ready=e=>{if(e.source===frame.contentWindow&&e.origin===location.origin&&e.data?.type==='madar-news-ready')send();};
-  frame.addEventListener('load',send);addEventListener('message',ready);
-  return {sync:send,dispose(){observer.disconnect();frame.removeEventListener('load',send);removeEventListener('message',ready);}};
+function createNetworkNewsPlayer(frame) {
+  return createNewsFramePlayer({ frame, eventTarget: window, origin: location.origin,
+    observe: callback => new IntersectionObserver(callback),
+    isPaused: () => announcements.isPaused() || motionPreference.matches });
 }
 
-  function scene(u){if(u.scene==='office')return officeArt();if(u.scene==='network')return '<iframe class="mh-network-showcase" src="/network-news.html" title="مشهد تفاعلي لتوصيل Router وSwitch — تكبير وسحب"></iframe>';return `<div class="mh-main-mark" aria-hidden="true"><div class="mh-orbit-core"></div><span>مدار</span><div class="mh-liquid-bubble"><canvas></canvas></div></div>`;}
-  function carouselMarkup(scope){const items=news(scope);if(!items.length)return `<div class="mh-empty">لا توجد مستجدات متاحة الآن.</div>`;carousel={items,scope};slideIndex=Math.min(slideIndex,items.length-1);return `<section class="mh-carousel" aria-label="${scope?'آخر مستجدات '+courses[scope].name:'آخر مستجدات مدار'}" aria-roledescription="عارض مستجدات"><div class="mh-section-head"><h2>${scope?'آخر مستجدات '+courses[scope].name:'آخر مستجدات مدار'}</h2><span class="mh-eyebrow">${scope?'داخل المقرر':'في مدار'}</span></div><div class="mh-news-control" style="margin-bottom:12px"><button id="mh-pause" class="mh-pause">${icon(paused?'play':'pause')}<span>${paused?'تشغيل العرض':'إيقاف العرض'}</span></button><span class="mh-kicker">${items.length} مستجدات</span></div><div class="mh-news-shell"><div id="mh-slide" aria-live="${paused?'polite':'off'}"></div><div class="mh-timing" aria-hidden="true"><span id="mh-progress"></span></div></div><div class="mh-news-control"><button id="mh-prev" class="mh-icon" aria-label="المستجد السابق">${icon('arrow-right')}</button><button id="mh-next" class="mh-icon" aria-label="المستجد التالي">${icon('arrow-left')}</button><div class="mh-dots">${items.map((u,i)=>`<button data-slide="${i}" aria-label="عرض: ${esc(u.title)}" aria-pressed="${i===slideIndex}"></button>`).join('')}</div><span id="mh-slide-num" class="mh-slide-num"></span><button id="mh-replay" class="mh-pause">${icon('rotate-ccw')}إعادة المشهد</button></div></section>`;}
-  function paintSlide(){networkNewsPlayer?.dispose();networkNewsPlayer=null;liquidOrbit?.dispose();liquidOrbit=null;if(!carousel||!$('#mh-slide'))return;const u=carousel.items[slideIndex];const accent=u.course?courses[u.course].color:'#e9c691';$('#mh-slide').innerHTML=`<article class="mh-news-slide" role="group" aria-roledescription="بطاقة" aria-label="${slideIndex+1} من ${carousel.items.length}" style="--slide-accent:${accent}"><div class="mh-news-copy"><div class="mh-news-meta"><span>${u.course?courses[u.course].name:'مدار'}</span><time datetime="${esc(u.date)}">${new Intl.DateTimeFormat('ar-SA',{calendar:'gregory',day:'numeric',month:'long'}).format(new Date(u.date+'T12:00:00+03:00'))}</time>${u.pin?'<span>مثبّت</span>':''}</div><h2>${esc(u.title)}</h2><p>${esc(u.body)}</p><div class="mh-actions"><button class="mh-primary" data-go="${esc(u.target)}">${u.course?'اكتشف التحديث':'استعرض المقررات'} ${icon('arrow-left')}</button></div></div><${u.scene==='network'?'div':'button'} class="mh-visual ${paused?'mh-scene-paused':''}" id="mh-scene" aria-label="${u.scene==='network'?'مشهد الأجهزة التفاعلي':'إيقاف المشهد أو تشغيله'}">${scene(u)}</${u.scene==='network'?'div':'button'}></article>`;$('#mh-slide-num').textContent=`${slideIndex+1} / ${carousel.items.length}`;$('#mh-prev').disabled=carousel.items.length<2;$('#mh-next').disabled=carousel.items.length<2;$$('[data-slide]').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.slide)===slideIndex));elapsed=0;lastFrame=0;paintIcons();const mark=$('.mh-main-mark');if(mark)liquidOrbit=createLiquidOrbit(mark);networkNewsPlayer=createNetworkNewsPlayer($('#mh-scene .mh-network-showcase'));}
-  function setPaused(p){paused=p;networkNewsPlayer?.sync();if(!carousel)return;$('#mh-pause').innerHTML=`${icon(p?'play':'pause')}<span>${p?'تشغيل العرض':'إيقاف العرض'}</span>`;$('#mh-slide').setAttribute('aria-live',p?'polite':'off');$('#mh-scene')?.classList.toggle('mh-scene-paused',p);paintIcons();lastFrame=0;}
-  let lastScheduleCheck=0;
-  function tick(t){vmOrbitTick(t,paused||motionPreference.matches);brandOrbit?.tick(t,paused||motionPreference.matches);liquidOrbit?.tick(t,paused||motionPreference.matches);if(carousel&&t-lastScheduleCheck>1000){lastScheduleCheck=t;const day=nowDay();if(day!==scheduleDay){scheduleDay=day;if(!adminStore)fetch('/api/madar',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(b=>{boot.allowed=b.allowed;boot.canPractice=b.canPractice;state.access=b.config.access;state.updates=b.config.updates;render();}).catch(()=>{scheduleDay='';});else render();return;}}if(carousel&&$('#mh-progress')){if(!paused&&!document.hidden){if(lastFrame)elapsed+=Math.min(t-lastFrame,100);const duration=Math.max(carousel.items[slideIndex].scene==='network'?18:8,Number(carousel.items[slideIndex].duration)||12)*1000*(carousel.items[slideIndex].scene==='hub'?2:1);$('#mh-progress').style.width=Math.min(100,elapsed/duration*100)+'%';if(elapsed>=duration&&carousel.items.length>1){slideIndex=(slideIndex+1)%carousel.items.length;paintSlide();}}lastFrame=t;}raf=requestAnimationFrame(tick);}
-  function lessonPosition(l,v){return v?.labStep?(v.completed?'اكتمل تطبيق الدرس؛ يمكنك مراجعته':'الخطوة '+(v.step+1)+' من '+v.stepTotal+' · '+v.stepTitle):(l.steps[v?.step||0]||'افتح الدرس للمتابعة');}
-  function resume(course){const id=course||profile().latest,v=profile().visits[id],l=lessonBy(v?.lesson);if(!canLesson(l))return '';return `<section class="mh-resume"><div class="mh-resume-copy"><span class="mh-eyebrow">كمّل من وين وقفت</span><h3>${esc(l.title)}</h3><p>${courses[id].name} · ${esc(lessonPosition(l,v))}</p></div><button class="mh-primary" data-go="lesson:${l.id}">متابعة ${icon('arrow-left')}</button></section>`;}
-  function about(){return `<section class="mh-about"><span class="mh-eyebrow">عن مدار</span><div class="mh-about-intro"><h2>تعلّم بفهم.<br>وتقدّم باستقلال.</h2><p>مدار منصة تعليمية تجمع مقرراتك في مكان واحد، وتربط الشرح بالتطبيق والمراجعة، وتقدّم التدريب والإرشاد والمساعدة اللازمة؛ لتتعلّم بفهم وتتقدّم نحو التطبيق باستقلال.</p></div><div class="mh-beliefs"><article class="mh-belief"><div class="mh-belief-title">${icon('telescope')}<h3>رؤيتنا</h3></div><p>أن يكون مدار بيئة تعليمية متكاملة، تساعد الطالب على فهم مقرراته، وتنمية مهاراته، والاستعداد لاختباراته، وتربط تعلّمه بمتطلبات سوق العمل؛ ليبني كفاءة عملية تدعم دخوله إلى المجال المهني وتطوّره فيه بثقة.</p></article><article class="mh-belief"><div class="mh-belief-title">${icon('compass')}<h3>رسالتنا</h3></div><p>نقدّم تجربة تعليمية تجمع المحتوى الواضح، والتدريب العملي، والإرشاد والمساعدة اللازمة، والمراجعة التي تكشف ما يحتاج إلى تقوية؛ لنساعد الطالب على فهم ما يتعلّمه، وتطبيقه باستقلال، وبناء مهارات ترتبط باحتياجاته الدراسية ومتطلبات سوق العمل.</p></article></div></section>`;}
 // Homepage-only announcement. Demonstration data never enters the learner store.
 let disposeSrweAnnouncement=()=>{};
 const SRWE_EXAM_START='2026-11-10T09:50:00+03:00';
@@ -481,7 +463,20 @@ function mountSrweAnnouncement(){
  sync();disposeSrweAnnouncement=()=>{clearInterval(timer);clearInterval(countdownTimer);io.disconnect();controller.abort();disposeSrweAnnouncement=()=>{};};
 }
 
-  // OS1 uses the existing owner-scoped profile, notes and feedback services.
+  const announcements = createAnnouncements({ courses, getUpdates: () => state.updates,
+    canCourse, canLesson, lessonBy, $, $$, esc, icon, paintIcons,
+    createLiquidOrbit, createNetworkNewsPlayer, vmOrbitTick: (t, stopped) => vmOrbitTick(t, stopped),
+    motionReduced: () => motionPreference.matches, isHidden: () => document.hidden,
+    requestFrame: callback => requestAnimationFrame(callback), cancelFrame: id => cancelAnimationFrame(id),
+    render: () => render(), refreshSchedule: (done, scheduleRefreshFailed) => {
+      if (!environment.hosted || adminStore) { done(); return; }
+      fetch('/api/madar', { cache: 'no-store' }).then(r => { if (!r.ok) throw Error(); return r.json(); })
+        .then(b => { boot.allowed=b.allowed; boot.canPractice=b.canPractice;
+          state.access=b.config.access; state.updates=b.config.updates; done(); })
+        .catch(() => scheduleRefreshFailed());
+    } });
+  const { scene, officeArt, networkArt, carouselMarkup, paintSlide, setPaused, moveSlide } = announcements;
+    // OS1 uses the existing owner-scoped profile, notes and feedback services.
   let osVideo=null,osCleanup=null,osPaused=motionPreference.matches;
   const osList=()=>lessons.filter(l=>l.course==='os1'&&canLesson(l));
   const osTime=s=>`${Math.floor(Math.round(s)/60)}:${String(Math.round(s)%60).padStart(2,'0')}`;
@@ -825,13 +820,6 @@ function vmWindowsBackdrop(){return `<svg class="vm-windows-waves" viewBox="0 0 
 
   root.addEventListener('keydown',ev=>{const dialog=$('.oc-dialog');if(!dialog)return;if(ev.key==='Escape'){ev.preventDefault();dialog.querySelector('[data-oc="close"]')?.click();}if(ev.key==='Tab'){const fields=[...dialog.querySelectorAll('button,input,select,textarea,summary,a[href]')].filter(x=>!x.disabled&&x.getClientRects().length);if(!fields.length)return;const first=fields[0],last=fields.at(-1);if(ev.shiftKey&&(document.activeElement===first||!dialog.contains(document.activeElement))){ev.preventDefault();last.focus();}else if(!ev.shiftKey&&(document.activeElement===last||!dialog.contains(document.activeElement))){ev.preventDefault();first.focus();}}});
 
-  function heading(title,kicker=''){return `<div class="mh-page-heading"><div>${kicker?`<div class="mh-kicker">${esc(kicker)}</div>`:''}<h1>${esc(title)}</h1></div></div>`;}
-  let celebrationObserver=null;
-  function officeCelebration(){return '<div class="mh-office-celebration" aria-hidden="true">'+Array.from({length:27},(_,i)=>`<i style="--x:${4+(i*29)%92}%;--y:${8+(i*37)%78}%;--size:${3+i%3}px;--party-color:${['#83bdff','#70d9b1','#f195bb'][i%3]};--duration:${6+i%5}s;--delay:-${i*.71}s;--turn:${i*43}deg;--drift:${i%2?12:-12}px"></i>`).join('')+'<span class="mh-celebration-ribbon"></span><span class="mh-celebration-ribbon"></span></div>';}
-  function observeOfficeCelebration(){celebrationObserver?.disconnect();celebrationObserver=new IntersectionObserver(entries=>entries.forEach(entry=>entry.target.classList.toggle(entry.target.classList.contains('office')?'mh-celebration-active':'mh-network-active',entry.isIntersecting)));$$('.mh-course-card.office,.mh-course-card.network').forEach(card=>celebrationObserver.observe(card));}
-  function courseCard(id){const c=courses[id],v=profile().visits[id],l=lessonBy(v?.lesson);return `<article class="mh-course-card ${id}" style="--mh-accent:${c.color}"><div class="mh-course-art">${id==='os1'?osCourseArt():id==='office'?officeCelebration()+officeArt():networkArt()}</div><div class="mh-course-body"><div class="mh-course-tags">${c.tags.map(t=>`<span>${t}</span>`).join('')}${id==='office'?`<span class="mh-course-badge mh-featured-badge">${icon('star')}<b>مميز</b></span><span class="mh-course-badge mh-origin-badge">${icon('party-popper')}<b>بداية مدار</b></span>`:''}</div><h2>${c.name}</h2><p>${c.description}</p>${canLesson(l)?`<div class="mh-last">آخر وصول: ${esc(l.title)}</div>`:''}<div class="mh-actions"><button class="mh-primary" data-go="course:${id}:home">دخول المقرر ${icon('arrow-left')}</button></div></div></article>`;}
-  function courseHome(id){if(id==='os1')return osHome();const c=courses[id];return `${carouselMarkup(id)}<div class="mh-course-cover"><span class="mh-eyebrow">مساحتك للتعلّم</span><h1>${c.name}</h1><p>${c.description}</p></div>${resume(id)}${id==='network'?networkReviewCard():''}<div class="mh-section-links">${(id==='office'?[['word','Word','شرح المستندات وتحريرها ومراجعتها.','file-text'],['excel','Excel','الجداول والدوال وتحليل البيانات.','table-2'],['access','Access','قواعد البيانات والحقول والاستعلامات.','database']]:[['theory','الجزء النظري','افهم الفكرة، تابع الأمثلة، وارجع للمصطلحات من داخل الدرس.','book-open'],['lessons','الجزء العملي','افتح درسًا داخل المحاكي، أو تدرّب في مختبر جاهز أو تبويب حر.','network'],['reference','المرجع','ارجع للمفهوم والدرس من مكان واحد.','library']]).map(([s,t,p,i])=>`<article class="mh-section-link">${icon(i)}<h3>${t}</h3><p>${p}</p><button data-go="course:${id}:${s}">دخول ${icon('arrow-left')}</button></article>`).join('')}</div>`;}
-  function lessonRows(list){return `<div class="mh-list">${list.map(l=>`<article class="mh-list-row">${icon(l.kind==='مختبر'?'network':'book-open')}<div><span class="mh-kicker">${l.kind} · ${courses[l.course].name}</span><h3>${esc(l.title)}</h3></div><button data-go="lesson:${l.id}">فتح ${icon('arrow-left')}</button></article>`).join('')}</div>`;}
   function networkPracticalIndex(){
     const available=lessons.filter(l=>l.course==='network'&&canLesson(l));
     const full=available.filter(l=>l.practice&&l.section!=='theory').sort((a,b)=>a.id.localeCompare(b.id,undefined,{numeric:true}));
@@ -843,7 +831,6 @@ function vmWindowsBackdrop(){return `<svg class="vm-windows-waves" viewBox="0 0 
       (review.length?'<details class="np-review"><summary>تدريبات مركزة للمراجعة · '+review.length+'</summary><p>تطبيقات جزئية للعودة إلى مهارة محددة. المسار الكامل لهذه المهارات موجود في الدروس أعلاه.</p>'+lessonRows(review)+'</details>':'');
   }
 
-  function courseSection(id,section){if(id==='os1')return osSection(section);if(id==='network'&&section==='lessons')return networkPracticalIndex();const c=courses[id],title=c.sections.find(x=>x[0]===section)?.[1]||'مختبرات الشبكات';if(id==='network'&&['quiz','practice','exam','practice-vlan','practice-trunk','practice-inter'].includes(section))return networkSelfTestPage(section);if(id==='network'&&section==='hints')return "<section id=\"mh-hint-history-root\"><div id=\"history\"><div class=\"intro\"><span class=\"eyebrow\">ارجع للمساعدة، وافهم خطوتك</span><h1>سجل التلميحات</h1><p>نصوص المساعدات كما ظهرت لك، من دروسك وتمارينك ومختبراتك. قراءة السجل ما تضيف مساعدة جديدة.</p></div>\n<p id=\"status\" role=\"status\">جارٍ قراءة سجلك المحفوظ…</p><div id=\"error\" role=\"alert\" hidden></div>\n<div class=\"toolbar\"><button id=\"refresh\">تحديث السجل</button><button id=\"export\" disabled>تنزيل السجل كاملًا</button></div>\n<section id=\"content\" hidden><div id=\"stats\" class=\"stats\" aria-label=\"ملخص السجل\"></div>\n<section class=\"filters\" aria-label=\"البحث والتصفية\"><label class=\"search\">ابحث في الخطوات ونصوص المساعدة<input id=\"query\" type=\"search\" placeholder=\"اسم الخطوة، أمر، أو اسم مختبر…\"></label>\n<label>المختبر<select id=\"lab\"><option value=\"\">كل المختبرات</option></select></label><label>نوع المساعدة<select id=\"degree\"><option value=\"\">جميع الدرجات</option><option value=\"1\">الدرجة الأولى</option><option value=\"2\">الدرجة الثانية</option><option value=\"3\">الدرجة الثالثة</option><option value=\"full\">كشف الخطوة كاملة</option></select></label>\n<label>الجزء<select id=\"scope\"><option value=\"\">كل الأجزاء</option></select></label><label>المحاولة<select id=\"attempt\"><option value=\"\">كل المحاولات</option></select></label><label>الترتيب<select id=\"sort\"><option value=\"new\">الأحدث أولًا</option><option value=\"old\">الأقدم أولًا</option></select></label></section>\n<div class=\"list-tools\"><p id=\"count\" role=\"status\"></p><div><button id=\"clear\">مسح التصفية</button><button id=\"expand\">فتح التفاصيل المعروضة</button><button id=\"collapse\">طي التفاصيل</button></div></div>\n<div id=\"records\"></div><p id=\"empty\" hidden></p><button id=\"more\" hidden>عرض المزيد</button>\n<aside class=\"note\">عدد المساعدات وقوة الكشف معلومات للمراجعة، وليست حكمًا على إتقانك. يشمل السجل المختبرات المخفية وآخر مختبر محذوف القابل للاسترجاع؛ الحذف النهائي للمختبر يزيل سجله معه.</aside></section></div></section>";if(section==='theory')return networkTheoryIndex();if(section==='lab'&&!boot.canPractice)return heading('المختبر غير متاح لهذا الحساب')+'<p>يتطلب هذا المختبر صلاحية أجزاء VLAN وTrunk وInter-VLAN جميعها.</p>';if(section==='lab')return heading('مختبرات الشبكات',c.name)+'<iframe allowfullscreen id="mh-network-lab" title="محاكي الشبكات" data-network-src="/network-lab" style="width:100%;height:1400px;border:0;border-radius:16px"></iframe>';const list=lessons.filter(l=>l.course===id&&canLesson(l)&&(section==='reference'||l.section!=='theory'));return heading(title,c.name)+(section==='lessons'||section==='quiz'?'<div class="mh-course-cover"><h2>'+ (section==='quiz'?'اختبر فهمك بالتطبيق':'مختبر جاهز أو تبويب جديد حر')+'</h2><p>متطلبات متغيرة وإرشاد تختاره. مختبراتك مستقلة، ويمكنك النسخ بينها باختيارك.</p><button class="mh-primary" data-go="course:network:lab">فتح محاكي الشبكات</button></div>':'')+(section==='reference'&&boot.canPractice?networkReference()+lessonRows(list.filter(l=>l.section==='theory')):lessonRows(list))+(section==='reference'?'<section class="mh-feedback-fold" aria-labelledby="mh-feedback-title"><h2 id="mh-feedback-title">شارك تجربتك أو بلّغ عن مشكلة</h2><div id="mh-network-feedback"></div></section>':'');}
 function networkReviewCard(){return [4,5,6].every(c=>lessons.some(l=>l.id==='network-srwe-'+c&&canLesson(l)))?`<section class="nt-srwe-entry"><div><span class="mh-eyebrow">مراجعة الشابترات 4 · 5 · 6</span><h2>الشرح وبنك الأسئلة</h2><p>84 سؤالًا بالإنجليزية مع زر للترجمة وتصحيح مفسّر ورسوم. راجع أخطاءك السابقة والأسئلة المعلّمة من فهرس واحد.</p><div class="nt-srwe-tags"><span>Inter-VLAN</span><span>STP</span><span>EtherChannel</span></div></div><a class="mh-primary" href="/network-review">فتح المرجع والأسئلة ←</a></section>`:'';}
 function theoryLessons(){return lessons.filter(l=>l.section==='theory'&&canLesson(l));}
 function theoryDictionary(entries){return `<dl class="nt-dictionary">${Object.entries(entries).sort(([a],[b])=>a.localeCompare(b)).map(([term,meaning])=>`<div data-nt-term="${esc(searchText(term+' '+meaning))}"><dt dir="ltr">${esc(term)}</dt><dd>${theoryText(meaning)}</dd></div>`).join('')}</dl>`;}
@@ -867,13 +854,24 @@ function sourceGallery(th){
  return `<details class="nt-resource nt-source-gallery"><summary>المصدر الأصلي كاملًا لهذا الجزء ${slides.length?'· '+slides.length+' '+(th.guide?'صفحة / صورة':'شريحة'):''}</summary><p>تظهر نصوص المصدر كما وردت؛ تصحيحات مدار موضحة في الشرح. بعض الملفات نسخ مدرب وتتضمن الإجابات، فحاول تنفيذ المهمة قبل فتحها.</p>${th.sourceNote?`<p class="nt-source-note">${esc(th.sourceNote)}</p>`:""}${th.sourceFile?`<p><a href="${esc(th.sourceFile)}" target="_blank" rel="noopener">${th.guide?'فتح الملف الأصلي':'تنزيل الملف الأصلي الكامل للشابتر'} (${th.sourceFile.endsWith('.pdf')?'PDF':th.sourceFile.endsWith('.pptx')?'PPTX':'DOCX'})</a></p>`:''}${slides.map(x=>`<figure><figcaption>${th.guide?'صفحة / صورة':'الشريحة'} ${x.number} · ${esc(x.title||'')}</figcaption><a href="${esc(x.image)}" target="_blank" rel="noopener" aria-label="تكبير ${th.guide?'الصفحة':'الشريحة'} ${x.number}"><img loading="lazy" decoding="async" src="${esc(x.image)}" alt="${esc(x.title||'رسم المصدر الأصلي')}" width="1280"></a>${x.text?.length?`<details><summary>نص الشريحة للقراءة والبحث</summary><div dir="auto">${x.text.map(p=>'<p>'+esc(p)+'</p>').join('')}</div></details>`:''}</figure>`).join('')}</details>`;
 }
 
-  function lessonPage(l){
-    if(l.course==='os1')return osLessonPage(l);
-    if(l.theory&&(!l.practice||state.route.endsWith(':reference')))return (l.practice?'<button class="mh-btn" data-go="lesson:'+esc(l.id)+'">ارجع للتطبيق العملي</button>':'')+theoryLessonPage(l);
-    if(!boot.canPractice)return heading(l.title,courses[l.course].name)+'<div class="mh-empty">المختبر غير متاح لهذا الحساب. يتطلب الوصول إلى أجزاء VLAN وTrunk وInter-VLAN.</div>';
-    return heading(l.title,courses[l.course].name+' / الدرس العملي')+(l.practice?'<button class="mh-btn" data-go="lesson:'+esc(l.id)+':reference">الشرح والصور وأسئلة المراجعة</button>':'')+'<iframe allowfullscreen id="mh-network-lab" title="'+esc(l.title)+' — الدرس والمحاكي" data-network-src="/network-lab?lesson='+encodeURIComponent(l.id)+'" style="width:100%;height:1400px;border:0;border-radius:16px"></iframe><details class="mh-note-box mh-space-top"><summary>ملاحظاتي في هذا الدرس</summary><div id="lesson-notes"></div></details>';
-  }
+// Compose maintained hosted course views with the existing course-specific engines.
+function createHostedCourseAdapter() {
+  return createHostedCourseViews({ courses, lessons, canLesson,
+    getBoot: () => boot, getRoute: () => state.route, heading, esc, lessonRows,
+    osSection, osLessonPage, networkPracticalIndex, networkSelfTestPage, networkTheoryIndex,
+    networkReference: () => networkReference(), theoryLessonPage,
+    hintHistory: () => hintHistoryMarkup });
+}
 
+const hintHistoryMarkup = "<section id=\"mh-hint-history-root\"><div id=\"history\"><div class=\"intro\"><span class=\"eyebrow\">ارجع للمساعدة، وافهم خطوتك</span><h1>سجل التلميحات</h1><p>نصوص المساعدات كما ظهرت لك، من دروسك وتمارينك ومختبراتك. قراءة السجل ما تضيف مساعدة جديدة.</p></div>\n<p id=\"status\" role=\"status\">جارٍ قراءة سجلك المحفوظ…</p><div id=\"error\" role=\"alert\" hidden></div>\n<div class=\"toolbar\"><button id=\"refresh\">تحديث السجل</button><button id=\"export\" disabled>تنزيل السجل كاملًا</button></div>\n<section id=\"content\" hidden><div id=\"stats\" class=\"stats\" aria-label=\"ملخص السجل\"></div>\n<section class=\"filters\" aria-label=\"البحث والتصفية\"><label class=\"search\">ابحث في الخطوات ونصوص المساعدة<input id=\"query\" type=\"search\" placeholder=\"اسم الخطوة، أمر، أو اسم مختبر…\"></label>\n<label>المختبر<select id=\"lab\"><option value=\"\">كل المختبرات</option></select></label><label>نوع المساعدة<select id=\"degree\"><option value=\"\">جميع الدرجات</option><option value=\"1\">الدرجة الأولى</option><option value=\"2\">الدرجة الثانية</option><option value=\"3\">الدرجة الثالثة</option><option value=\"full\">كشف الخطوة كاملة</option></select></label>\n<label>الجزء<select id=\"scope\"><option value=\"\">كل الأجزاء</option></select></label><label>المحاولة<select id=\"attempt\"><option value=\"\">كل المحاولات</option></select></label><label>الترتيب<select id=\"sort\"><option value=\"new\">الأحدث أولًا</option><option value=\"old\">الأقدم أولًا</option></select></label></section>\n<div class=\"list-tools\"><p id=\"count\" role=\"status\"></p><div><button id=\"clear\">مسح التصفية</button><button id=\"expand\">فتح التفاصيل المعروضة</button><button id=\"collapse\">طي التفاصيل</button></div></div>\n<div id=\"records\"></div><p id=\"empty\" hidden></p><button id=\"more\" hidden>عرض المزيد</button>\n<aside class=\"note\">عدد المساعدات وقوة الكشف معلومات للمراجعة، وليست حكمًا على إتقانك. يشمل السجل المختبرات المخفية وآخر مختبر محذوف القابل للاسترجاع؛ الحذف النهائي للمختبر يزيل سجله معه.</aside></section></div></section>";
+
+  const courseViews = createCourseViews({ courses, lessons, profile, lessonBy, canLesson, esc, icon,
+    carouselMarkup, officeArt, networkArt, osCourseArt: () => osCourseArt(), osHome: () => osHome(),
+    networkReviewCard: () => networkReviewCard(), integrations: {
+      ...(environment.hosted ? { courseSection: (id, section) => hostedCourseViews.courseSection(id, section),
+        lessonPage: lesson => hostedCourseViews.lessonPage(lesson) } : {}) } });
+  const { lessonPosition, resume, about, heading, courseCard, courseHome, lessonRows, courseSection, lessonPage } = courseViews;
+  const hostedCourseViews = environment.hosted ? createHostedCourseAdapter() : null;
 /* hub:editor-composition */
   const editor = createEditorController({ getState: () => state, lessonBy, saves, persist,
     now: () => Date.now(), today: nowDay });
@@ -902,13 +900,65 @@ const hubViews = createHubViews({ courses, available, canCourse, canLesson, less
     courseIcon, icon, srweAnnouncement, carouselMarkup, about, resume, heading, courseCard,
     account, admin, courseHome, courseSection, lessonPage,
     hosted: environment.hosted, isAdmin: environment.isAdmin });
-  function render(){if(state.route==='course:network:practical'){state.route='course:network:lessons';if(location.hash==='#course:network:practical')history.replaceState(null,'','#'+state.route);}cancelAnimationFrame(raf);if(!brandOrbit)brandOrbit=createLiquidOrbit($('.mh-brand .mh-orbit'));carousel=null;elapsed=0;lastFrame=0;const course=selectedCourse();root.style.setProperty('--mh-accent',courses[course]?.color||'#e9c691');root.dataset.course=course||'global';const permitted=course&&canCourse(course);$('#mh-home-link').setAttribute('aria-current',state.route==='home'?'page':'false');$('#mh-picker-button').setAttribute('aria-current',state.route==='courses'||permitted?'page':'false');const chrome=hubViews.chrome(state,course);$('#mh-picker').innerHTML=chrome.picker;$('#mh-subnav').innerHTML=chrome.subnav;
-    const page = hubViews.page(state, course);
-    if (page.redirect) { location.replace(page.redirect); return; }
-    const html = page.html;
-    disposeSrweAnnouncement();const mobileTarget=mobilePracticalTarget(html);if(mobileTarget){location.replace(mobileTarget);return;}disposeNetworkFrame();disposeOsScene();$('#mh-main').innerHTML=html;mountNetworkFrame();mountOsScene();if($('#mh-hint-history-root'))window.MadarHintHistoryPage($('#mh-hint-history-root'));document.body.dataset.view=course==='os1'?'os1':course==='network'?'network':state.route==='courses'?'courses':'home';window.MADAR_ACTIVITY?.emit('page_open',state.route.startsWith('lesson:')?{lesson:state.route.split(':')[1]}:{});if(state.route.startsWith('lesson:'))void window.MADAR_NOTES?.mount(state.route.split(':')[1],{video:false});if($('#mh-network-feedback')){$('#mh-network-feedback').innerHTML=window.MADAR_FEEDBACK.markup();void window.MADAR_FEEDBACK.bind({subject:'Network',bankVersion:'network-lab452-v1',currentLesson:state.route.startsWith('lesson:')?state.route.split(':')[1]:null,lessons:lessons.filter(l=>l.course==='network'),questions:[]});}updateNetworkBackground(course);observeOfficeCelebration();$('#mh-viewer').value=state.viewer;paintSlide();paintIcons();mountSrweAnnouncement();raf=requestAnimationFrame(tick);
+  let celebrationObserver = null;
+  function observeOfficeCelebration() {
+    celebrationObserver?.disconnect();
+    celebrationObserver = new IntersectionObserver(entries => entries.forEach(entry => entry.target.classList.toggle(entry.target.classList.contains('office') ? 'mh-celebration-active' : 'mh-network-active', entry.isIntersecting)));
+    $$('.mh-course-card.office,.mh-course-card.network').forEach(card => celebrationObserver.observe(card));
   }
-  // Hosted network command-reference adapter. General hub search lives in
+  const routeAdapter = {
+  redirect: html => mobilePracticalTarget(html),
+  beforeReplace() { disposeNetworkFrame(); disposeOsScene(); },
+  afterReplace({ course }) {
+    mountNetworkFrame(); mountOsScene();
+    if ($('#mh-hint-history-root')) window.MadarHintHistoryPage($('#mh-hint-history-root'));
+    document.body.dataset.view = course === 'os1' ? 'os1' : course === 'network' ? 'network' : state.route === 'courses' ? 'courses' : 'home';
+    window.MADAR_ACTIVITY?.emit('page_open', state.route.startsWith('lesson:') ? { lesson: state.route.split(':')[1] } : {});
+    if (state.route.startsWith('lesson:')) void window.MADAR_NOTES?.mount(state.route.split(':')[1], { video: false });
+    if ($('#mh-network-feedback')) {
+      $('#mh-network-feedback').innerHTML = window.MADAR_FEEDBACK.markup();
+      void window.MADAR_FEEDBACK.bind({ subject: 'Network', bankVersion: 'network-lab452-v1',
+        currentLesson: state.route.startsWith('lesson:') ? state.route.split(':')[1] : null,
+        lessons: lessons.filter(l => l.course === 'network'), questions: [] });
+    }
+    updateNetworkBackground(course);
+  },
+  dispose() { disposeNetworkFrame(); disposeOsScene(); window.MadarPageReflection?.stop(); },
+};
+
+  const viewLifecycle = createViewLifecycle({
+    begin: () => {
+      if (state.route === 'course:network:practical') {
+        state.route = 'course:network:lessons';
+        if (location.hash === '#course:network:practical') history.replaceState(null, '', '#' + state.route);
+      }
+      announcements.reset();
+    },
+    resolve: () => {
+      const course = selectedCourse(), permitted = course && canCourse(course);
+      root.style.setProperty('--mh-accent', courses[course]?.color || '#e9c691');
+      root.dataset.course = course || 'global';
+      $('#mh-home-link').setAttribute('aria-current', state.route === 'home' ? 'page' : 'false');
+      $('#mh-picker-button').setAttribute('aria-current', state.route === 'courses' || permitted ? 'page' : 'false');
+      const chrome = hubViews.chrome(state, course);
+      $('#mh-picker').innerHTML = chrome.picker; $('#mh-subnav').innerHTML = chrome.subnav;
+      const page = hubViews.page(state, course);
+      return { ...page, course, redirect: page.redirect || routeAdapter.redirect(page.html) };
+    },
+    redirect: url => location.replace(url),
+    beforeReplace: () => { disposeSrweAnnouncement(); routeAdapter.beforeReplace(); },
+    replace: page => { $('#mh-main').innerHTML = page.html; },
+    mount: page => {
+      routeAdapter.afterReplace(page);
+      observeOfficeCelebration(); $('#mh-viewer').value = state.viewer;
+      paintSlide(); paintIcons(); mountSrweAnnouncement();
+    },
+    finish: () => announcements.start(),
+    dispose: () => { announcements.dispose(); celebrationObserver?.disconnect();
+      celebrationObserver = null; disposeSrweAnnouncement(); routeAdapter.dispose(); },
+  });
+  function render() { viewLifecycle.render(); }
+// Hosted network command-reference adapter. General hub search lives in
 // public/hub/search.mjs; this function receives every DOM/normalization input.
 function filterCommandCards({ query, cards, emptyMessage, normalize }) {
   const words = normalize(query).split(/\s+/).filter(Boolean);
@@ -968,11 +1018,6 @@ function networkReference(){
     $('#mh-picker').hidden = true;
     $('#mh-picker-button').setAttribute('aria-expanded', 'false');
   }
-  function moveSlide(value) {
-    if (!carousel) return;
-    slideIndex = typeof value === 'number' ? value : (slideIndex + (value === 'next' ? 1 : -1) + carousel.items.length) % carousel.items.length;
-    paintSlide();
-  }
   const lessonActions = createLessonActions({ getState: () => stateModel.value, profile, lessonBy, saves,
     notes: { hasPending: () => Boolean(window.MADAR_NOTES?.hasPending()),
       retry: () => window.MADAR_NOTES.retry() }, render, warn: say,
@@ -984,11 +1029,7 @@ function networkReference(){
   function paintEditorPreview(update) {
     $('#mh-update-preview').innerHTML = editorViews.previewMarkup(update);
     paintIcons();
-    liquidOrbit?.dispose(); liquidOrbit = null;
-    const previewMark = $('#mh-update-preview .mh-main-mark');
-    if (previewMark) liquidOrbit = createLiquidOrbit(previewMark);
-    networkNewsPlayer?.dispose();
-    networkNewsPlayer = createNetworkNewsPlayer($('#mh-update-preview .mh-network-showcase'));
+    announcements.paintPreview();
   }
   function handleInput(event) {
     const target = event.target;
@@ -1037,7 +1078,7 @@ function networkReference(){
       'mh-search-more': () => searchController.more(),
       'mh-retry': () => saves.retry().catch(() => {}),
       'mh-stay': () => { saves.cancelPendingAction(); $('#mh-error').hidden = true; },
-      'mh-pause': () => setPaused(!paused), 'mh-scene': () => setPaused(!paused),
+      'mh-pause': () => setPaused(!announcements.isPaused()), 'mh-scene': () => setPaused(!announcements.isPaused()),
       'mh-replay': paintSlide, 'mh-next': () => moveSlide('next'), 'mh-prev': () => moveSlide('prev'),
       'mh-new-update': editorActions.begin,
       'mh-cancel-edit': editorActions.cancel,
@@ -1067,9 +1108,13 @@ function networkReference(){
   });
 
   window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-
+  window.addEventListener('pagehide', event => {
+    // A back/forward-cache page stays live; dispose only a document being discarded.
+    if (!event.persisted) { viewLifecycle.dispose(); disposeHubEvents(); clearTimeout(toastTimer); }
+  });
+  if (!environment.hosted) window.addEventListener('openai:set_globals',e=>{const next=e.detail?.globals?.widgetState?.privateContent?.hub;if(next&&!dirty){state=stateModel.replace(next);render();}});
   motionPreference.addEventListener('change',e=>{if(e.matches)setPaused(true);});
-  root.addEventListener('pointermove',e=>{const f=$('#mh-network-background');if(!f.hidden)f.contentWindow?.postMessage({type:'madar-background-pointer',x:e.clientX,y:e.clientY},location.origin);},{passive:true});
+    root.addEventListener('pointermove',e=>{const f=$('#mh-network-background');if(!f.hidden)f.contentWindow?.postMessage({type:'madar-background-pointer',x:e.clientX,y:e.clientY},location.origin);},{passive:true});
   $('#mh-owner-tools').hidden=!boot.account.isAdmin;
   addEventListener('message',e=>{const f=$('#mh-network-lab');if(e.origin!==location.origin||!f||e.source!==f.contentWindow)return;if(e.data?.type==='madar-workspace-expanded'){if(e.data.expanded&&!f.dataset.expanded){f.dataset.previousStyle=f.getAttribute('style')||'';f.dataset.expanded='true';f.style.cssText='position:fixed;inset:0;width:100vw;height:100dvh;border:0;border-radius:0;z-index:10000';}else if(!e.data.expanded&&f.dataset.expanded){f.setAttribute('style',f.dataset.previousStyle);delete f.dataset.expanded;delete f.dataset.previousStyle;}}if(e.data?.type==='madar-network-state'){if(!f.dataset.expanded)f.style.height=Math.max(600,Math.min(15000,Number(e.data.height)||1400))+'px';syncLessonProgress(f);}});
   if(store.conflict){$('#mh-error').hidden=false;status('يوجد تعارض مع نسخة الحساب. نزّل مسودتك قبل إعادة التحميل.');}

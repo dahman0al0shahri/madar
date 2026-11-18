@@ -28,7 +28,7 @@ The following 21 application/style units now assemble from 176 named source part
 
 ## Reading and changing a feature
 
-The hub's state, save queue, navigation, search, editor, route/editor templates and event delegation have subsequently moved to independent native modules in `public/hub/`; see [hub contracts](HUB_CORE.md). Its parts compose them with browser action callbacks, course renderers and animation lifecycle. The 21/176 inventory remains the assembly inventory, not a count of independent modules or a claim that all parts retain their original bytes after later changes.
+The hub's state, save queue, navigation, search, editor, route/editor templates and event delegation have subsequently moved to independent native modules in `public/hub/`; see [hub contracts](HUB_CORE.md). Its parts compose them with browser adapters and the existing course-specific engines; common/hosted course templates and announcement/route lifecycle now also have native module owners. Eight named slots define hosted integration without matching executable code. The 21/176 inventory remains the assembly inventory, not a count of independent modules or a claim that all parts retain their original bytes after later changes.
 
 The names identify bootstrap, state, persistence, commands, rendering, events and other existing responsibilities. Read neighboring parts for shared state. See [source-part rules](../modules/source-parts/README.md). The ordered list lives only in `project-map.json` under `sourceAssemblies`; a directory listing is not the build order.
 

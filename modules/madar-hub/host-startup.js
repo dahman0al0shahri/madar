@@ -1,0 +1,5 @@
+  root.addEventListener('pointermove',e=>{const f=$('#mh-network-background');if(!f.hidden)f.contentWindow?.postMessage({type:'madar-background-pointer',x:e.clientX,y:e.clientY},location.origin);},{passive:true});
+  $('#mh-owner-tools').hidden=!boot.account.isAdmin;
+  addEventListener('message',e=>{const f=$('#mh-network-lab');if(e.origin!==location.origin||!f||e.source!==f.contentWindow)return;if(e.data?.type==='madar-workspace-expanded'){if(e.data.expanded&&!f.dataset.expanded){f.dataset.previousStyle=f.getAttribute('style')||'';f.dataset.expanded='true';f.style.cssText='position:fixed;inset:0;width:100vw;height:100dvh;border:0;border-radius:0;z-index:10000';}else if(!e.data.expanded&&f.dataset.expanded){f.setAttribute('style',f.dataset.previousStyle);delete f.dataset.expanded;delete f.dataset.previousStyle;}}if(e.data?.type==='madar-network-state'){if(!f.dataset.expanded)f.style.height=Math.max(600,Math.min(15000,Number(e.data.height)||1400))+'px';syncLessonProgress(f);}});
+  if(store.conflict){$('#mh-error').hidden=false;status('يوجد تعارض مع نسخة الحساب. نزّل مسودتك قبل إعادة التحميل.');}
+  render();status('');

@@ -6,11 +6,18 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Hub runtime and course composition
+
+- Separated announcement timing/resources, route lifecycle and common/hosted course templates into five native modules. Preserved existing markup, routes, save behavior and course engines.
+- Replaced executable-code rewriting in the hub builder with eight checked named composition slots, plus explicit hosted mount/startup adapters. Other legacy generators are unchanged.
+- Added direct lifecycle/course/slot tests and desktop/mobile repeated-navigation coverage to existing checks, without changing visual references, dependencies or workflow permissions.
+- PR #13 merged as c63dca99 with all four post-merge jobs passing. The owner authorized this follow-up to be reviewed and merged after its checks; exact-head and post-merge evidence belongs to its PR. No deployment is included.
+
 ### Editor workflow organization
 
 - Moved form-to-model coordination, preview/save and confirmed deletion into a native editor-action module. Kept draft rules and preview markup in their owning model/view modules, with explicit browser adapters and unchanged UI/storage behavior.
 - Added seven direct workflow tests and extended the synthetic desktop/mobile editor scenario for preview-without-publication and cancelled deletion. No templates, styles or visual baselines were redesigned.
-- PR #12 merged as d753ea25 with all four post-merge jobs successful; this follow-up awaits its own owner review and does not deploy the application.
+- PR #12 merged as d753ea25 with all four post-merge jobs successful; the editor follow-up subsequently merged as PR #13, with no application deployment.
 
 ### Hub action boundaries
 
@@ -24,7 +31,7 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 - Removed host text rewriting for migrated search, admin and event behavior. Kept the existing file paths, storage formats and framework. Added direct module/import-boundary tests and synthetic desktop/mobile editor/search interactions to existing CI.
 - Fixed the hosted admin options helper being removed by the old account-template replacement. Scoped the recovery browser test's boot interceptor to its setup reload so it cannot outlive the page during Office navigation. No screenshots were re-recorded, learner records changed or site deployed.
 
-Unreleased means that no named release has been created. Maintenance PRs #1–#12 are merged. Public visibility and collaborator-only PR creation are live; PR #9 includes their guard and documentation changes. Subsequent work is described by its own review. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
+Unreleased means that no named release has been created. Maintenance PRs #1–#13 are merged. Public visibility and collaborator-only PR creation are live; PR #9 includes their guard and documentation changes. Subsequent work is described by its own review. See the repository report and the specific PR for commit/check evidence. A merge does not imply application deployment.
 
 ### Added
 

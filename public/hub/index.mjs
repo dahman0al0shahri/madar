@@ -10,3 +10,8 @@ export { bindHubEvents } from './events.mjs';
 export { createLessonActions } from './lesson-actions.mjs';
 export { createAccessActions } from './access-actions.mjs';
 export { createEditorActions } from './editor-actions.mjs';
+export { createAnnouncements, nowDay } from './announcements.mjs';
+export { createCourseViews } from './course-views.mjs';
+export { createHostedCourseViews } from './hosted-course-views.mjs';
+export { createViewLifecycle } from './view-lifecycle.mjs';
+export { createNewsFramePlayer } from './scene-resources.mjs';
