@@ -6,6 +6,10 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+### Course and editor views
+
+- Organized shared course cards, home pages, preview lessons, account history, access rows, and announcement forms into readable rendering steps. Added coverage for restored visits and notes when lesson visibility changes.
+
 ### Hosted lesson pages
 
 - Clarified how the hub selects the operating systems, theory, and practical lesson views. The practical template now groups the reference button, simulator, and notes in display order.

@@ -152,6 +152,36 @@ test('common course templates read restored profiles and delegate without mutati
   assert.equal(JSON.stringify(p),before);
 });
 
+test('course cards, home and preview hide inaccessible lessons and use the restored visit and note', () => {
+  const lesson = { id: 'n1', course: 'network', section: 'theory', title: 'Visible lesson', kind: 'درس', steps: ['A', 'B', 'C'], intro: 'Intro' };
+  const hidden = { ...lesson, id: 'n2', title: 'Hidden lesson' };
+  const lessons = [lesson, hidden];
+  const courses = { network: { name: 'Network', tags: [], sections: [], description: 'Course', color: '#abc' } };
+  const learner = { visits: {}, notes: { n1: 'Saved note' } };
+  const views = createCourseViews({
+    courses, lessons, profile: () => learner, lessonBy: id => lessons.find(item => item.id === id),
+    canLesson: item => item === lesson, esc: String, icon: String, networkArt: () => '',
+    carouselMarkup: () => '', networkReviewCard: () => '',
+  });
+
+  for (const visit of [undefined, { lesson: hidden.id, step: 0 }]) {
+    learner.visits.network = visit;
+    assert.doesNotMatch(views.courseCard('network'), /mh-last/);
+    assert.doesNotMatch(views.courseHome('network'), /mh-resume/);
+  }
+
+  learner.visits.network = { lesson: lesson.id, step: 2 };
+  assert.match(views.courseCard('network'), /class="mh-last">آخر وصول: Visible lesson/);
+  assert.match(views.courseHome('network'), /data-go="lesson:n1"/);
+  const section = views.courseSection('network', 'reference');
+  assert.match(section, /Visible lesson/);
+  assert.doesNotMatch(section, /Hidden lesson/);
+  const page = views.lessonPage(lesson);
+  assert.match(page, /<h2>C<\/h2>/);
+  assert.match(page, /data-step="3" disabled/);
+  assert.match(page, />Saved note<\/textarea>/);
+});
+
 test('hub slot assembly rejects missing, duplicate and reversed slots and preserves literal replacement characters', () => {
   const slot='/* hub:environment:start */old/* hub:environment:end */';
   assert.equal(slots.fillHubSlots('before'+slot+'after',{environment:'$& $` $\' العربية'}),'before$& $` $\' العربيةafter');
