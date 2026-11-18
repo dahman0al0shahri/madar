@@ -115,6 +115,21 @@
       ]
     },
     {
+      "id": "lesson-notes",
+      "title": "Save and recover a Word lesson note",
+      "entry": "public/notes.js",
+      "sources": [
+        "app/api/notes/route.ts",
+        "lib/notes.mjs",
+        "drizzle/0003_rainy_patch.sql",
+        "lib/study-backup.mjs"
+      ],
+      "integration": [
+        "tests/browser/application.spec.mjs",
+        "scripts/check-browser.mjs"
+      ]
+    },
+    {
       "id": "accounts",
       "title": "Accounts, persistence and learner records",
       "entry": "app/api/account/route.ts",

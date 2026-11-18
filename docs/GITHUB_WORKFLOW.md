@@ -54,7 +54,7 @@ Both checkouts must be clean. A publication file must match either its previousl
 
 Existing receipts work through their recorded `commit`; no manual hash refresh or migration is needed for LF/CRLF conversion. Raw SHA-256 manifest hashes are still used to verify exact copying and detect concurrent source writes. This fix does not change Git configuration, add line-ending attributes, or normalize project files. Real temporary-repository tests cover both checkout directions and a second update after re-checkout.
 
-Git Credential Manager stores the user's Git login. The command obtains the existing credential in process memory for `api.github.com` requests only, does not print it, and does not write it to the project, workflow, or report. No personal access token is embedded in source. GitHub Actions receives read-only repository permissions and has no deployment credentials.
+Git Credential Manager stores the user's Git login. The command obtains the existing credential in process memory for `api.github.com` requests only, does not print it, and does not write it to the project, workflow, or report. No personal access token is embedded in source. The four validation jobs have read-only repository permissions. Only the main-push Pages job receives short-lived Pages and identity-token write permissions. It deploys the verified atlas HTML after all four checks succeed and compares the publicly served file with its original SHA-256 digest.
 
 ## Review policy and actual enforcement
 

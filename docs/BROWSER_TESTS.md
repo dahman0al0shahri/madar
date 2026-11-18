@@ -10,6 +10,8 @@ node node_modules/@playwright/test/cli.js install chromium
 npm run check:browser
 ```
 
+To run only the Word note save, fresh-session reload and backup download at both sizes, use `npm run check:browser -- --lesson-note`.
+
 On Linux CI, install Chromium system libraries with `install --with-deps chromium`. Browser downloads are test dependencies, not a change to the system default browser. If Windows Smart App Control blocks a browser component, keep the protection enabled and use the Linux CI job; do not add exceptions just to run these tests.
 
 `check:browser` creates `.sites-runtime/browser-check-<random>/`, applies the existing migrations to its own empty database, starts its own loopback development server, and runs Playwright. The runner stops only its own process trees. It never reuses the default `.wrangler/state`. Arguments, hosted URLs, and state paths outside the checkout are rejected. No production account or cloud credentials are needed.

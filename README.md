@@ -14,7 +14,7 @@ This repository contains the application source and its resources. The documenta
   <a href="docs/HISTORY.md">History</a> ·
   <a href="docs/ENGINEERING.md">For developers</a> ·
   <a href="docs/DEVELOPMENT.md">Development</a> ·
-  <a href="docs/code-atlas/README.md">Interactive code atlas</a> ·
+  <a href="https://dahman0al0shahri.github.io/madar/">Interactive code atlas</a> ·
   <a href="docs/ARCHITECTURE.md">Architecture</a> ·
   <a href="CONTRIBUTING.md">Maintenance policy</a> ·
   <a href="CHANGELOG.md">Changelog</a> ·
@@ -48,6 +48,7 @@ The code includes progress, notes, review, and feedback workflows. Access depend
 | Your goal | Read |
 | --- | --- |
 | Understand the project without GitHub experience | [Start here](docs/START_HERE.md) |
+| Trace a saved Word lesson note | [Open the interactive tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=lesson-notes) · [Run the note test from a fresh clone](docs/code-atlas/README.md#trace-a-word-lesson-note-from-a-clean-checkout) |
 | Trace and test the announcement animation from a fresh clone | [First maintenance task](docs/ENGINEERING.md#trace-the-announcement-animation) |
 | Join a maintenance task or review the code | [Engineering guide](docs/ENGINEERING.md) · [Code map](docs/CODE_MAP.md) |
 | Set up a local development environment | [Development guide](docs/DEVELOPMENT.md) |

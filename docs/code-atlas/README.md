@@ -1,6 +1,6 @@
 # Interactive code atlas
 
-Open the **madar-code-atlas** artifact from the browser job in a successful GitHub Actions run, extract it and open `code-atlas.html` in a recent browser. The Arabic reader works offline. Navigation, filtering and line selection stay in the browser.
+[Open the current verified atlas](https://dahman0al0shahri.github.io/madar/). The same address serves the latest successfully published main snapshot. For an offline copy of a specific checked revision, open the **madar-code-atlas** artifact from the browser job in a successful GitHub Actions run, extract it and open `code-atlas.html` in a recent browser. The Arabic reader works offline. Navigation, filtering and line selection stay in the browser.
 
 For a local copy, use a Git checkout with Node.js 22 and the locked dependencies:
 
@@ -10,6 +10,29 @@ npm run atlas:build
 ```
 
 Open `out/code-atlas.html`. The builder reads the committed Git tree at HEAD, including the reader and guide from that tree. Commit local source edits before regenerating a snapshot. To reproduce the checks, install the pinned Chromium using `node node_modules/@playwright/test/cli.js install chromium`, then run `npm run atlas:check`. Set `MADAR_ATLAS_CHROME` to the path of an existing Chromium-compatible browser for a local test.
+
+## Trace a Word lesson note from a clean checkout
+
+[Open the lesson-note tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=lesson-notes). Select a stop to open the exact source line. The same tour is available in the offline HTML under **حفظ ملاحظة درس Word**.
+
+| What the student sees | Where to look |
+| --- | --- |
+| A draft message after typing | `change` in [public/notes.js](../../public/notes.js) stores the draft and schedules account saving. A guest saves to the local browser. |
+| Save stays pending or reports a conflict | Follow the save button to the PUT in the same file. Check the account and lesson in the URL, the submitted revision, and the response. The UI keeps a draft when the save fails. |
+| A different account, stale revision, or missing note | [The route](../../app/api/notes/route.ts) obtains the signed-in user. [The handler](../../lib/notes.mjs) checks the owner and lesson, performs a revision-conditional write, and reads by account and lesson. [The SQL migration](../../drizzle/0003_rainy_patch.sql) defines the composite key. |
+| The note appears after reload but is missing from a backup | [The browser test](../../tests/browser/application.spec.mjs) reopens the lesson in a fresh context with the same synthetic account. It then downloads JSON and compares the saved text in `notes`. [The export query](../../lib/study-backup.mjs) filters by the authenticated user. |
+
+From a fresh clone, using Node.js 22.13 or later in the 22 series and npm:
+
+```sh
+git clone https://github.com/dahman0al0shahri/madar.git
+cd madar
+npm run install:ci
+node node_modules/@playwright/test/cli.js install chromium
+npm run check:browser -- --lesson-note
+```
+
+On a clean Ubuntu runner use `install --with-deps chromium`. Expect one passing Word note scenario at each of the desktop and mobile sizes. The runner creates a fresh local database for the invocation. It uses a synthetic account and checks the downloaded JSON; the [browser guide](../BROWSER_TESTS.md) explains how to inspect failures.
 
 ### Inspect the 170,310-line snapshot
 

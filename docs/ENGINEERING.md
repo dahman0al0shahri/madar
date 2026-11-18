@@ -2,6 +2,8 @@
 
 Start here when maintaining MADAR or reviewing it with an invited developer. This guide does not open external contributions or grant account access. Read [the maintenance policy](../CONTRIBUTING.md) for the owner's review workflow.
 
+To diagnose a saved Word lesson note, follow the [source tour and clean-clone browser test](code-atlas/README.md#trace-a-word-lesson-note-from-a-clean-checkout).
+
 ## First session
 
 1. Open the application repository, not its parent study workspace. Read [the overview](../README.md) and [architecture](ARCHITECTURE.md).

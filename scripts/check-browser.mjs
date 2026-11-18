@@ -9,7 +9,8 @@ import { projectRoot, localStatePath } from './local-state.mjs';
 import { readExecutionProfile } from './execution-profile.mjs';
 
 const record = process.argv.length === 3 && process.argv[2] === '--record-baselines';
-assert(process.argv.length === 2 || record, 'Only --record-baselines is supported.');
+const lessonNote = process.argv.length === 3 && process.argv[2] === '--lesson-note';
+assert(process.argv.length === 2 || record || lessonNote, 'Use --lesson-note or --record-baselines individually.');
 assert(readExecutionProfile() === 'portable', 'Browser checks require the portable profile.');
 if (record) assert(process.platform === 'linux', 'Record reference images in the documented Linux CI environment.');
 const runtime = localStatePath(projectRoot, '.sites-runtime');
@@ -72,8 +73,9 @@ try {
     await delay(500);
   }
   assert(ready, 'Isolated browser server did not start.');
-  await complete(launch(['node_modules/@playwright/test/cli.js', 'test', '--config', 'playwright.config.mjs'], 'playwright'), 600_000);
-  fs.writeFileSync(path.join(artifacts, 'result.json'), JSON.stringify({ status: 'passed', recordBaselines: record,
+  await complete(launch(['node_modules/@playwright/test/cli.js', 'test', '--config', 'playwright.config.mjs',
+    ...(lessonNote ? ['--grep', 'course navigation and saved lesson note survive a fresh browser session'] : [])], 'playwright'), 600_000);
+  fs.writeFileSync(path.join(artifacts, 'result.json'), JSON.stringify({ status: 'passed', scope: lessonNote ? 'lesson-note' : 'full', recordBaselines: record,
     platform: process.platform, node: process.version, isolatedSyntheticStorage: true }, null, 2));
 } finally {
   for (const child of children.reverse()) stop(child);
