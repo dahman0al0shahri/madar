@@ -74,3 +74,7 @@ The announcement controller maintains one scheduled frame, carries the current s
 Common course templates and hosted course routing have separate factories. `modules/madar-hub/lesson-integrated.js` now composes their OS/network dependencies rather than duplicating lesson markup. `route-adapter.js` retains the established network-frame, OS scene, hint-history, activity, note, feedback and background mount order. `host-startup.js` owns the existing hosted startup wiring. No route, storage format, access rule or account identity is changed.
 
 Seven direct cases in `tests/hub-runtime.test.mjs` cover loop cancellation, scene disposal, timing, guarded messages, route order, course dispatch/current permissions, profile preservation and slot failures. `tests/browser/hub-runtime.spec.mjs` navigates repeatedly, exercises carousel controls and the course reference, checks a single owned frame and preserves an unknown synthetic profile field on desktop/mobile. It runs in the existing browser job. See [the composition decision](decisions/0003-hub-runtime-composition.md) for scope and alternatives.
+
+## Hosted bootstrap response
+
+The [HTTP handler](../app/api/madar/route.ts) loads the current account and catalog, then filters lessons and notes by visibility. [Response helpers](../lib/hub-bootstrap.mjs) project lessons, check announcement dates and targets, and summarize saved network review. The [contract cases](../tests/hub-bootstrap.test.mjs) use synthetic catalog and review entries.
