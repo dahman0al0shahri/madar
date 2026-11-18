@@ -6,6 +6,8 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ## Unreleased
 
+- Added checked network simulator and OS curriculum build integrations, targeted failure and recovery tests, source-linked atlas tours and a first-time maintainer exercise.
+
 ### Interactive source atlas and reliability
 
 - Published a stable GitHub Pages address for the checked atlas and added a Word lesson note tour with a focused desktop/mobile browser check for maintainers.

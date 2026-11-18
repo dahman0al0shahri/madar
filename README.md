@@ -48,6 +48,7 @@ The code includes progress, notes, review, and feedback workflows. Access depend
 | Your goal | Read |
 | --- | --- |
 | Understand the project without GitHub experience | [Start here](docs/START_HERE.md) |
+| Find and test the network lab or OS simulator build | [First-time maintainer trial and walkthrough](docs/ENGINEERING.md#trace-the-simulator-builds) |
 | Trace a saved Word lesson note | [Open the interactive tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=lesson-notes) · [Run the note test from a fresh clone](docs/code-atlas/README.md#trace-a-word-lesson-note-from-a-clean-checkout) |
 | Trace and test the announcement animation from a fresh clone | [First maintenance task](docs/ENGINEERING.md#trace-the-announcement-animation) |
 | Join a maintenance task or review the code | [Engineering guide](docs/ENGINEERING.md) · [Code map](docs/CODE_MAP.md) |

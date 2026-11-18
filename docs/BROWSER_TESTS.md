@@ -10,6 +10,8 @@ node node_modules/@playwright/test/cli.js install chromium
 npm run check:browser
 ```
 
+Use `npm run check:browser -- --network-save` for the generated network lab: reject one guest save, retry, and reload the saved lab at both sizes. This local fixture exercises the served document and its storage adapter independently of hosted access permissions.
+
 To run only the Word note save, fresh-session reload and backup download at both sizes, use `npm run check:browser -- --lesson-note`.
 
 On Linux CI, install Chromium system libraries with `install --with-deps chromium`. Browser downloads are test dependencies, not a change to the system default browser. If Windows Smart App Control blocks a browser component, keep the protection enabled and use the Linux CI job; do not add exceptions just to run these tests.

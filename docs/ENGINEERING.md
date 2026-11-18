@@ -4,6 +4,33 @@ Start here when maintaining MADAR or reviewing it with an invited developer. Thi
 
 To diagnose a saved Word lesson note, follow the [source tour and clean-clone browser test](code-atlas/README.md#trace-a-word-lesson-note-from-a-clean-checkout).
 
+## Trace the simulator builds
+
+### First-time maintainer trial
+
+Start in a clean MADAR clone with the [README](../README.md). Without reading the walkthrough below, find (1) where the integrated network lab gets its save limit, (2) where to edit an OS practice scenario, and (3) one command that detects a missing or duplicated integration marker. Ask the maintainer to record the first file they opened, the evidence for each answer, the test result, and any step that needed a hint. Collect observations separately from the automated results.
+
+### Walkthrough
+
+| Task | Maintained input | Integration and output |
+| --- | --- | --- |
+| Change how the network payload is saved | [Storage part](../modules/source-parts/network-tabs/02-storage.js.inc). The preview limit applies to the UTF-8 encoded JSON envelope. | The [tabs builder](../modules/network-tabs-preview/build.cjs) writes `network-labs.html`. Despite its directory name, this is an input to the [MADAR integration](../build/madar/network-simulator.cjs), which connects seven host references and sets the integrated limit to 700000 bytes. The [hub stage](../build/madar/hub.cjs) completes `lib/network-simulator.html`. The [route](../app/network-lab/route.ts) serves that document subject to access checks. |
+| Change an OS practice scenario | [Curriculum JSON](../lib/os-simulator-curriculum.json). The [bootstrap part](../modules/source-parts/os-curriculum-model/00-bootstrap.js.inc) owns the insertion marker. | Source assembly produces `modules/madar-hub/os-curriculum-model.js`. The integration requires one slot, inserts the curriculum verbatim, and joins it to the practice model in `public/os-practice-model.js`. |
+
+Follow the same lines in the [network lab tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=network-lab) and [OS tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=os1).
+
+Run these commands from the clone root with Node.js 22.13 or later in the 22 series. They need no npm install:
+
+```sh
+node --test tests/simulator-build.test.mjs
+node tests/network-frame-lifecycle.cjs
+node scripts/check-generation.mjs
+```
+
+The first command removes or duplicates one expected match in memory and checks the diagnostic and absence of final writes. The second exercises frame startup and retry. The third rebuilds all registered outputs twice in isolation and compares them with the tracked versions, normalizing line endings. If a marker changes intentionally, inspect its source and purpose before updating its expected text or count.
+
+For a failed guest save followed by a successful retry and reload in the generated simulator, run the [browser setup](BROWSER_TESTS.md#run) and `npm run check:browser -- --network-save`. The browser uses a temporary local server and tests the desktop and mobile viewport sizes.
+
 ## First session
 
 1. Open the application repository, not its parent study workspace. Read [the overview](../README.md) and [architecture](ARCHITECTURE.md).

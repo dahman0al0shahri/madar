@@ -40,6 +40,8 @@ Root files hold the overview, policies, course rules, package/lockfile, framewor
 
 ## Generation flow
 
+See the [simulator build walkthrough](ENGINEERING.md#trace-the-simulator-builds) for the network save boundary, OS curriculum slot and their focused checks.
+
 ```text
 scripts/build-madar.cjs
   0. build/madar/source-assemblies.cjs
