@@ -55,7 +55,8 @@
       ],
       "integration": [
         "build/madar/hub.cjs",
-        "build/madar/shared-assets.cjs"
+        "build/madar/shared-assets.cjs",
+        "tests/shared-review-build.test.mjs"
       ]
     },
     {
@@ -67,7 +68,8 @@
         "app/api/office/route.ts"
       ],
       "integration": [
-        "docs/COURSE_INTEGRATION.md"
+        "docs/COURSE_INTEGRATION.md",
+        "tests/browser/application.spec.mjs"
       ]
     },
     {
@@ -97,10 +99,14 @@
         "lib/srwe-review.html",
         "modules/source-parts/network-revision/00-bootstrap.js.inc",
         "modules/srwe-review/integration.js",
-        "modules/source-parts/README.md"
+        "modules/source-parts/README.md",
+        "modules/source-parts/network-revision/04-answers.js.inc",
+        "public/madar-persistence.js",
+        "lib/srwe-state.mjs"
       ],
       "integration": [
-        "scripts/build-srwe.cjs"
+        "scripts/build-srwe.cjs",
+        "tests/browser/review-save.spec.mjs"
       ]
     },
     {
@@ -117,7 +123,8 @@
       "integration": [
         "build/madar/hub.cjs",
         "build/madar/network-simulator.cjs",
-        "tests/simulator-build.test.mjs"
+        "tests/simulator-build.test.mjs",
+        "tests/hub-runtime.test.mjs"
       ]
     },
     {
@@ -147,7 +154,8 @@
       ],
       "integration": [
         "app/api/madar/state/route.ts",
-        "docs/BACKUP_RECOVERY.md"
+        "docs/BACKUP_RECOVERY.md",
+        "tests/browser/hub.spec.mjs"
       ]
     },
     {
@@ -160,7 +168,8 @@
         "app/api/admin/feedback/route.ts"
       ],
       "integration": [
-        "SECURITY.md"
+        "SECURITY.md",
+        "tests/browser/hub-views.spec.mjs"
       ]
     }
   ],
@@ -175,7 +184,8 @@
       "build/madar/shared-assets.cjs",
       "modules/network-tabs-preview/build.cjs",
       "scripts/build-srwe.cjs",
-      "build/madar/hub-slots.cjs"
+      "build/madar/hub-slots.cjs",
+      "build/madar/checked-replacement.cjs"
     ],
     "groups": [
       {

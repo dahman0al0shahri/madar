@@ -95,9 +95,14 @@
     ids('feature-name').textContent = info.title;
     ids('feature-note').textContent = info.note;
     for (const b of ids('features').children) b.setAttribute('aria-pressed', String(b.dataset.id === feature.id));
-    ids('trail').replaceChildren(...info.steps.map(([relation, file, at, why]) => {
+    ids('trail').replaceChildren(...info.steps.map(([relation, file, at, why, command]) => {
       const row = el('div', undefined, 'stop');
       row.append(el('strong', relation), fileLink(file, at, file + ' · L' + at), el('p', why));
+      if (command) {
+        const code = el('code', command);
+        code.dir = 'ltr';
+        row.append(code);
+      }
       return row;
     }));
     const host = ids('related');

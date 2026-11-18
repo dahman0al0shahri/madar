@@ -10,6 +10,18 @@
         "يُرجع المستند المجمّع للبوابة. مكان تعديل البطاقة نفسها في وحدة العرض."
       ],
       [
+        "بناء واجهة الرئيسية",
+        "build/madar/hub.cjs",
+        "function homeDocument(read)",
+        "هنا تُجمع واجهة البوابة وروابط الموارد. يمرّ المستند بعدها بمرحلة إضافة ملفات المظهر المشتركة."
+      ],
+      [
+        "ترتيب موارد الرئيسية",
+        "build/madar/shared-assets.cjs",
+        "function finishHome(home)",
+        "يضيف ملفات الأنماط والسكربتات بالترتيب نفسه لصفحة الخادم والصفحة الثابتة."
+      ],
+      [
         "يختار العرض",
         "public/hub/views.mjs",
         "available().map(courseCard)",
@@ -38,6 +50,13 @@
         "tests/hub-runtime.test.mjs",
         "course cards, home and preview hide",
         "يحاكي زيارة غائبة ثم مخفية ثم متاحة، ويتحقق من زر المتابعة والملاحظة المحفوظة."
+      ],
+      [
+        "الاختبار وطريقة تشغيله",
+        "tests/shared-review-build.test.mjs",
+        "test('home copies preserve the ordered shared assets",
+        "يتحقق من تطابق مدخلي الرئيسية ومن ترتيب ملفات الأنماط والسكربتات.",
+        "node --test tests/shared-review-build.test.mjs"
       ]
     ]
   },
@@ -64,10 +83,11 @@
         "يحوّل الدروس والأسئلة إلى الشكل المستخدم في مقرر التطبيقات ويستبعد الأسئلة الموقوفة."
       ],
       [
-        "يقارن المظهر",
+        "الاختبار وطريقة تشغيله",
         "tests/browser/application.spec.mjs",
-        "toHaveScreenshot",
-        "ينتظر استقرار الصفحة والخط ثم يقارن لقطات Word وExcel وAccess بالمرجع المعتمد."
+        "test('applications visual: ",
+        "يقارن Word وExcel وAccess بمراجع المظهر على مقاسين في Linux.",
+        "npm run check:browser -- --grep \"applications visual:\""
       ]
     ]
   },
@@ -146,12 +166,19 @@
         "tests/browser/network-save.spec.mjs",
         "await page.locator('#ml-retry').click()",
         "يرفض الاختبار كتابة واحدة، ويضغط زر إعادة المحاولة ثم يعيد فتح الصفحة ليتحقق من بقاء نسخة المختبر المختارة في مخزن ضيف تجريبي."
+      ],
+      [
+        "الاختبار وطريقة تشغيله",
+        "tests/browser/network-save.spec.mjs",
+        "test('network lab retains an edit after a failed save and retry",
+        "يفحص استعادة تعديل المختبر بعد تعثر الحفظ وإعادة المحاولة.",
+        "npm run check:browser -- --network-save"
       ]
     ]
   },
   "network-review": {
     "title": "مراجعة الشبكات",
-    "note": "فصل الإذن بعرض صفحة المراجعة عن بناء محتواها.",
+    "note": "من اختيار الإجابة إلى حفظها للضيف أو الحساب، ثم إعادة المحاولة والاسترجاع.",
     "steps": [
       [
         "يفتح",
@@ -172,16 +199,47 @@
         "مستند المراجعة الذي يستورده مسار HTTP."
       ],
       [
-        "يبني الملفات",
-        "scripts/build-srwe.cjs",
-        null,
-        "يجمع سلوك المراجعة وتنسيقه من مصادر الوحدة."
+        "اختيار الإجابة",
+        "modules/source-parts/network-revision/04-answers.js.inc",
+        "input.onchange=",
+        "يقرأ معالج التغيير الاختيارات المحددة للسؤال ثم يحدّث السجل ويطلب حفظه."
       ],
       [
-        "يتحقق من التوليد",
-        "tests/generation-contract.test.mjs",
-        null,
-        "فحص لعقد التوليد، وليس تقييمًا لجودة إجابات الطالب."
+        "إظهار حالة الكتابة",
+        "scripts/build-srwe.cjs",
+        "cloud.save(state).then",
+        "يضيف بناء النسخة المدمجة حالات الكتابة والنجاح والخطأ. يستدعي زر إعادة المحاولة دالة الحفظ على المسودة الحالية."
+      ],
+      [
+        "استعادة إجابات المراجعة",
+        "scripts/build-srwe.cjs",
+        "cloud=await MadarStore.open('srwe')",
+        "تفتح الصفحة مخزن المراجعة وتتحقق من اللقطة قبل عرض الاختيارات المستعادة."
+      ],
+      [
+        "حفظ الضيف والحساب",
+        "public/madar-persistence.js",
+        "if(owner==='guest'){value=clone(next)",
+        "يكتب الضيف الإجابة داخل متصفحه. للحساب مسودة في الجلسة، ثم يرسل المتصفح اللقطة ورقم نسختها إلى الخادم."
+      ],
+      [
+        "مفتاح سجل الحساب",
+        "lib/madar-state.mjs",
+        "if(old?.request_id===b.requestId)",
+        "يحدد الخادم الحساب من الجلسة ونوع السجل من الطلب. يطابق النسخة ويمنع احتساب إعادة الطلب نفسه ككتابة جديدة."
+      ],
+      [
+        "فحص سؤال الضيف",
+        "tests/browser/review-save.spec.mjs",
+        "test('theory review restores a guest answer",
+        "يرفض الاختبار كتابة محلية واحدة، ثم يفحص الاختيار المحفوظ بعد إعادة المحاولة وإعادة تحميل الصفحة."
+      ],
+      [
+        "الاختبار وطريقة تشغيله",
+        "tests/browser/review-save.spec.mjs",
+        "test('theory review restores a retried account answer in a fresh session",
+        "يفحص كتابة الإجابة بعد فشل طلب الحساب واستعادتها من قاعدة البيانات في جلسة جديدة. يشمل الأمر أيضًا اختبار الضيف.",
+        "npm run check:browser -- --review-save"
       ]
     ]
   },
@@ -242,6 +300,13 @@
         "tests/simulator-build.test.mjs",
         "OS curriculum is inserted verbatim",
         "يدخل الاختبار محتوى تجريبيًا فيه رموز قد تُفسّر عند استبدال نص بآخر، ويتأكد من بقائها داخل المنهج كما كُتبت."
+      ],
+      [
+        "الاختبار وطريقة تشغيله",
+        "tests/hub-runtime.test.mjs",
+        "test('lesson pages delegate OS",
+        "يفحص اختيار عارض درس نظم التشغيل قبل معالجة إتاحة مختبر الشبكات.",
+        "node --test tests/hub-runtime.test.mjs"
       ]
     ]
   },
@@ -302,6 +367,13 @@
         "docs/BACKUP_RECOVERY.md",
         null,
         "يوضح ما اختُبر من النسخ والاستعادة وحدود التحقق."
+      ],
+      [
+        "الاختبار وطريقة تشغيله",
+        "tests/browser/hub.spec.mjs",
+        "test('hub modules preserve profile data",
+        "يفحص بقاء ملاحظة وحقل إضافي في ملف الحساب عند تعثر الحفظ والتنقل والاسترجاع.",
+        "npm run check:browser -- --grep \"hub modules preserve profile data\""
       ]
     ]
   },
@@ -334,10 +406,11 @@
         "ينسّق أفعال المحرر مثل المعاينة والتأكيد والحفظ باستخدام الوظائف المحقونة."
       ],
       [
-        "يختبر في المتصفح",
+        "الاختبار وطريقة تشغيله",
         "tests/browser/hub-views.spec.mjs",
-        "test(",
-        "يشغّل البحث ومحرر المستجدات ببيانات اختبار معزولة."
+        "test('hub search and update editor use isolated synthetic adapters",
+        "يفحص واجهة محرر المستجدات والبحث ببيانات تجريبية.",
+        "npm run check:browser -- --grep \"hub search and update editor\""
       ]
     ]
   },
@@ -422,6 +495,13 @@
         "tests/browser/application.spec.mjs",
         "expect(backup.notes.find",
         "يقرأ الاختبار الملف المُنزّل فعليًا ويتحقق من مالكه ومن تطابق نص ملاحظة v01. ظهور زر التنزيل وحده لا يختبر محتوى الملف."
+      ],
+      [
+        "الاختبار وطريقة تشغيله",
+        "tests/browser/application.spec.mjs",
+        "test('course navigation and saved lesson note survive a fresh browser session",
+        "يفحص استرجاع الملاحظة في جلسة جديدة وتطابق النص في النسخة المنزّلة.",
+        "npm run check:browser -- --lesson-note"
       ]
     ]
   }
