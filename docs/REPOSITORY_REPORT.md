@@ -113,6 +113,10 @@ PR #12 merged into main as `d753ea252d38fca9f5b13014d4cedb3a9e961027`. All four 
 
 This follow-up adds `public/hub/editor-actions.mjs` for form capture coordination, preview/save and deletion confirmation. The pending delete identifier is private to that controller. `editor-views.mjs` owns the unchanged preview markup; composition supplies form/dialog readers and scene lifecycle callbacks. Source map, import-edge guard, generator outputs, Codex instructions and affected guides are updated together. Seven direct tests join the existing repository job, and the existing editor browser case checks preview and cancellation on both viewport sizes. No dependency, workflow permission, schema, account setting, visual reference or hosting change is introduced. This stage subsequently merged as PR #13 at the owner’s instruction; it did not deploy the application. The later runtime section describes the current remaining boundaries.
 
+## Interactive repository atlas
+
+The [atlas guide](code-atlas/README.md) describes the offline reader generated from committed files. It includes a navigable repository tree, source-line explanations, compiler-resolved local uses, named imports across modules, asset references and executable examples. The atlas check verifies coverage and source integrity separately, exercises the reader offline on desktop and mobile, and rejects unclassified lines. Its CSS analysis uses the existing locked PostCSS version as a direct development dependency.
+
 ## Runtime/course organization — 18 November 2026
 
 PR #13 merged as `c63dca99743e983c88c60f90007399825a176dfb`. All four post-merge jobs passed in [run 44099138418](https://github.com/dahman0al0shahri/madar/actions/runs/44099138418): 79 repository tests, 14 browser/visual cases, and isolated Windows/Ubuntu persistence/recovery.

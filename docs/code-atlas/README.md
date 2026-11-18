@@ -15,8 +15,11 @@ Open `out/code-atlas.html`. The builder reads the committed Git tree at HEAD, in
 | --- | --- |
 | Features | Follow an editorial tour from an entry point into an implementation and its tests or documentation. Open any stop at its source line. |
 | Files | Search paths and indexed declarations, filter roles, select a symbol or enter a line number. Navigate the file dependency diagram or inspect the conditions governing a branch. Inspect the enclosing definition, operations, local imports, full original text, and compiler-resolved definitions and uses in the same file. For fragments, references outside the fragment are available in the assembled output. |
+| Folder tree | Browse every tracked file, including source fragments, build outputs, documents and binaries. Select a text line to inspect its role, source context, named callers and available tests or experiments. |
 | Build | Select a generated output. For assembled files inspect the ordered source fragments and for other outputs inspect the inputs declared for the stage. |
 | Review | Inspect fixes, parser findings and byte-identical file groups. Paths that serve different consumers can require identical contents. |
+
+The review view includes 16 experiments for publication windows, access, review counts, navigation and search. Each runs an isolated copy of the original function and a second copy with one expression changed. The reader displays both observed values and the exact source line. Runtime checks operate on synthetic inputs. The line coverage check separately verifies that each physical text line has an explanation from a supported analyzer and rejects a literal-only fallback. Structural lines, type declarations and documentation are counted explicitly. Binary entries describe the resource and show where the path is referenced, including supported chapter and photo templates.
 
 The source inventory includes every tracked path at the displayed revision. UTF-8 text is embedded losslessly and checked against Git object IDs. Media and binary resources have metadata. Local accounts, databases and working-tree changes are outside the snapshot. The line count includes generated, vendored, test and documentation files. It is not a count of unique handwritten code.
 

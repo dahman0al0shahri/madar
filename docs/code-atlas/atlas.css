@@ -527,3 +527,5 @@ ol {
     border-inline-start: 1px solid #6e9188;
   }
 }
+
+.tree-children{border-inline-start:1px solid var(--edge);padding-inline-start:1.25em}.line-reading,.experiment{overflow-wrap:anywhere}.experiment{padding:8px 12px;background:#eaf5ed;border-radius:5px}

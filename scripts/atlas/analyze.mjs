@@ -1,4 +1,6 @@
 import ts from 'typescript';
+import {markupOperations,styleOperations} from './markup.mjs';
+import { scriptLineNotes } from './script-lines.mjs';
 import path from 'node:path';
 export function language(file) {
   const name = file.replace(/\.inc$/, '');
@@ -21,7 +23,7 @@ const short = text => text.replace(/\s+/g, ' ').trim().slice(0, 120);
 
 // Record source positions in UTF-16 offsets (the same indexing used by the reader).
 // A compact line may contain many operations. Each keeps its own column and range.
-export function analyze(file, source) {
+export function analyze(file, source, boundaries = []) {
   const symbols = [],
     operations = [],
     imports = [],
@@ -31,10 +33,24 @@ export function analyze(file, source) {
   const bindings = [];
   const branches = [];
   const fields = [];
+  const scriptNotes = [];
+  const namedImports=[];
+  const exportedNames=[];
   function parseScript(code, offset, kind) {
     const ast = ts.createSourceFile(file, code, ts.ScriptTarget.Latest, true, kind);
     for (const d of ast.parseDiagnostics) diagnostics.push([offset + (d.start || 0), ts.flattenDiagnosticMessageText(d.messageText, ' ')]);
     const snippet = n => n ? short(n.getText(ast)) : '';
+    for(const statement of ast.statements){
+      if(ts.isImportDeclaration(statement) && statement.importClause?.namedBindings && ts.isNamedImports(statement.importClause.namedBindings)){
+        for(const binding of statement.importClause.namedBindings.elements){
+          namedImports.push([statement.moduleSpecifier.text,(binding.propertyName || binding.name).text,offset+binding.name.getStart(ast)]);
+        }
+      }
+      if(statement.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword)){
+        if(statement.name && ts.isIdentifier(statement.name)) exportedNames.push(statement.name.text);
+        if(ts.isVariableStatement(statement))for(const d of statement.declarationList.declarations)if(ts.isIdentifier(d.name))exportedNames.push(d.name.text);
+      }
+    }
     function visit(n) {
       const start = offset + n.getStart(ast),
         end = offset + n.end;
@@ -70,6 +86,7 @@ export function analyze(file, source) {
       ts.forEachChild(n, visit);
     }
     visit(ast);
+    for (const note of scriptLineNotes(ast,code,offset,boundaries.filter(at=>at>=offset && at<offset+code.length).map(at=>at-offset))) scriptNotes.push(note);
     // Bind identifiers to declarations in the same syntax tree. This preserves shadowing
     // and permits references to earlier or later declarations without loading dependencies.
     const options = {
@@ -101,6 +118,8 @@ export function analyze(file, source) {
     collect(ast);
     bindings.push(...uses.values());
   }
+  if(lang==='CSS')styleOperations(source,0,operations,diagnostics,file);
+  if(lang==='HTML'||lang==='SVG')markupOperations(source,operations,diagnostics,file);
   if (lang === 'JSON') {
     const ast = ts.parseJsonText(file, source);
     for (const d of ast.parseDiagnostics) diagnostics.push([d.start || 0, ts.flattenDiagnosticMessageText(d.messageText, ' ')]);
@@ -143,7 +162,8 @@ export function analyze(file, source) {
     fields,
     imports: [...new Set(imports)],
     diagnostics,
-    repeatedKeys
+    repeatedKeys,
+    scriptNotes,namedImports,exportedNames
   };
 }
 export function resolveImport(from, specifier, paths) {

@@ -1,4 +1,7 @@
 import fs from 'node:fs';
+import { makeLineNotes } from './atlas/line-notes.mjs';
+import { runExperiments } from './atlas/experiments.mjs';
+import { assetPurpose,linkResources } from './atlas/resource-links.mjs';
 import { publishedLineHistory } from './atlas/history.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -61,21 +64,51 @@ const summaries = {};
 const duplicateKeys = [],
   parseNotes = [];
 const payloads = {};
+const coverage={};
+const importUses=[];
+const exportsByFile=new Map();
 let lineCount = 0,
   textCount = 0;
 function digestAnalysis(name, result, content) {
   const f = files[name];
+  exportsByFile.set(name,new Set(result.exportedNames||[]));
+  const lineStarts=[0];
+  for(let at=content.indexOf('\n');at!==-1;at=content.indexOf('\n',at+1))lineStarts.push(at+1);
+  function number(at){
+    let lo=0,hi=lineStarts.length;
+    while(lo<hi){const mid=(lo+hi)>>1;if(lineStarts[mid]<=at)lo=mid+1;else hi=mid;}
+    return lo;
+  }
+  for(const [offset,,operation,specifier] of result.operations){
+    if(operation!=='import'||!specifier.endsWith('.json'))continue;
+    const target=resolveImport(name,specifier,paths);
+    if(target)(files[target].dataReads??=[]).push([name,number(offset),'import']);
+  }
+  if(/\.(?:mjs|cjs|js|ts)$/.test(name)){
+    for(const match of content.matchAll(/\bread\(\s*['"]([^'"]+\.json)['"]\s*\)/g)){
+      if(paths.has(match[1]))(files[match[1]].dataReads??=[]).push([name,number(match.index),'read']);
+    }
+  }
+  const definitions=new Map(result.bindings.map(b=>[b[0],b[2]]));
+  for(const [specifier,exportName,at] of result.namedImports||[]){
+    const target=resolveImport(name,specifier,paths);
+    if(target && definitions.has(at))importUses.push([target,exportName,name,[...new Set(definitions.get(at).map(number))]]);
+  }
   f.deps = [...new Set(result.imports.map(spec => resolveImport(originalParts.get(name)?.output || name, spec, paths)).filter(Boolean))];
   f.symbols = [...new Set(result.symbols.map(s => s[2]))];
   const lines = content ? content.split('\n').length - Number(content.endsWith('\n')) : 0;
   f.lines = lines;
   textCount++;
   lineCount += lines;
-  const key = f.oid + ':' + language(name) + (originalParts.has(name) ? ':part:' + name : '');
+  const key = f.oid + ':' + name + ':' + language(name) + (originalParts.has(name) ? ':part:' + name : '');
   f.payload = key;
   if (!Object.hasOwn(payloads, key)) {
+    const notes=makeLineNotes(name,content,result);
+    assert.equal(notes.length,lines,name);
+    for (const [category] of notes) coverage[category]=(coverage[category]||0)+1;
     payloads[key] = gzipSync(JSON.stringify({
       content,
+      notes,
       symbols: result.symbols,
       ops: result.operations,
       bindings: result.bindings,
@@ -93,7 +126,13 @@ function digestAnalysis(name, result, content) {
 for (const assembly of map.sourceAssemblies) {
   const combined = assembly.parts.map(source).join('');
   assert(combined === source(assembly.output), 'Assembly drift: ' + assembly.output);
-  const whole = analyze(assembly.output, combined);
+  let cursor = 0;
+  const boundaries = assembly.parts.map(part => {
+    const start = cursor;
+    cursor += source(part).length;
+    return start;
+  });
+  const whole = analyze(assembly.output, combined, boundaries);
   let begin = 0;
   for (const part of assembly.parts) {
     const end = begin + source(part).length;
@@ -103,6 +142,7 @@ for (const assembly of map.sourceAssemblies) {
     const bindings = whole.bindings.filter(([at]) => at >= begin && at < end).map(([at, label, uses]) => [at - begin, label, uses.filter(i => i >= begin && i < end).map(i => i - begin)]);
     originalParts.set(part, {
       output: assembly.output,
+      scriptNotes:whole.scriptNotes.filter(([at])=>at>=begin && at<end).map(([at,kind,msg,origin])=>[at-begin,kind,msg,Math.max(0,origin-begin)]),
       bindings,
       branches: clip(whole.branches),
       symbols: clip(whole.symbols),
@@ -119,6 +159,7 @@ for (const [name, f] of Object.entries(files)) {
   f.text = blobs.has(f.oid);
   if (!f.text) {
     f.role = 'asset';
+    f.purpose=assetPurpose(name);
     continue;
   }
   const content = source(name);
@@ -143,9 +184,15 @@ for (const [name, f] of Object.entries(files)) {
   duplicates.set(f.oid, group);
 }
 const exactGroups = [...duplicates.values()].filter(group => group.length > 1);
+for(const [target,symbol,caller,uses] of importUses){
+  if(uses.length && exportsByFile.get(target)?.has(symbol))(files[target].consumers??=[]).push([symbol,caller,uses]);
+}
+linkResources(files,source);
+const experiments=await runExperiments(source);
 const subjects = await publishedLineHistory(root, revision, files);
 const data = {
   revision,
+  experiments,coverage,
   subjects,
   map,
   guide,

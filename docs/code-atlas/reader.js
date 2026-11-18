@@ -86,7 +86,7 @@
     host.append(d);
   }
   function showTab(tab) {
-    for (const name of ['map', 'files', 'build', 'audit']) ids(name).hidden = tab !== name;
+    for (const name of ['map', 'tree', 'files', 'build', 'audit']) ids(name).hidden = tab !== name;
     for (const b of ids('tabs').children) b.setAttribute('aria-current', String(b.dataset.tab === tab));
   }
   function featureMap(id) {
@@ -146,34 +146,8 @@
   function jump(n) {
     go('files', current, n);
   }
-  function localText(file, text) {
-    const t = text.trim(),
-      ext = file.replace(/\.inc$/, '').split('.').pop().toLowerCase();
-    if (!t) return 'فاصل فارغ بين أجزاء المصدر.';
-    if (/^(\/\/|\/\*|\*|<!--|--\s)/.test(t)) return 'تعليق في المصدر؛ يُقرأ مع التعليمات التي يصفها.';
-    if (/^[}\]);,\s]+$/.test(t)) return 'نهاية كتلة أو تعبير مفتوح في الأسطر السابقة.';
-    if (ext === 'sql') {
-      const statement = (lines.slice(0, line).join('\n').split(';').filter(x => x.trim()).at(-1) || t).match(/\b(CREATE TABLE|CREATE INDEX|ALTER TABLE|INSERT INTO|UPDATE|SELECT|DELETE FROM)\s+(?:IF NOT EXISTS\s+)?[\x60"\[]?([\w.]+)/i);
-      if (statement) return 'هذا السطر جزء من تعليمة قاعدة البيانات ' + statement[1] + ' على ' + statement[2] + '. راجع قيود الحقول وترتيب الترحيلات عند تعديله.';
-    }
-    if (ext === 'css' || ext === 'html' && t.startsWith('.')) {
-      const prop = t.match(/(?:^|[;{])\s*(--?[\w-]+|[a-z][\w-]*)\s*:\s*([^;}]+)/);
-      if (prop) return 'يضبط التنسيق ' + prop[1] + ' على ' + prop[2].slice(0, 90) + ' داخل هذه القاعدة.';
-      if (t.includes('{')) return 'تبدأ هنا قاعدة التنسيق ' + t.split('{')[0].slice(0, 130) + '.';
-    }
-    if (ext === 'html' || ext === 'svg') {
-      const tag = t.match(/<(\/?)([a-z][\w:-]*)/i);
-      if (tag) return (tag[1] ? 'يغلق عنصر ' : 'يتضمن عنصر ') + tag[2] + ' في بنية المستند. افحص الخصائص والنص الكامل أدناه.';
-    }
-    if (ext === 'json' || ext === 'yml' || ext === 'yaml') {
-      const key = t.match(/^\s*["']?([^"':{}\[\],]+)["']?\s*:/);
-      return key ? 'يضبط الحقل ' + key[1] + ' ضمن سجل البيانات أو الإعداد الحالي.' : 'جزء من بنية البيانات؛ يحدّد المفتاح أو العنصر المحيط كيفية قراءته.';
-    }
-    if (ext === 'md') return t.startsWith('#') ? 'عنوان ينظّم القسم التالي من الدليل.' : 'نص توثيقي يقرأ ضمن عنوان القسم المحيط.';
-    if (ext === 'py' || ext === 'sh' || t.startsWith('#!')) return 'جزء من برنامج تشغيل أو أتمتة. يظهر النص الفعلي في نافذة المصدر.';
-    return 'سطر ضمن السياق المبين؛ لا توجد له علة مستقلة موثّقة في دليل الخريطة.';
-  }
   const verbs = {
+    style:'يضبط قاعدة التنسيق',openTag:'يفتح عنصر',closeTag:'يغلق عنصر',attribute:'يضبط خاصية العنصر',
     if: 'يتحقق من الشرط',
     choose: 'يختار قيمة بحسب',
     return: 'يعيد إلى المستدعي',
@@ -195,11 +169,30 @@
       end = start + Math.max(1, text.length);
     h.replaceChildren();
     ids('line-title').textContent = 'السطر ' + format(line);
+    const [category,message]=decoded.notes[line-1];
+    const summary=el('p',message,'line-reading');summary.dataset.category=category;h.append(summary);
+    for(const evidence of data.experiments.filter(e=>e.file===current && e.line===line)){
+      h.append(el('p',evidence.reason,'experiment'));
+      const detail=el('details');detail.append(el('summary','دليل التجربة'),el('p','الأصل · '+evidence.expression+' ← '+JSON.stringify(evidence.actual)),el('p','التغيير المعزول · '+evidence.replacement+' ← '+JSON.stringify(evidence.observed)));h.append(detail);
+    }
+    if(files[current].dataReads?.length){
+      const reads=el('details');reads.append(el('summary','أين يقرأ المشروع ملف البيانات هذا؟'));
+      for(const [consumer,at,method] of files[current].dataReads){
+        const row=el('p',method+' · ');row.append(fileLink(consumer,at,consumer+' · L'+at));reads.append(row);
+      }
+      h.append(reads);
+    }
     const here = (relatedSteps.get(current) || []).filter(step => step[2] === line);
     for (const step of here) h.append(el('p', step[3]));
     const scope = decoded.symbols.filter(([a, b]) => a < end && b > start).sort((a, b) => a[1] - a[0] - (b[1] - b[0]));
     if (scope.length) h.append(el('p', 'التعريف المحيط: ' + scope[0][2], 'tag'));
     const owner = scope[0];
+    for(const [symbol,caller,sites] of files[current].consumers||[]){
+      if(!scope.some(s=>s[2]===symbol))continue;
+      const box=el('details');box.append(el('summary','من يستخدم '+symbol+' في '+caller));
+      for(const at of sites)box.append(fileLink(caller,at,caller+' · L'+at),document.createTextNode(' '));
+      h.append(box);
+    }
     const anchors = relatedSteps.get(current) || [];
     if (owner && !here.length) {
       const purpose = anchors.find(step => offsets[step[2] - 1] <= owner[0] && offsets[step[2] - 1] + lines[step[2] - 1].length >= owner[0]);
@@ -229,7 +222,7 @@
         }, 'more');
         h.append(b);
       }
-    } else h.append(el('p', localText(current, text)));
+    }
     if (decoded.fields.length) {
       const pos = start + text.search(/\S|$/);
       const selected = decoded.fields.filter(field => field[0] <= pos && field[1] > pos).at(-1);
@@ -257,6 +250,20 @@
           if (key) h.append(el('p', meanings[key]));
         }
       }
+    }
+    const entries=decoded.fields.filter(field=>field[0]>=start && field[0]<end);
+    if(entries.length>1){
+      const box=el('details');box.append(el('summary','حقول البيانات على هذا السطر · '+format(entries.length)));
+      let shown=0;
+      const batch=button('المزيد',()=>{
+        for(const field of entries.slice(shown,shown+40)){
+          const keys=[];let f=field;
+          while(f && f[2]>=0){keys.unshift(f[3]);f=decoded.fields[f[2]];}
+          box.insertBefore(el('p','/'+keys.join('/')+' · '+decoded.content.slice(field[0],Math.min(field[1],field[0]+100))),batch);
+        }
+        shown+=40;if(shown>=entries.length)batch.remove();
+      });
+      box.append(batch);box.addEventListener('toggle',()=>{if(box.open && shown===0)batch.click();});h.append(box);
     }
     const refs = decoded.bindings.filter(([at, label, uses]) => at >= start && at < end || uses.some(i => i >= start && i < end));
     if (refs.length) {
@@ -319,10 +326,18 @@
       assembly = parts.get(name),
       feature = Object.values(guide).find(g => g.steps.some(step => step[1] === name));
     ids('filename').textContent = name;
-    const context = data.summaries[name] || (relatedSteps.get(name) || [])[0]?.[3] || map.areas[name.split('/')[0]] || 'ملف على مستوى جذر المستودع.';
+    const context = f.purpose || data.summaries[name] || (relatedSteps.get(name) || [])[0]?.[3] || map.areas[name.split('/')[0]] || 'ملف على مستوى جذر المستودع.';
     ids('file-desc').textContent = roles[f.role] + ' · ' + (f.text ? format(f.lines) + ' سطر' : 'حجم ' + format(f.bytes) + ' بايت') + ' — ' + context;
     const relations = ids('file-rel');
     relations.replaceChildren();
+    if(!f.text){
+      const refs=f.mentions||[];
+      if(refs.length){
+        const box=el('details');box.open=true;box.append(el('summary','مواضع ذُكر فيها مسار المورد · '+format(refs.length)));
+        for(const [path,n] of refs)box.append(fileLink(path,n,path+' · L'+n),document.createTextNode(' '));
+        relations.append(box);
+      }else relations.append(el('p','يفحص الجرد المسارات النصية الصريحة. قد يُنشأ اسم هذا المورد عند التشغيل.'));
+    }
     if (feature) relations.append(el('small', feature.title));
     const inputs = f.deps || [],
       callers = reverse.get(name) || [];
@@ -413,6 +428,13 @@
   }
   function audit() {
     const host = ids('findings');
+    const table=el('details');table.append(el('summary','تغطية شرح الأسطر حسب نوع الدليل'));
+    const labels={syntax:'تحليل الشيفرة',data:'حقول البيانات',style:'تنسيق',markup:'بنية المستند',sql:'ترحيلات قاعدة البيانات',configuration:'إعدادات',automation:'تشغيل وأتمتة',document:'توثيق',comment:'تعليقات المصدر',structure:'فواصل وبنية',literal:'محتوى نصي'};
+    for(const [kind,count] of Object.entries(data.coverage))table.append(el('p',(labels[kind]||kind)+' · '+format(count)));
+    host.append(table);
+    const cases=el('details');cases.append(el('summary','تجارب تُبيّن أثر تغيير السطر · '+format(data.experiments.length)));
+    for(const item of data.experiments){const row=el('p',item.reason+' ');row.append(fileLink(item.file,item.line,'L'+item.line));cases.append(row);}
+    host.append(cases);
     const fixed = [['قراءة رابط البوابة', 'الرابط غير مكتمل الترميز كان يرمي URIError، وبعض أسماء المسارات كانت تُقرأ من خصائص JavaScript الموروثة.', 'public/hub/navigation.mjs', 'tests/hub-core.test.mjs'], ['نتيجة بحث زائفة', 'المقرر الذي لا يملك اسم بحث بديلًا كان يظهر عند البحث عن undefined.', 'public/hub/search.mjs', 'tests/hub-views.test.mjs'], ['قراءة إعدادات الحساب', 'أزيل تحليل نفس نص JSON مرتين عند تحميل سجل الإعدادات.', 'lib/madar-state.mjs'], ['أنواع الخادم والبناء', 'أضيفت أنواع Vite للموارد الخام، ووُضّح التعامل مع غياب قاعدة البيانات ونوع سجل الإعلان.', 'tsconfig.json', 'app/api/madar/route.ts']];
     for (const [title, why, ...paths] of fixed) {
       const item = el('section', undefined, 'audit-item');
@@ -436,11 +458,25 @@
     }
     host.append(el('p', 'روابط الاستيراد تخص المراجع المحلية الثابتة التي أمكن حلّها. شرح العمليات مستخرج من بنية الشيفرة؛ الأسباب الخاصة التي راجعناها مبيّنة في مسارات الوظائف. الوسائط مفهرسة بالمسار والحجم.', 'hint'));
   }
+  function fileTree(){
+    const host=ids('folder-tree');
+    if(host.childElementCount)return;
+    const dirs=new Map([['',host]]);
+    function folder(path){
+      if(dirs.has(path))return dirs.get(path);
+      const slash=path.lastIndexOf('/');
+      const parent=folder(slash<0?'':path.slice(0,slash));
+      const box=el('details');box.append(el('summary',path.slice(slash+1)));
+      const entries=el('div',undefined,'tree-children');box.append(entries);parent.append(box);dirs.set(path,entries);return entries;
+    }
+    for(const name of names){const slash=name.lastIndexOf('/');const row=el('div');row.append(fileLink(name,1,name.slice(slash+1)));folder(slash<0?'':name.slice(0,slash)).append(row);}
+  }
   function navigate() {
     const params = new URLSearchParams(location.hash.slice(1)),
       view = params.get('view') || 'map';
-    const tab = ['map', 'files', 'build', 'audit'].includes(view) ? view : 'map';
+    const tab = ['map', 'tree', 'files', 'build', 'audit'].includes(view) ? view : 'map';
     showTab(tab);
+    if(tab==='tree')fileTree();
     if (tab === 'map') featureMap(params.get('feature'));
     if (tab === 'files') openFile(params.get('file') || current, params.get('line') || 1);
   }
