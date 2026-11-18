@@ -310,6 +310,7 @@
       return;
     }
     const token = ++ticket;
+    ids('file-panel').setAttribute('aria-busy','true');
     current = name;
     decoded = null;
     lines = [];
@@ -356,7 +357,10 @@
     ids('line').disabled = true;
     ids('symbol').disabled = true;
     listFiles();
-    if (!f.text) return;
+    if (!f.text) {
+      ids('file-panel').setAttribute('aria-busy','false');
+      return;
+    }
     try {
       const result = await unpack(f.payload);
       if (token !== ticket) return;
@@ -385,6 +389,8 @@
       setPosition(n);
     } catch (error) {
       if (token === ticket) ids('explanation').textContent = 'تعذّر فتح المصدر المضغوط. افتح النسخة بمتصفح حديث. ' + error.message;
+    } finally {
+      if (token === ticket) ids('file-panel').setAttribute('aria-busy','false');
     }
   }
   function build() {
@@ -465,7 +471,16 @@
     page++;
     listFiles();
   };
-  ids('line').onchange = e => jump(Math.max(1, Math.min(lines.length, Number(e.target.value) || 1)));
+  function selectLine() {
+    jump(Math.max(1, Math.min(lines.length, Number(ids('line').value) || 1)));
+  }
+  ids('line').onchange = selectLine;
+  ids('line').onkeydown = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      selectLine();
+    }
+  };
   ids('symbol').onchange = e => {
     if (e.target.value) jump(e.target.value);
   };

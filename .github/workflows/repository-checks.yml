@@ -74,17 +74,6 @@ jobs:
         run: npm run install:ci
       - name: Install pinned Chromium and system libraries
         run: node node_modules/@playwright/test/cli.js install --with-deps chromium
-      - name: Build and verify interactive atlas
-        run: |
-          npm run atlas:build
-          npm run atlas:check
-      - name: Keep offline source atlas
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
-        with:
-          name: madar-code-atlas
-          path: out/code-atlas.html
-          if-no-files-found: error
-          retention-days: 7
       - name: Test browser interactions and compare reviewed screenshots
         run: npm run check:browser
       - name: Keep synthetic browser evidence
@@ -94,5 +83,16 @@ jobs:
           name: browser-evidence
           path: .sites-runtime/browser-check-*/artifacts/
           include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 7
+      - name: Build and verify interactive atlas
+        run: |
+          npm run atlas:build
+          npm run atlas:check
+      - name: Keep offline source atlas
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: madar-code-atlas
+          path: out/code-atlas.html
           if-no-files-found: error
           retention-days: 7

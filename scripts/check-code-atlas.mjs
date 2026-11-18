@@ -67,6 +67,8 @@ try {
     await page.locator('#matches button').filter({
       hasText: 'public/hub/course-views.mjs'
     }).click();
+    await expect(page.locator('#filename')).toHaveText('public/hub/course-views.mjs');
+    await expect(page.locator('#file-panel')).toHaveAttribute('aria-busy','false');
     await expect(page.locator('#symbol')).toBeEnabled();
     await page.locator('#line').fill('5');
     await page.locator('#line').press('Enter');
