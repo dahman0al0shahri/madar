@@ -8,6 +8,8 @@ The structure follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). 
 
 ### Interactive source atlas and reliability
 
+- Published a stable GitHub Pages address for the checked atlas and added a Word lesson note tour with a focused desktop/mobile browser check for maintainers.
+
 - Added an offline Arabic source explorer with feature tours, line inspection, assembly inputs and a review of duplicate content. CI verifies the archive and exercises it in Chromium.
 - Added a second evidence entry for every physical source line, including isolated SQL migration and syntax-removal comparisons, navigable JSON fields and links to confirmed consumers. The same reader can inspect an earlier Git commit.
 - Added a complete folder tree, per-line functional explanations, cross-file named import uses, asset references and 16 executable before-and-after examples to the offline reader. Its check rejects unmatched text lines.

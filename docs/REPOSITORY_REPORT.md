@@ -115,6 +115,8 @@ This follow-up adds `public/hub/editor-actions.mjs` for form capture coordinatio
 
 ## Interactive repository atlas
 
+[Public atlas](https://dahman0al0shahri.github.io/madar/) · [Word lesson note tour](https://dahman0al0shahri.github.io/madar/#view=map&feature=lesson-notes). GitHub Pages uses Actions as its publishing source. The deployment depends on all four main checks and packages only the checked HTML. A final HTTP check verifies its digest. PRs produce review artifacts, and the stable address continues to serve the last published snapshot when a validation job fails. To recover a failed deployment, inspect the main run and rerun its failed jobs.
+
 The [atlas guide](code-atlas/README.md) describes the offline reader generated from committed files. It includes a navigable repository tree, source-line explanations, compiler-resolved local uses, named imports across modules, asset references and executable examples. The atlas check verifies coverage and source integrity separately, exercises the reader offline on desktop and mobile, and rejects unclassified lines. The versioned line inspector also records a second piece of evidence for every physical source line. Its build-only parsers cover script, document, configuration, markup and style grammars. SQLite trials use isolated in-memory databases. The current tooling can reproduce the 170,310-line publication snapshot by commit ID. See the atlas guide for evidence types and replay instructions. Its CSS analysis uses the existing locked PostCSS version as a direct development dependency.
 
 ## Runtime/course organization — 18 November 2026

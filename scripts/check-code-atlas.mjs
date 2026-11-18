@@ -112,6 +112,18 @@ try {
       await expect(page.locator('#feature-name')).toHaveText(tour.title);
       await expect(page.locator('#trail a')).toHaveCount(tour.steps.length);
     }
+    if (inventory.guide['lesson-notes']) {
+      // Exercise the public README fragment against this snapshot, including offline copies.
+      await page.goto(url.href + '#view=map&feature=lesson-notes');
+      const tour = inventory.guide['lesson-notes'];
+      await expect(page.locator('#feature-name')).toHaveText(tour.title);
+      const links = page.locator('#trail a');
+      for (const [index, [, file, line]] of tour.steps.entries()) {
+        await expect(links.nth(index)).toHaveAttribute('href', '#' + new URLSearchParams({ view: 'files', file, line }));
+      }
+      await links.first().click();
+      await expect(page.locator('#line')).toHaveValue(String(tour.steps[0][2]));
+    }
     await page.locator('[data-tab=tree]').click();
     await expect(page.locator('#folder-tree a')).toHaveCount(inventory.stats.files);
     const experiment=inventory.experiments.find(e=>e.expression==='update.end >= day');
